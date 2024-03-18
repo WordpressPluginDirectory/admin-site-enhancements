@@ -1076,6 +1076,7 @@ class Utilities
                 $heading = $options['maintenance_page_heading'];
                 $description = $options['maintenance_page_description'];
                 $background = $options['maintenance_page_background'];
+                $title = '';
                 
                 if ( 'lines' === $background ) {
                     // https://bgjar.com/curve-line
@@ -1099,7 +1100,9 @@ class Utilities
                 ?>
 				<html>
 					<head>
-						<title>Under maintenance</title>
+						<title><?php 
+                echo  esc_html( $title ) ;
+                ?></title>
 						<link rel="stylesheet" id="asenha-maintenance" href="<?php 
                 echo  ASENHA_URL . 'assets/css/maintenance.css' ;
                 ?>" media="all">
@@ -1107,21 +1110,25 @@ class Utilities
 						<style>
 							body {
 								<?php 
-                echo  $background_style ;
+                echo  wp_kses_post( $background_style ) ;
                 ?>;
 								background-size: cover;
 								background-position: center center;
 							}
+							<?php 
+                ?>
 						</style>
 					</head>
 					<body>
 						<div class="page-wrapper">
+							<div class="page-overlay">
+							</div>
 							<div class="message-box">
 								<h1><?php 
-                echo  $heading ;
+                echo  wp_kses_post( $heading ) ;
                 ?></h1>
 								<div class="description"><?php 
-                echo  $description ;
+                echo  wp_kses_post( $description ) ;
                 ?></div>
 							</div>
 						</div>

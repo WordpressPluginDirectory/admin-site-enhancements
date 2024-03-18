@@ -565,7 +565,8 @@ class Disable_Components {
 		add_action( 'admin_init', [ $this, 'disable_admin_emojis' ] );
 		add_filter( 'emoji_svg_url', '__return_false' );
 		add_filter( 'tiny_mce_plugins', [ $this, 'disable_emoji_for_tinymce' ] );
-		add_filter( 'wp_resource_hints', [ $this, 'disable_emoji_remove_dns_prefetch' ], 10, 2 );	
+		add_filter( 'wp_resource_hints', [ $this, 'disable_emoji_remove_dns_prefetch' ], 10, 2 );
+		add_filter( 'option_use_smilies', '__return_false' );
 		
 	}
 	

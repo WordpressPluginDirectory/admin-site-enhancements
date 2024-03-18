@@ -247,6 +247,19 @@ class Settings_Sanitization
             $options['display_active_plugins_first'] = false;
         }
         $options['display_active_plugins_first'] = ( 'on' == $options['display_active_plugins_first'] ? true : false );
+        // Custom Admin Footer Text
+        if ( !isset( $options['custom_admin_footer_text'] ) ) {
+            $options['custom_admin_footer_text'] = false;
+        }
+        $options['custom_admin_footer_text'] = ( 'on' == $options['custom_admin_footer_text'] ? true : false );
+        if ( !isset( $options['custom_admin_footer_left'] ) ) {
+            $options['custom_admin_footer_left'] = '';
+        }
+        $options['custom_admin_footer_left'] = ( !empty($options['custom_admin_footer_left']) ? wp_kses_post( $options['custom_admin_footer_left'] ) : '' );
+        if ( !isset( $options['custom_admin_footer_right'] ) ) {
+            $options['custom_admin_footer_right'] = '';
+        }
+        $options['custom_admin_footer_right'] = ( !empty($options['custom_admin_footer_right']) ? wp_kses_post( $options['custom_admin_footer_right'] ) : '' );
         // =================================================================
         // LOG IN | LOG OUT
         // =================================================================
@@ -584,7 +597,7 @@ class Settings_Sanitization
         if ( !isset( $options['revisions_max_number'] ) ) {
             $options['revisions_max_number'] = 10;
         }
-        $options['revisions_max_number'] = ( !empty($options['revisions_max_number']) ? sanitize_text_field( $options['revisions_max_number'] ) : 10 );
+        $options['revisions_max_number'] = ( isset( $options['revisions_max_number'] ) ? sanitize_text_field( $options['revisions_max_number'] ) : 10 );
         if ( is_array( $asenha_revisions_post_types ) ) {
             foreach ( $asenha_revisions_post_types as $post_type_slug => $post_type_label ) {
                 // e.g. $post_type_slug is post,

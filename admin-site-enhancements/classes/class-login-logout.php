@@ -97,10 +97,12 @@ class Login_Logout
         $custom_login_slug = $options['custom_login_slug'];
         // e.g. manage
         $url_input = sanitize_text_field( $_SERVER['REQUEST_URI'] );
+        $redirect_slug = 'not_found';
         // When logging in
         
-        if ( isset( $_POST['log'] ) && isset( $_POST['pwd'] ) || isset( $_POST['post_password'] ) ) {
+        if ( isset( $_POST['log'] ) && isset( $_POST['pwd'] ) || isset( $_POST['post_password'] ) || is_user_logged_in() ) {
             // Do nothing. i.e. do not redirect to /not_found/ as this contains a login POST request
+            // or the user is already logged in
             // upon successful login, redirection to logged-in view of /wp-admin/ happens.
             // Without this condition, login attempt will redirect to /not_found/
         } else {
@@ -129,7 +131,7 @@ class Login_Logout
                         
                         if ( false === strpos( $url_input, $custom_login_slug ) ) {
                             // Redirect to /not_found/
-                            wp_safe_redirect( home_url( 'not_found/' ), 302 );
+                            wp_safe_redirect( home_url( $redirect_slug . '/' ), 302 );
                             exit;
                         }
                         
@@ -145,7 +147,7 @@ class Login_Logout
                     
                     if ( false === strpos( $url_input, $custom_login_slug ) ) {
                         // Redirect to /not_found/
-                        wp_safe_redirect( home_url( 'not_found/' ), 302 );
+                        wp_safe_redirect( home_url( $redirect_slug . '/' ), 302 );
                         exit;
                     }
                     
@@ -184,6 +186,24 @@ class Login_Logout
         
         }
     
+    }
+    
+    /**
+     * Add login error message on top of the login form. 
+     * Only shown if there's a failed_login URL parameter, and Limit Login Attempts module is not enabled. 
+     * If LLA module is enabled, the same custom login error message is handled there.
+     *
+     * @since 6.9.1
+     */
+    public function add_failed_login_message( $message )
+    {
+        global  $asenha_limit_login ;
+        if ( isset( $_REQUEST['failed_login'] ) && $_REQUEST['failed_login'] == 'true' ) {
+            if ( is_null( $asenha_limit_login ) ) {
+                $message = '<div id="login_error" class="notice notice-error"><b>Error:</b> Invalid username/email or incorrect password.</div>';
+            }
+        }
+        return $message;
     }
     
     /**

@@ -215,6 +215,7 @@ class Security
         } else {
             $options = get_option( ASENHA_SLUG_U, array() );
             $login_fails_allowed = $options['login_fails_allowed'];
+            $page_was_reloaded = ( isset( $_GET['rl'] ) && 1 == sanitize_text_field( $_GET['rl'] ) ? true : false );
             if ( isset( $asenha_limit_login['fail_count'] ) && ($login_fails_allowed - 1 == intval( $asenha_limit_login['fail_count'] ) || 2 * $login_fails_allowed - 1 == intval( $asenha_limit_login['fail_count'] ) || 3 * $login_fails_allowed - 1 == intval( $asenha_limit_login['fail_count'] ) || 4 * $login_fails_allowed - 1 == intval( $asenha_limit_login['fail_count'] ) || 5 * $login_fails_allowed - 1 == intval( $asenha_limit_login['fail_count'] ) || 6 * $login_fails_allowed - 1 == intval( $asenha_limit_login['fail_count'] )) ) {
                 
                 if ( array_key_exists( 'change_login_url', $options ) && $options['change_login_url'] ) {
@@ -223,11 +224,20 @@ class Security
                 } else {
                     // Default login URL, i.e. /wp-login.php
                     // Reload the login page so we get the up-to-date data in $asenha_limit_login
-                    ?>
-					<script>
-						window.location.reload();
-					</script>
-					<?php 
+                    // Only reload if page was not reloaded before. This prevents infinite reloads.
+                    if ( !$page_was_reloaded ) {
+                        ?>
+						<script>
+							let url = window.location.href;    
+							if (url.indexOf('?') > -1){
+							   url += '&rl=1'
+							} else {
+							   url += '?rl=1'
+							}
+							location.replace(url);
+						</script>
+						<?php 
+                    }
                 }
             
             }
@@ -399,7 +409,7 @@ class Security
     {
         global  $asenha_limit_login ;
         if ( isset( $_REQUEST['failed_login'] ) && $_REQUEST['failed_login'] == 'true' ) {
-            if ( isset( $asenha_limit_login['within_lockout_period'] ) && !$asenha_limit_login['within_lockout_period'] ) {
+            if ( !is_null( $asenha_limit_login ) && isset( $asenha_limit_login['within_lockout_period'] ) && !$asenha_limit_login['within_lockout_period'] ) {
                 $message = '<div id="login_error" class="notice notice-error"><b>Error:</b> Invalid username/email or incorrect password.</div>';
             }
         }

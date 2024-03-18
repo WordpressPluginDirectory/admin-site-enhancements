@@ -197,16 +197,16 @@ class Admin_Interface
 				#wpbody-content > .wrap > .notice-updated,
 				#wpbody-content > .wrap > .updated,
 				#wpbody-content > .wrap > .update-nag,
-				#wpbody-content > .wrap > div > .notice:not(.system-notice,.hidden),
-				#wpbody-content > .wrap > div > .notice-error,
-				#wpbody-content > .wrap > div > .error:not(.hidden),
-				#wpbody-content > .wrap > div > .notice-info,
-				#wpbody-content > .wrap > div > .notice-information,
+				#wpbody-content > .wrap > div:not(#loco-notices,#loco-content) > .notice:not(.system-notice,.hidden),
+				#wpbody-content > .wrap > div:not(#loco-notices,#loco-content) > .notice-error,
+				#wpbody-content > .wrap > div:not(#loco-notices,#loco-content) > .error:not(.hidden),
+				#wpbody-content > .wrap > div:not(#loco-notices,#loco-content) > .notice-info,
+				#wpbody-content > .wrap > div:not(#loco-notices,#loco-content) > .notice-information,
 				#wpbody-content > .wrap > div > #message,
-				#wpbody-content > .wrap > div > .notice-warning:not(.hidden),
-				#wpbody-content > .wrap > div > .notice-success,
-				#wpbody-content > .wrap > div > .notice-updated,
-				#wpbody-content > .wrap > div > .updated,
+				#wpbody-content > .wrap > div:not(#loco-notices,#loco-content) > .notice-warning:not(.hidden),
+				#wpbody-content > .wrap > div:not(#loco-notices,#loco-content) > .notice-success,
+				#wpbody-content > .wrap > div:not(#loco-notices,#loco-content) > .notice-updated,
+				#wpbody-content > .wrap > div:not(#loco-notices,#loco-content) > .updated,
 				#wpbody-content > .wrap > div > .update-nag,
 				#wpbody-content > div > .wrap > .notice:not(.system-notice,.hidden),
 				#wpbody-content > div > .wrap > .notice-error,
@@ -1272,6 +1272,30 @@ class Admin_Interface
         ), true ) ) {
             uksort( $wp_list_table->items, array( $this, 'plugins_order_callback' ) );
         }
+    }
+    
+    /**
+     * Modify footer text
+     *
+     * @since 6.9.0
+     */
+    public function custom_admin_footer_text_left()
+    {
+        $options = get_option( ASENHA_SLUG_U, array() );
+        $custom_admin_footer_left = ( isset( $options['custom_admin_footer_left'] ) ? $options['custom_admin_footer_left'] : '' );
+        echo  wp_kses_post( $custom_admin_footer_left ) ;
+    }
+    
+    /**
+     * Change WP version number text in footer
+     * 
+     * @since 6.9.0
+     */
+    public function custom_admin_footer_text_right()
+    {
+        $options = get_option( ASENHA_SLUG_U, array() );
+        $custom_admin_footer_right = ( isset( $options['custom_admin_footer_right'] ) ? $options['custom_admin_footer_right'] : '' );
+        echo  wp_kses_post( $custom_admin_footer_right ) ;
     }
     
     /**

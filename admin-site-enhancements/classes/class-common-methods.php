@@ -313,5 +313,36 @@ class Common_Methods
         );
         return array_merge( $kses_with_extras, $style_script_args );
     }
+    
+    /**
+     * Get the singular label from a $post object
+     * 
+     * @since 6.9.3
+     */
+    function get_post_type_singular_label( $post )
+    {
+        $post_type_singular_label = '';
+        
+        if ( property_exists( $post, 'post_type' ) ) {
+            $post_type_object = get_post_type_object( $post->post_type );
+            if ( is_object( $post_type_object ) && property_exists( $post_type_object, 'label' ) ) {
+                $post_type_singular_label = $post_type_object->labels->singular_name;
+            }
+        }
+        
+        return $post_type_singular_label;
+    }
+    
+    function is_in_block_editor()
+    {
+        $current_screen = get_current_screen();
+        
+        if ( method_exists( $current_screen, 'is_block_editor' ) && $current_screen->is_block_editor() ) {
+            return true;
+        } else {
+            return false;
+        }
+    
+    }
 
 }

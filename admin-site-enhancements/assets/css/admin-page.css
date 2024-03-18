@@ -580,6 +580,28 @@ p.nudge-description.nudge-closing {
     align-items: center;
 }
 
+.asenha-checkboxes .wrapper-for-checkboxes {
+    display: flex;
+    flex-direction: row;
+}
+
+.asenha-checkboxes .wrapper-for-checkboxes div {
+    margin-bottom: 9px;
+}
+
+.asenha-checkboxes .wrapper-for-checkboxes div:last-child {
+    margin-bottom: 4px;
+}
+
+.asenha-checkboxes .wrapper-for-checkboxes.horizontal div {
+    margin-right: 16px;
+    margin-bottom: 4px;
+}
+
+.asenha-checkboxes .wrapper-for-checkboxes.vertical {
+    flex-direction: column;
+}
+
 .asenha-field-checkbox {
   width: 0 !important;
   height: 0 !important;
@@ -767,7 +789,7 @@ p.nudge-description.nudge-closing {
     content: '';
     display: block;
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     font-size: 12px;
     left: 0;
     right: 0;
@@ -866,6 +888,7 @@ p.nudge-description.nudge-closing {
 .form-table .asenha-subfields tr.asenha-number.with-prefix-suffix,
 .form-table .asenha-subfields tr.asenha-html {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
 }
 
@@ -886,7 +909,7 @@ p.nudge-description.nudge-closing {
     width: auto;
     padding: 0;
     margin-right: 6px;
-    font-weight: normal;
+    font-weight: 600;
     color: #3c434a;
 }
 
@@ -920,10 +943,15 @@ p.nudge-description.nudge-closing {
 /* Text area input subfield */
 
 .asenha-subfield-textarea-wrapper,
+.asenha-subfield-wpeditor-wrapper,
 .asenha-subfield-number-wrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
+}
+
+.asenha-subfield-wpeditor-wrapper .wp-editor-wrap {
+    margin-bottom: 4px;
 }
 
 .asenha-subfield-textarea {
@@ -1053,6 +1081,10 @@ p.nudge-description.nudge-closing {
 .asenha-subfields .faded,
 .form-table .asenha-subfields td:not(.datatable-td) label .faded {
     color: #bbb;
+}
+
+.asenha-subfields th .faded {
+    font-weight: normal;
 }
 
 .asenha-subfield-status {

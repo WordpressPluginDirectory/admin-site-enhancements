@@ -9,6 +9,29 @@
 	display: none;
 }
 
+/* Content Duplication */
+.additional-actions {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 6px 10px 8px;
+    clear: both;
+}
+
+.additional-actions #duplication:before {
+	content: "\f186";
+	position: relative;
+	top: -1px;
+	font: normal 20px / 1 dashicons;
+	color: #8c8f94;
+    speak: never;
+    display: inline-block;
+    margin-left: -1px;
+    padding-right: 6px;
+    vertical-align: top;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 /* Admin Interface >> Admin Menu Organizer */
 .current.menu-top.hidden,
 .wp-has-current-submenu.hidden {

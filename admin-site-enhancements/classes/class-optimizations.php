@@ -17,39 +17,52 @@ class Optimizations
      */
     public function image_upload_handler( $upload )
     {
-        // Exlude from conversion and resizing images with filenames ending with '-nr', e.g. birds-nr.png
-        if ( false !== strpos( $upload['file'], '-nr.' ) ) {
-            return $upload;
-        }
-        // Convert BMP
-        if ( 'image/bmp' === $upload['type'] || 'image/x-ms-bmp' === $upload['type'] ) {
-            $upload = $this->maybe_convert_image( 'bmp', $upload );
-        }
-        // Convert PNG without transparency
-        if ( 'image/png' === $upload['type'] ) {
-            $upload = $this->maybe_convert_image( 'png', $upload );
-        }
-        // At this point, BMPs and PNGs are already converted to JPGs, unless excluded with '-nr' suffix.
-        // In addition to JPGs, we'll also resize WebP
-        $mime_types_to_resize = array( 'image/jpeg', 'image/jpg', 'image/webp' );
+        $applicable_mime_types = array(
+            'image/bmp',
+            'image/x-ms-bmp',
+            'image/png',
+            'image/jpeg',
+            'image/jpg',
+            'image/webp'
+        );
         
-        if ( !is_wp_error( $upload ) && in_array( $upload['type'], $mime_types_to_resize ) && filesize( $upload['file'] ) > 0 ) {
-            // https://developer.wordpress.org/reference/classes/wp_image_editor/
-            $wp_image_editor = wp_get_image_editor( $upload['file'] );
+        if ( in_array( $upload['type'], $applicable_mime_types ) ) {
+            global  $png_has_transparency ;
+            // Exlude from conversion and resizing images with filenames ending with '-nr', e.g. birds-nr.png
+            if ( false !== strpos( $upload['file'], '-nr.' ) ) {
+                return $upload;
+            }
+            // Convert BMP
+            if ( 'image/bmp' === $upload['type'] || 'image/x-ms-bmp' === $upload['type'] ) {
+                $upload = $this->maybe_convert_image( 'bmp', $upload );
+            }
+            // Convert PNG without transparency
+            if ( 'image/png' === $upload['type'] ) {
+                $upload = $this->maybe_convert_image( 'png', $upload );
+            }
+            // At this point, BMPs and non-transparent PNGs are already converted to JPGs, unless excluded with '-nr' suffix.
+            // Let's perform resize operation as needed, i.e. if image dimension is larger than specified
+            $mime_types_to_resize = array( 'image/jpeg', 'image/jpg', 'image/png' );
             
-            if ( !is_wp_error( $wp_image_editor ) ) {
-                $image_size = $wp_image_editor->get_size();
-                $options = get_option( ASENHA_SLUG_U, array() );
-                $max_width = $options['image_max_width'];
-                $max_height = $options['image_max_height'];
-                // Check upload image's dimension and only resize if larger than the defined max dimension
+            if ( !is_wp_error( $upload ) && in_array( $upload['type'], $mime_types_to_resize ) && filesize( $upload['file'] ) > 0 ) {
+                // https://developer.wordpress.org/reference/classes/wp_image_editor/
+                $wp_image_editor = wp_get_image_editor( $upload['file'] );
                 
-                if ( isset( $image_size['width'] ) && $image_size['width'] > $max_width || isset( $image_size['height'] ) && $image_size['height'] > $max_height ) {
-                    $wp_image_editor->resize( $max_width, $max_height, false );
-                    // false is for no cropping
-                    $wp_image_editor->set_quality( 90 );
-                    // default is 82
-                    $wp_image_editor->save( $upload['file'] );
+                if ( !is_wp_error( $wp_image_editor ) ) {
+                    $image_size = $wp_image_editor->get_size();
+                    $options = get_option( ASENHA_SLUG_U, array() );
+                    $max_width = $options['image_max_width'];
+                    $max_height = $options['image_max_height'];
+                    // Check upload image's dimension and only resize if larger than the defined max dimension
+                    
+                    if ( isset( $image_size['width'] ) && $image_size['width'] > $max_width || isset( $image_size['height'] ) && $image_size['height'] > $max_height ) {
+                        $wp_image_editor->resize( $max_width, $max_height, false );
+                        // false is for no cropping
+                        $wp_image_editor->set_quality( 90 );
+                        // default is 82
+                        $wp_image_editor->save( $upload['file'] );
+                    }
+                
                 }
             
             }
@@ -66,10 +79,7 @@ class Optimizations
      */
     public function maybe_convert_image( $file_extension, $upload )
     {
-        // Set conversion type
-        $options = get_option( ASENHA_SLUG_U, array() );
-        $convert_to_jpg = true;
-        $convert_to_webp = false;
+        global  $png_has_transparency ;
         $image_object = null;
         // Get image object from uploaded BMP/PNG
         if ( 'bmp' === $file_extension ) {
@@ -112,22 +122,19 @@ class Optimizations
                 
                 }
             }
-            // If converting to JPG, do not convert PNG with alpha/transparency
-            if ( $convert_to_jpg ) {
-                if ( $png_has_transparency ) {
-                    return $upload;
-                }
+            // Do not convert PNG with alpha/transparency
+            if ( $png_has_transparency ) {
+                return $upload;
             }
         }
         
         $wp_uploads = wp_upload_dir();
         $old_filename = wp_basename( $upload['file'] );
-        // When conversion is not set to WebP, i.e. it's set to JPG
-        // When conversion from BMP/PNG to JPG is successful. Last parameter is JPG quality (0-100).
         // Assign new, unique file name for the converted image
         // $new_filename 	= wp_basename( str_ireplace( '.' . $file_extension, '.jpg', $old_filename ) );
         $new_filename = str_ireplace( '.' . $file_extension, '.jpg', $old_filename );
         $new_filename = wp_unique_filename( dirname( $upload['file'] ), $new_filename );
+        // When conversion from BMP/PNG to JPG is successful. Last parameter is JPG quality (0-100).
         
         if ( imagejpeg( $image_object, $wp_uploads['path'] . '/' . $new_filename, 90 ) ) {
             unlink( $upload['file'] );

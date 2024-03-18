@@ -96,7 +96,16 @@ class Settings_Fields_Render
         
         $field_name = $args['field_name'];
         $field_label = $args['field_label'];
-        $field_option_value = ( isset( $options[$args['parent_field_id']][$args['field_id']] ) ? $options[$args['parent_field_id']][$args['field_id']] : false );
+        
+        if ( 'enable_duplication_for' == $args['parent_field_id'] ) {
+            // Default is true/enabled. Usually for options introduced at a later date where the previous default is true/enabled.
+            $default_value = true;
+        } else {
+            // Default is false / checked
+            $default_value = false;
+        }
+        
+        $field_option_value = ( isset( $options[$args['parent_field_id']][$args['field_id']] ) ? $options[$args['parent_field_id']][$args['field_id']] : $default_value );
         echo  '<input type="checkbox" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox" name="' . esc_attr( $field_name ) . '" ' . checked( $field_option_value, true, false ) . '>' ;
         echo  '<label for="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox-label">' . wp_kses_post( $field_label ) . '</label>' ;
     }
@@ -118,7 +127,6 @@ class Settings_Fields_Render
         
         $field_id = $args['field_id'];
         $field_name = $args['field_name'];
-        // $field_label = $args['field_label'];
         $field_radios = $args['field_radios'];
         
         if ( !empty($args['field_default']) ) {
@@ -132,6 +140,30 @@ class Settings_Fields_Render
             echo  '<input type="radio" id="' . esc_attr( $field_id . '_' . $radio_value ) . '" class="asenha-subfield-radio-button" name="' . esc_attr( $field_name ) . '" value="' . $radio_value . '" ' . checked( $radio_value, $field_option_value, false ) . '>' ;
             echo  '<label for="' . esc_attr( $field_id . '_' . $radio_value ) . '" class="asenha-subfield-radio-button-label">' . wp_kses_post( $radio_label ) . '</label>' ;
         }
+    }
+    
+    /**
+     * Render checkboxes field as sub-field of a toggle/switcher checkbox
+     *
+     * @since 6.9.2
+     */
+    function render_checkboxes_subfield( $args )
+    {
+        $options = get_option( ASENHA_SLUG_U, array() );
+        $field_id = $args['field_id'];
+        $field_name = $args['field_name'];
+        $field_options = $args['field_options'];
+        $layout = ( !empty($args['layout']) ? $args['layout'] : 'horizontal' );
+        $default_value = ( !empty($args['field_default']) ? $args['field_default'] : array() );
+        $field_option_value = ( isset( $options[$field_id] ) ? (array) $options[$field_id] : $default_value );
+        echo  '<div class="wrapper-for-checkboxes ' . esc_attr( $layout ) . '">' ;
+        foreach ( $field_options as $option_label => $option_value ) {
+            echo  '<div>' ;
+            echo  '<input type="checkbox" id="' . esc_attr( $field_id . '_' . $option_value ) . '" class="asenha-subfield-radio-button" name="' . esc_attr( $field_name ) . '" value="' . $option_value . '" ' . checked( in_array( $option_value, $field_option_value ), 1, false ) . '>' ;
+            echo  '<label for="' . esc_attr( $field_id . '_' . $option_value ) . '" class="asenha-subfield-radio-button-label">' . wp_kses_post( $option_label ) . '</label>' ;
+            echo  '</div>' ;
+        }
+        echo  '</div>' ;
     }
     
     /**
@@ -171,6 +203,8 @@ class Settings_Fields_Render
         
         if ( $field_id == 'custom_login_slug' ) {
             $field_placeholder = 'e.g. backend';
+        } elseif ( $field_id == 'default_login_redirect_slug' ) {
+            $field_placeholder = 'e.g. my-account';
         } elseif ( $field_id == 'redirect_after_login_to_slug' ) {
             $field_placeholder = 'e.g. my-account';
         } elseif ( $field_id == 'redirect_after_logout_to_slug' ) {
@@ -438,6 +472,44 @@ class Settings_Fields_Render
         echo  '<textarea rows="' . $field_rows . '" class="asenha-subfield-textarea" id="' . esc_attr( $field_name ) . '" name="' . esc_attr( $field_name ) . '" placeholder="' . esc_attr( $field_placeholder ) . '">' . esc_textarea( $field_option_value ) . '</textarea>' ;
         if ( !empty($field_description) ) {
             echo  '<div class="asenha-subfield-textarea-description">' . wp_kses_post( $field_description ) . '</div>' ;
+        }
+        echo  '</div>' ;
+    }
+    
+    /**
+     * Render textarea field as sub-field of a toggle/switcher checkbox
+     *
+     * @since 2.3.0
+     */
+    function render_wpeditor_subfield( $args )
+    {
+        $option_name = $args['option_name'];
+        
+        if ( !empty($option_name) ) {
+            $options = get_option( $option_name, array() );
+        } else {
+            $options = get_option( ASENHA_SLUG_U, array() );
+        }
+        
+        $field_id = $args['field_id'];
+        $field_slug = $args['field_slug'];
+        $field_name = $args['field_name'];
+        $field_type = $args['field_type'];
+        $field_intro = $args['field_intro'];
+        $field_description = $args['field_description'];
+        $field_placeholder = ( isset( $args['field_placeholder'] ) ? $args['field_placeholder'] : '' );
+        $field_option_value = ( isset( $options[$args['field_id']] ) ? $options[$args['field_id']] : '' );
+        $editor_settings = $args['editor_settings'];
+        // https://developer.wordpress.org/reference/classes/_wp_editors/parse_settings/
+        echo  '<div class="asenha-subfield-wpeditor-wrapper">' ;
+        if ( !empty($field_intro) ) {
+            echo  '<div class="asenha-subfield-wpeditor-intro">' . wp_kses_post( $field_intro ) . '</div>' ;
+        }
+        $content = $field_option_value;
+        $editor_id = str_replace( array( '[', ']' ), array( '--', '' ), $field_name );
+        echo  wp_editor( $content, $editor_id, $editor_settings ) ;
+        if ( !empty($field_description) ) {
+            echo  '<div class="asenha-subfield-wpeditor-description">' . wp_kses_post( $field_description ) . '</div>' ;
         }
         echo  '</div>' ;
     }

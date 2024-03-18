@@ -21,10 +21,14 @@ class Content_Management
      */
     public function duplicate_content()
     {
+        $allow_duplication = false;
+        if ( current_user_can( 'edit_posts' ) ) {
+            $allow_duplication = true;
+        }
         $original_post_id = intval( sanitize_text_field( $_REQUEST['post'] ) );
         $nonce = sanitize_text_field( $_REQUEST['nonce'] );
         
-        if ( wp_verify_nonce( $nonce, 'asenha-duplicate-' . $original_post_id ) && current_user_can( 'edit_posts' ) ) {
+        if ( wp_verify_nonce( $nonce, 'asenha-duplicate-' . $original_post_id ) && $allow_duplication ) {
             $original_post = get_post( $original_post_id );
             $post_type = $original_post->post_type;
             // Not WooCommerce product
@@ -109,10 +113,12 @@ class Content_Management
      */
     public function add_duplication_action_link( $actions, $post )
     {
+        $duplication_link_locations = $this->get_duplication_link_locations();
+        $allow_duplication = $this->is_user_allowed_to_duplicate_content();
         $post_type = $post->post_type;
-        if ( current_user_can( 'edit_posts' ) ) {
+        if ( $allow_duplication ) {
             // Not WooCommerce product
-            if ( 'product' != $post_type ) {
+            if ( in_array( 'post-action', $duplication_link_locations ) && 'product' != $post_type ) {
                 $actions['asenha-duplicate'] = '<a href="admin.php?action=duplicate_content&amp;post=' . $post->ID . '&amp;nonce=' . wp_create_nonce( 'asenha-duplicate-' . $post->ID ) . '" title="Duplicate this as draft">Duplicate</a>';
             }
         }
@@ -126,34 +132,57 @@ class Content_Management
      */
     public function add_admin_bar_duplication_link( WP_Admin_Bar $wp_admin_bar )
     {
+        $duplication_link_locations = $this->get_duplication_link_locations();
+        $allow_duplication = $this->is_user_allowed_to_duplicate_content();
         global  $pagenow, $typenow, $post ;
         $inapplicable_post_types = array( 'attachment' );
-        if ( current_user_can( 'edit_posts' ) ) {
+        if ( $allow_duplication ) {
             if ( 'post.php' == $pagenow && !in_array( $typenow, $inapplicable_post_types ) || is_singular() ) {
-                
-                if ( is_object( $post ) ) {
-                    $post_type_singular_label = '';
+                if ( in_array( 'admin-bar', $duplication_link_locations ) ) {
                     
-                    if ( property_exists( $post, 'post_type' ) ) {
-                        $post_type_object = get_post_type_object( $post->post_type );
-                        if ( is_object( $post_type_object ) && property_exists( $post_type_object, 'label' ) ) {
-                            $post_type_singular_label = ' ' . $post_type_object->labels->singular_name;
+                    if ( is_object( $post ) ) {
+                        $common_methods = new Common_Methods();
+                        $post_type_singular_label = $common_methods->get_post_type_singular_label( $post );
+                        if ( property_exists( $post, 'ID' ) ) {
+                            $wp_admin_bar->add_menu( array(
+                                'id'     => 'duplicate-content',
+                                'parent' => null,
+                                'group'  => null,
+                                'title'  => 'Duplicate ' . $post_type_singular_label,
+                                'href'   => admin_url( 'admin.php?action=duplicate_content&amp;post=' . $post->ID . '&amp;nonce=' . wp_create_nonce( 'asenha-duplicate-' . $post->ID ) ),
+                            ) );
                         }
                     }
-                    
-                    if ( property_exists( $post, 'ID' ) ) {
-                        $wp_admin_bar->add_menu( array(
-                            'id'     => 'duplicate-content',
-                            'parent' => null,
-                            'group'  => null,
-                            'title'  => 'Duplicate' . $post_type_singular_label,
-                            'href'   => admin_url( 'admin.php?action=duplicate_content&amp;post=' . $post->ID . '&amp;nonce=' . wp_create_nonce( 'asenha-duplicate-' . $post->ID ) ),
-                        ) );
-                    }
+                
                 }
-            
             }
         }
+    }
+    
+    /**
+     * Check at which locations duplication link should enabled
+     * 
+     * @since 6.9.3
+     */
+    public function get_duplication_link_locations()
+    {
+        $options = get_option( ASENHA_SLUG_U, array() );
+        $duplication_link_locations = array( 'post-action', 'admin-bar' );
+        return $duplication_link_locations;
+    }
+    
+    /**
+     * Check if a user role is allowed to duplicate content
+     * 
+     * @since 6.9.3
+     */
+    public function is_user_allowed_to_duplicate_content()
+    {
+        $allow_duplication = false;
+        if ( current_user_can( 'edit_posts' ) ) {
+            $allow_duplication = true;
+        }
+        return $allow_duplication;
     }
     
     /**
@@ -624,32 +653,38 @@ class Content_Management
      */
     public function add_media_replacement_button( $fields, $post )
     {
-        global  $post ;
-        $image_mime_type = '';
-        if ( is_object( $post ) ) {
-            if ( property_exists( $post, 'post_mime_type' ) ) {
-                $image_mime_type = $post->post_mime_type;
+        global  $post, $pagenow, $typenow ;
+        // Do not do this on post creation and editing screen
+        // May cause media frame layout / display issues
+        
+        if ( 'attachment' == $typenow || 'attachment' != $typenow && 'post-new.php' != $pagenow && 'post.php' != $pagenow ) {
+            $image_mime_type = '';
+            if ( is_object( $post ) ) {
+                if ( property_exists( $post, 'post_mime_type' ) ) {
+                    $image_mime_type = $post->post_mime_type;
+                }
             }
+            // Enqueues all scripts, styles, settings, and templates necessary to use all media JS APIs.
+            // Reference: https://codex.wordpress.org/Javascript_Reference/wp.media
+            wp_enqueue_media();
+            // Add new field to attachment fields for the media replace functionality
+            $fields['asenha-media-replace'] = array();
+            $fields['asenha-media-replace']['label'] = '';
+            $fields['asenha-media-replace']['input'] = 'html';
+            $fields['asenha-media-replace']['html'] = '
+				<div id="media-replace-div" class="postbox">
+					<div class="postbox-header">
+						<h2 class="hndle ui-sortable-handle">Replace Media</h2>
+					</div>
+					<div class="inside">
+					<button type="button" id="asenha-media-replace" class="button-secondary button-large asenha-media-replace-button" data-old-image-mime-type="' . $image_mime_type . '" onclick="replaceMedia(\'' . $image_mime_type . '\');">Select New Media File</button>
+					<input type="hidden" id="new-attachment-id" name="new-attachment-id" />
+					<div class="asenha-media-replace-notes"><p>The current file will be replaced with the uploaded / selected file (of the same type) while retaining the current ID, publish date and file name. Thus, no existing links will break.</p></div>
+					</div>
+				</div>
+			';
         }
-        // Enqueues all scripts, styles, settings, and templates necessary to use all media JS APIs.
-        // Reference: https://codex.wordpress.org/Javascript_Reference/wp.media
-        wp_enqueue_media();
-        // Add new field to attachment fields for the media replace functionality
-        $fields['asenha-media-replace'] = array();
-        $fields['asenha-media-replace']['label'] = '';
-        $fields['asenha-media-replace']['input'] = 'html';
-        $fields['asenha-media-replace']['html'] = '
-			<div id="media-replace-div" class="postbox">
-				<div class="postbox-header">
-					<h2 class="hndle ui-sortable-handle">Replace Media</h2>
-				</div>
-				<div class="inside">
-				<button type="button" id="asenha-media-replace" class="button-secondary button-large asenha-media-replace-button" data-old-image-mime-type="' . $image_mime_type . '" onclick="replaceMedia(\'' . $image_mime_type . '\');">Select New Media File</button>
-				<input type="hidden" id="new-attachment-id" name="new-attachment-id" />
-				<div class="asenha-media-replace-notes"><p>The current file will be replaced with the uploaded / selected file (of the same type) while retaining the current ID, publish date and file name. Thus, no existing links will break.</p></div>
-				</div>
-			</div>
-		';
+        
         return $fields;
     }
     

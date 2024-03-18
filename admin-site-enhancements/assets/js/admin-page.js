@@ -107,6 +107,7 @@
       
       $('.enable-duplication').appendTo('.fields-content-management > table > tbody');
       $('.duplication-redirect-destination').appendTo('.fields-content-management .enable-duplication .asenha-subfields');
+      
       $('.content-order').appendTo('.fields-content-management > table > tbody');
       // $('.content-order-subfields-heading').appendTo('.fields-content-management .content-order .asenha-subfields');
       $('.content-order-for').appendTo('.fields-content-management .content-order .asenha-subfields');
@@ -155,10 +156,14 @@
       $('.hide-comments-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.hide-post-tags-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.display-active-plugins-first').appendTo('.fields-admin-interface > table > tbody');
+      $('.custom-admin-footer-text').appendTo('.fields-admin-interface > table > tbody');
+      $('.custom-admin-footer-left').appendTo('.fields-admin-interface .custom-admin-footer-text .asenha-subfields');
+      $('.custom-admin-footer-right').appendTo('.fields-admin-interface .custom-admin-footer-text .asenha-subfields');
 
       // Place fields into "Log In | Log Out" tab
       $('.change-login-url').appendTo('.fields-login-logout > table > tbody');
       $('.custom-login-slug').appendTo('.fields-login-logout .change-login-url .asenha-subfields');
+      $('.default-login-redirect-slug').appendTo('.fields-login-logout .change-login-url .asenha-subfields');
       $('.change-login-url-description').appendTo('.fields-login-logout .change-login-url .asenha-subfields');
       $('.login-id-type-restriction').appendTo('.fields-login-logout > table > tbody');
       $('.login-id-type').appendTo('.fields-login-logout .login-id-type-restriction .asenha-subfields');
@@ -269,6 +274,7 @@
       $('.password-protection-password').appendTo('.fields-utilities .enable-password-protection .asenha-subfields');
       
       $('.maintenance-mode').appendTo('.fields-utilities > table > tbody');
+      
       $('.maintenance-page-heading').appendTo('.fields-utilities .maintenance-mode .asenha-subfields');
       $('.maintenance-page-description').appendTo('.fields-utilities .maintenance-mode .asenha-subfields');
       $('.maintenance-page-background').appendTo('.fields-utilities .maintenance-mode .asenha-subfields');
@@ -359,6 +365,8 @@
       });
       footerCodeEditor.setSize("100%",300);
 
+      
+
       // Show and hide corresponding fields on tab clicks
 
       $('#tab-content-management + label').click( function() {
@@ -423,6 +431,7 @@
          $('.asenha-fields:not(.fields-utilities)').hide();
          window.location.hash = 'utilities';
          Cookies.set('asenha_tab', 'utilities', { expires: 1 }); // expires in 1 day
+         
       });
 
       // Open tab set in 'asenha_tab' cookie set on saving changes. Defaults to content-management tab when cookie is empty
@@ -450,7 +459,9 @@
                $('.asenha-toggle.'+fieldClass+' td .asenha-field-with-options').addClass('is-enabled');
                if ( codeMirrorInstances ) {
                   Object.keys(codeMirrorInstances).forEach(function(key) {
-                     codeMirrorInstances[key].refresh();
+                     if ( codeMirrorInstances[key] ) {
+                        codeMirrorInstances[key].refresh();
+                     }
                   });
                }
 
@@ -478,7 +489,9 @@
                   }
                   if ( codeMirrorInstances ) {
                      Object.keys(codeMirrorInstances).forEach(function(key) {
-                        codeMirrorInstances[key].refresh();
+                        if ( codeMirrorInstances[key] ) {
+                           codeMirrorInstances[key].refresh();                        
+                        }
                      });
                   }
 
@@ -505,6 +518,7 @@
       
       subfieldsToggler( 'enable_external_permalinks', 'enable-external-permalinks' );
       subfieldsToggler( 'enhance_list_tables', 'enhance-list-tables' );
+      subfieldsToggler( 'custom_admin_footer_text', 'custom-admin-footer-text' );
       subfieldsToggler( 'wider_admin_menu', 'wider-admin-menu' );
       subfieldsToggler( 'customize_admin_menu', 'customize-admin-menu', 'custom-admin-menu' );
       subfieldsToggler( 'disable_dashboard_widgets', 'disable-dashboard-widgets' );
@@ -602,8 +616,10 @@
             $(this).val(oldValue);
          }
       });
-
-      subfieldsToggler( 'maintenance_mode', 'maintenance-mode' );
+      
+      
+         subfieldsToggler( 'maintenance_mode', 'maintenance-mode' );
+      
 
       
 
