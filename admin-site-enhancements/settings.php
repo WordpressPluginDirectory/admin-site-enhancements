@@ -49,11 +49,11 @@ function asenha_add_settings_page()
 		<div id="asenha-header" class="asenha-header">
 			<div class="asenha-header-left">
 				<img src="<?php 
-    echo  ASENHA_URL . 'assets/img/ase_icon.png' ;
+    echo  esc_html( ASENHA_URL ) . 'assets/img/ase_icon.png' ;
     ?>" class="asenha-icon"/>
 				<h1 class="asenha-heading">
 					<?php 
-    echo  get_admin_page_title() ;
+    echo  esc_html( get_admin_page_title() ) ;
     ?>
 					(ASE)
 					<?php 
@@ -77,10 +77,10 @@ function asenha_add_settings_page()
     $svg_sponsor = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M8.753 2.247L8 3l-.753-.753A4.243 4.243 0 0 0 1.25 8.25l5.69 5.69L8 15l1.06-1.06l5.69-5.69a4.243 4.243 0 0 0-5.997-6.003ZM8 12.879l5.69-5.69a2.743 2.743 0 0 0-3.877-3.881l-.752.753L8 5.12L6.94 4.06l-.753-.752v-.001A2.743 2.743 0 0 0 2.31 7.189L8 12.88Z" clip-rule="evenodd"/></svg>';
     ?>
 	 				<a href="https://wordpress.org/plugins/admin-site-enhancements/#reviews" target="_blank" class="asenha-header-action review"><?php 
-    echo  $svg_star . esc_html( 'Review', 'admin-site-enhancements' ) ;
+    echo  wp_kses( $svg_star, get_kses_with_svg_ruleset() ) . esc_html( 'Review', 'admin-site-enhancements' ) ;
     ?></a>
 					<a href="https://wordpress.org/support/plugin/admin-site-enhancements/" target="_blank" class="asenha-header-action feedback"><?php 
-    echo  $svg_feedback . esc_html( 'Feedback', 'admin-site-enhancements' ) ;
+    echo  wp_kses( $svg_feedback, get_kses_with_svg_ruleset() ) . esc_html( 'Feedback', 'admin-site-enhancements' ) ;
     ?></a>
 					<!--<a href="https://www.wpasenha.com/docs/" target="_blank" class="asenha-header-action docs"><?php 
     // echo $svg_docs . esc_html( 'Docs', 'admin-site-enhancements' );
@@ -192,10 +192,10 @@ function asenha_add_settings_page()
     ?>
 					<div class="nudge-quotes">
 						<div class="user-quote"><?php 
-    echo  $random_sponsorship_quote ;
+    echo  wp_kses_post( $random_sponsorship_quote ) ;
     ?></div>
 						<div class="user-quote"><?php 
-    echo  $random_support_quote ;
+    echo  wp_kses_post( $random_support_quote ) ;
     ?></div>
 					</div>
 					<div class="nudge-content">
@@ -210,7 +210,7 @@ function asenha_add_settings_page()
 								<a href="#" id="have-sponsored" class="asenha-have-sponsored">I've sponsored ASE</a>
 							</div>
 							<div class="nudge-stats">
-								<p class="nudge-description">This free version of ASE has consumed more than <a href="https://wordpress.org/plugins/admin-site-enhancements/#developers" target="_blank">250 hours of dev time</a>. At v6.9.4 (released on March 18, 2024) and 50,000+ active installs, there have been <a href="https://bowo.io/asenha-sp-gth-ndg" target="_blank">6 monthly sponsors</a> and <a href="https://bowo.io/asenha-sp-ppl-ndg" target="_blank">59 one-time sponsors</a>. You can be one today!</p>
+								<p class="nudge-description">This free version of ASE has consumed more than <a href="https://wordpress.org/plugins/admin-site-enhancements/#developers" target="_blank">250 hours of dev time</a>. At v6.9.5 (released on March 25, 2024) and 50,000+ active installs, there have been <a href="https://bowo.io/asenha-sp-gth-ndg" target="_blank">6 monthly sponsors</a> and <a href="https://bowo.io/asenha-sp-ppl-ndg" target="_blank">59 one-time sponsors</a>. You can be one today!</p>
 							</div>
 						</div>
 						<div class="nudge-secondary">
@@ -220,7 +220,7 @@ function asenha_add_settings_page()
 						</div>
 					</div>
 					<div class="user-quote share-quote"><?php 
-    echo  $random_share_quote ;
+    echo  wp_kses_post( $random_share_quote ) ;
     ?></div>
 					<p class="nudge-description">Do <a href="https://wordpress.org/plugins/admin-site-enhancements/" target="_blank">share about ASE</a> with your colleagues and/or community.</p>
 					<a href="https://bowo.io" target="_blank" class="nudge-photo-link"><img src="<?php 
@@ -258,28 +258,28 @@ function asenha_add_settings_page()
     $icon_utilities = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="m10.05 10.607l-7.07 7.07a2 2 0 0 0 0 2.83v0a2 2 0 0 0 2.828 0l7.07-7.072m4.315.365l3.878 3.878a2 2 0 0 1 0 2.828v0a2 2 0 0 1-2.828 0l-6.209-6.208M6.733 5.904L4.61 6.61L2.49 3.075l1.414-1.414L7.44 3.782l-.707 2.122Zm0 0l2.83 2.83"/><path d="M10.05 10.607c-.844-2.153-.679-4.978 1.061-6.718c1.74-1.74 4.95-2.121 6.717-1.06l-3.04 3.04l-.283 3.111l3.111-.282l3.04-3.041c1.062 1.768.68 4.978-1.06 6.717c-1.74 1.74-4.564 1.905-6.717 1.061"/></g></svg>';
     ?>
 					    <input id="tab-content-management" type="radio" name="tabs" checked><label for="tab-content-management"><?php 
-    echo  $icon_content_management ;
+    echo  wp_kses( $icon_content_management, get_kses_with_svg_ruleset() ) ;
     ?>Content Management</label>
 					    <input id="tab-admin-interface" type="radio" name="tabs"><label for="tab-admin-interface"><?php 
-    echo  $icon_admin_interface ;
+    echo  wp_kses( $icon_admin_interface, get_kses_with_svg_ruleset() ) ;
     ?>Admin Interface</label>
 					    <input id="tab-login-logout" type="radio" name="tabs"><label for="tab-login-logout"><?php 
-    echo  $icon_login_logout ;
+    echo  wp_kses( $icon_login_logout, get_kses_with_svg_ruleset() ) ;
     ?>Log In | Log Out</label>
 					    <input id="tab-custom-code" type="radio" name="tabs"><label for="tab-custom-code"><?php 
-    echo  $icon_custom_code ;
+    echo  wp_kses( $icon_custom_code, get_kses_with_svg_ruleset() ) ;
     ?>Custom Code</label>
 					    <input id="tab-disable-components" type="radio" name="tabs"><label for="tab-disable-components"><?php 
-    echo  $icon_disable_components ;
+    echo  wp_kses( $icon_disable_components, get_kses_with_svg_ruleset() ) ;
     ?>Disable Components</label>
 					    <input id="tab-security" type="radio" name="tabs"><label for="tab-security"><?php 
-    echo  $icon_security ;
+    echo  wp_kses( $icon_security, get_kses_with_svg_ruleset() ) ;
     ?>Security</label>
 					    <input id="tab-optimizations" type="radio" name="tabs"><label for="tab-optimizations"><?php 
-    echo  $icon_optimizations ;
+    echo  wp_kses( $icon_optimizations, get_kses_with_svg_ruleset() ) ;
     ?>Optimizations</label>
 					    <input id="tab-utilities" type="radio" name="tabs"><label for="tab-utilities"><?php 
-    echo  $icon_utilities ;
+    echo  wp_kses( $icon_utilities, get_kses_with_svg_ruleset() ) ;
     ?>Utilities</label>
 					</div>
 					<div class="asenha-tab-contents">
@@ -991,7 +991,7 @@ function asenha_footer_version_text()
 {
     ?>
 		ASE <a href="https://www.wpase.com/documentation/changelog/" target="_blank">v<?php 
-    echo  ASENHA_VERSION ;
+    echo  esc_html( ASENHA_VERSION ) ;
     ?></a>
 	<?php 
 }

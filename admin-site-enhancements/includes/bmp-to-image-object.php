@@ -8,6 +8,7 @@
  * @since 4.3.0
  */
 function bmp_to_image_object( $filename, $context = null ) {
+    $filename = wp_kses_post( $filename );
 
     if (!function_exists("imagecreatetruecolor")) {
         trigger_error("The PHP GD extension is required, but is not installed.", E_ERROR);
@@ -16,6 +17,7 @@ function bmp_to_image_object( $filename, $context = null ) {
 
     // version 1.00
     if (!($fh = fopen($filename, 'rb'))) {
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         trigger_error('imagecreatefrombmp: Can not open ' . $filename, E_USER_WARNING);
         return false;
     }
@@ -27,6 +29,7 @@ function bmp_to_image_object( $filename, $context = null ) {
 
     // check for bitmap
     if ($meta['type'] != 19778) {
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         trigger_error('imagecreatefrombmp: ' . $filename . ' is not a bitmap!', E_USER_WARNING);
         return false;
     }
@@ -55,6 +58,7 @@ function bmp_to_image_object( $filename, $context = null ) {
         if ($meta['imagesize'] < 1) {
             $meta['imagesize'] = @filesize($filename) - $meta['offset'];
             if ($meta['imagesize'] < 1) {
+                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 trigger_error('imagecreatefrombmp: Can not obtain filesize of ' . $filename . '!', E_USER_WARNING);
                 return false;
             }
@@ -108,6 +112,7 @@ function bmp_to_image_object( $filename, $context = null ) {
                 case 32:
                 case 24:
                     if (!($part = substr($data, $p, 3 /*$meta['bytes']*/))) {
+                        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                         trigger_error($error, E_USER_WARNING);
                         return $im;
                     }
@@ -115,6 +120,7 @@ function bmp_to_image_object( $filename, $context = null ) {
                     break;
                 case 16:
                     if (!($part = substr($data, $p, 2 /*$meta['bytes']*/))) {
+                        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                         trigger_error($error, E_USER_WARNING);
                         return $im;
                     }
@@ -166,6 +172,7 @@ function bmp_to_image_object( $filename, $context = null ) {
                     $color[1] = $palette[$color[1] + 1];
                     break;
                 default:
+                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                     trigger_error('imagecreatefrombmp: ' . $filename . ' has ' . $meta['bits'] . ' bits and this is not supported!', E_USER_WARNING);
                     return false;
             }

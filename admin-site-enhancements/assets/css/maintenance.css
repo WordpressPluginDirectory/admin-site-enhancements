@@ -50,6 +50,13 @@ body {
 .message-box h1 {
 	font-size: 3em;
 	font-weight: 500;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.message-box h1 p {
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 .message-box .description {

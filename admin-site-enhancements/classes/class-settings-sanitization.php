@@ -222,6 +222,11 @@ class Settings_Sanitization
             $options['show_id_column'] = false;
         }
         $options['show_id_column'] = ( 'on' == $options['show_id_column'] ? true : false );
+        // Show File Size Column in Media Library
+        if ( !isset( $options['show_file_size_column'] ) ) {
+            $options['show_file_size_column'] = false;
+        }
+        $options['show_file_size_column'] = ( 'on' == $options['show_file_size_column'] ? true : false );
         // Show ID in Action Row
         if ( !isset( $options['show_id_in_action_row'] ) ) {
             $options['show_id_in_action_row'] = false;
@@ -463,11 +468,6 @@ class Settings_Sanitization
             $options['disable_gutenberg_frontend_styles'] = false;
         }
         $options['disable_gutenberg_frontend_styles'] = ( 'on' == $options['disable_gutenberg_frontend_styles'] ? true : false );
-        // Disable Block-Based Widgets Screen
-        if ( !isset( $options['disable_block_widgets'] ) ) {
-            $options['disable_block_widgets'] = false;
-        }
-        $options['disable_block_widgets'] = ( 'on' == $options['disable_block_widgets'] ? true : false );
         // Disable Comments
         if ( !isset( $options['disable_comments'] ) ) {
             $options['disable_comments'] = false;
@@ -534,6 +534,10 @@ class Settings_Sanitization
             $options['disable_jquery_migrate'] = false;
         }
         $options['disable_jquery_migrate'] = ( 'on' == $options['disable_jquery_migrate'] ? true : false );
+        if ( !isset( $options['disable_block_widgets'] ) ) {
+            $options['disable_block_widgets'] = false;
+        }
+        $options['disable_block_widgets'] = ( 'on' == $options['disable_block_widgets'] ? true : false );
         // =================================================================
         // SECURITY
         // =================================================================

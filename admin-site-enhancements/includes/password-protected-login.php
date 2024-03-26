@@ -40,7 +40,7 @@ if ( $password_protected_errors->get_error_code() && in_array( $password_protect
 <head>
 	<meta http-equiv="Content-Type" content="<?php bloginfo( 'html_type' ); ?>; charset=<?php bloginfo( 'charset' ); ?>" />
 	<meta name="viewport" content="width=device-width" />
-	<title><?php echo get_bloginfo( 'name' ); ?></title>
+	<title><?php bloginfo( 'name' ); ?></title>
 	<?php
 	wp_admin_css( 'login', true );
 	do_action( 'asenha_password_protection_login_head' );

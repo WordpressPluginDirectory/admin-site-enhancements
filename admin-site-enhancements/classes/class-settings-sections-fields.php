@@ -691,8 +691,8 @@ class Settings_Sections_Fields
         if ( array_key_exists( 'dashboard_widgets', $options_extra ) ) {
             $dashboard_widgets = $options_extra['dashboard_widgets'];
         } else {
-            $admin_interface = new Admin_Interface();
-            $dashboard_widgets = $admin_interface->get_dashboard_widgets();
+            $disable_dashboard_widgets = new Disable_Dashboard_Widgets();
+            $dashboard_widgets = $disable_dashboard_widgets->get_dashboard_widgets();
             $options_extra['dashboard_widgets'] = $dashboard_widgets;
             update_option( 'admin_site_enhancements_extra', $options_extra );
         }
@@ -967,6 +967,28 @@ class Settings_Sections_Fields
                 'field_id'    => $field_id,
                 'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_label' => 'Show ID column',
+                'class'       => 'asenha-checkbox asenha-hide-th content-management ' . $field_slug,
+            )
+        );
+        // Show File Size Column in Media Library
+        $field_id = 'show_file_size_column';
+        $field_slug = 'show-file-size-column';
+        add_settings_field(
+            $field_id,
+            // Field ID
+            '',
+            // Field title
+            [ $render_field, 'render_checkbox_plain' ],
+            // Callback to render field with custom arguments in the array below
+            ASENHA_SLUG,
+            // Settings page slug
+            'main-section',
+            // Section ID
+            array(
+                'option_name' => ASENHA_SLUG_U,
+                'field_id'    => $field_id,
+                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_label' => 'Show file size column in media library',
                 'class'       => 'asenha-checkbox asenha-hide-th content-management ' . $field_slug,
             )
         );
@@ -2068,31 +2090,6 @@ class Settings_Sections_Fields
                 'class'       => 'asenha-checkbox asenha-hide-th asenha-th-border-top disable-components ' . $field_slug,
             )
         );
-        // Disable Block-Based Widgets Screen
-        $field_id = 'disable_block_widgets';
-        $field_slug = 'disable-block-widgets';
-        add_settings_field(
-            $field_id,
-            // Field ID
-            'Disable Block-Based Widgets Settings Screen',
-            // Field title
-            [ $render_field, 'render_checkbox_toggle' ],
-            // Callback to render field with custom arguments in the array below
-            ASENHA_SLUG,
-            // Settings page slug
-            'main-section',
-            // Section ID
-            array(
-                'option_name'            => ASENHA_SLUG_U,
-                'field_id'               => $field_id,
-                'field_slug'             => $field_slug,
-                'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
-                'field_description'      => 'Restores the classic widgets settings screen when using a classic (non-block) theme. This has no effect on block themes.',
-                'field_options_wrapper'  => true,
-                'field_options_moreless' => true,
-                'class'                  => 'asenha-toggle disable-components ' . $field_slug,
-            )
-        );
         // Disable Comments
         $field_id = 'disable_comments';
         $field_slug = 'disable-comments';
@@ -2242,7 +2239,7 @@ class Settings_Sections_Fields
                 'field_description'      => 'Prevent smaller components from running or loading. Make the site more secure, load slightly faster and be more optimized for crawling by search engines.',
                 'field_options_wrapper'  => true,
                 'field_options_moreless' => true,
-                'class'                  => 'asenha-toggle admin-interface ' . $field_slug,
+                'class'                  => 'asenha-toggle disable-components ' . $field_slug,
             )
         );
         $field_id = 'disable_head_generator_tag';
@@ -2263,7 +2260,7 @@ class Settings_Sections_Fields
                 'field_id'    => $field_id,
                 'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_label' => 'Disable the <strong>generator &lt;meta&gt; tag</strong> in &lt;head&gt;, which discloses the WordPress version number. Older versions(s) might contain unpatched security loophole(s).',
-                'class'       => 'asenha-checkbox asenha-hide-th admin-interface ' . $field_slug,
+                'class'       => 'asenha-checkbox asenha-hide-th disable-components ' . $field_slug,
             )
         );
         $field_id = 'disable_resource_version_number';
@@ -2284,7 +2281,7 @@ class Settings_Sections_Fields
                 'field_id'    => $field_id,
                 'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_label' => 'Disable <strong>version number</strong> on static resource URLs referenced in &lt;head&gt;, which can disclose WordPress version number. Older versions(s) might contain unpatched security loophole(s). Applies to non-logged-in view of pages. This will also increase cacheability of static assets, but may have unintended consequences. Make sure you know what you are doing.',
-                'class'       => 'asenha-checkbox asenha-hide-th admin-interface ' . $field_slug,
+                'class'       => 'asenha-checkbox asenha-hide-th disable-components ' . $field_slug,
             )
         );
         $field_id = 'disable_head_wlwmanifest_tag';
@@ -2305,7 +2302,7 @@ class Settings_Sections_Fields
                 'field_id'    => $field_id,
                 'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_label' => 'Disable the <strong>Windows Live Writer (WLW) manifest &lt;link&gt; tag</strong> in &lt;head&gt;. The WLW app was discontinued in 2017.',
-                'class'       => 'asenha-checkbox asenha-hide-th admin-interface ' . $field_slug,
+                'class'       => 'asenha-checkbox asenha-hide-th disable-components ' . $field_slug,
             )
         );
         $field_id = 'disable_head_rsd_tag';
@@ -2326,7 +2323,7 @@ class Settings_Sections_Fields
                 'field_id'    => $field_id,
                 'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_label' => 'Disable the <strong>Really Simple Discovery (RSD) &lt;link&gt; tag</strong> in &lt;head&gt;. It\'s not needed if your site is not using pingback or remote (XML-RPC) client to manage posts.',
-                'class'       => 'asenha-checkbox asenha-hide-th admin-interface ' . $field_slug,
+                'class'       => 'asenha-checkbox asenha-hide-th disable-components ' . $field_slug,
             )
         );
         $field_id = 'disable_head_shortlink_tag';
@@ -2347,7 +2344,7 @@ class Settings_Sections_Fields
                 'field_id'    => $field_id,
                 'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_label' => 'Disable the default <strong>WordPress shortlink &lt;link&gt; tag</strong> in &lt;head&gt;. Ignored by search engines and has minimal practical use case. Usually, a dedicated shortlink plugin or service is preferred that allows for nice names in the short links and tracking of clicks when sharing the link on social media.',
-                'class'       => 'asenha-checkbox asenha-hide-th admin-interface ' . $field_slug,
+                'class'       => 'asenha-checkbox asenha-hide-th disable-components ' . $field_slug,
             )
         );
         $field_id = 'disable_frontend_dashicons';
@@ -2368,7 +2365,7 @@ class Settings_Sections_Fields
                 'field_id'    => $field_id,
                 'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_label' => 'Disable loading of <strong>Dashicons CSS and JS files</strong> on the front-end for public site visitors. This might break the layout or design of custom forms, including custom login forms, if they depend on Dashicons. Make sure to check those forms after disabling.',
-                'class'       => 'asenha-checkbox asenha-hide-th admin-interface ' . $field_slug,
+                'class'       => 'asenha-checkbox asenha-hide-th disable-components ' . $field_slug,
             )
         );
         $field_id = 'disable_emoji_support';
@@ -2389,7 +2386,7 @@ class Settings_Sections_Fields
                 'field_id'    => $field_id,
                 'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_label' => 'Disable <strong>emoji support for pages, posts and custom post types</strong> on the admin and frontend. The support is primarily useful for older browsers that do not have native support for it. Most modern browsers across different OSes and devices now have native support for it.',
-                'class'       => 'asenha-checkbox asenha-hide-th admin-interface ' . $field_slug,
+                'class'       => 'asenha-checkbox asenha-hide-th disable-components ' . $field_slug,
             )
         );
         $field_id = 'disable_jquery_migrate';
@@ -2410,7 +2407,28 @@ class Settings_Sections_Fields
                 'field_id'    => $field_id,
                 'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_label' => 'Disable <strong>jQuery Migrate</strong> script on the frontend, which should no longer be needed if your site uses modern theme and plugins.',
-                'class'       => 'asenha-checkbox asenha-hide-th admin-interface ' . $field_slug,
+                'class'       => 'asenha-checkbox asenha-hide-th disable-components ' . $field_slug,
+            )
+        );
+        $field_id = 'disable_block_widgets';
+        $field_slug = 'disable-block-widgets';
+        add_settings_field(
+            $field_id,
+            // Field ID
+            '',
+            // Field title
+            [ $render_field, 'render_checkbox_plain' ],
+            // Callback to render field with custom arguments in the array below
+            ASENHA_SLUG,
+            // Settings page slug
+            'main-section',
+            // Section ID
+            array(
+                'option_name' => ASENHA_SLUG_U,
+                'field_id'    => $field_id,
+                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_label' => 'Disable <strong>block-based widgets settings screen</strong>. Restores the classic widgets settings screen when using a classic (non-block) theme. This has no effect on block themes.',
+                'class'       => 'asenha-checkbox asenha-hide-th disable-components ' . $field_slug,
             )
         );
         // =================================================================
@@ -2448,7 +2466,7 @@ class Settings_Sections_Fields
             // Field ID
             '',
             // Field title
-            [ $render_field, 'render_text_subfield' ],
+            [ $render_field, 'render_number_subfield' ],
             // Callback to render field with custom arguments in the array below
             ASENHA_SLUG,
             // Settings page slug
@@ -2461,8 +2479,9 @@ class Settings_Sections_Fields
                 'field_type'        => 'with-prefix-suffix',
                 'field_prefix'      => '',
                 'field_suffix'      => 'failed login attempts allowed before 15 minutes lockout',
+                'field_intro'       => '',
                 'field_description' => '',
-                'class'             => 'asenha-text with-prefix-suffix narrow no-margin security ' . $field_slug,
+                'class'             => 'asenha-text with-prefix-suffix extra-narrow no-margin security ' . $field_slug,
             )
         );
         $field_id = 'login_lockout_maxcount';
@@ -2472,7 +2491,7 @@ class Settings_Sections_Fields
             // Field ID
             '',
             // Field title
-            [ $render_field, 'render_text_subfield' ],
+            [ $render_field, 'render_number_subfield' ],
             // Callback to render field with custom arguments in the array below
             ASENHA_SLUG,
             // Settings page slug
@@ -2485,8 +2504,9 @@ class Settings_Sections_Fields
                 'field_type'        => 'with-prefix-suffix',
                 'field_prefix'      => '',
                 'field_suffix'      => 'lockout(s) will block further login attempts for 24 hours',
+                'field_intro'       => '',
                 'field_description' => '',
-                'class'             => 'asenha-text with-prefix-suffix narrow no-margin security ' . $field_slug,
+                'class'             => 'asenha-text with-prefix-suffix extra-narrow no-margin security ' . $field_slug,
             )
         );
         $field_id = 'login_attempts_log_table';

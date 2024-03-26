@@ -100,7 +100,8 @@
 
       // Initialize data tables
       var table = $("#login-attempts-log").DataTable({
-         pageLength: 10
+         pageLength: 10,
+         order: [[2, 'desc']]
       });
 
       // Place fields into the "Content Management" tab
@@ -151,6 +152,7 @@
       $('.show-featured-image-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.show-excerpt-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.show-id-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
+      $('.show-file-size-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.show-id-in-action_row').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.show-custom-taxonomy-filters').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.hide-comments-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
@@ -158,7 +160,9 @@
       $('.display-active-plugins-first').appendTo('.fields-admin-interface > table > tbody');
       $('.custom-admin-footer-text').appendTo('.fields-admin-interface > table > tbody');
       $('.custom-admin-footer-left').appendTo('.fields-admin-interface .custom-admin-footer-text .asenha-subfields');
+      reinitWpEditor('admin_site_enhancements--custom_admin_footer_left');
       $('.custom-admin-footer-right').appendTo('.fields-admin-interface .custom-admin-footer-text .asenha-subfields');
+      reinitWpEditor('admin_site_enhancements--custom_admin_footer_right');
 
       // Place fields into "Log In | Log Out" tab
       $('.change-login-url').appendTo('.fields-login-logout > table > tbody');
@@ -201,10 +205,11 @@
 
       // Place fields into the "Disable Components" tab
       $('.disable-gutenberg').appendTo('.fields-disable-components > table > tbody');
+      
       $('.disable-gutenberg-for').appendTo('.fields-disable-components .disable-gutenberg .asenha-subfields');
       $('.disable-gutenberg-frontend-styles').appendTo('.fields-disable-components .disable-gutenberg .asenha-subfields');
-      $('.disable-block-widgets').appendTo('.fields-disable-components > table > tbody');
       $('.disable-comments').appendTo('.fields-disable-components > table > tbody');
+      
       $('.disable-comments-for').appendTo('.fields-disable-components .disable-comments .asenha-subfields');
       $('.disable-rest-api').appendTo('.fields-disable-components > table > tbody');
       $('.disable-feeds').appendTo('.fields-disable-components > table > tbody');
@@ -218,6 +223,7 @@
       $('.disable-frontend-dashicons').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');
       $('.disable-emoji-support').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');
       $('.disable-jquery-migrate').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');
+      $('.disable-block-widgets').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');
 
       // Place fields into "Security" tab
       $('.limit-login-attempts').appendTo('.fields-security > table > tbody');
@@ -276,7 +282,9 @@
       $('.maintenance-mode').appendTo('.fields-utilities > table > tbody');
       
       $('.maintenance-page-heading').appendTo('.fields-utilities .maintenance-mode .asenha-subfields');
+      reinitWpEditor('admin_site_enhancements--maintenance_page_heading');
       $('.maintenance-page-description').appendTo('.fields-utilities .maintenance-mode .asenha-subfields');
+      reinitWpEditor('admin_site_enhancements--maintenance_page_description');
       $('.maintenance-page-background').appendTo('.fields-utilities .maintenance-mode .asenha-subfields');
       
       $('.maintenance-mode-description').appendTo('.fields-utilities .maintenance-mode .asenha-subfields');
@@ -508,6 +516,23 @@
             
          }
          
+      }
+      
+       // Re-init wp_editor for snippet description. Required because the wp_editor was moved in the DOM after document ready.
+       // Ref: https://stackoverflow.com/a/21519323
+       // Ref: https://core.trac.wordpress.org/ticket/19173
+      function reinitWpEditor(id) {
+         tinymce.execCommand('mceRemoveEditor', true, id);
+         var init = tinymce.extend( {}, tinyMCEPreInit.mceInit[ id ] );
+         try { tinymce.init( init ); } catch(e){}
+         $('textarea[id="' + id + '"]').closest('form').find('input[type="submit"]').click(function(){
+          if( getUserSetting( 'editor' ) == 'tmce' ){
+              var id = mce.find( 'textarea' ).attr( 'id' );
+              tinymce.execCommand( 'mceRemoveEditor', false, id );
+              tinymce.execCommand( 'mceAddEditor', false, id );
+          }
+          return true;
+         });
       }
 
       

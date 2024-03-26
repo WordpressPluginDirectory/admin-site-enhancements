@@ -830,6 +830,11 @@ p.nudge-description.nudge-closing {
     border-top: 1px solid #eee;
 }
 
+.form-table .asenha-subfields tr.asenha-th-border-bottom {
+    margin-bottom: 12px;
+    border-bottom: 1px solid #eee;
+}
+
 .asenha-subfields-heading,
 .form-table .asenha-subfields th {
     width: 100%;
@@ -850,6 +855,9 @@ p.nudge-description.nudge-closing {
     top: -2px;
 }
 
+.form-table .asenha-subfields .bold-label td:not(.datatable-td) label {
+    font-weight: 600;
+}
 .form-table .asenha-subfields td:not(.datatable-td) .wp-picker-input-wrap label {
     top: 0px;
 }
@@ -1298,6 +1306,10 @@ p.nudge-description.nudge-closing {
 
 .datatable table.dataTable thead th {
     font-weight: 500 ;
+}
+
+#login-attempts-log .unixtime {
+    display: none;
 }
 
 /* Description subfield */

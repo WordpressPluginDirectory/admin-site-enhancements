@@ -65,43 +65,47 @@ class Admin_Site_Enhancements
         if ( function_exists( 'bwasenha_fs' ) ) {
             bwasenha_fs()->add_filter( 'plugin_icon', 'fs_custom_optin_icon__premium_only' );
         }
+        // Add style="display:[something];" to the safe CSS attributes.
+        // Ref: https://github.com/WordPress/wordpress-develop/blob/6.4/src/wp-includes/kses.php#L2329
+        // Ref: https://wordpress.stackexchange.com/a/195433
+        add_filter( 'safe_style_css', function ( $styles ) {
+            $styles[] = 'display';
+            return $styles;
+        } );
         // ===== Activate features based on settings =====
         // Get all WP Enhancements options, default to empty array in case it's not been created yet
         $options = get_option( ASENHA_SLUG_U, array() );
-        // =================================================================
-        // CONTENT MANAGEMENT
-        // =================================================================
-        // Instantiate object for Content Management features
-        $content_management = new ASENHA\Classes\Content_Management();
         // Content Duplication
         
         if ( array_key_exists( 'enable_duplication', $options ) && $options['enable_duplication'] ) {
-            add_action( 'admin_action_duplicate_content', [ $content_management, 'duplicate_content' ] );
+            $content_duplication = new ASENHA\Classes\Content_Duplication();
+            add_action( 'admin_action_duplicate_content', [ $content_duplication, 'duplicate_content' ] );
             add_filter(
                 'page_row_actions',
-                [ $content_management, 'add_duplication_action_link' ],
+                [ $content_duplication, 'add_duplication_action_link' ],
                 10,
                 2
             );
             add_filter(
                 'post_row_actions',
-                [ $content_management, 'add_duplication_action_link' ],
+                [ $content_duplication, 'add_duplication_action_link' ],
                 10,
                 2
             );
-            add_action( 'admin_bar_menu', [ $content_management, 'add_admin_bar_duplication_link' ], 100 );
+            add_action( 'admin_bar_menu', [ $content_duplication, 'add_admin_bar_duplication_link' ], 100 );
         }
         
         // Content Order
         if ( array_key_exists( 'content_order', $options ) && $options['content_order'] ) {
             
             if ( array_key_exists( 'content_order_for', $options ) && !empty($options['content_order_for']) ) {
-                add_action( 'admin_menu', [ $content_management, 'add_content_order_submenu' ] );
-                add_action( 'wp_ajax_save_custom_order', [ $content_management, 'save_custom_content_order' ] );
-                add_filter( 'pre_get_posts', [ $content_management, 'orderby_menu_order' ] );
+                $content_order = new ASENHA\Classes\Content_Order();
+                add_action( 'admin_menu', [ $content_order, 'add_content_order_submenu' ] );
+                add_action( 'wp_ajax_save_custom_order', [ $content_order, 'save_custom_content_order' ] );
+                add_filter( 'pre_get_posts', [ $content_order, 'orderby_menu_order' ] );
                 add_filter(
                     'save_post',
-                    [ $content_management, 'set_menu_order_for_new_posts' ],
+                    [ $content_order, 'set_menu_order_for_new_posts' ],
                     10,
                     3
                 );
@@ -111,42 +115,43 @@ class Admin_Site_Enhancements
         // Media Replacement
         
         if ( array_key_exists( 'enable_media_replacement', $options ) && $options['enable_media_replacement'] ) {
+            $media_replacement = new ASENHA\Classes\Media_Replacement();
             add_filter(
                 'media_row_actions',
-                [ $content_management, 'modify_media_list_table_edit_link' ],
+                [ $media_replacement, 'modify_media_list_table_edit_link' ],
                 10,
                 2
             );
             add_filter(
                 'attachment_fields_to_edit',
-                [ $content_management, 'add_media_replacement_button' ],
+                [ $media_replacement, 'add_media_replacement_button' ],
                 10,
                 2
             );
-            add_action( 'edit_attachment', [ $content_management, 'replace_media' ] );
-            add_filter( 'post_updated_messages', [ $content_management, 'attachment_updated_custom_message' ] );
+            add_action( 'edit_attachment', [ $media_replacement, 'replace_media' ] );
+            add_filter( 'post_updated_messages', [ $media_replacement, 'attachment_updated_custom_message' ] );
             // Bust browser cache of old/replaced images
             add_filter(
                 'wp_calculate_image_srcset',
-                [ $content_management, 'append_cache_busting_param_to_image_srcset' ],
+                [ $media_replacement, 'append_cache_busting_param_to_image_srcset' ],
                 10,
                 5
             );
             add_filter(
                 'wp_get_attachment_image_src',
-                [ $content_management, 'append_cache_busting_param_to_attachment_image_src' ],
+                [ $media_replacement, 'append_cache_busting_param_to_attachment_image_src' ],
                 10,
                 2
             );
             add_filter(
                 'wp_prepare_attachment_for_js',
-                [ $content_management, 'append_cache_busting_param_to_attachment_for_js' ],
+                [ $media_replacement, 'append_cache_busting_param_to_attachment_for_js' ],
                 10,
                 2
             );
             add_filter(
                 'wp_get_attachment_url',
-                [ $content_management, 'append_cache_busting_param_to_attachment_url' ],
+                [ $media_replacement, 'append_cache_busting_param_to_attachment_url' ],
                 20,
                 2
             );
@@ -156,7 +161,7 @@ class Admin_Site_Enhancements
         if ( array_key_exists( 'media_library_infinite_scrolling', $options ) && $options['media_library_infinite_scrolling'] ) {
             add_filter( 'media_library_infinite_scrolling', '__return_true' );
         }
-        // Enable SVG Upload
+        // SVG Upload
         
         if ( array_key_exists( 'enable_svg_upload', $options ) && $options['enable_svg_upload'] && array_key_exists( 'enable_svg_upload_for', $options ) && isset( $options['enable_svg_upload_for'] ) ) {
             global  $roles_svg_upload_enabled ;
@@ -174,149 +179,166 @@ class Admin_Site_Enhancements
                 }
             }
             
-            add_filter( 'upload_mimes', [ $content_management, 'add_svg_mime' ] );
+            $svg_upload = new ASENHA\Classes\SVG_Upload();
+            add_filter( 'upload_mimes', [ $svg_upload, 'add_svg_mime' ] );
             add_filter(
                 'wp_check_filetype_and_ext',
-                [ $content_management, 'confirm_file_type_is_svg' ],
+                [ $svg_upload, 'confirm_file_type_is_svg' ],
                 10,
                 4
             );
-            add_filter( 'wp_handle_upload_prefilter', [ $content_management, 'sanitize_and_maybe_allow_svg_upload' ] );
+            add_filter( 'wp_handle_upload_prefilter', [ $svg_upload, 'sanitize_and_maybe_allow_svg_upload' ] );
             add_filter(
                 'wp_generate_attachment_metadata',
-                [ $content_management, 'generate_svg_metadata' ],
+                [ $svg_upload, 'generate_svg_metadata' ],
                 10,
                 3
             );
-            add_action( 'wp_ajax_svg_get_attachment_url', [ $content_management, 'get_svg_attachment_url' ] );
-            add_filter( 'wp_prepare_attachment_for_js', [ $content_management, 'get_svg_url_in_media_library' ] );
+            add_action( 'wp_ajax_svg_get_attachment_url', [ $svg_upload, 'get_svg_attachment_url' ] );
+            add_filter( 'wp_prepare_attachment_for_js', [ $svg_upload, 'get_svg_url_in_media_library' ] );
         }
         
-        // Enable External Permalinks
+        // External Permalinks
         if ( array_key_exists( 'enable_external_permalinks', $options ) && $options['enable_external_permalinks'] ) {
             
             if ( array_key_exists( 'enable_external_permalinks_for', $options ) && !empty($options['enable_external_permalinks_for']) ) {
+                $external_permalinks = new ASENHA\Classes\External_Permalinks();
                 add_action(
                     'add_meta_boxes',
-                    [ $content_management, 'add_external_permalink_meta_box' ],
+                    [ $external_permalinks, 'add_external_permalink_meta_box' ],
                     10,
                     2
                 );
-                add_action( 'save_post', [ $content_management, 'save_external_permalink' ] );
+                add_action( 'save_post', [ $external_permalinks, 'save_external_permalink' ] );
                 // Filter the permalink for use by get_permalink()
                 add_filter(
                     'page_link',
-                    [ $content_management, 'use_external_permalink_for_pages' ],
+                    [ $external_permalinks, 'use_external_permalink_for_pages' ],
                     20,
                     2
                 );
                 add_filter(
                     'post_link',
-                    [ $content_management, 'use_external_permalink_for_posts' ],
+                    [ $external_permalinks, 'use_external_permalink_for_posts' ],
                     20,
                     2
                 );
                 add_filter(
                     'post_type_link',
-                    [ $content_management, 'use_external_permalink_for_posts' ],
+                    [ $external_permalinks, 'use_external_permalink_for_posts' ],
                     20,
                     2
                 );
                 // Enable redirection to external permalink when page/post is opened directly via it's WP permalink
-                add_action( 'wp', [ $content_management, 'redirect_to_external_permalink' ] );
+                add_action( 'wp', [ $external_permalinks, 'redirect_to_external_permalink' ] );
             }
         
         }
         // Open All External Links in New Tab
+        
         if ( array_key_exists( 'external_links_new_tab', $options ) && $options['external_links_new_tab'] ) {
-            add_filter( 'the_content', [ $content_management, 'add_target_and_rel_atts_to_content_links' ] );
+            $open_external_links_in_new_tab = new ASENHA\Classes\Open_External_Links_In_New_Tab();
+            add_filter( 'the_content', [ $open_external_links_in_new_tab, 'add_target_and_rel_atts_to_content_links' ] );
         }
+        
         // Allow Custom Menu Links to Open in New Tab
         
         if ( array_key_exists( 'custom_nav_menu_items_new_tab', $options ) && $options['custom_nav_menu_items_new_tab'] ) {
+            $custom_nav_menu_items_in_new_tab = new ASENHA\Classes\Custom_Nav_Menu_Items_In_New_Tab();
             add_filter(
                 'wp_nav_menu_item_custom_fields',
-                [ $content_management, 'add_custom_nav_menu_open_in_new_tab_field' ],
+                [ $custom_nav_menu_items_in_new_tab, 'add_custom_nav_menu_open_in_new_tab_field' ],
                 10,
                 4
             );
             add_action(
                 'wp_update_nav_menu_item',
-                [ $content_management, 'save_custom_nav_menu_open_in_new_tab_status' ],
+                [ $custom_nav_menu_items_in_new_tab, 'save_custom_nav_menu_open_in_new_tab_status' ],
                 10,
                 3
             );
             add_action(
                 'nav_menu_link_attributes',
-                [ $content_management, 'add_attributes_to_custom_nav_menu_item' ],
+                [ $custom_nav_menu_items_in_new_tab, 'add_attributes_to_custom_nav_menu_item' ],
                 10,
                 3
             );
         }
         
-        // Enable Auto-Publishing of Posts with Missed Schedules
+        // Auto-Publishing of Posts with Missed Schedules
         
         if ( array_key_exists( 'enable_missed_schedule_posts_auto_publish', $options ) && $options['enable_missed_schedule_posts_auto_publish'] ) {
-            add_action( 'wp_head', [ $content_management, 'publish_missed_schedule_posts' ] );
-            add_action( 'admin_head', [ $content_management, 'publish_missed_schedule_posts' ] );
+            $auto_publish_posts_with_missed_schedule = new ASENHA\Classes\Auto_Publish_Posts_With_Missed_Schedule();
+            add_action( 'wp_head', [ $auto_publish_posts_with_missed_schedule, 'publish_missed_schedule_posts' ] );
+            add_action( 'admin_head', [ $auto_publish_posts_with_missed_schedule, 'publish_missed_schedule_posts' ] );
         }
         
         // =================================================================
         // ADMIN INTERFACE
         // =================================================================
-        // Instantiate object for Admin Interface features
-        $admin_interface = new ASENHA\Classes\Admin_Interface();
         // Hide or Modify Elements / Clean Up Admin Bar
         
         if ( array_key_exists( 'hide_modify_elements', $options ) && $options['hide_modify_elements'] ) {
+            $cleanup_admin_bar = new ASENHA\Classes\Cleanup_Admin_Bar();
             // Priority 5 to execute earlier than the normal 10. This is for removing default items.
-            add_filter( 'admin_bar_menu', [ $admin_interface, 'modify_admin_bar_menu' ], 5 );
+            add_filter( 'admin_bar_menu', [ $cleanup_admin_bar, 'modify_admin_bar_menu' ], 5 );
             if ( array_key_exists( 'hide_help_drawer', $options ) && $options['hide_help_drawer'] ) {
-                add_action( 'admin_head', [ $admin_interface, 'hide_help_drawer' ] );
+                add_action( 'admin_head', [ $cleanup_admin_bar, 'hide_help_drawer' ] );
             }
         }
         
         // Hide Admin Notices
         
         if ( array_key_exists( 'hide_admin_notices', $options ) && $options['hide_admin_notices'] ) {
-            add_action( 'admin_notices', [ $admin_interface, 'admin_notices_wrapper' ], 9 );
-            // add_action( 'all_admin_notices', [ $admin_interface, 'admin_notices_wrapper' ] );
-            add_action( 'admin_bar_menu', [ $admin_interface, 'admin_notices_menu' ] );
-            add_action( 'admin_print_styles', [ $admin_interface, 'admin_notices_menu_inline_css' ] );
+            $hide_admin_notices = new ASENHA\Classes\Hide_Admin_Notices();
+            add_action( 'admin_notices', [ $hide_admin_notices, 'admin_notices_wrapper' ], 9 );
+            // add_action( 'all_admin_notices', [ $hide_admin_notices, 'admin_notices_wrapper' ] );
+            add_action( 'admin_bar_menu', [ $hide_admin_notices, 'admin_notices_menu' ] );
+            add_action( 'admin_print_styles', [ $hide_admin_notices, 'admin_notices_menu_inline_css' ] );
         }
         
         // Disable Dashboard Widgets
+        
         if ( array_key_exists( 'disable_dashboard_widgets', $options ) && $options['disable_dashboard_widgets'] ) {
-            add_action( 'wp_dashboard_setup', [ $admin_interface, 'disable_dashboard_widgets' ], 99 );
+            $disable_dashboard_widgets = new ASENHA\Classes\Disable_Dashboard_Widgets();
+            add_action( 'wp_dashboard_setup', [ $disable_dashboard_widgets, 'disable_dashboard_widgets' ], 99 );
         }
+        
         // Hide Admin Bar
+        if ( array_key_exists( 'hide_admin_bar', $options ) && $options['hide_admin_bar'] ) {
+            $hide_admin_bar = new ASENHA\Classes\Hide_Admin_Bar();
+        }
         // On the frontend
         if ( array_key_exists( 'hide_admin_bar', $options ) && $options['hide_admin_bar'] && array_key_exists( 'hide_admin_bar_for', $options ) && isset( $options['hide_admin_bar_for'] ) ) {
-            add_filter( 'show_admin_bar', [ $admin_interface, 'hide_admin_bar_for_roles_on_frontend' ] );
+            add_filter( 'show_admin_bar', [ $hide_admin_bar, 'hide_admin_bar_for_roles_on_frontend' ] );
         }
         // Wider Admin Menu
+        
         if ( array_key_exists( 'wider_admin_menu', $options ) && $options['wider_admin_menu'] ) {
-            add_action( 'admin_head', [ $admin_interface, 'set_custom_menu_width' ], 99 );
+            $wider_admin_menu = new ASENHA\Classes\Wider_Admin_Menu();
+            add_action( 'admin_head', [ $wider_admin_menu, 'set_custom_menu_width' ], 99 );
         }
+        
         // Admin Menu Organizer
         
         if ( array_key_exists( 'customize_admin_menu', $options ) && $options['customize_admin_menu'] ) {
-            // add_action( 'wp_ajax_save_custom_menu_order', [ $admin_interface, 'save_custom_menu_order' ] );
-            // add_action( 'wp_ajax_save_hidden_menu_items', [ $admin_interface, 'save_hidden_menu_items' ] );
+            $admin_menu_organizer = new ASENHA\Classes\Admin_Menu_Organizer();
+            // add_action( 'wp_ajax_save_custom_menu_order', [ $admin_menu_organizer, 'save_custom_menu_order' ] );
+            // add_action( 'wp_ajax_save_hidden_menu_items', [ $admin_menu_organizer, 'save_hidden_menu_items' ] );
             
             if ( array_key_exists( 'custom_menu_order', $options ) ) {
                 add_filter( 'custom_menu_order', '__return_true' );
-                add_filter( 'menu_order', [ $admin_interface, 'render_custom_menu_order' ], PHP_INT_MAX );
+                add_filter( 'menu_order', [ $admin_menu_organizer, 'render_custom_menu_order' ], PHP_INT_MAX );
             }
             
             if ( array_key_exists( 'custom_menu_titles', $options ) ) {
-                add_action( 'admin_menu', [ $admin_interface, 'apply_custom_menu_item_titles' ], 999995 );
+                add_action( 'admin_menu', [ $admin_menu_organizer, 'apply_custom_menu_item_titles' ], 999995 );
             }
             
             if ( array_key_exists( 'custom_menu_hidden', $options ) || array_key_exists( 'custom_menu_always_hidden', $options ) ) {
-                add_action( 'admin_menu', [ $admin_interface, 'hide_menu_items' ], 999996 );
-                add_action( 'admin_menu', [ $admin_interface, 'add_hidden_menu_toggle' ], 999997 );
-                add_action( 'admin_enqueue_scripts', [ $admin_interface, 'enqueue_toggle_hidden_menu_script' ] );
+                add_action( 'admin_menu', [ $admin_menu_organizer, 'hide_menu_items' ], 999996 );
+                add_action( 'admin_menu', [ $admin_menu_organizer, 'add_hidden_menu_toggle' ], 999997 );
+                add_action( 'admin_enqueue_scripts', [ $admin_menu_organizer, 'enqueue_toggle_hidden_menu_script' ] );
             }
         
         }
@@ -324,49 +346,67 @@ class Admin_Site_Enhancements
         // Enhance List Tables
         
         if ( array_key_exists( 'enhance_list_tables', $options ) && $options['enhance_list_tables'] ) {
+            $enhance_list_tables = new ASENHA\Classes\Enhance_List_Tables();
             // Show Featured Image Column
             if ( array_key_exists( 'show_featured_image_column', $options ) && $options['show_featured_image_column'] ) {
-                add_action( 'admin_init', [ $admin_interface, 'show_featured_image_column' ] );
+                add_action( 'admin_init', [ $enhance_list_tables, 'show_featured_image_column' ] );
             }
             // Show Excerpt Column
             if ( array_key_exists( 'show_excerpt_column', $options ) && $options['show_excerpt_column'] ) {
-                add_action( 'admin_init', [ $admin_interface, 'show_excerpt_column' ] );
+                add_action( 'admin_init', [ $enhance_list_tables, 'show_excerpt_column' ] );
             }
             // Show ID Column
             if ( array_key_exists( 'show_id_column', $options ) && $options['show_id_column'] ) {
-                add_action( 'admin_init', [ $admin_interface, 'show_id_column' ] );
+                add_action( 'admin_init', [ $enhance_list_tables, 'show_id_column' ] );
             }
+            // Show File Size Column in Media Library
+            
+            if ( array_key_exists( 'show_file_size_column', $options ) && $options['show_file_size_column'] ) {
+                add_filter( 'manage_upload_columns', [ $enhance_list_tables, 'add_column_file_size' ] );
+                add_action(
+                    'manage_media_custom_column',
+                    [ $enhance_list_tables, 'display_file_size' ],
+                    10,
+                    2
+                );
+                add_action( 'admin_head', [ $enhance_list_tables, 'add_media_styles' ] );
+            }
+            
             // Show ID in Action Row
             if ( array_key_exists( 'show_id_in_action_row', $options ) && $options['show_id_in_action_row'] ) {
-                add_action( 'admin_init', [ $admin_interface, 'show_id_in_action_row' ] );
+                add_action( 'admin_init', [ $enhance_list_tables, 'show_id_in_action_row' ] );
             }
             // Show Custom Taxonomy Filters
             if ( array_key_exists( 'show_custom_taxonomy_filters', $options ) && $options['show_custom_taxonomy_filters'] ) {
-                add_action( 'restrict_manage_posts', [ $admin_interface, 'show_custom_taxonomy_filters' ] );
+                add_action( 'restrict_manage_posts', [ $enhance_list_tables, 'show_custom_taxonomy_filters' ] );
             }
             // Hide Comments Column
             if ( array_key_exists( 'hide_comments_column', $options ) && $options['hide_comments_column'] ) {
-                add_action( 'admin_init', [ $admin_interface, 'hide_comments_column' ] );
+                add_action( 'admin_init', [ $enhance_list_tables, 'hide_comments_column' ] );
             }
             // Hide Post Tags Column
             if ( array_key_exists( 'hide_post_tags_column', $options ) && $options['hide_post_tags_column'] ) {
-                add_action( 'admin_init', [ $admin_interface, 'hide_post_tags_column' ] );
+                add_action( 'admin_init', [ $enhance_list_tables, 'hide_post_tags_column' ] );
             }
         }
         
         // Display Active Plugins First
+        
         if ( array_key_exists( 'display_active_plugins_first', $options ) && $options['display_active_plugins_first'] ) {
-            add_action( 'admin_head-plugins.php', [ $admin_interface, 'show_active_plugins_first' ] );
+            $display_active_plugins_first = new ASENHA\Classes\Display_Active_Plugins_First();
+            add_action( 'admin_head-plugins.php', [ $display_active_plugins_first, 'show_active_plugins_first' ] );
         }
+        
         // Custom Admin Footer Text
         
         if ( array_key_exists( 'custom_admin_footer_text', $options ) && $options['custom_admin_footer_text'] ) {
+            $custom_admin_footer_text = new ASENHA\Classes\Custom_Admin_Footer_Text();
             // Update footer text
             
             if ( is_asenha() ) {
                 add_filter( 'admin_footer_text', 'asenha_footer_text', 20 );
             } else {
-                add_filter( 'admin_footer_text', [ $admin_interface, 'custom_admin_footer_text_left' ], 20 );
+                add_filter( 'admin_footer_text', [ $custom_admin_footer_text, 'custom_admin_footer_text_left' ], 20 );
             }
             
             // Update footer version text
@@ -374,7 +414,7 @@ class Admin_Site_Enhancements
             if ( is_asenha() ) {
                 add_filter( 'update_footer', 'asenha_footer_version_text', 20 );
             } else {
-                add_filter( 'update_footer', [ $admin_interface, 'custom_admin_footer_text_right' ], 20 );
+                add_filter( 'update_footer', [ $custom_admin_footer_text, 'custom_admin_footer_text_right' ], 20 );
             }
         
         } else {
@@ -391,33 +431,34 @@ class Admin_Site_Enhancements
         // =================================================================
         // LOG IN | LOG OUT
         // =================================================================
-        // Instantiate object for Log In Log Out features
-        $login_logout = new ASENHA\Classes\Login_Logout();
         // Change Login URL
         if ( array_key_exists( 'change_login_url', $options ) && $options['change_login_url'] ) {
             
             if ( array_key_exists( 'custom_login_slug', $options ) && !empty($options['custom_login_slug']) ) {
-                add_action( 'init', [ $login_logout, 'redirect_on_custom_login_url' ] );
-                // add_filter( 'login_url', [ $login_logout, 'customize_login_url' ] );
-                add_filter( 'lostpassword_url', [ $login_logout, 'customize_lost_password_url' ] );
-                add_filter( 'register_url', [ $login_logout, 'customize_register_url' ] );
-                add_action( 'wp_loaded', [ $login_logout, 'redirect_on_default_login_urls' ] );
-                add_action( 'wp_login_failed', [ $login_logout, 'redirect_to_custom_login_url_on_login_fail' ] );
-                add_filter( 'login_message', [ $login_logout, 'add_failed_login_message' ] );
-                add_action( 'wp_logout', [ $login_logout, 'redirect_to_custom_login_url_on_logout_success' ] );
+                $change_login_url = new ASENHA\Classes\Change_Login_URL();
+                add_action( 'init', [ $change_login_url, 'redirect_on_custom_login_url' ] );
+                // add_filter( 'login_url', [ $change_login_url, 'customize_login_url' ] );
+                add_filter( 'lostpassword_url', [ $change_login_url, 'customize_lost_password_url' ] );
+                add_filter( 'register_url', [ $change_login_url, 'customize_register_url' ] );
+                add_action( 'wp_loaded', [ $change_login_url, 'redirect_on_default_login_urls' ] );
+                add_action( 'wp_login_failed', [ $change_login_url, 'redirect_to_custom_login_url_on_login_fail' ] );
+                add_filter( 'login_message', [ $change_login_url, 'add_failed_login_message' ] );
+                add_action( 'wp_logout', [ $change_login_url, 'redirect_to_custom_login_url_on_logout_success' ] );
             }
         
         }
         // Login ID Type
         if ( array_key_exists( 'login_id_type_restriction', $options ) && $options['login_id_type_restriction'] ) {
+            
             if ( array_key_exists( 'login_id_type', $options ) && !empty($options['login_id_type']) ) {
+                $login_id_type = new ASENHA\Classes\Login_ID_Type();
                 switch ( $options['login_id_type'] ) {
                     case 'username':
                         remove_filter( 'authenticate', 'wp_authenticate_email_password', 20 );
-                        add_filter( 'login_form_defaults', [ $login_logout, 'change_login_form_defaults' ] );
+                        add_filter( 'login_form_defaults', [ $login_id_type, 'change_login_form_defaults' ] );
                         add_filter(
                             'gettext',
-                            [ $login_logout, 'gettext_login_id_username' ],
+                            [ $login_id_type, 'gettext_login_id_username' ],
                             20,
                             3
                         );
@@ -425,60 +466,67 @@ class Admin_Site_Enhancements
                     case 'email':
                         add_filter(
                             'authenticate',
-                            [ $login_logout, 'authenticate_email' ],
+                            [ $login_id_type, 'authenticate_email' ],
                             20,
                             2
                         );
                         add_filter(
                             'gettext',
-                            [ $login_logout, 'gettext_login_id_email' ],
+                            [ $login_id_type, 'gettext_login_id_email' ],
                             20,
                             3
                         );
                         break;
                 }
             }
+        
         }
         // Use Site Identity on the Login Page
         
         if ( array_key_exists( 'site_identity_on_login', $options ) && $options['site_identity_on_login'] ) {
-            add_action( 'login_head', [ $login_logout, 'use_site_icon_on_login' ] );
-            add_filter( 'login_headerurl', [ $login_logout, 'use_site_url_on_login' ] );
+            $site_identity_on_login_page = new ASENHA\Classes\Site_Identity_On_Login_Page();
+            add_action( 'login_head', [ $site_identity_on_login_page, 'use_site_icon_on_login' ] );
+            add_filter( 'login_headerurl', [ $site_identity_on_login_page, 'use_site_url_on_login' ] );
         }
         
-        // Enable Login Logout Menu
+        // Login Logout Menu
         
         if ( array_key_exists( 'enable_login_logout_menu', $options ) && $options['enable_login_logout_menu'] ) {
-            add_action( 'admin_head-nav-menus.php', [ $login_logout, 'add_login_logout_metabox' ] );
-            add_filter( 'wp_setup_nav_menu_item', [ $login_logout, 'set_login_logout_menu_item_dynamic_url' ] );
-            add_filter( 'wp_nav_menu_objects', [ $login_logout, 'maybe_remove_login_or_logout_menu_item' ] );
+            $login_logout_menu = new ASENHA\Classes\Login_Logout_Menu();
+            add_action( 'admin_head-nav-menus.php', [ $login_logout_menu, 'add_login_logout_metabox' ] );
+            add_filter( 'wp_setup_nav_menu_item', [ $login_logout_menu, 'set_login_logout_menu_item_dynamic_url' ] );
+            add_filter( 'wp_nav_menu_objects', [ $login_logout_menu, 'maybe_remove_login_or_logout_menu_item' ] );
         }
         
         // Enable Last Login Column
         
         if ( array_key_exists( 'enable_last_login_column', $options ) && $options['enable_last_login_column'] ) {
-            add_action( 'wp_login', [ $login_logout, 'log_login_datetime' ] );
-            add_filter( 'manage_users_columns', [ $login_logout, 'add_last_login_column' ] );
+            $last_login_column = new ASENHA\Classes\Last_Login_Column();
+            add_action( 'wp_login', [ $last_login_column, 'log_login_datetime' ] );
+            add_filter( 'manage_users_columns', [ $last_login_column, 'add_last_login_column' ] );
             add_filter(
                 'manage_users_custom_column',
-                [ $login_logout, 'show_last_login_info' ],
+                [ $last_login_column, 'show_last_login_info' ],
                 10,
                 3
             );
-            add_action( 'admin_print_styles-users.php', [ $login_logout, 'add_column_style' ] );
+            add_action( 'admin_print_styles-users.php', [ $last_login_column, 'add_column_style' ] );
         }
         
         // Redirect After Login
         if ( array_key_exists( 'redirect_after_login', $options ) && $options['redirect_after_login'] ) {
             if ( array_key_exists( 'redirect_after_login_to_slug', $options ) && !empty($options['redirect_after_login_to_slug']) ) {
+                
                 if ( array_key_exists( 'redirect_after_login_for', $options ) && !empty($options['redirect_after_login_for']) ) {
+                    $redirect_after_login = new ASENHA\Classes\Redirect_After_Login();
                     add_filter(
                         'wp_login',
-                        [ $login_logout, 'redirect_for_roles_after_login' ],
+                        [ $redirect_after_login, 'redirect_for_roles_after_login' ],
                         5,
                         2
                     );
                 }
+            
             }
         }
         // Redirect After Logout
@@ -486,9 +534,10 @@ class Admin_Site_Enhancements
             if ( array_key_exists( 'redirect_after_logout_to_slug', $options ) && !empty($options['redirect_after_logout_to_slug']) ) {
                 
                 if ( array_key_exists( 'redirect_after_logout_for', $options ) && !empty($options['redirect_after_logout_for']) ) {
+                    $redirect_after_logout = new ASENHA\Classes\Redirect_After_Logout();
                     add_action(
                         'wp_logout',
-                        [ $login_logout, 'redirect_after_logout' ],
+                        [ $redirect_after_logout, 'redirect_after_logout' ],
                         5,
                         1
                     );
@@ -497,140 +546,137 @@ class Admin_Site_Enhancements
             
             }
         }
-        // =================================================================
-        // CUSTOM CODE
-        // =================================================================
-        // Instantiate object for Custom Code features
-        $custom_code = new ASENHA\Classes\Custom_Code();
         // Enable Custom Admin / Frontend CSS
+        if ( array_key_exists( 'enable_custom_admin_css', $options ) && $options['enable_custom_admin_css'] || array_key_exists( 'enable_custom_frontend_css', $options ) && $options['enable_custom_frontend_css'] ) {
+            $custom_css = new ASENHA\Classes\Custom_Css();
+        }
         if ( array_key_exists( 'enable_custom_admin_css', $options ) && $options['enable_custom_admin_css'] ) {
-            // add_filter( 'admin_enqueue_scripts', [ $custom_code, 'custom_admin_css' ] );
-            add_filter( 'admin_print_footer_scripts', [ $custom_code, 'custom_admin_css' ] );
+            // add_filter( 'admin_enqueue_scripts', [ $custom_css, 'custom_admin_css' ] );
+            add_filter( 'admin_print_footer_scripts', [ $custom_css, 'custom_admin_css' ] );
         }
         if ( array_key_exists( 'enable_custom_frontend_css', $options ) && $options['enable_custom_frontend_css'] ) {
-            add_filter( 'wp_head', [ $custom_code, 'custom_frontend_css' ] );
-        }
-        // Custom Body Class
-        if ( array_key_exists( 'enable_custom_body_class', $options ) && $options['enable_custom_body_class'] ) {
-            
-            if ( array_key_exists( 'enable_custom_body_class_for', $options ) && !empty($options['enable_custom_body_class_for']) ) {
-                add_action(
-                    'add_meta_boxes',
-                    [ $custom_code, 'add_custom_body_class_meta_box' ],
-                    10,
-                    2
-                );
-                add_action( 'save_post', [ $custom_code, 'save_custom_body_class' ], 99 );
-                add_filter( 'body_class', [ $custom_code, 'append_custom_body_class' ], 99 );
-            }
-        
-        }
-        // Manage ads.txt and app-ads.txt
-        if ( array_key_exists( 'manage_ads_appads_txt', $options ) && $options['manage_ads_appads_txt'] ) {
-            add_action( 'init', [ $custom_code, 'show_ads_appads_txt_content' ] );
-        }
-        // Manage robots.txt
-        if ( array_key_exists( 'manage_robots_txt', $options ) && $options['manage_robots_txt'] ) {
-            add_filter(
-                'robots_txt',
-                [ $custom_code, 'maybe_show_custom_robots_txt_content' ],
-                10,
-                2
-            );
+            add_filter( 'wp_head', [ $custom_css, 'custom_frontend_css' ] );
         }
         // Insert <head>, <body> and <footer> code
         
         if ( array_key_exists( 'insert_head_body_footer_code', $options ) && $options['insert_head_body_footer_code'] ) {
+            $insert_code = new ASENHA\Classes\Insert_Head_Body_Footer_Code();
             
             if ( isset( $options['head_code_priority'] ) ) {
-                add_action( 'wp_head', [ $custom_code, 'insert_head_code' ], $options['head_code_priority'] );
+                add_action( 'wp_head', [ $insert_code, 'insert_head_code' ], $options['head_code_priority'] );
             } else {
-                add_action( 'wp_head', [ $custom_code, 'insert_head_code' ], 10 );
+                add_action( 'wp_head', [ $insert_code, 'insert_head_code' ], 10 );
             }
             
             if ( function_exists( 'wp_body_open' ) && version_compare( get_bloginfo( 'version' ), '5.2', '>=' ) ) {
                 
                 if ( isset( $options['body_code_priority'] ) ) {
-                    add_action( 'wp_body_open', [ $custom_code, 'insert_body_code' ], $options['body_code_priority'] );
+                    add_action( 'wp_body_open', [ $insert_code, 'insert_body_code' ], $options['body_code_priority'] );
                 } else {
-                    add_action( 'wp_body_open', [ $custom_code, 'insert_body_code' ], 10 );
+                    add_action( 'wp_body_open', [ $insert_code, 'insert_body_code' ], 10 );
                 }
             
             }
             
             if ( isset( $options['footer_code_priority'] ) ) {
-                add_action( 'wp_footer', [ $custom_code, 'insert_footer_code' ], $options['footer_code_priority'] );
+                add_action( 'wp_footer', [ $insert_code, 'insert_footer_code' ], $options['footer_code_priority'] );
             } else {
-                add_action( 'wp_footer', [ $custom_code, 'insert_footer_code' ], 10 );
+                add_action( 'wp_footer', [ $insert_code, 'insert_footer_code' ], 10 );
             }
         
+        }
+        
+        // Custom Body Class
+        if ( array_key_exists( 'enable_custom_body_class', $options ) && $options['enable_custom_body_class'] ) {
+            
+            if ( array_key_exists( 'enable_custom_body_class_for', $options ) && !empty($options['enable_custom_body_class_for']) ) {
+                $custom_body_class = new ASENHA\Classes\Custom_Body_Class();
+                add_action(
+                    'add_meta_boxes',
+                    [ $custom_body_class, 'add_custom_body_class_meta_box' ],
+                    10,
+                    2
+                );
+                add_action( 'save_post', [ $custom_body_class, 'save_custom_body_class' ], 99 );
+                add_filter( 'body_class', [ $custom_body_class, 'append_custom_body_class' ], 99 );
+            }
+        
+        }
+        // Manage ads.txt and app-ads.txt
+        
+        if ( array_key_exists( 'manage_ads_appads_txt', $options ) && $options['manage_ads_appads_txt'] ) {
+            $manage_ads_appads_txt = new ASENHA\Classes\Manage_Ads_Appads_Txt();
+            add_action( 'init', [ $manage_ads_appads_txt, 'show_ads_appads_txt_content' ] );
+        }
+        
+        // Manage robots.txt
+        
+        if ( array_key_exists( 'manage_robots_txt', $options ) && $options['manage_robots_txt'] ) {
+            $manage_robots_txt = new ASENHA\Classes\Manage_Robots_Txt();
+            add_filter(
+                'robots_txt',
+                [ $manage_robots_txt, 'maybe_show_custom_robots_txt_content' ],
+                10,
+                2
+            );
         }
         
         // =================================================================
         // DISABLE COMPONENTS
         // =================================================================
-        // Instantiate object for Disable Components features
-        $disable_components = new ASENHA\Classes\Disable_Components();
         // Disable Gutenberg
         if ( array_key_exists( 'disable_gutenberg', $options ) && $options['disable_gutenberg'] ) {
             
             if ( array_key_exists( 'disable_gutenberg_for', $options ) && !empty($options['disable_gutenberg_for']) ) {
-                add_action( 'admin_init', [ $disable_components, 'disable_gutenberg_for_post_types_admin' ] );
+                $disable_gutenberg = new ASENHA\Classes\Disable_Gutenberg();
+                add_action( 'admin_init', [ $disable_gutenberg, 'disable_gutenberg_for_post_types_admin' ] );
                 if ( array_key_exists( 'disable_gutenberg_frontend_styles', $options ) && $options['disable_gutenberg_frontend_styles'] ) {
-                    add_action( 'wp_enqueue_scripts', [ $disable_components, 'disable_gutenberg_for_post_types_frontend' ], 100 );
+                    add_action( 'wp_enqueue_scripts', [ $disable_gutenberg, 'disable_gutenberg_for_post_types_frontend' ], 100 );
                 }
             }
         
         }
-        // Disable Block-Based Widgets Screen
-        
-        if ( array_key_exists( 'disable_block_widgets', $options ) && $options['disable_block_widgets'] ) {
-            // Disables the block editor from managing widgets in the Gutenberg plugin.
-            add_filter( 'gutenberg_use_widgets_block_editor', '__return_false' );
-            // Disables the block editor from managing widgets.
-            add_filter( 'use_widgets_block_editor', '__return_false' );
-        }
-        
         // Disable Comments
         if ( array_key_exists( 'disable_comments', $options ) && $options['disable_comments'] ) {
             
             if ( array_key_exists( 'disable_comments_for', $options ) && !empty($options['disable_comments_for']) ) {
-                add_action( 'admin_init', [ $disable_components, 'disable_comments_for_post_types_edit' ] );
+                $disable_comments = new ASENHA\Classes\Disable_Comments();
+                add_action( 'admin_init', [ $disable_comments, 'disable_comments_for_post_types_edit' ] );
                 // also work with 'init', 'admin_init', 'wp_loaded', 'do_meta_boxes' hooks
-                add_action( 'template_redirect', [ $disable_components, 'show_blank_comment_template' ] );
-                add_action( 'wp_loaded', [ $disable_components, 'hide_existing_comments_on_frontend' ] );
+                add_action( 'template_redirect', [ $disable_comments, 'show_blank_comment_template' ] );
+                add_action( 'wp_loaded', [ $disable_comments, 'hide_existing_comments_on_frontend' ] );
                 add_filter(
                     'comments_array',
-                    [ $disable_components, 'maybe_return_empty_comments' ],
+                    [ $disable_comments, 'maybe_return_empty_comments' ],
                     20,
                     2
                 );
                 add_filter(
                     'comments_open',
-                    [ $disable_components, 'close_comments_pings_on_frontend' ],
+                    [ $disable_comments, 'close_comments_pings_on_frontend' ],
                     20,
                     2
                 );
                 add_filter(
                     'pings_open',
-                    [ $disable_components, 'close_comments_pings_on_frontend' ],
+                    [ $disable_comments, 'close_comments_pings_on_frontend' ],
                     20,
                     2
                 );
                 add_filter(
                     'get_comments_number',
-                    [ $disable_components, 'return_zero_comments_count' ],
+                    [ $disable_comments, 'return_zero_comments_count' ],
                     20,
                     2
                 );
                 // Disable commenting via XML-RPC
                 add_filter( 'xmlrpc_allow_anonymous_comments', '__return_false' );
-                add_filter( 'xmlrpc_methods', [ $disable_components, 'disable_xmlrpc_comments' ] );
+                add_filter( 'xmlrpc_methods', [ $disable_comments, 'disable_xmlrpc_comments' ] );
                 // Disable commenting via REST API
-                add_filter( 'rest_endpoints', [ $disable_components, 'disable_rest_api_comments_endpoints' ] );
+                add_filter( 'rest_endpoints', [ $disable_comments, 'disable_rest_api_comments_endpoints' ] );
                 add_filter(
                     'rest_pre_insert_comment',
-                    [ $disable_components, 'return_blank_comment' ],
+                    [ $disable_comments, 'return_blank_comment' ],
                     10,
                     2
                 );
@@ -642,7 +688,8 @@ class Admin_Site_Enhancements
         if ( array_key_exists( 'disable_rest_api', $options ) && $options['disable_rest_api'] ) {
             
             if ( version_compare( get_bloginfo( 'version' ), '4.7', '>=' ) ) {
-                add_filter( 'rest_authentication_errors', [ $disable_components, 'disable_rest_api' ] );
+                $disable_rest_api = new ASENHA\Classes\Disable_REST_API();
+                add_filter( 'rest_authentication_errors', [ $disable_rest_api, 'disable_rest_api' ] );
             } else {
                 // REST API 1.x
                 add_filter( 'json_enabled', '__return_false' );
@@ -696,9 +743,10 @@ class Admin_Site_Enhancements
                 10,
                 1
             );
+            $disable_feeds = new ASENHA\Classes\Disable_Feeds();
             add_action(
                 'template_redirect',
-                [ $disable_components, 'redirect_feed_to_403' ],
+                [ $disable_feeds, 'redirect_feed_to_403' ],
                 10,
                 1
             );
@@ -707,18 +755,19 @@ class Admin_Site_Enhancements
         // Disable All Updates
         
         if ( array_key_exists( 'disable_all_updates', $options ) && $options['disable_all_updates'] ) {
-            add_action( 'admin_init', [ $disable_components, 'disable_update_notices_version_checks' ] );
+            $disable_updates = new ASENHA\Classes\Disable_Updates();
+            add_action( 'admin_init', [ $disable_updates, 'disable_update_notices_version_checks' ] );
             // Disable core update
-            add_filter( 'pre_transient_update_core', [ $disable_components, 'override_version_check_info' ] );
-            add_filter( 'pre_site_transient_update_core', [ $disable_components, 'override_version_check_info' ] );
+            add_filter( 'pre_transient_update_core', [ $disable_updates, 'override_version_check_info' ] );
+            add_filter( 'pre_site_transient_update_core', [ $disable_updates, 'override_version_check_info' ] );
             // Disable theme updates
-            add_filter( 'pre_transient_update_themes', [ $disable_components, 'override_version_check_info' ] );
-            add_filter( 'pre_site_transient_update_themes', [ $disable_components, 'override_version_check_info' ] );
-            add_action( 'pre_set_site_transient_update_themes', [ $disable_components, 'override_version_check_info' ], 20 );
+            add_filter( 'pre_transient_update_themes', [ $disable_updates, 'override_version_check_info' ] );
+            add_filter( 'pre_site_transient_update_themes', [ $disable_updates, 'override_version_check_info' ] );
+            add_action( 'pre_set_site_transient_update_themes', [ $disable_updates, 'override_version_check_info' ], 20 );
             // Disable plugin updates
-            add_filter( 'pre_transient_update_plugins', [ $disable_components, 'override_version_check_info' ] );
-            add_filter( 'pre_site_transient_update_plugins', [ $disable_components, 'override_version_check_info' ] );
-            add_action( 'pre_set_site_transient_update_plugins', [ $disable_components, 'override_version_check_info' ], 20 );
+            add_filter( 'pre_transient_update_plugins', [ $disable_updates, 'override_version_check_info' ] );
+            add_filter( 'pre_site_transient_update_plugins', [ $disable_updates, 'override_version_check_info' ] );
+            add_action( 'pre_set_site_transient_update_plugins', [ $disable_updates, 'override_version_check_info' ], 20 );
             // Disable auto updates
             add_filter( 'automatic_updater_disabled', '__return_true' );
             if ( !defined( 'AUTOMATIC_UPDATER_DISABLED' ) ) {
@@ -741,19 +790,20 @@ class Admin_Site_Enhancements
             add_filter( 'send_core_update_notification_email', '__return_false' );
             add_filter( 'automatic_updates_send_debug_email', '__return_false' );
             // Remove Dashboard >> Updates menu
-            add_action( 'admin_menu', [ $disable_components, 'remove_updates_menu' ] );
+            add_action( 'admin_menu', [ $disable_updates, 'remove_updates_menu' ] );
         }
         
         // Disable Smaller Components
         
         if ( array_key_exists( 'disable_smaller_components', $options ) && $options['disable_smaller_components'] ) {
+            $disable_smaller_components = new ASENHA\Classes\Disable_Smaller_Components();
             if ( array_key_exists( 'disable_head_generator_tag', $options ) && $options['disable_head_generator_tag'] ) {
                 remove_action( 'wp_head', 'wp_generator' );
             }
             
             if ( array_key_exists( 'disable_resource_version_number', $options ) && $options['disable_resource_version_number'] ) {
-                add_filter( 'style_loader_src', [ $disable_components, 'remove_resource_version_number' ], PHP_INT_MAX );
-                add_filter( 'script_loader_src', [ $disable_components, 'remove_resource_version_number' ], PHP_INT_MAX );
+                add_filter( 'style_loader_src', [ $disable_smaller_components, 'remove_resource_version_number' ], PHP_INT_MAX );
+                add_filter( 'script_loader_src', [ $disable_smaller_components, 'remove_resource_version_number' ], PHP_INT_MAX );
             }
             
             if ( array_key_exists( 'disable_head_wlwmanifest_tag', $options ) && $options['disable_head_wlwmanifest_tag'] ) {
@@ -774,166 +824,186 @@ class Admin_Site_Enhancements
             }
             
             if ( array_key_exists( 'disable_frontend_dashicons', $options ) && $options['disable_frontend_dashicons'] ) {
-                add_action( 'init', [ $disable_components, 'disable_dashicons_public_assets' ] );
+                add_action( 'init', [ $disable_smaller_components, 'disable_dashicons_public_assets' ] );
             }
             if ( array_key_exists( 'disable_emoji_support', $options ) && $options['disable_emoji_support'] ) {
-                add_action( 'init', [ $disable_components, 'disable_emoji_support' ] );
+                add_action( 'init', [ $disable_smaller_components, 'disable_emoji_support' ] );
             }
             if ( array_key_exists( 'disable_jquery_migrate', $options ) && $options['disable_jquery_migrate'] ) {
-                add_action( 'wp_default_scripts', [ $disable_components, 'disable_jquery_migrate' ] );
+                add_action( 'wp_default_scripts', [ $disable_smaller_components, 'disable_jquery_migrate' ] );
             }
+            
+            if ( array_key_exists( 'disable_block_widgets', $options ) && $options['disable_block_widgets'] ) {
+                // Disables the block editor from managing widgets in the Gutenberg plugin.
+                add_filter( 'gutenberg_use_widgets_block_editor', '__return_false' );
+                // Disables the block editor from managing widgets.
+                add_filter( 'use_widgets_block_editor', '__return_false' );
+            }
+        
         }
         
         // =================================================================
         // SECURITY
         // =================================================================
-        // Instantiate object for Security features
-        $security = new ASENHA\Classes\Security();
         // Limit Login Attempts
         
         if ( array_key_exists( 'limit_login_attempts', $options ) && $options['limit_login_attempts'] ) {
+            $limit_login_attempts = new ASENHA\Classes\Limit_Login_Attempts();
             add_filter(
                 'authenticate',
-                [ $security, 'maybe_allow_login' ],
+                [ $limit_login_attempts, 'maybe_allow_login' ],
                 999,
                 3
             );
             // Very low priority so it is processed last
             add_action(
                 'wp_login_errors',
-                [ $security, 'login_error_handler' ],
+                [ $limit_login_attempts, 'login_error_handler' ],
                 999,
                 2
             );
-            add_action( 'login_enqueue_scripts', [ $security, 'maybe_hide_login_form' ] );
-            add_filter( 'login_message', [ $security, 'add_failed_login_message' ] );
-            add_action( 'wp_login_failed', [ $security, 'log_failed_login' ], 5 );
+            add_action( 'login_enqueue_scripts', [ $limit_login_attempts, 'maybe_hide_login_form' ] );
+            add_filter( 'login_message', [ $limit_login_attempts, 'add_failed_login_message' ] );
+            add_action( 'wp_login_failed', [ $limit_login_attempts, 'log_failed_login' ], 5 );
             // Higher priority than one in Change Login URL
-            add_action( 'wp_login', [ $security, 'clear_failed_login_log' ] );
+            add_action( 'wp_login', [ $limit_login_attempts, 'clear_failed_login_log' ] );
         }
         
         // Obfuscate Author Slugs
         
         if ( array_key_exists( 'obfuscate_author_slugs', $options ) && $options['obfuscate_author_slugs'] ) {
-            add_action( 'pre_get_posts', [ $security, 'alter_author_query' ], 10 );
+            $obfuscate_author_slugs = new ASENHA\Classes\Obfuscate_Author_Slugs();
+            add_action( 'pre_get_posts', [ $obfuscate_author_slugs, 'alter_author_query' ], 10 );
             add_filter(
                 'author_link',
-                [ $security, 'alter_author_link' ],
+                [ $obfuscate_author_slugs, 'alter_author_link' ],
                 10,
                 3
             );
             add_filter(
                 'rest_prepare_user',
-                [ $security, 'alter_json_users' ],
+                [ $obfuscate_author_slugs, 'alter_json_users' ],
                 10,
                 3
             );
         }
         
-        // Obfuscate Email Address
+        // Email Address Obfuscator
         
         if ( array_key_exists( 'obfuscate_email_address', $options ) && $options['obfuscate_email_address'] ) {
-            add_shortcode( 'obfuscate', [ $security, 'obfuscate_string' ] );
+            $email_address_obfuscator = new ASENHA\Classes\Email_Address_Obfuscator();
+            add_shortcode( 'obfuscate', [ $email_address_obfuscator, 'obfuscate_string' ] );
             add_filter( 'widget_text', 'shortcode_unautop' );
             add_filter( 'widget_text', 'do_shortcode' );
             if ( array_key_exists( 'obfuscate_email_address_in_content', $options ) && $options['obfuscate_email_address_in_content'] ) {
-                add_filter( 'the_content', [ $security, 'obfuscate_emails_in_content__premium_only' ] );
+                add_filter( 'the_content', [ $email_address_obfuscator, 'obfuscate_emails_in_content__premium_only' ] );
             }
         }
         
         // Disable XML-RPC
         
         if ( array_key_exists( 'disable_xmlrpc', $options ) && $options['disable_xmlrpc'] ) {
+            $disable_xml_rpc = new ASENHA\Classes\Disable_XML_RPC();
             add_filter( 'xmlrpc_enabled', '__return_false' );
-            add_action( 'wp', [ $security, 'remove_xmlrpc_link' ], 11 );
-            add_filter( 'wp_xmlrpc_server_class', [ $security, 'maybe_disable_xmlrpc' ] );
+            add_action( 'wp', [ $disable_xml_rpc, 'remove_xmlrpc_link' ], 11 );
+            add_filter( 'wp_xmlrpc_server_class', [ $disable_xml_rpc, 'maybe_disable_xmlrpc' ] );
         }
         
         // =================================================================
         // OPTIMIZATIONS
         // =================================================================
-        // Instantiate object for Optimizations features
-        $optimizations = new ASENHA\Classes\Optimizations();
         // Image Upload Control
+        
         if ( array_key_exists( 'image_upload_control', $options ) && $options['image_upload_control'] ) {
-            add_filter( 'wp_handle_upload', [ $optimizations, 'image_upload_handler' ] );
+            $image_upload_control = new ASENHA\Classes\Image_Upload_Control();
+            add_filter( 'wp_handle_upload', [ $image_upload_control, 'image_upload_handler' ] );
         }
+        
         // Revisions Control
+        
         if ( array_key_exists( 'enable_revisions_control', $options ) && $options['enable_revisions_control'] ) {
+            $revisions_control = new ASENHA\Classes\Revisions_Control();
             add_filter(
                 'wp_revisions_to_keep',
-                [ $optimizations, 'limit_revisions_to_max_number' ],
+                [ $revisions_control, 'limit_revisions_to_max_number' ],
                 10,
                 2
             );
         }
+        
         // Heartbeat Control
         
         if ( array_key_exists( 'enable_heartbeat_control', $options ) && $options['enable_heartbeat_control'] ) {
+            $heartbeat_control = new ASENHA\Classes\Heartbeat_Control();
             add_filter(
                 'heartbeat_settings',
-                [ $optimizations, 'maybe_modify_heartbeat_frequency' ],
+                [ $heartbeat_control, 'maybe_modify_heartbeat_frequency' ],
                 99,
                 2
             );
-            add_action( 'admin_enqueue_scripts', [ $optimizations, 'maybe_disable_heartbeat' ], 99 );
-            add_action( 'wp_enqueue_scripts', [ $optimizations, 'maybe_disable_heartbeat' ], 99 );
+            add_action( 'admin_enqueue_scripts', [ $heartbeat_control, 'maybe_disable_heartbeat' ], 99 );
+            add_action( 'wp_enqueue_scripts', [ $heartbeat_control, 'maybe_disable_heartbeat' ], 99 );
         }
         
         // =================================================================
         // UTILITIES
         // =================================================================
-        // Instantiate object for Utilities features
-        $utilities = new ASENHA\Classes\Utilities();
         // SMTP Email Delivery
         
         if ( array_key_exists( 'smtp_email_delivery', $options ) && $options['smtp_email_delivery'] ) {
-            add_action( 'phpmailer_init', [ $utilities, 'deliver_email_via_smtp' ], 99999 );
-            add_action( 'wp_ajax_send_test_email', [ $utilities, 'send_test_email' ] );
+            $email_delivery = new ASENHA\Classes\Email_Delivery();
+            add_action( 'phpmailer_init', [ $email_delivery, 'deliver_email_via_smtp' ], 99999 );
+            add_action( 'wp_ajax_send_test_email', [ $email_delivery, 'send_test_email' ] );
         }
         
         // Multiple User Roles
         
         if ( array_key_exists( 'multiple_user_roles', $options ) && $options['multiple_user_roles'] ) {
+            $multiple_user_roles = new ASENHA\Classes\Multiple_User_Roles();
             // Show roles checkboxes
-            add_action( 'show_user_profile', [ $utilities, 'add_multiple_roles_ui' ] );
+            add_action( 'show_user_profile', [ $multiple_user_roles, 'add_multiple_roles_ui' ] );
             // for when user edits their own profile
-            add_action( 'edit_user_profile', [ $utilities, 'add_multiple_roles_ui' ] );
+            add_action( 'edit_user_profile', [ $multiple_user_roles, 'add_multiple_roles_ui' ] );
             // for when editing other user's profile
-            add_action( 'user_new_form', [ $utilities, 'add_multiple_roles_ui' ] );
+            add_action( 'user_new_form', [ $multiple_user_roles, 'add_multiple_roles_ui' ] );
             // new user creation
             // Save roles selections
-            add_action( 'personal_options_update', [ $utilities, 'save_roles_assignment' ] );
+            add_action( 'personal_options_update', [ $multiple_user_roles, 'save_roles_assignment' ] );
             // for when user edits their own profile
-            add_action( 'edit_user_profile_update', [ $utilities, 'save_roles_assignment' ] );
+            add_action( 'edit_user_profile_update', [ $multiple_user_roles, 'save_roles_assignment' ] );
             // for when editing other user's profile
-            add_action( 'user_register', [ $utilities, 'save_roles_assignment' ] );
+            add_action( 'user_register', [ $multiple_user_roles, 'save_roles_assignment' ] );
             // new user creation
         }
         
         // Image Sizes Panel
+        
         if ( array_key_exists( 'image_sizes_panel', $options ) && $options['image_sizes_panel'] ) {
-            add_action( 'add_meta_boxes', array( $utilities, 'add_image_sizes_meta_box' ) );
+            $image_sizes_panel = new ASENHA\Classes\Image_Sizes_Panel();
+            add_action( 'add_meta_boxes', array( $image_sizes_panel, 'add_image_sizes_meta_box' ) );
         }
+        
         // View Admin as Role
         
         if ( array_key_exists( 'view_admin_as_role', $options ) && $options['view_admin_as_role'] ) {
-            add_action( 'admin_bar_menu', [ $utilities, 'view_admin_as_admin_bar_menu' ], 8 );
+            $view_admin_as_role = new ASENHA\Classes\View_Admin_As_Role();
+            add_action( 'admin_bar_menu', [ $view_admin_as_role, 'view_admin_as_admin_bar_menu' ], 8 );
             // Priority 8 so it is next to username section
-            add_action( 'init', [ $utilities, 'role_switcher_to_view_admin_as' ] );
-            // add_action( 'wp_die_handler', [ $utilities, 'custom_error_page_on_switch_failure' ] );
-            add_action( 'admin_footer', [ $utilities, 'add_floating_reset_button' ] );
+            add_action( 'init', [ $view_admin_as_role, 'role_switcher_to_view_admin_as' ] );
+            // add_action( 'wp_die_handler', [ $view_admin_as_role, 'custom_error_page_on_switch_failure' ] );
+            add_action( 'admin_footer', [ $view_admin_as_role, 'add_floating_reset_button' ] );
         }
         
         // Password Protection
         
         if ( array_key_exists( 'enable_password_protection', $options ) && $options['enable_password_protection'] ) {
-            add_action( 'plugins_loaded', [ $utilities, 'show_password_protection_admin_bar_icon' ] );
-            add_action( 'init', [ $utilities, 'maybe_disable_page_caching' ], 1 );
-            add_action( 'template_redirect', [ $utilities, 'maybe_show_login_form' ], 0 );
+            $password_protection = new ASENHA\Classes\Password_Protection();
+            add_action( 'plugins_loaded', [ $password_protection, 'show_password_protection_admin_bar_icon' ] );
+            add_action( 'init', [ $password_protection, 'maybe_disable_page_caching' ], 1 );
+            add_action( 'template_redirect', [ $password_protection, 'maybe_show_login_form' ], 0 );
             // load early
-            add_action( 'init', [ $utilities, 'maybe_process_login' ], 1 );
-            add_action( 'asenha_password_protection_error_messages', [ $utilities, 'add_login_error_messages' ] );
+            add_action( 'init', [ $password_protection, 'maybe_process_login' ], 1 );
+            add_action( 'asenha_password_protection_error_messages', [ $password_protection, 'add_login_error_messages' ] );
             if ( function_exists( 'wp_site_icon' ) ) {
                 // WP v4.3+
                 add_action( 'asenha_password_protection_login_head', 'wp_site_icon' );
@@ -943,22 +1013,32 @@ class Admin_Site_Enhancements
         // Maintenance Mode
         
         if ( array_key_exists( 'maintenance_mode', $options ) && $options['maintenance_mode'] ) {
-            add_action( 'send_headers', [ $utilities, 'maintenance_mode_redirect' ] );
-            add_action( 'plugins_loaded', [ $utilities, 'show_maintenance_mode_admin_bar_icon' ] );
+            $maintenance_mode = new ASENHA\Classes\Maintenance_Mode();
+            add_action( 'send_headers', [ $maintenance_mode, 'maintenance_mode_redirect' ] );
+            add_action( 'plugins_loaded', [ $maintenance_mode, 'show_maintenance_mode_admin_bar_icon' ] );
         }
         
         // Redirect 404 to Homepage
+        
         if ( array_key_exists( 'redirect_404_to_homepage', $options ) && $options['redirect_404_to_homepage'] ) {
-            add_filter( 'wp', [ $utilities, 'redirect_404_to_homepage' ] );
+            $redirect_fourofour = new ASENHA\Classes\Redirect_Fourofour();
+            add_filter( 'wp', [ $redirect_fourofour, 'redirect_404' ] );
         }
+        
         // Display System Summary
+        
         if ( array_key_exists( 'display_system_summary', $options ) && $options['display_system_summary'] ) {
-            add_action( 'rightnow_end', [ $utilities, 'display_system_summary' ] );
+            $display_system_summary = new ASENHA\Classes\Display_System_Summary();
+            add_action( 'rightnow_end', [ $display_system_summary, 'display_system_summary' ] );
         }
+        
         // Search Engines Visibility Status
+        
         if ( array_key_exists( 'search_engine_visibility_status', $options ) && $options['search_engine_visibility_status'] ) {
-            add_action( 'admin_init', [ $utilities, 'maybe_display_search_engine_visibility_status' ] );
+            $search_engines_visibility = new ASENHA\Classes\Search_Engines_Visibility();
+            add_action( 'admin_init', [ $search_engines_visibility, 'maybe_display_search_engine_visibility_status' ] );
         }
+    
     }
 
 }
