@@ -20,7 +20,15 @@ class Redirect_After_Logout {
     public function redirect_after_logout( $user_id ) {
 
         $options = get_option( ASENHA_SLUG_U, array() );
-        $redirect_after_logout_to_slug = $options['redirect_after_logout_to_slug'];
+        $redirect_after_logout_to_slug_raw = isset( $options['redirect_after_logout_to_slug'] ) ? $options['redirect_after_logout_to_slug'] : '';
+
+        if ( ! empty( $redirect_after_logout_to_slug_raw ) ) {
+            $redirect_after_logout_to_slug = trim( trim( $redirect_after_logout_to_slug_raw ), '/');
+            $relative_path = $redirect_after_logout_to_slug . '/';            
+        } else {
+            $relative_path = '';
+        }
+
         $redirect_after_logout_for = $options['redirect_after_logout_for'];
 
         $user = get_userdata( $user_id );
@@ -47,7 +55,7 @@ class Redirect_After_Logout {
             foreach ( $current_user_roles as $role ) {
                 if ( in_array( $role, $roles_for_custom_redirect ) ) {
 
-                    wp_safe_redirect( home_url( $redirect_after_logout_to_slug . '/' ) );
+                    wp_safe_redirect( home_url( $relative_path ) );
                     exit();
 
                 }

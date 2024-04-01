@@ -106,7 +106,7 @@ class Change_Login_URL
         } else {
             // When landing on the login page
             // At this point /admin, /wp-admin/, /login redirects to /wp-login.php
-            if ( false !== strpos( $url_input, 'wp-login.php' ) ) {
+            if ( false !== strpos( $url_input, 'wp-login' ) ) {
                 
                 if ( isset( $_GET['action'] ) && ('logout' == $_GET['action'] || 'rp' == $_GET['action'] || 'resetpass' == $_GET['action']) || isset( $_GET['checkemail'] ) && ('confirm' == $_GET['checkemail'] || 'registered' == $_GET['checkemail']) || isset( $_GET['interim-login'] ) && '1' == $_GET['interim-login'] || 'success' == $interim_login ) {
                     // When we're logging out, inside the reset password flow, inside the registration flow or within the interim login flow

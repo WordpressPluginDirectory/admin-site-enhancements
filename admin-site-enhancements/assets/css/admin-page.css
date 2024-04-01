@@ -1050,6 +1050,10 @@ p.nudge-description.nudge-closing {
     margin-bottom: 16px !important;
 }
 
+.form-table .asenha-subfields tr:not(.datatable-tr).padding-top-0 {
+    padding-top: 0 !important;
+}
+
 .form-table .asenha-subfields tr:not(.datatable-tr).padding-top-8 {
     padding-top: 8px !important;
 }

@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.4.3  
-Stable tag: 6.9.5  
+Stable tag: 6.9.6  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -43,7 +43,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 ### FEATURES & MODULES
 
 **60 modules** in total:
-**36** free modules | **16** free modules with Pro features | **8** Pro modules
+**52** free modules (16 has Pro features) | **8** Pro modules
 
 [**See all features >>**](https://www.wpase.com/features/)
 
@@ -51,7 +51,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 * **[[Pro](https://www.wpase.com/rdme-to-web)] Custom Content Types**. Conveniently register and edit custom post types, custom taxonomies, custom field groups and options pages that integrates with Bricks, Breakdance, Oxygen and Elementor.
 * **Content Duplication**. One-click duplication of pages, posts and CPTs. [ASE Pro](https://www.wpase.com/rdme-to-web) enables duplication only for certain user roles and adds location option for duplication link.
-* **Content Order**. Enable custom ordering of various post types in wp-admin and on the frontend. [ASE Pro](https://www.wpase.com/rdme-to-web) enables toggling taxonomy terms and / or excerpt on the ordering page.
+* **Content Order**. Enable custom ordering of various post types that are hierarchical or support page attributes, in wp-admin and on the frontend. [ASE Pro](https://www.wpase.com/rdme-to-web) enables ordering of post types that are non-hierarchical and does not support page attributes, and also enable toggling taxonomy terms and / or excerpt on the ordering page.
 * **[[Pro](https://www.wpase.com/rdme-to-web)] Terms Order**. Enable custom ordering of terms from various taxonomies in wp-admin and on the frontend.
 * **[[Pro](https://www.wpase.com/rdme-to-web)] Media Categories**. Add categories for the media library and enable drag-and-drop categorization of media items.
 * **Media Replacement**. Easily replace any type of media file with a new one while ensuring no existing links will break. [ASE Pro](https://www.wpase.com/rdme-to-web) allows replacing media from the grid view of media library as well.
@@ -175,11 +175,35 @@ You can skip step 1 and 2 if you still have access to your wp-admin dashboard.
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **83 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **86 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
+
+### 6.9.6.2 (2024.04.01) - ASE Pro
+
+* **[FIXED in Pro] Content Management >> Content Order**: fixed PHP warnings as reported by Yoshihiro T. and a developer at mez#####e.co.
+
+### 6.9.6.1 (2024.04.01) - ASE Pro
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Options Pages**: fixed an issue where getting an option page's option value in the frontend returns empty value. Props to Darren for reporting this with a short but clear screencast that illustrates the issue in Breakdance builder.
+
+### 6.9.6 (2024.04.01) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Log In | Log Out >> Redirect After Login & Logout**: make it possible to redirect to the homepage by leaving the redirection slug input blank. Props to [@mateuszkalamarz](https://wordpress.org/support/users/mateuszkalamarz/) for [reporting the issue](https://wordpress.org/support/topic/redirect-after-login-doesnt-allow-front-page/) and prompting the improvement.
+
+* **[IMPROVED in Free and Pro] Log In | Log Out >> Change Login URL**: properly redirect /wp-login (without .php) to the /not_found/ URL. It was showing the login form on some scenarios. Props to Artur M. for reporting this and help with troubleshooting.
+
+* **[IMPROVED in Pro] Content Management >> Content Order**: it's now possible to enable custom ordering for post types that are not hierarchical and don't support page attributes, e.g. posts and WooCommerce products. Props to Kay L., Eirini Z. and Hampus E. for suggesting this improvement.
+
+* **[IMPROVED in Pro] Admin Interface >> Admin Columns Manager**: Post Parent and Menu Order are now included in Default columns for all post types.
+
+* **[FIXED in Free and Pro] Disable Components >> Disable Gutenberg**: fixed an issue where the "Add Form" button from Gravity Forms is not present next to "Add Media" button in the post/page edit screen when gutenberg / block editor is disabled for a post type. Props to [Kazam Creative](https://wordpress.org/support/users/goldenagemedia/) for [reporting the issue](https://wordpress.org/support/topic/bug-add-shortcode-to-visual-editor-buttons-disappear/).
+
+* **[FIXED in Pro] Content Management >> Custom Content Types**: in some scenarios, the WYSIWYG field is not responsive, and thus, not usable when editing a post using that field type with the block editor. This is now fixed. Props to Philipp Z. for reporting the issue and facilitating the troubleshooting.
+
+* **[FIXED in Free and Pro] ASE Settings**: fixed PHP warning reported by [@osblaga](https://wordpress.org/support/users/osblaga/) in [this thread](https://wordpress.org/support/topic/error-when-activating-wp-ase-plugin/).
 
 ### 6.9.5 (2024.03.25) - ASE Free and Pro
 
@@ -196,6 +220,8 @@ Each **_point release_** usually corresponds with the addition of one new module
 * **[IMPROVED in Pro] Disable Components >> Disable Gutenberg & Disable Comments**: added additional option to "Disable only on" or "Disable except on" the selected post types. This should make it easier to include or exclude only certain post types despite new post types being registered on the site. i.e. no need to continually check newly added post types to disable Gutenberg / comments on.
 
 * **[IMPROVED in Pro] Content Management >> Media Categories**: css adjustment to fix toolbar items spilling over to the second line in the grid view on certain scenarios.
+
+* **[IMPROVED in Free and Pro] Increase code modularity** across all modules. One is by switching from autoloading vendor libraries using Composer to loading them when the corresponding modules are enabled. The other by breaking down module category classes, e.g. class-content-management.php, that has grown large as new features and modules are added to each category, into smaller ones, e.g. class-content-duplication.php.
 
 * **[CHANGED in Free and Pro] Disable Components >> Disable Block-based Widgets Settings Screen**: is now moved under Disable Smaller Components module.
 

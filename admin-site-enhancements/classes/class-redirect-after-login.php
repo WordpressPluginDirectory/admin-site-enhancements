@@ -17,15 +17,23 @@ class Redirect_After_Login {
      * @param object $user logged-in user's data.
      * @since 1.5.0
      */
-    public function redirect_for_roles_after_login( $username, $user ) {
+    public function redirect_after_login( $username, $user ) {
 
         $options = get_option( ASENHA_SLUG_U, array() );
-        $redirect_after_login_to_slug = trim( trim( $options['redirect_after_login_to_slug'] ), '/');
-        if ( false !== strpos( $redirect_after_login_to_slug, '.php' ) ) {
-            $slug_suffix = '';
+        $redirect_after_login_to_slug_raw = isset( $options['redirect_after_login_to_slug'] ) ? $options['redirect_after_login_to_slug'] : '';
+        
+        if ( ! empty( $redirect_after_login_to_slug_raw ) ) {
+            $redirect_after_login_to_slug = trim( trim( $redirect_after_login_to_slug_raw ), '/');
+            if ( false !== strpos( $redirect_after_login_to_slug, '.php' ) ) {
+                $slug_suffix = '';
+            } else {
+                $slug_suffix = '/';
+            }
+            $relative_path = $redirect_after_login_to_slug . $slug_suffix;
         } else {
-            $slug_suffix = '/';
+            $relative_path = '';
         }
+        
         $redirect_after_login_for = $options['redirect_after_login_for'];
 
         if ( isset( $redirect_after_login_for ) && ( count( $redirect_after_login_for ) > 0 ) ) {
@@ -50,7 +58,7 @@ class Redirect_After_Login {
             foreach ( $current_user_roles as $role ) {
                 if ( in_array( $role, $roles_for_custom_redirect ) ) {
                     
-                    wp_safe_redirect( home_url( $redirect_after_login_to_slug . $slug_suffix ) );
+                    wp_safe_redirect( home_url( $relative_path ) );
                     exit();
 
                 }

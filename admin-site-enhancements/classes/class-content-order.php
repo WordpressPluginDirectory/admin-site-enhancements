@@ -75,10 +75,20 @@ class Content_Order
      */
     public function custom_order_page_output()
     {
+        $post_status = array(
+            'publish',
+            'future',
+            'draft',
+            'pending',
+            'private'
+        );
         $parent_slug = get_admin_page_parent();
         
         if ( 'edit.php' == $parent_slug ) {
             $post_type_slug = 'post';
+        } elseif ( 'upload.php' == $parent_slug ) {
+            $post_type_slug = 'attachment';
+            $post_status = 'inherit';
         } else {
             $post_type_slug = str_replace( 'edit.php?post_type=', '', $parent_slug );
         }
@@ -111,13 +121,7 @@ class Content_Order
             'posts_per_page' => -1,
             'orderby'        => 'menu_order title',
             'order'          => 'ASC',
-            'post_status'    => array(
-            'publish',
-            'future',
-            'draft',
-            'pending',
-            'private'
-        ),
+            'post_status'    => $post_status,
             'post_parent'    => 0,
         ) );
         
@@ -179,6 +183,16 @@ class Content_Order
         $post_status_label_class = ( $post->post_status == 'publish' ? ' item-status-hidden' : '' );
         $post_status_object = get_post_status_object( $post->post_status );
         
+        if ( 'attachment' == $post->post_type ) {
+            $post_status_label_separator = '';
+            $post_status_label = '';
+            // Attachments / media only has the post status 'inherit'. Let's not show it.
+        } else {
+            $post_status_label_separator = ' — ';
+            $post_status_label = $post_status_object->label;
+        }
+        
+        
         if ( empty(wp_trim_excerpt( '', $post )) ) {
             $short_excerpt = '';
         } else {
@@ -225,7 +239,7 @@ class Content_Order
                 <div class="row-content">
                     <?php 
         echo  '<div class="content-main">
-                                <span class="dashicons dashicons-menu"></span><a href="' . esc_attr( get_edit_post_link( $post->ID ) ) . '" class="item-title">' . esc_html( $post->post_title ) . '</a><span class="item-status' . esc_attr( $post_status_label_class ) . '"> — ' . esc_html( $post_status_object->label ) . '</span>' . wp_kses_post( $has_child_label ) . wp_kses_post( $taxonomies_and_terms ) . wp_kses_post( $short_excerpt ) . '<div class="fader"></div>
+                                <span class="dashicons dashicons-menu"></span><a href="' . esc_attr( get_edit_post_link( $post->ID ) ) . '" class="item-title">' . esc_html( $post->post_title ) . '</a><span class="item-status' . esc_attr( $post_status_label_class ) . '">' . esc_html( $post_status_label_separator ) . esc_html( $post_status_label ) . '</span>' . wp_kses_post( $has_child_label ) . wp_kses_post( $taxonomies_and_terms ) . wp_kses_post( $short_excerpt ) . '<div class="fader"></div>
                             </div>
                             <div class="content-additional">
                                 <a href="' . esc_attr( get_the_permalink( $post->ID ) ) . '" target="_blank" class="button item-view-link">View</a>
@@ -334,6 +348,16 @@ class Content_Order
             $items_to_exclude[] = $post_id;
         }
         
+        $post_status = array(
+            'publish',
+            'future',
+            'draft',
+            'pending',
+            'private'
+        );
+        if ( 'attachment' == $post_type ) {
+            $post_status = 'inherit';
+        }
         // Get all posts from the post type related to ajax request
         $query_args = array(
             'post_type'              => $post_type,
@@ -342,13 +366,7 @@ class Content_Order
             'posts_per_page'         => -1,
             'suppress_filters'       => true,
             'ignore_sticky_posts'    => true,
-            'post_status'            => array(
-            'publish',
-            'future',
-            'draft',
-            'pending',
-            'private'
-        ),
+            'post_status'            => $post_status,
             'post_parent'            => $item_parent,
             'post__not_in'           => $items_to_exclude,
             'update_post_term_cache' => false,
@@ -402,12 +420,17 @@ class Content_Order
                 $content_order_enabled_post_types[] = $post_type_slug;
             }
         }
+        $should_be_custom_sorted = false;
+        if ( in_array( $typenow, $content_order_enabled_post_types ) ) {
+            $should_be_custom_sorted = true;
+        }
         // Use custom order in wp-admin listing pages/tables for enabled post types
-        if ( is_admin() && 'edit.php' == $pagenow && !isset( $_GET['orderby'] ) ) {
+        if ( is_admin() && ('edit.php' == $pagenow || 'upload.php' == $pagenow) && !isset( $_GET['orderby'] ) ) {
             
-            if ( in_array( $typenow, $content_order_enabled_post_types ) && (post_type_supports( $typenow, 'page-attributes' ) || is_post_type_hierarchical( $typenow )) ) {
+            if ( $should_be_custom_sorted ) {
                 $query->set( 'orderby', 'menu_order title' );
                 $query->set( 'order', 'ASC' );
+                // vi( $query, '', 'for ' . $pagenow );
             }
         
         }

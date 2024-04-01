@@ -1,10 +1,26 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **83 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **84 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
+
+### 6.9.6 (2024.04.01) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Log In | Log Out >> Redirect After Login & Logout**: make it possible to redirect to the homepage by leaving the redirection slug input blank. Props to [@mateuszkalamarz](https://wordpress.org/support/users/mateuszkalamarz/) for [reporting the issue](https://wordpress.org/support/topic/redirect-after-login-doesnt-allow-front-page/) and prompting the improvement.
+
+* **[IMPROVED in Free and Pro] Log In | Log Out >> Change Login URL**: properly redirect /wp-login (without .php) to the /not_found/ URL. It was showing the login form on some scenarios. Props to Artur M. for reporting this and help with troubleshooting.
+
+* **[IMPROVED in Pro] Content Management >> Content Order**: it's now possible to enable custom ordering for post types that are not hierarchical and don't support page attributes, e.g. posts and WooCommerce products. Props to Kay L., Eirini Z. and Hampus E. for suggesting this improvement.
+
+* **[IMPROVED in Pro] Admin Interface >> Admin Columns Manager**: Post Parent and Menu Order are now included in Default columns for all post types.
+
+* **[FIXED in Free and Pro] Disable Components >> Disable Gutenberg**: fixed an issue where the "Add Form" button from Gravity Forms is not present next to "Add Media" button in the post/page edit screen when gutenberg / block editor is disabled for a post type. Props to [Kazam Creative](https://wordpress.org/support/users/goldenagemedia/) for [reporting the issue](https://wordpress.org/support/topic/bug-add-shortcode-to-visual-editor-buttons-disappear/).
+
+* **[FIXED in Pro] Content Management >> Custom Content Types**: in some scenarios, the WYSIWYG field is not responsive, and thus, not usable when editing a post using that field type with the block editor. This is now fixed. Props to Philipp Z. for reporting the issue and facilitating the troubleshooting.
+
+* **[FIXED in Free] ASE Settings**: fixed PHP warning reported by [@osblaga](https://wordpress.org/support/users/osblaga/) in [this thread](https://wordpress.org/support/topic/error-when-activating-wp-ase-plugin/).
 
 ### 6.9.5 (2024.03.25) - ASE Free and Pro
 
@@ -22,7 +38,9 @@ Each **_point release_** usually corresponds with the addition of one new module
 
 * **[IMPROVED in Pro] Content Management >> Media Categories**: css adjustment to fix toolbar items spilling over to the second line in the grid view on certain scenarios.
 
-* **[CHANGED in Free and Pro] Disable Components >> Disable Block-based Widgets Settings Screen**: is now moved under Disable Smaller Compnents module.
+* **[IMPROVED in Free and Pro] Increase code modularity** across all modules. One is by switching from autoloading vendor libraries using Composer to loading them when the corresponding modules are enabled. The other by breaking down module category classes, e.g. class-content-management.php, that has grown large as new features and modules are added to each category, into smaller ones, e.g. class-content-duplication.php.
+
+* **[CHANGED in Free and Pro] Disable Components >> Disable Block-based Widgets Settings Screen**: is now moved under Disable Smaller Components module.
 
 * **[CHANGED in Pro] Content Management >> Terms Order**: custom terms ordering was previously limited to users with 'manage_options' capability, e.g. administrator, and now is available for users with 'manage_categories' capability, e.g. administrator, editor, shop_manager. Props to Marco R. for the feedback.
 

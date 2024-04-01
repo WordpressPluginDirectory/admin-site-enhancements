@@ -98,7 +98,7 @@ class Admin_Site_Enhancements
         // Content Order
         if ( array_key_exists( 'content_order', $options ) && $options['content_order'] ) {
             
-            if ( array_key_exists( 'content_order_for', $options ) && !empty($options['content_order_for']) ) {
+            if ( array_key_exists( 'content_order_for', $options ) && !empty($options['content_order_for']) || array_key_exists( 'content_order_for_other_post_types', $options ) && !empty($options['content_order_for_other_post_types']) ) {
                 $content_order = new ASENHA\Classes\Content_Order();
                 add_action( 'admin_menu', [ $content_order, 'add_content_order_submenu' ] );
                 add_action( 'wp_ajax_save_custom_order', [ $content_order, 'save_custom_content_order' ] );
@@ -515,36 +515,32 @@ class Admin_Site_Enhancements
         
         // Redirect After Login
         if ( array_key_exists( 'redirect_after_login', $options ) && $options['redirect_after_login'] ) {
-            if ( array_key_exists( 'redirect_after_login_to_slug', $options ) && !empty($options['redirect_after_login_to_slug']) ) {
-                
-                if ( array_key_exists( 'redirect_after_login_for', $options ) && !empty($options['redirect_after_login_for']) ) {
-                    $redirect_after_login = new ASENHA\Classes\Redirect_After_Login();
-                    add_filter(
-                        'wp_login',
-                        [ $redirect_after_login, 'redirect_for_roles_after_login' ],
-                        5,
-                        2
-                    );
-                }
             
+            if ( array_key_exists( 'redirect_after_login_for', $options ) && !empty($options['redirect_after_login_for']) ) {
+                $redirect_after_login = new ASENHA\Classes\Redirect_After_Login();
+                add_filter(
+                    'wp_login',
+                    [ $redirect_after_login, 'redirect_after_login' ],
+                    5,
+                    2
+                );
             }
+        
         }
         // Redirect After Logout
         if ( array_key_exists( 'redirect_after_logout', $options ) && $options['redirect_after_logout'] ) {
-            if ( array_key_exists( 'redirect_after_logout_to_slug', $options ) && !empty($options['redirect_after_logout_to_slug']) ) {
-                
-                if ( array_key_exists( 'redirect_after_logout_for', $options ) && !empty($options['redirect_after_logout_for']) ) {
-                    $redirect_after_logout = new ASENHA\Classes\Redirect_After_Logout();
-                    add_action(
-                        'wp_logout',
-                        [ $redirect_after_logout, 'redirect_after_logout' ],
-                        5,
-                        1
-                    );
-                    // load earlier than Change Login URL add_action
-                }
             
+            if ( array_key_exists( 'redirect_after_logout_for', $options ) && !empty($options['redirect_after_logout_for']) ) {
+                $redirect_after_logout = new ASENHA\Classes\Redirect_After_Logout();
+                add_action(
+                    'wp_logout',
+                    [ $redirect_after_logout, 'redirect_after_logout' ],
+                    5,
+                    1
+                );
+                // load earlier than Change Login URL add_action
             }
+        
         }
         // Enable Custom Admin / Frontend CSS
         if ( array_key_exists( 'enable_custom_admin_css', $options ) && $options['enable_custom_admin_css'] || array_key_exists( 'enable_custom_frontend_css', $options ) && $options['enable_custom_frontend_css'] ) {
@@ -629,6 +625,9 @@ class Admin_Site_Enhancements
             
             if ( array_key_exists( 'disable_gutenberg_for', $options ) && !empty($options['disable_gutenberg_for']) ) {
                 $disable_gutenberg = new ASENHA\Classes\Disable_Gutenberg();
+                if ( !class_exists( 'Classic_Editor' ) ) {
+                    require_once ASENHA_PATH . 'includes/empty-class-classic-editor.php';
+                }
                 add_action( 'admin_init', [ $disable_gutenberg, 'disable_gutenberg_for_post_types_admin' ] );
                 if ( array_key_exists( 'disable_gutenberg_frontend_styles', $options ) && $options['disable_gutenberg_frontend_styles'] ) {
                     add_action( 'wp_enqueue_scripts', [ $disable_gutenberg, 'disable_gutenberg_for_post_types_frontend' ], 100 );
