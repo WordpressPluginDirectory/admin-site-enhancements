@@ -19,7 +19,7 @@ class Login_ID_Type {
      * @since 6.8.0
      */
     public function change_login_form_defaults( $defaults ) {
-        $defaults['label_username'] = 'Username';
+        $defaults['label_username'] = __( 'Username', 'admin-site-enhancements' );
         return $defaults;
     }
     
@@ -36,7 +36,7 @@ class Login_ID_Type {
         global $pagenow;
         if ( 'wp-login.php' === $pagenow ) {
             if ( 'default' === $domain && 'Username or Email Address' === $text ) {
-                $translation = 'Username';
+                $translation = __( 'Username', 'admin-site-enhancements' );
             }
         }
         return $translation;
@@ -53,7 +53,7 @@ class Login_ID_Type {
      */
     public function authenticate_email( $user, $username ) {
         if ( null !== $user && ! is_wp_error( $user ) && $user->user_email !== $username ) {
-            $user = new WP_Error( 'invalid_username', '<strong>Error:</strong> There is no account with that email address.' );
+            $user = new WP_Error( 'invalid_username', __( '<strong>Error:</strong> Invalid email or incorrect password.', 'admin-site-enhancements' ) );
         }
         return $user;
     }
@@ -71,7 +71,7 @@ class Login_ID_Type {
         global $pagenow;
         if ( 'wp-login.php' === $pagenow ) {
             if ( 'default' === $domain && 'Username or Email Address' === $text ) {
-                $translation = 'Email';
+                $translation = __( 'Email', 'admin-site-enhancements' );
             }
         }
         return $translation;

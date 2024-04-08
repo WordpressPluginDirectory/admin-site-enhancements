@@ -18,52 +18,54 @@ class Content_Order
     public function add_content_order_submenu( $context )
     {
         $options = get_option( ASENHA_SLUG_U, array() );
-        $content_order_for = $options['content_order_for'];
+        $content_order_for = ( isset( $options['content_order_for'] ) ? $options['content_order_for'] : array() );
         $content_order_enabled_post_types = array();
-        foreach ( $options['content_order_for'] as $post_type_slug => $is_custom_order_enabled ) {
-            
-            if ( $is_custom_order_enabled ) {
-                $post_type_object = get_post_type_object( $post_type_slug );
+        if ( is_array( $content_order_for ) && count( $content_order_for ) > 0 ) {
+            foreach ( $content_order_for as $post_type_slug => $is_custom_order_enabled ) {
                 
-                if ( is_object( $post_type_object ) && property_exists( $post_type_object, 'labels' ) ) {
-                    $post_type_name_plural = $post_type_object->labels->name;
+                if ( $is_custom_order_enabled ) {
+                    $post_type_object = get_post_type_object( $post_type_slug );
                     
-                    if ( 'post' == $post_type_slug ) {
-                        $hook_suffix = add_posts_page(
-                            $post_type_name_plural . ' Order',
-                            // Page title
-                            'Order',
-                            // Menu title
-                            'edit_pages',
-                            // Capability required
-                            'custom-order-posts',
-                            // Menu and page slug
-                            [ $this, 'custom_order_page_output' ]
-                        );
-                    } else {
-                        $hook_suffix = add_submenu_page(
-                            'edit.php?post_type=' . $post_type_slug,
-                            // Parent (menu) slug. Ref: https://developer.wordpress.org/reference/functions/add_submenu_page/#comment-1404
-                            $post_type_name_plural . ' Order',
-                            // Page title
-                            'Order',
-                            // Menu title
-                            'edit_pages',
-                            // Capability required
-                            'custom-order-' . $post_type_slug,
-                            // Menu and page slug
-                            [ $this, 'custom_order_page_output' ],
-                            // Callback function that outputs page content
-                            9999
-                        );
+                    if ( is_object( $post_type_object ) && property_exists( $post_type_object, 'labels' ) ) {
+                        $post_type_name_plural = $post_type_object->labels->name;
+                        
+                        if ( 'post' == $post_type_slug ) {
+                            $hook_suffix = add_posts_page(
+                                $post_type_name_plural . ' Order',
+                                // Page title
+                                'Order',
+                                // Menu title
+                                'edit_pages',
+                                // Capability required
+                                'custom-order-posts',
+                                // Menu and page slug
+                                [ $this, 'custom_order_page_output' ]
+                            );
+                        } else {
+                            $hook_suffix = add_submenu_page(
+                                'edit.php?post_type=' . $post_type_slug,
+                                // Parent (menu) slug. Ref: https://developer.wordpress.org/reference/functions/add_submenu_page/#comment-1404
+                                $post_type_name_plural . ' Order',
+                                // Page title
+                                'Order',
+                                // Menu title
+                                'edit_pages',
+                                // Capability required
+                                'custom-order-' . $post_type_slug,
+                                // Menu and page slug
+                                [ $this, 'custom_order_page_output' ],
+                                // Callback function that outputs page content
+                                9999
+                            );
+                        }
+                        
+                        add_action( 'admin_print_styles-' . $hook_suffix, [ $this, 'enqueue_content_order_styles' ] );
+                        add_action( 'admin_print_scripts-' . $hook_suffix, [ $this, 'enqueue_content_order_scripts' ] );
                     }
-                    
-                    add_action( 'admin_print_styles-' . $hook_suffix, [ $this, 'enqueue_content_order_styles' ] );
-                    add_action( 'admin_print_scripts-' . $hook_suffix, [ $this, 'enqueue_content_order_scripts' ] );
+                
                 }
             
             }
-        
         }
     }
     
@@ -413,11 +415,13 @@ class Content_Order
     {
         global  $pagenow, $typenow ;
         $options = get_option( ASENHA_SLUG_U, array() );
-        $content_order_for = $options['content_order_for'];
+        $content_order_for = ( isset( $options['content_order_for'] ) ? $options['content_order_for'] : array() );
         $content_order_enabled_post_types = array();
-        foreach ( $options['content_order_for'] as $post_type_slug => $is_custom_order_enabled ) {
-            if ( $is_custom_order_enabled ) {
-                $content_order_enabled_post_types[] = $post_type_slug;
+        if ( is_array( $content_order_for ) && count( $content_order_for ) > 0 ) {
+            foreach ( $content_order_for as $post_type_slug => $is_custom_order_enabled ) {
+                if ( $is_custom_order_enabled ) {
+                    $content_order_enabled_post_types[] = $post_type_slug;
+                }
             }
         }
         $should_be_custom_sorted = false;
@@ -444,11 +448,13 @@ class Content_Order
     public function set_menu_order_for_new_posts( $post_id, $post, $update )
     {
         $options = get_option( ASENHA_SLUG_U, array() );
-        $content_order_for = $options['content_order_for'];
+        $content_order_for = ( isset( $options['content_order_for'] ) ? $options['content_order_for'] : array() );
         $content_order_enabled_post_types = array();
-        foreach ( $options['content_order_for'] as $post_type_slug => $is_custom_order_enabled ) {
-            if ( $is_custom_order_enabled ) {
-                $content_order_enabled_post_types[] = $post_type_slug;
+        if ( is_array( $content_order_for ) && count( $content_order_for ) > 0 ) {
+            foreach ( $content_order_for as $post_type_slug => $is_custom_order_enabled ) {
+                if ( $is_custom_order_enabled ) {
+                    $content_order_enabled_post_types[] = $post_type_slug;
+                }
             }
         }
         // Only assign menu_order if there are none assigned when creating the post, i.e. menu_order is 0

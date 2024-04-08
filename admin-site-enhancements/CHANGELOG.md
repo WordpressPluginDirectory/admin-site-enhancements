@@ -1,10 +1,42 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **84 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **87 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
+
+### 6.9.7 (2024.04.07) - ASE Free and Pro
+
+* **[TRANSLATE ASE] Are you interested to see ASE in your language?**: ASE has been fully internationalized and ready for localization / translation. If you're interested to get involved, please head over to [https://translate.wpase.com](https://translate.wpase.com/) for more info. Props to [Toine R.](https://wordpress.org/support/users/toineenzo/) for leading the Dutch translation efforts and [@radicsjg](https://profiles.wordpress.org/radicsjg/) for the Hungarian translation.
+
+* **[IMPROVED in Pro] Content Management >> Content Duplication**: added an option to choose on which post type(s) duplication is enabled. Props to Paul R. for prompting the improvement after reporting seeing double 'Duplicate' link on the ads listing of Advanced Ads plugin, which has it's own 'Duplicate' feature for their ads.
+
+* **[IMPROVED in Pro] Utilities >> Redirect 404**: added an option to redirect to a custom URL instead of the homepage.
+
+* **[CHANGED in Free and Pro] Utilities >> Search Engines Visibility Status**: Removed visibility status notice. Admin bar status should be enough. Props to Marco R. for prompting the change.
+
+* **[CHANGED and IMPROVED in Free and Pro] Admin Interface >> Show Custom Taxonomy Filter**: this has been taken out of Enhance List Tables module and is now it's own module. In ASE Pro, it's also possible to show additional filter(s) for non-hierarchical taxonomies, e.g. Post Tags.
+
+* **[CHANGED in Free] ASE Settings**: removed sponsorship ask/nudge. Simplify this nudge into an ask to add a review or share about ASE.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Options Pages**: fixed an issue where WYSIWYG field that is part of an options page will output the wrong content when rendered inside Breakdance builder's header. Props to Darren L. for reporting the issue with screencasts and facilitating troubleshooting further.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: Fixed PHP warning in WYSIWYG field. Fixed true/false field not showing SVG icon in Elementor.
+
+* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fix for Elementor Templates >> Types column having duplicate values. Props to Steven Y. for reporting the issue.
+
+* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fix activate / deactivate toggle on snippets listing page not working properly, i.e. returning 'yes' / 'no' page instead of actually toggling and stays on the listing page. Props to Darren L. for reporting the issue.
+
+* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fixed PHP deprecation notice.
+
+### 6.9.6.2 (2024.04.01) - ASE Pro
+
+* **[FIXED in Pro] Content Management >> Content Order**: fixed PHP warnings as reported by Yoshihiro T. and a developer at mez#####e.co.
+
+### 6.9.6.1 (2024.04.01) - ASE Pro
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Options Pages**: fixed an issue where getting an option page's option value in the frontend returns empty value. Props to Darren for reporting this with a short but clear screencast that illustrates the issue in Breakdance builder.
 
 ### 6.9.6 (2024.04.01) - ASE Free and Pro
 
@@ -20,7 +52,7 @@ Each **_point release_** usually corresponds with the addition of one new module
 
 * **[FIXED in Pro] Content Management >> Custom Content Types**: in some scenarios, the WYSIWYG field is not responsive, and thus, not usable when editing a post using that field type with the block editor. This is now fixed. Props to Philipp Z. for reporting the issue and facilitating the troubleshooting.
 
-* **[FIXED in Free] ASE Settings**: fixed PHP warning reported by [@osblaga](https://wordpress.org/support/users/osblaga/) in [this thread](https://wordpress.org/support/topic/error-when-activating-wp-ase-plugin/).
+* **[FIXED in Free and Pro] ASE Settings**: fixed PHP warning reported by [@osblaga](https://wordpress.org/support/users/osblaga/) in [this thread](https://wordpress.org/support/topic/error-when-activating-wp-ase-plugin/).
 
 ### 6.9.5 (2024.03.25) - ASE Free and Pro
 

@@ -56,12 +56,12 @@ class Admin_Site_Enhancements
         add_action( 'admin_head', 'asenha_admin_bar_item_js_css' );
         add_action( 'wp_head', 'asenha_admin_bar_item_js_css' );
         add_filter( 'plugin_action_links_' . ASENHA_SLUG . '/' . ASENHA_SLUG . '.php', 'asenha_plugin_action_links' );
-        // Mark that a user have sponsored ASE (via AJAX)
-        add_action( 'wp_ajax_have_sponsored', 'asenha_have_sponsored' );
+        // Mark that a user have supported ASE (via AJAX)
+        add_action( 'wp_ajax_have_supported', 'asenha_have_supported' );
         // Dismiss upgrade nudge (via AJAX)
         add_action( 'wp_ajax_dismiss_upgrade_nudge', 'asenha_dismiss_upgrade_nudge' );
-        // Dismiss sponsorship nudge (via AJAX)
-        add_action( 'wp_ajax_dismiss_sponsorship_nudge', 'asenha_dismiss_sponsorship_nudge' );
+        // Dismiss support nudge (via AJAX)
+        add_action( 'wp_ajax_dismiss_support_nudge', 'asenha_dismiss_support_nudge' );
         if ( function_exists( 'bwasenha_fs' ) ) {
             bwasenha_fs()->add_filter( 'plugin_icon', 'fs_custom_optin_icon__premium_only' );
         }
@@ -343,6 +343,13 @@ class Admin_Site_Enhancements
         
         }
         
+        // Show Custom Taxonomy Filters
+        
+        if ( array_key_exists( 'show_custom_taxonomy_filters', $options ) && $options['show_custom_taxonomy_filters'] ) {
+            $show_custom_taxonomy_filters = new ASENHA\Classes\Show_Custom_Taxonomy_Filters();
+            add_action( 'restrict_manage_posts', [ $show_custom_taxonomy_filters, 'show_custom_taxonomy_filters' ] );
+        }
+        
         // Enhance List Tables
         
         if ( array_key_exists( 'enhance_list_tables', $options ) && $options['enhance_list_tables'] ) {
@@ -375,10 +382,6 @@ class Admin_Site_Enhancements
             // Show ID in Action Row
             if ( array_key_exists( 'show_id_in_action_row', $options ) && $options['show_id_in_action_row'] ) {
                 add_action( 'admin_init', [ $enhance_list_tables, 'show_id_in_action_row' ] );
-            }
-            // Show Custom Taxonomy Filters
-            if ( array_key_exists( 'show_custom_taxonomy_filters', $options ) && $options['show_custom_taxonomy_filters'] ) {
-                add_action( 'restrict_manage_posts', [ $enhance_list_tables, 'show_custom_taxonomy_filters' ] );
             }
             // Hide Comments Column
             if ( array_key_exists( 'hide_comments_column', $options ) && $options['hide_comments_column'] ) {

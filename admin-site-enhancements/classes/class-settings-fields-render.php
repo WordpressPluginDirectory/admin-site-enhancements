@@ -720,7 +720,7 @@ class Settings_Fields_Render
 										</div><!-- end of .title-wrapper -->
 										<div class="options-for-hiding">
 											<?php 
-                        $hide_text = 'Hide until toggled';
+                        $hide_text = __( 'Hide until toggled', 'admin-site-enhancements' );
                         $checkbox_class = 'parent-menu-hide-checkbox';
                         ?>
 											<label class="menu-item-checkbox-label">
@@ -1005,13 +1005,13 @@ class Settings_Fields_Render
 			<thead>
 				<tr class="datatable-tr">
 					<th class="datatable-th"><?php 
-        echo  esc_html__( 'IP Address<br />Last Username', 'admin-site-enhancements' ) ;
+        _e( 'IP Address<br />Last Username', 'admin-site-enhancements' );
         ?></th>
 					<th class="datatable-th"><?php 
-        echo  esc_html__( 'Attempts<br />Lockouts', 'admin-site-enhancements' ) ;
+        _e( 'Attempts<br />Lockouts', 'admin-site-enhancements' );
         ?></th>
 					<th class="datatable-th"><?php 
-        echo  esc_html__( 'Last Attempt On', 'admin-site-enhancements' ) ;
+        _e( 'Last Attempt On', 'admin-site-enhancements' );
         ?></th>
 				</tr>
 			</thead>

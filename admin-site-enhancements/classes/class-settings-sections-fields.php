@@ -869,6 +869,33 @@ class Settings_Sections_Fields
                 'class'             => 'asenha-sortable asenha-hide-th admin-interface ' . $field_slug,
             )
         );
+        // Show Custom Taxonomy Filters
+        $field_id = 'show_custom_taxonomy_filters';
+        $field_slug = 'show-custom-taxonomy-filters';
+        $field_options_wrapper = false;
+        $field_options_moreless = false;
+        add_settings_field(
+            $field_id,
+            // Field ID
+            'Show Custom Taxonomy Filters',
+            // Field title
+            [ $render_field, 'render_checkbox_toggle' ],
+            // Callback to render field with custom arguments in the array below
+            ASENHA_SLUG,
+            // Settings page slug
+            'main-section',
+            // Section ID
+            array(
+                'option_name'            => ASENHA_SLUG_U,
+                'field_id'               => $field_id,
+                'field_slug'             => $field_slug,
+                'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_description'      => __( 'Show additional filter(s) on list tables for hierarchical, custom taxonomies.', 'admin-site-enhancements' ),
+                'field_options_wrapper'  => $field_options_wrapper,
+                'field_options_moreless' => $field_options_moreless,
+                'class'                  => 'asenha-toggle admin-interface ' . $field_slug,
+            )
+        );
         // Enhance List Tables
         $field_id = 'enhance_list_tables';
         $field_slug = 'enhance-list-tables';
@@ -1001,28 +1028,6 @@ class Settings_Sections_Fields
                 'field_id'    => $field_id,
                 'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_label' => __( 'Show ID in action rows along with links for Edit, View, etc.', 'admin-site-enhancements' ),
-                'class'       => 'asenha-checkbox asenha-hide-th content-management ' . $field_slug,
-            )
-        );
-        // Show Custom Taxonomy Filters
-        $field_id = 'show_custom_taxonomy_filters';
-        $field_slug = 'show-custom-taxonomy-filters';
-        add_settings_field(
-            $field_id,
-            // Field ID
-            '',
-            // Field title
-            [ $render_field, 'render_checkbox_plain' ],
-            // Callback to render field with custom arguments in the array below
-            ASENHA_SLUG,
-            // Settings page slug
-            'main-section',
-            // Section ID
-            array(
-                'option_name' => ASENHA_SLUG_U,
-                'field_id'    => $field_id,
-                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
-                'field_label' => __( 'Show additional filter(s) for hierarchical, custom taxonomies', 'admin-site-enhancements' ),
                 'class'       => 'asenha-checkbox asenha-hide-th content-management ' . $field_slug,
             )
         );
@@ -1198,7 +1203,11 @@ class Settings_Sections_Fields
                 'field_type'        => 'textarea',
                 'field_rows'        => 1,
                 'field_intro'       => '',
-                'field_description' => sprintf( __( 'Default text is: <em>Version %s</em>', 'admin-site-enhancements' ), $wp_version ),
+                'field_description' => sprintf(
+                /* translators: %s is the WordPress version number */
+                __( 'Default text is: <em>Version %s</em>', 'admin-site-enhancements' ),
+                $wp_version
+            ),
                 'field_placeholder' => '',
                 'editor_settings'   => $editor_settings,
                 'class'             => 'asenha-textarea admin-interface has-wpeditor ' . $field_slug,
@@ -1343,7 +1352,11 @@ class Settings_Sections_Fields
                 'field_id'              => $field_id,
                 'field_slug'            => $field_slug,
                 'field_name'            => ASENHA_SLUG_U . '[' . $field_id . ']',
-                'field_description'     => sprintf( __( 'Use the site icon and URL to replace the default WordPress logo with link to wordpress.org on the login page. Go to the <a href="%s">customizer</a> to set or change your site icon.', 'admin-site-enhancements' ), admin_url( 'customize.php' ) ),
+                'field_description'     => sprintf(
+                /* translators: %s is URL to the Customizer */
+                __( 'Use the site icon and URL to replace the default WordPress logo with link to wordpress.org on the login page. Go to the <a href="%s">customizer</a> to set or change your site icon.', 'admin-site-enhancements' ),
+                admin_url( 'customize.php' )
+            ),
                 'field_options_wrapper' => true,
                 'class'                 => 'asenha-toggle login-logout ' . $field_slug,
             )
@@ -2937,8 +2950,8 @@ class Settings_Sections_Fields
                 'field_id'             => $field_id,
                 'field_name'           => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_type'           => 'with-prefix-suffix',
-                'field_prefix'         => 'Set interval to once every',
-                'field_suffix'         => '<span class="faded">(Default is 15 seconds)</span>',
+                'field_prefix'         => __( 'Set interval to once every', 'admin-site-enhancements' ),
+                'field_suffix'         => __( '<span class="faded">(Default is 15 seconds)</span>', 'admin-site-enhancements' ),
                 'field_select_options' => array(
                 __( '15 seconds', 'admin-site-enhancements' )  => 15,
                 __( '30 seconds', 'admin-site-enhancements' )  => 30,
@@ -2998,7 +3011,7 @@ class Settings_Sections_Fields
                 'field_id'             => $field_id,
                 'field_name'           => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_type'           => 'with-prefix-suffix',
-                'field_prefix'         => 'Set interval to once every',
+                'field_prefix'         => __( 'Set interval to once every', 'admin-site-enhancements' ),
                 'field_suffix'         => '',
                 'field_select_options' => array(
                 __( '15 seconds', 'admin-site-enhancements' ) => 15,
@@ -3466,7 +3479,11 @@ class Settings_Sections_Fields
             // Section ID
             array(
                 'option_name'       => ASENHA_SLUG_U,
-                'field_description' => '<div class="asenha-warning"><strong>' . sprintf( __( 'If something goes wrong</strong> and you need to regain access to your account as an administrator, please visit the following URL: <br /><strong>%s</strong><br /><br />If you use <strong>Ninja Firewall</strong>, please uncheck "Block attempts to gain administrative privileges" in the Firewall Policies settings before you try to view as a non-admin user role to <strong>prevent being locked out</strong> of your admin account.', 'admin-site-enhancements' ), $role_reset_link ) . '</div>',
+                'field_description' => '<div class="asenha-warning"><strong>' . sprintf(
+                /* translators: %s is URL of the role reset link */
+                __( 'If something goes wrong</strong> and you need to regain access to your account as an administrator, please visit the following URL: <br /><strong>%s</strong><br /><br />If you use <strong>Ninja Firewall</strong>, please uncheck "Block attempts to gain administrative privileges" in the Firewall Policies settings before you try to view as a non-admin user role to <strong>prevent being locked out</strong> of your admin account.', 'admin-site-enhancements' ),
+                $role_reset_link
+            ) . '</div>',
                 'class'             => 'asenha-description utilities ' . $field_slug,
             )
         );
@@ -3644,10 +3661,14 @@ class Settings_Sections_Fields
         // Redirect 404 to Homepage
         $field_id = 'redirect_404_to_homepage';
         $field_slug = 'redirect-404-to-homepage';
+        $module_title = __( 'Redirect 404 to Homepage', 'admin-site-enhancements' );
+        $module_description = __( 'Perform 301 (permanent) redirect to the homepage for all 404 (not found) pages.', 'admin-site-enhancements' );
+        $field_options_wrapper = false;
+        $field_options_moreless = false;
         add_settings_field(
             $field_id,
             // Field ID
-            __( 'Redirect 404 to Homepage', 'admin-site-enhancements' ),
+            $module_title,
             // Field title
             [ $render_field, 'render_checkbox_toggle' ],
             // Callback to render field with custom arguments in the array below
@@ -3656,13 +3677,14 @@ class Settings_Sections_Fields
             'main-section',
             // Section ID
             array(
-                'option_name'           => ASENHA_SLUG_U,
-                'field_id'              => $field_id,
-                'field_slug'            => $field_slug,
-                'field_name'            => ASENHA_SLUG_U . '[' . $field_id . ']',
-                'field_description'     => __( 'Perform 301 (permanent) redirect to the homepage for all 404 (not found) pages.', 'admin-site-enhancements' ),
-                'field_options_wrapper' => true,
-                'class'                 => 'asenha-toggle utilities ' . $field_slug,
+                'option_name'            => ASENHA_SLUG_U,
+                'field_id'               => $field_id,
+                'field_slug'             => $field_slug,
+                'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_description'      => $module_description,
+                'field_options_wrapper'  => $field_options_wrapper,
+                'field_options_moreless' => $field_options_moreless,
+                'class'                  => 'asenha-toggle utilities ' . $field_slug,
             )
         );
         // Display System Summary
@@ -3708,7 +3730,7 @@ class Settings_Sections_Fields
                 'field_id'              => $field_id,
                 'field_slug'            => $field_slug,
                 'field_name'            => ASENHA_SLUG_U . '[' . $field_id . ']',
-                'field_description'     => __( 'Show admin bar status and admin notice when search engines are set to be discouraged from indexing the site. This is set through a "Search engine visibility" checkbox in Settings >> Reading.', 'admin-site-enhancements' ),
+                'field_description'     => __( 'Show admin bar status when search engines are set to be discouraged from indexing the site. This is set through a "Search engine visibility" checkbox in Settings >> Reading.', 'admin-site-enhancements' ),
                 'field_options_wrapper' => true,
                 'class'                 => 'asenha-toggle utilities ' . $field_slug,
             )

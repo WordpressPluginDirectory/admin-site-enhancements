@@ -113,7 +113,8 @@ class Content_Duplication
         $duplication_link_locations = $this->get_duplication_link_locations();
         $allow_duplication = $this->is_user_allowed_to_duplicate_content();
         $post_type = $post->post_type;
-        if ( $allow_duplication ) {
+        $post_type_is_duplicable = $this->is_post_type_duplicable( $post_type );
+        if ( $allow_duplication && $post_type_is_duplicable ) {
             // Not WooCommerce product
             if ( in_array( 'post-action', $duplication_link_locations ) && 'product' != $post_type ) {
                 $actions['asenha-duplicate'] = '<a href="admin.php?action=duplicate_content&amp;post=' . $post->ID . '&amp;nonce=' . wp_create_nonce( 'asenha-duplicate-' . $post->ID ) . '" title="Duplicate this as draft">Duplicate</a>';
@@ -133,7 +134,8 @@ class Content_Duplication
         $allow_duplication = $this->is_user_allowed_to_duplicate_content();
         global  $pagenow, $typenow, $post ;
         $inapplicable_post_types = array( 'attachment' );
-        if ( $allow_duplication ) {
+        $post_type_is_duplicable = $this->is_post_type_duplicable( $typenow );
+        if ( $allow_duplication && $post_type_is_duplicable ) {
             if ( 'post.php' == $pagenow && !in_array( $typenow, $inapplicable_post_types ) || is_singular() ) {
                 if ( in_array( 'admin-bar', $duplication_link_locations ) ) {
                     
@@ -180,6 +182,45 @@ class Content_Duplication
             $allow_duplication = true;
         }
         return $allow_duplication;
+    }
+    
+    /**
+     * Check if the post type can be duplicated
+     * 
+     * @since 6.9.7
+     */
+    public function is_post_type_duplicable( $post_type )
+    {
+        global  $asenha_public_post_types ;
+        $options = get_option( ASENHA_SLUG_U, array() );
+        $enable_duplication_on_post_types_type = 'only-on';
+        $asenha_public_post_types_slugs = array();
+        if ( is_array( $asenha_public_post_types ) ) {
+            foreach ( $asenha_public_post_types as $post_type_slug => $post_type_label ) {
+                // e.g. $post_type_slug is post,
+                $asenha_public_post_types_slugs[] = $post_type_slug;
+            }
+        }
+        $enable_duplication_on_post_types = ( isset( $options['enable_duplication_on_post_types'] ) ? $options['enable_duplication_on_post_types'] : array() );
+        $post_types_for_enable_duplication = array();
+        
+        if ( !empty($enable_duplication_on_post_types) && count( $enable_duplication_on_post_types ) > 0 ) {
+            foreach ( $enable_duplication_on_post_types as $post_type_slug => $is_duplication_enabled ) {
+                if ( $is_duplication_enabled ) {
+                    $post_types_for_enable_duplication[] = $post_type_slug;
+                }
+            }
+        } else {
+            $post_types_for_enable_duplication = $asenha_public_post_types_slugs;
+        }
+        
+        
+        if ( 'only-on' == $enable_duplication_on_post_types_type && in_array( $post_type, $post_types_for_enable_duplication ) || 'except-on' == $enable_duplication_on_post_types_type && !in_array( $post_type, $post_types_for_enable_duplication ) ) {
+            return true;
+        } else {
+            return false;
+        }
+    
     }
 
 }

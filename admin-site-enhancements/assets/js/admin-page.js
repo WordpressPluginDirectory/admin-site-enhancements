@@ -47,10 +47,10 @@
 
          if ($this.hasClass('show-more')) {
             $this.next().removeClass('opened',0);
-            $this.html('Expand &#9660;');
+            $this.html(adminPageVars.expandText + ' &#9660;');
          } else {
             $this.next().addClass('opened',0);
-            $this.html('Collapse &#9650;');
+            $this.html(adminPageVars.collapseText + ' &#9650;');
          }
 
       });
@@ -101,7 +101,22 @@
       // Initialize data tables
       var table = $("#login-attempts-log").DataTable({
          pageLength: 10,
-         order: [[2, 'desc']]
+         order: [[2, 'desc']],
+         language: {
+            emptyTable: adminPageVars.dataTable.emptyTable,
+            info: adminPageVars.dataTable.info,
+            infoEmpty: adminPageVars.dataTable.infoEmpty,
+            infoFiltered: adminPageVars.dataTable.infoFiltered,
+            lengthMenu: adminPageVars.dataTable.lengthMenu,
+            search: adminPageVars.dataTable.search,
+            zeroRecords: adminPageVars.dataTable.zeroRecords,
+            paginate: {
+                first: adminPageVars.dataTable.paginate.first,
+                last: adminPageVars.dataTable.paginate.last,
+                next: adminPageVars.dataTable.paginate.next,
+                previous: adminPageVars.dataTable.paginate.previous
+            },
+         }
       });
 
       // Place fields into the "Content Management" tab
@@ -148,13 +163,14 @@
       $('.customize-admin-menu').appendTo('.fields-admin-interface > table > tbody');
       $('.custom-menu-order').appendTo('.fields-admin-interface .customize-admin-menu .asenha-subfields');
       
+      $('.show-custom-taxonomy-filters').appendTo('.fields-admin-interface > table > tbody');
+      
       $('.enhance-list-tables').appendTo('.fields-admin-interface > table > tbody');
       $('.show-featured-image-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.show-excerpt-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.show-id-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.show-file-size-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.show-id-in-action_row').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
-      $('.show-custom-taxonomy-filters').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.hide-comments-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.hide-post-tags-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.display-active-plugins-first').appendTo('.fields-admin-interface > table > tbody');
@@ -289,6 +305,7 @@
       
       $('.maintenance-mode-description').appendTo('.fields-utilities .maintenance-mode .asenha-subfields');
       $('.redirect-404-to-homepage').appendTo('.fields-utilities > table > tbody');
+      
       $('.display-system-summary').appendTo('.fields-utilities > table > tbody');
       $('.search-engine-visibility-status').appendTo('.fields-utilities > table > tbody');
 
@@ -542,6 +559,7 @@
       subfieldsToggler( 'enable_svg_upload', 'enable-svg-upload' );
       
       subfieldsToggler( 'enable_external_permalinks', 'enable-external-permalinks' );
+      
       subfieldsToggler( 'enhance_list_tables', 'enhance-list-tables' );
       subfieldsToggler( 'custom_admin_footer_text', 'custom-admin-footer-text' );
       subfieldsToggler( 'wider_admin_menu', 'wider-admin-menu' );
@@ -569,6 +587,7 @@
       subfieldsToggler( 'image_upload_control', 'image-upload-control' );
       subfieldsToggler( 'enable_revisions_control', 'enable-revisions-control' );
       subfieldsToggler( 'enable_heartbeat_control', 'enable-heartbeat-control' );
+      
 
       // Enable Heartbeat Control => Check if "Modify interval" is chosen/clicked and show/hide the corresponding select field
       if ( $('input[name="admin_site_enhancements[heartbeat_control_for_admin_pages]"]:checked').val() == 'modify' ) {
@@ -735,13 +754,13 @@
       // Stats on saving changes from asenha_admin_scripts() wp_localize_script() is availble in the 'asenhaStats' object-----
       // console.log( asenhaStats );
       // alert(JSON.stringify(asenhaStats));
-      if ( asenhaStats.showSponsorshipNudge ) {
-         $('.asenha-sponsorship-nudge').show();
+      if ( asenhaStats.showSupportNudge ) {
+         $('.asenha-support-nudge').show();
       } else {
-         $('.asenha-sponsorship-nudge').hide();
+         $('.asenha-support-nudge').hide();
       }
 
-      $('#have-sponsored').click(function(e) {
+      $('#have-shared,#have-reviewed').click(function(e) {
          e.preventDefault();
          $.ajax({
             url: 'https://bowo.io/asenha-sp-ndg',
@@ -752,10 +771,10 @@
          $.ajax({
             url: ajaxurl,
             data: {
-               'action':'have_sponsored'
+               'action':'have_supported'
             },
             success:function(data) {
-               $('.asenha-sponsorship-nudge').hide();
+               $('.asenha-support-nudge').hide();
             },
             error:function(errorThrown) {
                console.log(errorThrown);
@@ -763,7 +782,7 @@
          });
       });
       
-      $('#sponsorship-nudge-dismiss').click(function(e) {
+      $('#support-nudge-dismiss').click(function(e) {
          e.preventDefault();
          $.ajax({
             url: 'https://bowo.io/asenha-sp-ndg',
@@ -774,10 +793,10 @@
          $.ajax({
             url: ajaxurl,
             data: {
-               'action':'dismiss_sponsorship_nudge'
+               'action':'dismiss_support_nudge'
             },
             success:function(data) {
-               $('.asenha-sponsorship-nudge').hide();
+               $('.asenha-support-nudge').hide();
             },
             error:function(errorThrown) {
                console.log(errorThrown);
@@ -785,8 +804,8 @@
          });
       });
 
-      // Expand sponsorship notice | Modified from https://codepen.io/symonsays/pen/rzgEgY
-      $('.asenha-sponsorship-nudge.nudge-show-more > .show-more').click(function(e) {
+      // Expand support notice | Modified from https://codepen.io/symonsays/pen/rzgEgY
+      $('.asenha-support-nudge.nudge-show-more > .show-more').click(function(e) {
 
          e.preventDefault();
 
@@ -802,14 +821,14 @@
 
       });
 
-      // Collapse sponsorship notice | Modified from https://codepen.io/symonsays/pen/rzgEgY
-      $('#sponsorship-nudge-show-less').click(function(e) {
+      // Collapse support notice | Modified from https://codepen.io/symonsays/pen/rzgEgY
+      $('#support-nudge-show-less').click(function(e) {
 
          e.preventDefault();
 
          $('.nudge-wrapper-show-more').removeClass('opened',0);
-         $('#sponsorship-nudge-show-moreless').addClass('show-more');
-         $('#sponsorship-nudge-show-moreless').show();
+         $('#support-nudge-show-moreless').addClass('show-more');
+         $('#support-nudge-show-moreless').show();
 
       });
 

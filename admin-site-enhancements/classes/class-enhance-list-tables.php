@@ -429,52 +429,5 @@ class Enhance_List_Tables {
         return $columns;
 
     }
-    
-    /**
-     * Show custom (hierarchical) taxonomy filter(s) for all post types.
-     *
-     * @since 1.0.0
-     */
-    public function show_custom_taxonomy_filters( $post_type ) {
-
-        $post_taxonomies = get_object_taxonomies( $post_type, 'objects' );
-
-        // Only show custom taxonomy filters for post types other than 'post'
-
-        if ( 'post' != $post_type && 'attachment' != $post_type && 'asenha_code_snippet' != $post_type ) {
-
-            array_walk( $post_taxonomies, [ $this, 'output_taxonomy_filter' ] );
-
-        }
-
-    }
-
-    /**
-     * Output filter on the post type's list table for a taxonomy
-     *
-     * @since 1.0.0
-     */
-    public function output_taxonomy_filter( $post_taxonomy ) {
-
-        // Only show taxonomy filter when the taxonomy is hierarchical
-
-        if ( true === $post_taxonomy->hierarchical ) {
-
-            wp_dropdown_categories( array(
-                'show_option_all'   => sprintf( 'All %s', $post_taxonomy->label ),
-                'orderby'           => 'name',
-                'order'             => 'ASC',
-                'hide_empty'        => false,
-                'hide_if_empty'     => true,
-                'selected'          => sanitize_text_field( ( isset( $_GET[$post_taxonomy->query_var] ) && ! empty( $_GET[$post_taxonomy->query_var] ) ) ? $_GET[$post_taxonomy->query_var] : '' ), 
-                'hierarchical'      => true,
-                'name'              => $post_taxonomy->query_var,
-                'taxonomy'          => $post_taxonomy->name,
-                'value_field'       => 'slug',
-            ) );
-
-        }
-
-    }
             
 }

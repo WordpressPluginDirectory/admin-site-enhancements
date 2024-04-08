@@ -23,7 +23,7 @@ class Search_Engines_Visibility {
         // Get the option 'blog_public' to check search engine visibility
         // If 'blog_public' is '0', it means 'Discourage search engines from indexing this site' is checked
         if ( get_option( 'blog_public' ) === '0' ) {
-            add_action( 'admin_notices', array( $this, 'display_admin_notice_for_search_visibility' ) );
+            // add_action( 'admin_notices', array( $this, 'display_admin_notice_for_search_visibility' ) );
             add_action( 'admin_bar_menu', array( $this, 'add_notice_in_admin_bar' ), 100 );
         }
     }
