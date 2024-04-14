@@ -147,25 +147,23 @@ function asenha_add_settings_page()
 					</div>
 					<div class="nudge-secondary">
 						<h4><?php 
-    _e( 'Share about ASE with your communities', 'admin-site-enhancements' );
+    _e( 'Share about ASE on:', 'admin-site-enhancements' );
     ?></h4>
 						<div class="nudge-ctas">
 							<a href="https://www.facebook.com/sharer.php?u=<?php 
     echo  urlencode( 'https://www.wpase.com' ) ;
     ?>" target="_blank" class="button button-outline asenha-share-button"><?php 
-    _e( 'On Facebook', 'admin-site-enhancements' );
+    _e( 'Facebook', 'admin-site-enhancements' );
     ?></a>
 							<a href="https://twitter.com/intent/post?url=<?php 
     echo  urlencode( 'https://www.wpase.com' ) ;
     ?>&text=<?php 
     echo  esc_attr( urlencode( 'Admin and Site Enhancements (ASE)' ) ) ;
     ?>" target="_blank" class="button button-outline asenha-share-button"><?php 
-    _e( 'On X', 'admin-site-enhancements' );
+    _e( 'X / Twitter', 'admin-site-enhancements' );
     ?></a>
-							<a href="https://www.linkedin.com/sharing/share-offsite/?url=<?php 
-    echo  urlencode( 'https://www.wpase.com' ) ;
-    ?>" target="_blank" class="button button-outline asenha-share-button"><?php 
-    _e( 'On LinkedIn', 'admin-site-enhancements' );
+							<a href="https://www.wpase.com/video-reviews/" target="_blank" class="button button-outline asenha-share-button"><?php 
+    _e( 'YouTube', 'admin-site-enhancements' );
     ?></a>
 							<a href="#" id="have-shared" class="asenha-have-supported"><?php 
     _e( 'I\'ve shared', 'admin-site-enhancements' );
@@ -688,6 +686,11 @@ function asenha_admin_scripts( $hook_suffix )
             ASENHA_VERSION,
             false
         );
+        $media_replace = array(
+            'selectMediaText'        => __( 'Select New Media File', 'admin-site-enhancements' ),
+            'performReplacementText' => __( 'Perform Replacement', 'admin-site-enhancements' ),
+        );
+        wp_localize_script( 'asenha-media-replace', 'mediaReplace', $media_replace );
     }
     
     // Utilities >> Image Sizes Panel

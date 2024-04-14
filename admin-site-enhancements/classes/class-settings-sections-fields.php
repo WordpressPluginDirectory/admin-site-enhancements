@@ -1235,7 +1235,11 @@ class Settings_Sections_Fields
                 'field_id'               => $field_id,
                 'field_slug'             => $field_slug,
                 'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
-                'field_description'      => sprintf( 'Default is %s', site_url( '/wp-login.php' ) ),
+                'field_description'      => sprintf(
+                /* translators: %s is the default login URL */
+                __( 'Default is %s', 'admin-site-enhancements' ),
+                site_url( '/wp-login.php' )
+            ),
                 'field_options_moreless' => true,
                 'field_options_wrapper'  => true,
                 'class'                  => 'asenha-toggle login-logout ' . $field_slug,
@@ -1941,7 +1945,7 @@ class Settings_Sections_Fields
                 'field_type'        => 'textarea',
                 'field_rows'        => 15,
                 'field_intro'       => __( '<strong>Your ads.txt content:</strong>', 'admin-site-enhancements' ),
-                'field_description' => __( 'Validate with:', 'admin-site-enhancements' ) . '<a href="https://adstxt.guru/validator/url/?url=' . $ads_txt_url_urlencoded . '" target="_blank">adstxt.guru</a> | <a href="https://www.adstxtvalidator.com/ads_txt/' . $ads_txt_str_replaced . '" target="_blank">adstxtvalidator.com</a><div class="vspacer"></div>',
+                'field_description' => __( 'Validate with:', 'admin-site-enhancements' ) . ' <a href="https://adstxt.guru/validator/url/?url=' . $ads_txt_url_urlencoded . '" target="_blank">adstxt.guru</a> | <a href="https://www.adstxtvalidator.com/ads_txt/' . $ads_txt_str_replaced . '" target="_blank">adstxtvalidator.com</a><div class="vspacer"></div>',
                 'admin-site-enhancements',
                 'class'             => 'asenha-textarea asenha-hide-th syntax-highlighted custom-code ' . $field_slug,
             )
@@ -1967,7 +1971,7 @@ class Settings_Sections_Fields
                 'field_name'        => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_type'        => 'textarea',
                 'field_rows'        => 15,
-                'field_intro'       => '<strong>Your app-ads.txt content:</strong>',
+                'field_intro'       => __( '<strong>Your app-ads.txt content:</strong>', 'admin-site-enhancements' ),
                 'field_description' => __( 'Validate with:', 'admin-site-enhancements' ) . ' <a href="https://adstxt.guru/validator/url/?url=' . $appads_txt_url_urlencoded . '" target="_blank">adstxt.guru</a>',
                 'class'             => 'asenha-textarea asenha-hide-th syntax-highlighted custom-code ' . $field_slug,
             )
@@ -2019,7 +2023,7 @@ class Settings_Sections_Fields
                 'field_type'        => 'textarea',
                 'field_rows'        => 20,
                 'field_intro'       => '',
-                'field_description' => __( 'Validate with:', 'admin-site-enhancements' ) . '<a href="https://en.ryte.com/free-tools/robots-txt/?refresh=1&url=' . $robots_txt_url_urlencoded . '&useragent=Googlebot&submit=Evaluate" target="_blank">ryte.com</a> | <a href="https://serp.tools/tools/robots-txt" target="_blank">serp.tools</a><div class="vspacer"></div>',
+                'field_description' => __( 'Validate with:', 'admin-site-enhancements' ) . ' <a href="https://en.ryte.com/free-tools/robots-txt/?refresh=1&url=' . $robots_txt_url_urlencoded . '&useragent=Googlebot&submit=Evaluate" target="_blank">ryte.com</a> | <a href="https://serp.tools/tools/robots-txt" target="_blank">serp.tools</a><div class="vspacer"></div>',
                 'class'             => 'asenha-textarea asenha-hide-th syntax-highlighted custom-code ' . $field_slug,
             )
         );

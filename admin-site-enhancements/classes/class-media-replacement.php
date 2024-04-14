@@ -66,12 +66,12 @@ class Media_Replacement {
             $fields['asenha-media-replace']['html'] = '
                 <div id="media-replace-div" class="postbox">
                     <div class="postbox-header">
-                        <h2 class="hndle ui-sortable-handle">Replace Media</h2>
+                        <h2 class="hndle ui-sortable-handle">' . __( 'Replace Media', 'admin-site-enhancements' ) . '</h2>
                     </div>
                     <div class="inside">
-                    <button type="button" id="asenha-media-replace" class="button-secondary button-large asenha-media-replace-button" data-old-image-mime-type="' . $image_mime_type . '" onclick="replaceMedia(\'' . $image_mime_type . '\');">Select New Media File</button>
+                    <button type="button" id="asenha-media-replace" class="button-secondary button-large asenha-media-replace-button" data-old-image-mime-type="' . $image_mime_type . '" onclick="replaceMedia(\'' . $image_mime_type . '\');">' . __( 'Select New Media File', 'admin-site-enhancements' ) . '</button>
                     <input type="hidden" id="new-attachment-id" name="new-attachment-id" />
-                    <div class="asenha-media-replace-notes"><p>The current file will be replaced with the uploaded / selected file (of the same type) while retaining the current ID, publish date and file name. Thus, no existing links will break.</p></div>
+                    <div class="asenha-media-replace-notes"><p>' . __( 'The current file will be replaced with the uploaded / selected file (of the same type) while retaining the current ID, publish date and file name. Thus, no existing links will break.', 'admin-site-enhancements' ) . '</p></div>
                     </div>
                 </div>
             ';

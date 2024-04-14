@@ -35,7 +35,7 @@ class Settings_Fields_Render
             
             if ( array_key_exists( 'field_options_moreless', $args ) && $args['field_options_moreless'] ) {
                 echo  '<div class="asenha-field-with-options field-show-more">' ;
-                echo  '<a id="' . esc_attr( $args['field_slug'] ) . '-show-moreless" class="show-more-less show-more" href="#">Expand &#9660;</a>' ;
+                echo  '<a id="' . esc_attr( $args['field_slug'] ) . '-show-moreless" class="show-more-less show-more" href="#">' . __( 'Expand', 'admin-site-enhancements' ) . '&#9660;</a>' ;
                 echo  '<div class="asenha-field-options-wrapper wrapper-show-more">' ;
             } else {
                 echo  '<div class="asenha-field-with-options">' ;

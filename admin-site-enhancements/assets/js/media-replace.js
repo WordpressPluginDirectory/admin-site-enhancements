@@ -31,9 +31,9 @@ function replaceMedia(oldImageMimeType) {
 
 	// Instantiate the media frame
 	mediaFrame = wp.media({
-		title: 'Select New Media File',
+		title: mediaReplace.selectMediaText,
 		button: {
-			text: 'Perform Replacement'
+			text: mediaReplace.performReplacementText
 		},
 		multiple: false // Enable/disable multiple select
 	});

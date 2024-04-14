@@ -1,10 +1,24 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **87 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **88 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
+
+### 6.9.8 (2024.04.15) - ASE Free and Pro
+
+* **[TRANSLATION for Free and Pro]** ASE Free is now available in Dutch (props to Toine R. et al.) and Ukrainian (props to Irina), and ASE Pro is available in Hungarian (props to R. József G.) and Brazilian Portuguese (props to Dennis F.)! For ASE Free, once you switch your language to Nederland or Українська in your profile settings, please go to Dashboard >> Updates >> Translation and click on "Update translation" to download the translation from wordpress.org. Pro version already includes the translation. Interested to have ASE in your language(s)? Please go to https://translate.wpase.com on how to get involved. Thanks!
+
+* **[INTERNATIONALIZATION]** More strings have been internationalized, so they are available for translation into various languages.
+
+* **[CHANGED in Free]** Remove the nudge to donate in support of the development for the free version of ASE. This has been replaced with a simple ask to share about ASE with your communities, which is also a way to provide support. Overall, the support nudge at the top of ASE settings page has been simplified. So, if you find ASE has been useful on your sites and in your workflow, hopefully you will consider adding [a nice review](https://wordpress.org/plugins/admin-site-enhancements/#reviews), providing feedback, sharing about ASE or helping with translation efforts. Please do understand that by now, probably more than 300 hours have been spent on developing the free version of ASE over the course of one and a half year.
+
+* **[FIXED in Pro] Content Management >> Content Duplication**: fixed a bug where all user roles were selected after saving changes to ASE settings, despite unchecking several user roles before saving. Props to David M. for spotting and reporting the issue.
+
+* **[FIXED in Pro] Content Management >> Media Categories**: fixed CSS so filter bar items in the list view does not spill over to the second line.
+
+* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: properly output "Hide until toggle" text without raw PHP code.
 
 ### 6.9.7 (2024.04.07) - ASE Free and Pro
 
