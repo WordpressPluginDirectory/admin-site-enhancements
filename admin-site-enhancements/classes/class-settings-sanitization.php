@@ -7,15 +7,13 @@ namespace ASENHA\Classes;
  *
  * @since 2.2.0
  */
-class Settings_Sanitization
-{
+class Settings_Sanitization {
     /**
      * Sanitize options
      *
      * @since 1.0.0
      */
-    function sanitize_for_options( $options )
-    {
+    function sanitize_for_options( $options ) {
         // Call WordPress globals required for validating the fields
         global 
             $wp_roles,
@@ -45,14 +43,12 @@ class Settings_Sanitization
         if ( is_array( $asenha_public_post_types ) ) {
             foreach ( $asenha_public_post_types as $post_type_slug => $post_type_label ) {
                 // e.g. $post_type_slug is post, $post_type_label is Posts
-                
                 if ( post_type_supports( $post_type_slug, 'page-attributes' ) || is_post_type_hierarchical( $post_type_slug ) ) {
                     if ( !isset( $options['content_order_for'][$post_type_slug] ) ) {
                         $options['content_order_for'][$post_type_slug] = false;
                     }
                     $options['content_order_for'][$post_type_slug] = ( 'on' == $options['content_order_for'][$post_type_slug] ? true : false );
                 }
-            
             }
         }
         // Enable Media Replacement
@@ -186,7 +182,7 @@ class Settings_Sanitization
         if ( !isset( $options['admin_menu_width'] ) ) {
             $options['admin_menu_width'] = 200;
         }
-        $options['admin_menu_width'] = ( !empty($options['admin_menu_width']) ? sanitize_text_field( $options['admin_menu_width'] ) : 200 );
+        $options['admin_menu_width'] = ( !empty( $options['admin_menu_width'] ) ? sanitize_text_field( $options['admin_menu_width'] ) : 200 );
         // Admin Menu Organizer
         if ( !isset( $options['customize_admin_menu'] ) ) {
             $options['customize_admin_menu'] = false;
@@ -260,11 +256,11 @@ class Settings_Sanitization
         if ( !isset( $options['custom_admin_footer_left'] ) ) {
             $options['custom_admin_footer_left'] = '';
         }
-        $options['custom_admin_footer_left'] = ( !empty($options['custom_admin_footer_left']) ? wp_kses_post( $options['custom_admin_footer_left'] ) : '' );
+        $options['custom_admin_footer_left'] = ( !empty( $options['custom_admin_footer_left'] ) ? wp_kses_post( $options['custom_admin_footer_left'] ) : '' );
         if ( !isset( $options['custom_admin_footer_right'] ) ) {
             $options['custom_admin_footer_right'] = '';
         }
-        $options['custom_admin_footer_right'] = ( !empty($options['custom_admin_footer_right']) ? wp_kses_post( $options['custom_admin_footer_right'] ) : '' );
+        $options['custom_admin_footer_right'] = ( !empty( $options['custom_admin_footer_right'] ) ? wp_kses_post( $options['custom_admin_footer_right'] ) : '' );
         // =================================================================
         // LOG IN | LOG OUT
         // =================================================================
@@ -276,7 +272,7 @@ class Settings_Sanitization
         if ( !isset( $options['custom_login_slug'] ) ) {
             $options['custom_login_slug'] = 'backend';
         }
-        $options['custom_login_slug'] = ( !empty($options['custom_login_slug']) ? sanitize_text_field( $options['custom_login_slug'] ) : 'backend' );
+        $options['custom_login_slug'] = ( !empty( $options['custom_login_slug'] ) ? sanitize_text_field( $options['custom_login_slug'] ) : 'backend' );
         // Login ID Type
         if ( !isset( $options['login_id_type_restriction'] ) ) {
             $options['login_id_type_restriction'] = false;
@@ -285,7 +281,7 @@ class Settings_Sanitization
         if ( !isset( $options['login_id_type'] ) ) {
             $options['login_id_type'] = 'username';
         }
-        $options['login_id_type'] = ( !empty($options['login_id_type']) ? sanitize_text_field( $options['login_id_type'] ) : 'username' );
+        $options['login_id_type'] = ( !empty( $options['login_id_type'] ) ? sanitize_text_field( $options['login_id_type'] ) : 'username' );
         // Use Site Identity on the Login Page
         if ( !isset( $options['site_identity_on_login'] ) ) {
             $options['site_identity_on_login'] = false;
@@ -304,7 +300,7 @@ class Settings_Sanitization
         if ( !isset( $options['redirect_after_login_to_slug'] ) ) {
             $options['redirect_after_login_to_slug'] = '';
         }
-        $options['redirect_after_login_to_slug'] = ( !empty($options['redirect_after_login_to_slug']) ? sanitize_text_field( $options['redirect_after_login_to_slug'] ) : '' );
+        $options['redirect_after_login_to_slug'] = ( !empty( $options['redirect_after_login_to_slug'] ) ? sanitize_text_field( $options['redirect_after_login_to_slug'] ) : '' );
         if ( is_array( $roles ) ) {
             foreach ( $roles as $role_slug => $role_label ) {
                 // e.g. $role_slug is administrator, $role_label is Administrator
@@ -322,7 +318,7 @@ class Settings_Sanitization
         if ( !isset( $options['redirect_after_logout_to_slug'] ) ) {
             $options['redirect_after_logout_to_slug'] = '';
         }
-        $options['redirect_after_logout_to_slug'] = ( !empty($options['redirect_after_logout_to_slug']) ? sanitize_text_field( $options['redirect_after_logout_to_slug'] ) : '' );
+        $options['redirect_after_logout_to_slug'] = ( !empty( $options['redirect_after_logout_to_slug'] ) ? sanitize_text_field( $options['redirect_after_logout_to_slug'] ) : '' );
         if ( is_array( $roles ) ) {
             foreach ( $roles as $role_slug => $role_label ) {
                 // e.g. $role_slug is administrator, $role_label is Administrator
@@ -345,7 +341,7 @@ class Settings_Sanitization
         if ( !isset( $options['custom_admin_css'] ) ) {
             $options['custom_admin_css'] = '';
         }
-        $options['custom_admin_css'] = ( !empty($options['custom_admin_css']) ? $options['custom_admin_css'] : '' );
+        $options['custom_admin_css'] = ( !empty( $options['custom_admin_css'] ) ? $options['custom_admin_css'] : '' );
         // Enable Custom Frontend CSS
         if ( !isset( $options['enable_custom_frontend_css'] ) ) {
             $options['enable_custom_frontend_css'] = false;
@@ -354,7 +350,7 @@ class Settings_Sanitization
         if ( !isset( $options['custom_frontend_css'] ) ) {
             $options['custom_frontend_css'] = '';
         }
-        $options['custom_frontend_css'] = ( !empty($options['custom_frontend_css']) ? $options['custom_frontend_css'] : '' );
+        $options['custom_frontend_css'] = ( !empty( $options['custom_frontend_css'] ) ? $options['custom_frontend_css'] : '' );
         // Custom Body Class
         if ( !isset( $options['enable_custom_body_class'] ) ) {
             $options['enable_custom_body_class'] = false;
@@ -377,26 +373,23 @@ class Settings_Sanitization
         if ( !isset( $options['ads_txt_content'] ) ) {
             $options['ads_txt_content'] = '';
         }
-        $options['ads_txt_content'] = ( !empty($options['ads_txt_content']) ? $options['ads_txt_content'] : '' );
+        $options['ads_txt_content'] = ( !empty( $options['ads_txt_content'] ) ? $options['ads_txt_content'] : '' );
         if ( !isset( $options['app_ads_txt_content'] ) ) {
             $options['app_ads_txt_content'] = '';
         }
-        $options['app_ads_txt_content'] = ( !empty($options['app_ads_txt_content']) ? $options['app_ads_txt_content'] : '' );
+        $options['app_ads_txt_content'] = ( !empty( $options['app_ads_txt_content'] ) ? $options['app_ads_txt_content'] : '' );
         // Manage robots.txt
         if ( !isset( $options['manage_robots_txt'] ) ) {
             $options['manage_robots_txt'] = false;
         }
         $options['manage_robots_txt'] = ( 'on' == $options['manage_robots_txt'] ? true : false );
-        
         if ( !isset( $options['robots_txt_content'] ) ) {
             $options['robots_txt_content'] = '';
         } else {
-            
-            if ( !empty($options['robots_txt_content']) ) {
+            if ( !empty( $options['robots_txt_content'] ) ) {
                 $options['robots_txt_content'] = $options['robots_txt_content'];
                 $is_robots_txt_real_file = is_file( ABSPATH . 'robots.txt' );
                 // rename real robots.txt file if it exists and Mange robots.txt is enabled
-                
                 if ( $is_robots_txt_real_file && 'on' == $options['manage_robots_txt'] ) {
                     $robots_txt_backup_filename = 'robots_backup_' . date( 'Y_m_d__H_i', time() ) . '.txt';
                     $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
@@ -411,13 +404,10 @@ class Settings_Sanitization
                         }
                     }
                 }
-            
             } else {
                 $options['robots_txt_content'] = '';
             }
-        
         }
-        
         // Insert <head>, <body> and <footer> code
         if ( !isset( $options['insert_head_body_footer_code'] ) ) {
             $options['insert_head_body_footer_code'] = false;
@@ -430,7 +420,7 @@ class Settings_Sanitization
         if ( !isset( $options['head_code'] ) ) {
             $options['head_code'] = '';
         }
-        $options['head_code'] = ( !empty($options['head_code']) ? $options['head_code'] : '' );
+        $options['head_code'] = ( !empty( $options['head_code'] ) ? $options['head_code'] : '' );
         if ( !isset( $options['body_code_priority'] ) ) {
             $options['body_code_priority'] = '';
         }
@@ -438,7 +428,7 @@ class Settings_Sanitization
         if ( !isset( $options['body_code'] ) ) {
             $options['body_code'] = '';
         }
-        $options['body_code'] = ( !empty($options['body_code']) ? $options['body_code'] : '' );
+        $options['body_code'] = ( !empty( $options['body_code'] ) ? $options['body_code'] : '' );
         if ( !isset( $options['footer_code_priority'] ) ) {
             $options['footer_code_priority'] = '';
         }
@@ -446,7 +436,7 @@ class Settings_Sanitization
         if ( !isset( $options['footer_code'] ) ) {
             $options['footer_code'] = '';
         }
-        $options['footer_code'] = ( !empty($options['footer_code']) ? $options['footer_code'] : '' );
+        $options['footer_code'] = ( !empty( $options['footer_code'] ) ? $options['footer_code'] : '' );
         // =================================================================
         // DISABLE COMPONENTS
         // =================================================================
@@ -549,11 +539,11 @@ class Settings_Sanitization
         if ( !isset( $options['login_fails_allowed'] ) ) {
             $options['login_fails_allowed'] = 3;
         }
-        $options['login_fails_allowed'] = ( !empty($options['login_fails_allowed']) ? sanitize_text_field( $options['login_fails_allowed'] ) : 3 );
+        $options['login_fails_allowed'] = ( !empty( $options['login_fails_allowed'] ) ? sanitize_text_field( $options['login_fails_allowed'] ) : 3 );
         if ( !isset( $options['login_lockout_maxcount'] ) ) {
             $options['login_lockout_maxcount'] = 3;
         }
-        $options['login_lockout_maxcount'] = ( !empty($options['login_lockout_maxcount']) ? sanitize_text_field( $options['login_lockout_maxcount'] ) : 3 );
+        $options['login_lockout_maxcount'] = ( !empty( $options['login_lockout_maxcount'] ) ? sanitize_text_field( $options['login_lockout_maxcount'] ) : 3 );
         if ( !isset( $options['login_attempts_log_table'] ) ) {
             $options['login_attempts_log_table'] = '';
         }
@@ -588,11 +578,11 @@ class Settings_Sanitization
         if ( !isset( $options['image_max_width'] ) ) {
             $options['image_max_width'] = 1920;
         }
-        $options['image_max_width'] = ( !empty($options['image_max_width']) ? sanitize_text_field( $options['image_max_width'] ) : 1920 );
+        $options['image_max_width'] = ( !empty( $options['image_max_width'] ) ? sanitize_text_field( $options['image_max_width'] ) : 1920 );
         if ( !isset( $options['image_max_height'] ) ) {
             $options['image_max_height'] = 1920;
         }
-        $options['image_max_height'] = ( !empty($options['image_max_height']) ? sanitize_text_field( $options['image_max_height'] ) : 1920 );
+        $options['image_max_height'] = ( !empty( $options['image_max_height'] ) ? sanitize_text_field( $options['image_max_height'] ) : 1920 );
         // Enable Revisions Control
         if ( !isset( $options['enable_revisions_control'] ) ) {
             $options['enable_revisions_control'] = false;
@@ -628,15 +618,15 @@ class Settings_Sanitization
         if ( !isset( $options['heartbeat_interval_for_admin_pages'] ) ) {
             $options['heartbeat_interval_for_admin_pages'] = 60;
         }
-        $options['heartbeat_interval_for_admin_pages'] = ( !empty($options['heartbeat_interval_for_admin_pages']) ? sanitize_text_field( $options['heartbeat_interval_for_admin_pages'] ) : 60 );
+        $options['heartbeat_interval_for_admin_pages'] = ( !empty( $options['heartbeat_interval_for_admin_pages'] ) ? sanitize_text_field( $options['heartbeat_interval_for_admin_pages'] ) : 60 );
         if ( !isset( $options['heartbeat_interval_for_post_edit'] ) ) {
             $options['heartbeat_interval_for_post_edit'] = 15;
         }
-        $options['heartbeat_interval_for_post_edit'] = ( !empty($options['heartbeat_interval_for_post_edit']) ? sanitize_text_field( $options['heartbeat_interval_for_post_edit'] ) : 15 );
+        $options['heartbeat_interval_for_post_edit'] = ( !empty( $options['heartbeat_interval_for_post_edit'] ) ? sanitize_text_field( $options['heartbeat_interval_for_post_edit'] ) : 15 );
         if ( !isset( $options['heartbeat_interval_for_frontend'] ) ) {
             $options['heartbeat_interval_for_frontend'] = 60;
         }
-        $options['heartbeat_interval_for_frontend'] = ( !empty($options['heartbeat_interval_for_frontend']) ? sanitize_text_field( $options['heartbeat_interval_for_frontend'] ) : 60 );
+        $options['heartbeat_interval_for_frontend'] = ( !empty( $options['heartbeat_interval_for_frontend'] ) ? sanitize_text_field( $options['heartbeat_interval_for_frontend'] ) : 60 );
         // =================================================================
         // UTILITIES
         // =================================================================
@@ -648,31 +638,31 @@ class Settings_Sanitization
         if ( !isset( $options['smtp_host'] ) ) {
             $options['smtp_host'] = '';
         }
-        $options['smtp_host'] = ( !empty($options['smtp_host']) ? sanitize_text_field( $options['smtp_host'] ) : '' );
+        $options['smtp_host'] = ( !empty( $options['smtp_host'] ) ? sanitize_text_field( $options['smtp_host'] ) : '' );
         if ( !isset( $options['smtp_port'] ) ) {
             $options['smtp_port'] = '';
         }
-        $options['smtp_port'] = ( !empty($options['smtp_port']) ? $options['smtp_port'] : '' );
+        $options['smtp_port'] = ( !empty( $options['smtp_port'] ) ? $options['smtp_port'] : '' );
         if ( !isset( $options['smtp_security'] ) ) {
             $options['smtp_security'] = 'none';
         }
-        $options['smtp_security'] = ( !empty($options['smtp_security']) ? $options['smtp_security'] : 'none' );
+        $options['smtp_security'] = ( !empty( $options['smtp_security'] ) ? $options['smtp_security'] : 'none' );
         if ( !isset( $options['smtp_username'] ) ) {
             $options['smtp_username'] = '';
         }
-        $options['smtp_username'] = ( !empty($options['smtp_username']) ? sanitize_text_field( $options['smtp_username'] ) : '' );
+        $options['smtp_username'] = ( !empty( $options['smtp_username'] ) ? sanitize_text_field( $options['smtp_username'] ) : '' );
         if ( !isset( $options['smtp_password'] ) ) {
             $options['smtp_password'] = '';
         }
-        $options['smtp_password'] = ( !empty($options['smtp_password']) ? $options['smtp_password'] : '' );
+        $options['smtp_password'] = ( !empty( $options['smtp_password'] ) ? $options['smtp_password'] : '' );
         if ( !isset( $options['smtp_default_from_name'] ) ) {
             $options['smtp_default_from_name'] = '';
         }
-        $options['smtp_default_from_name'] = ( !empty($options['smtp_default_from_name']) ? sanitize_text_field( $options['smtp_default_from_name'] ) : '' );
+        $options['smtp_default_from_name'] = ( !empty( $options['smtp_default_from_name'] ) ? sanitize_text_field( $options['smtp_default_from_name'] ) : '' );
         if ( !isset( $options['smtp_default_from_email'] ) ) {
             $options['smtp_default_from_email'] = '';
         }
-        $options['smtp_default_from_email'] = ( !empty($options['smtp_default_from_email']) ? sanitize_text_field( $options['smtp_default_from_email'] ) : '' );
+        $options['smtp_default_from_email'] = ( !empty( $options['smtp_default_from_email'] ) ? sanitize_text_field( $options['smtp_default_from_email'] ) : '' );
         if ( !isset( $options['smtp_default_from_description'] ) ) {
             $options['smtp_default_from_description'] = '';
         }
@@ -711,7 +701,7 @@ class Settings_Sanitization
         if ( !isset( $options['password_protection_password'] ) ) {
             $options['password_protection_password'] = 'secret';
         }
-        $options['password_protection_password'] = ( !empty($options['password_protection_password']) ? $options['password_protection_password'] : 'secret' );
+        $options['password_protection_password'] = ( !empty( $options['password_protection_password'] ) ? $options['password_protection_password'] : 'secret' );
         // Maintenance Mode
         if ( !isset( $options['maintenance_mode'] ) ) {
             $options['maintenance_mode'] = false;
@@ -720,15 +710,15 @@ class Settings_Sanitization
         if ( !isset( $options['maintenance_page_heading'] ) ) {
             $options['maintenance_page_heading'] = 'We\'ll be back soon.';
         }
-        $options['maintenance_page_heading'] = ( !empty($options['maintenance_page_heading']) ? sanitize_text_field( $options['maintenance_page_heading'] ) : 'We\'ll be back soon.' );
+        $options['maintenance_page_heading'] = ( !empty( $options['maintenance_page_heading'] ) ? sanitize_text_field( $options['maintenance_page_heading'] ) : 'We\'ll be back soon.' );
         if ( !isset( $options['maintenance_page_description'] ) ) {
             $options['maintenance_page_description'] = 'This site is undergoing maintenance for an extended period today. Thanks for your patience.';
         }
-        $options['maintenance_page_description'] = ( !empty($options['maintenance_page_description']) ? sanitize_text_field( $options['maintenance_page_description'] ) : 'This site is undergoing maintenance for an extended period today. Thanks for your patience.' );
+        $options['maintenance_page_description'] = ( !empty( $options['maintenance_page_description'] ) ? sanitize_text_field( $options['maintenance_page_description'] ) : 'This site is undergoing maintenance for an extended period today. Thanks for your patience.' );
         if ( !isset( $options['maintenance_page_background'] ) ) {
             $options['maintenance_page_background'] = 'stripes';
         }
-        $options['maintenance_page_background'] = ( !empty($options['maintenance_page_background']) ? $options['maintenance_page_background'] : 'stripes' );
+        $options['maintenance_page_background'] = ( !empty( $options['maintenance_page_background'] ) ? $options['maintenance_page_background'] : 'stripes' );
         if ( !isset( $options['maintenance_mode_description'] ) ) {
             $options['maintenance_mode_description'] = '';
         }
@@ -749,14 +739,13 @@ class Settings_Sanitization
         $options['search_engine_visibility_status'] = ( 'on' == $options['search_engine_visibility_status'] ? true : false );
         return $options;
     }
-    
+
     /**
      * Sanitize checkbox field. For reference purpose. Not currently in use.
      *
      * @since 1.0.0
      */
-    function asenha_sanitize_checkbox_field( $value )
-    {
+    function asenha_sanitize_checkbox_field( $value ) {
         // A checked checkbox field will originally be saved as an 'on' value in the option. We transform that into true (shown as 1) or false (shown as empty value)
         return ( 'on' === $value ? true : false );
     }

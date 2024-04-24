@@ -7,19 +7,16 @@ namespace ASENHA\Classes;
  *
  * @since 6.9.5
  */
-class Disable_Gutenberg
-{
+class Disable_Gutenberg {
     /**
      * Disable Gutenberg in wp-admin for some or all post types
      *
      * @since 2.8.0
      */
-    public function disable_gutenberg_for_post_types_admin()
-    {
+    public function disable_gutenberg_for_post_types_admin() {
         // Get current page's post type from WP core globals and query parameters
-        global  $pagenow, $typenow ;
+        global $pagenow, $typenow;
         $post_type = null;
-        
         if ( 'edit.php' === $pagenow ) {
             // on the list table screen, $typenow returns correct post type
             $post_type = $typenow;
@@ -31,19 +28,16 @@ class Disable_Gutenberg
             $post_type = ( isset( $_GET['post_type'] ) ? $_GET['post_type'] : 'post' );
         } else {
         }
-        
         // Check if Gutenberg feature is enabled for the site
         // Before/after WP v5.0.0 via feature plugin
         $gutenberg = function_exists( 'gutenberg_register_scripts_and_styles' );
         // Since WP v5.0.0, gutenberg is in core
         $block_editor = has_action( 'enqueue_block_assets' );
         // Gutenberg feature is not enabled for the site
-        
         if ( !$gutenberg && false === $block_editor ) {
             return;
             // do nothing
         }
-        
         // Assemble single-dimensional array of post types for which Gutenberg should be disabled
         $options = get_option( ASENHA_SLUG_U );
         $disable_gutenberg_type = 'only-on';
@@ -55,29 +49,24 @@ class Disable_Gutenberg
             }
         }
         // Selectively disable Gutenberg
-        
         if ( 'only-on' == $disable_gutenberg_type && in_array( $post_type, $post_types_for_disable_gutenberg ) || 'except-on' == $disable_gutenberg_type && !in_array( $post_type, $post_types_for_disable_gutenberg ) ) {
             // For WP v5.0.0 upwards
             add_filter( 'use_block_editor_for_post_type', '__return_false', 100 );
             // If Gutenberg feature plugin is activated
-            
             if ( $gutenberg ) {
                 add_filter( 'gutenberg_can_edit_post_type', '__return_false', 100 );
                 $this->remove_all_gutenberg_hook();
             }
-        
         }
-    
     }
-    
+
     /**
      * Remove Gutenberg hooks added via feature plugin.
      *
      * @link https://plugins.trac.wordpress.org/browser/classic-editor/tags/1.6.2/classic-editor.php#L138
      * @since 2.8.0
      */
-    public function remove_all_gutenberg_hooks()
-    {
+    public function remove_all_gutenberg_hooks() {
         remove_action( 'admin_menu', 'gutenberg_menu' );
         remove_action( 'admin_init', 'gutenberg_redirect_demo' );
         // Gutenberg 5.3+
@@ -117,17 +106,15 @@ class Disable_Gutenberg
         remove_action( 'admin_enqueue_scripts', 'gutenberg_check_if_classic_needs_warning_about_blocks' );
         remove_filter( 'register_post_type_args', 'gutenberg_filter_post_type_labels' );
     }
-    
+
     /**
      * Disable Gutenberg styles and scripts on the front end for all or some post types
      *
      * @since 2.8.0
      */
-    public function disable_gutenberg_for_post_types_frontend()
-    {
+    public function disable_gutenberg_for_post_types_frontend() {
         $post = get_queried_object();
         if ( !is_null( $post ) ) {
-            
             if ( property_exists( $post, 'post_type' ) ) {
                 $post_type = $post->post_type;
                 // Assemble single-dimensional array of post types for which Gutenberg should be disabled
@@ -141,9 +128,8 @@ class Disable_Gutenberg
                     }
                 }
                 // Selectively disable for the selected post types
-                
                 if ( 'only-on' == $disable_gutenberg_type && in_array( $post_type, $post_types_for_disable_gutenberg ) || 'except-on' == $disable_gutenberg_type && !in_array( $post_type, $post_types_for_disable_gutenberg ) ) {
-                    global  $wp_styles ;
+                    global $wp_styles;
                     // As needed, exclude some block styles from dequeuing
                     $keep_enqueued = array();
                     // e.g. array( 'wp-block-navigation' );
@@ -162,9 +148,7 @@ class Disable_Gutenberg
                     wp_dequeue_style( 'classic-theme-styles' );
                     // classic theme
                 }
-            
             }
-        
         }
     }
 

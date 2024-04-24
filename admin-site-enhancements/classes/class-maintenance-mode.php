@@ -7,20 +7,17 @@ namespace ASENHA\Classes;
  *
  * @since 6.9.5
  */
-class Maintenance_Mode
-{
+class Maintenance_Mode {
     /**
      * Redirect for when maintenance mode is enabled
      *
      * @since 4.7.0
      */
-    public function maintenance_mode_redirect()
-    {
+    public function maintenance_mode_redirect() {
         $current_url = sanitize_text_field( $_SERVER['REQUEST_URI'] );
         $current_url_parts = explode( '/', $current_url );
         // Bypass wp-admin pages and logged-in administrator on the frontend
         if ( !in_array( 'wp-admin', $current_url_parts ) || false !== strpos( 'wp-login.php', $current_url ) ) {
-            
             if ( !current_user_can( 'manage_options' ) ) {
                 header( 'HTTP/1.1 503 Service Unavailable', true, 503 );
                 header( 'Status: 503 Service Unavailable' );
@@ -31,7 +28,6 @@ class Maintenance_Mode
                 $description = $options['maintenance_page_description'];
                 $background = $options['maintenance_page_background'];
                 $title = '';
-                
                 if ( 'lines' === $background ) {
                     // https://bgjar.com/curve-line
                     $background_image = "url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1920' height='1280' preserveAspectRatio='none' viewBox='0 0 1920 1280'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1804%26quot%3b)' fill='none'%3e%3crect width='1920' height='1280' x='0' y='0' fill='url(%23SvgjsLinearGradient1805)'%3e%3c/rect%3e%3cpath d='M2294.46 927.36C2128.65 934.22 2078.52 1270.56 1693.36 1208.96 1308.19 1147.36 1373.24 145.96 1092.25-67.11' stroke='rgba(158%2c 160%2c 161%2c 0.57)' stroke-width='2'%3e%3c/path%3e%3cpath d='M2225.25 303.97C1963.34 332.56 1808.36 909.76 1359.97 905.57 911.59 901.38 820.47-55.06 494.7-167.42' stroke='rgba(158%2c 160%2c 161%2c 0.57)' stroke-width='2'%3e%3c/path%3e%3cpath d='M2247.58 281.19C2070.08 293.95 1967.68 651 1632.53 639.59 1297.39 628.18 1265.17-143.39 1017.49-253.69' stroke='rgba(158%2c 160%2c 161%2c 0.57)' stroke-width='2'%3e%3c/path%3e%3cpath d='M1924.29 917.21C1696.21 904.78 1584.63 530.74 1114.13 494.81 643.63 458.88 546.92-26.2 303.97-50.85' stroke='rgba(158%2c 160%2c 161%2c 0.57)' stroke-width='2'%3e%3c/path%3e%3cpath d='M2009.59 400.31C1847.79 399.06 1696.02 240.31 1382.45 240.31 1068.87 240.31 1083.3 404.62 755.3 400.31 427.31 396 332.72-108.61 128.16-144.89' stroke='rgba(158%2c 160%2c 161%2c 0.57)' stroke-width='2'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1804'%3e%3crect width='1920' height='1280' fill='white'%3e%3c/rect%3e%3c/mask%3e%3clinearGradient x1='8.33%25' y1='-12.5%25' x2='91.67%25' y2='112.5%25' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient1805'%3e%3cstop stop-color='rgba(255%2c 255%2c 255%2c 1)' offset='0'%3e%3c/stop%3e%3cstop stop-color='rgba(193%2c 192%2c 192%2c 1)' offset='1'%3e%3c/stop%3e%3c/linearGradient%3e%3c/defs%3e%3c/svg%3e\")";
@@ -50,21 +46,20 @@ class Maintenance_Mode
                     $background_style = 'background-color: #ffffff;';
                 } else {
                 }
-                
                 ?>
                 <html>
                     <head>
                         <title><?php 
-                echo  esc_html( $title ) ;
+                echo esc_html( $title );
                 ?></title>
                         <link rel="stylesheet" id="asenha-maintenance" href="<?php 
-                echo  esc_html( ASENHA_URL ) . 'assets/css/maintenance.css' ;
+                echo esc_html( ASENHA_URL ) . 'assets/css/maintenance.css';
                 ?>" media="all">
                         <meta name="viewport" content="width=device-width">
                         <style>
                             body {
                                 <?php 
-                echo  wp_kses_post( $background_style ) ;
+                echo wp_kses_post( $background_style );
                 ?>;
                                 background-size: cover;
                                 background-position: center center;
@@ -79,10 +74,10 @@ class Maintenance_Mode
                             </div>
                             <div class="message-box">
                                 <h1><?php 
-                echo  wp_kses_post( $heading ) ;
+                echo wp_kses_post( $heading );
                 ?></h1>
                                 <div class="description"><?php 
-                echo  wp_kses_post( $description ) ;
+                echo wp_kses_post( $description );
                 ?></div>
                             </div>
                         </div>
@@ -91,30 +86,27 @@ class Maintenance_Mode
                 <?php 
                 exit;
             }
-        
         }
     }
-    
+
     /**
      * Show Password Protection admin bar status icon
      *
      * @since 4.1.0
      */
-    public function show_maintenance_mode_admin_bar_icon()
-    {
-        add_action( 'wp_before_admin_bar_render', [ $this, 'add_maintenance_mode_admin_bar_item' ] );
-        add_action( 'admin_head', [ $this, 'add_maintenance_mode_admin_bar_item_styles' ] );
-        add_action( 'wp_head', [ $this, 'add_maintenance_mode_admin_bar_item_styles' ] );
+    public function show_maintenance_mode_admin_bar_icon() {
+        add_action( 'wp_before_admin_bar_render', [$this, 'add_maintenance_mode_admin_bar_item'] );
+        add_action( 'admin_head', [$this, 'add_maintenance_mode_admin_bar_item_styles'] );
+        add_action( 'wp_head', [$this, 'add_maintenance_mode_admin_bar_item_styles'] );
     }
-    
+
     /**
      * Add WP Admin Bar item
      *
      * @since 4.1.0
      */
-    public function add_maintenance_mode_admin_bar_item()
-    {
-        global  $wp_admin_bar ;
+    public function add_maintenance_mode_admin_bar_item() {
+        global $wp_admin_bar;
         if ( is_user_logged_in() ) {
             if ( current_user_can( 'manage_options' ) ) {
                 $wp_admin_bar->add_menu( array(
@@ -122,20 +114,19 @@ class Maintenance_Mode
                     'title' => '',
                     'href'  => admin_url( 'tools.php?page=admin-site-enhancements#utilities' ),
                     'meta'  => array(
-                    'title' => 'Maintenance mode is currently enabled for this site.',
-                ),
+                        'title' => 'Maintenance mode is currently enabled for this site.',
+                    ),
                 ) );
             }
         }
     }
-    
+
     /**
      * Add icon and CSS for admin bar item
      *
      * @since 4.1.0
      */
-    public function add_maintenance_mode_admin_bar_item_styles()
-    {
+    public function add_maintenance_mode_admin_bar_item_styles() {
         if ( is_user_logged_in() ) {
             if ( current_user_can( 'manage_options' ) ) {
                 ?>

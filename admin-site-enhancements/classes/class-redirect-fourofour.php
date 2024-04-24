@@ -7,16 +7,13 @@ namespace ASENHA\Classes;
  *
  * @since 6.9.5
  */
-class Redirect_Fourofour
-{
+class Redirect_Fourofour {
     /**
      * Redirect 404 to homepage
      *
      * @since 1.7.0
      */
-    public function redirect_404()
-    {
-        
+    public function redirect_404() {
         if ( !is_404() || is_admin() || defined( 'DOING_CRON' ) && DOING_CRON || defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) {
             return;
         } else {
@@ -25,7 +22,6 @@ class Redirect_Fourofour
             header( 'Location: ' . sanitize_url( $redirect_url ) );
             exit;
         }
-    
     }
 
 }

@@ -7,6 +7,5 @@ namespace ASENHA\Classes;
  *
  * @since 6.9.5
  */
-class Code_Snippets_Manager
-{
+class Code_Snippets_Manager {
 }

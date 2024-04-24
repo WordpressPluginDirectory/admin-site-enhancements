@@ -7,54 +7,41 @@ namespace ASENHA\Classes;
  *
  * @since 6.9.5
  */
-class Cleanup_Admin_Bar
-{
+class Cleanup_Admin_Bar {
     /**
      * Modify admin bar menu for Admin Interface >> Hide or Modify Elements feature
      *
      * @param $wp_admin_bar object The admin bar.
      * @since 1.9.0
      */
-    public function modify_admin_bar_menu( $wp_admin_bar )
-    {
+    public function modify_admin_bar_menu( $wp_admin_bar ) {
         $options = get_option( ASENHA_SLUG_U, array() );
         // Hide WP Logo Menu
-        
         if ( array_key_exists( 'hide_ab_wp_logo_menu', $options ) && $options['hide_ab_wp_logo_menu'] ) {
             remove_action( 'admin_bar_menu', 'wp_admin_bar_wp_menu', 10 );
             // priority needs to match default value. Use QM to reference.
         }
-        
         // Hide Customize Menu
-        
         if ( array_key_exists( 'hide_ab_customize_menu', $options ) && $options['hide_ab_customize_menu'] ) {
             remove_action( 'admin_bar_menu', 'wp_admin_bar_customize_menu', 40 );
             // priority needs to match default value. Use QM to reference.
         }
-        
         // Hide Updates Counter/Link
-        
         if ( array_key_exists( 'hide_ab_updates_menu', $options ) && $options['hide_ab_updates_menu'] ) {
             remove_action( 'admin_bar_menu', 'wp_admin_bar_updates_menu', 50 );
             // priority needs to match default value. Use QM to reference.
         }
-        
         // Hide Comments Counter/Link
-        
         if ( array_key_exists( 'hide_ab_comments_menu', $options ) && $options['hide_ab_comments_menu'] ) {
             remove_action( 'admin_bar_menu', 'wp_admin_bar_comments_menu', 60 );
             // priority needs to match default value. Use QM to reference.
         }
-        
         // Hide New Content Menu
-        
         if ( array_key_exists( 'hide_ab_new_content_menu', $options ) && $options['hide_ab_new_content_menu'] ) {
             remove_action( 'admin_bar_menu', 'wp_admin_bar_new_content_menu', 70 );
             // priority needs to match default value. Use QM to reference.
         }
-        
         // Hide 'Howdy' text
-        
         if ( array_key_exists( 'hide_ab_howdy', $options ) && $options['hide_ab_howdy'] ) {
             // Remove the whole my account sectino and later rebuild it
             remove_action( 'admin_bar_menu', 'wp_admin_bar_my_account_item', 7 );
@@ -71,26 +58,22 @@ class Cleanup_Admin_Bar
                 'title'  => $display_name . $avatar,
                 'href'   => $profile_url,
                 'meta'   => array(
-                'class' => $class,
-            ),
+                    'class' => $class,
+                ),
             ) );
         }
-    
     }
-    
+
     /**
      * Hide the Help tab and drawer
      *
      * @since 4.5.0
      */
-    public function hide_help_drawer()
-    {
-        
+    public function hide_help_drawer() {
         if ( is_admin() ) {
             $screen = get_current_screen();
             $screen->remove_help_tabs();
         }
-    
     }
 
 }

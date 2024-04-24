@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.5.2  
-Stable tag: 6.9.8  
+Stable tag: 6.9.9  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -176,24 +176,27 @@ You can skip step 1 and 2 if you still have access to your wp-admin dashboard.
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **88 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **89 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
-### 6.9.8 (2024.04.14) - ASE Free and Pro
+### 6.9.9 (2024.04.23) - ASE Free and Pro
 
-* **[TRANSLATION for Free and Pro]** ASE Free is now available in Dutch (props to Toine R. et al.) and Ukrainian (props to Irina), and ASE Pro is available in Hungarian (props to R. József G.) and Brazilian Portuguese (props to Dennis F.)! For ASE Free, once you switch your language to Nederland or Українська in your profile settings, please go to Dashboard >> Updates >> Translation and click on "Update translation" to download the translation from wordpress.org. Pro version already includes the translation. Interested to have ASE in your language(s)? Please go to [https://translate.wpase.com ](https://translate.wpase.com)on how to get involved. Thanks!
-
-* **[INTERNATIONALIZATION]** More strings have been internationalized, so they are available for translation into various languages.
-
-* **[CHANGED in Free]** Remove the nudge to donate in support of the development for the free version of ASE. This has been replaced with a simple ask to share about ASE with your communities, which is also a way to provide support. Overall, the support nudge at the top of ASE settings page has been simplified. So, if you find ASE has been useful on your sites and in your workflow, hopefully you will consider adding [a nice review](https://wordpress.org/plugins/admin-site-enhancements/#reviews), providing feedback, sharing about ASE or helping with translation efforts. Please do understand that by now, probably more than 300 hours have been spent on developing the free version of ASE over the course of one and a half year.
-
-* **[FIXED in Pro] Content Management >> Content Duplication**: fixed a bug where all user roles were selected after saving changes to ASE settings, despite unchecking several user roles before saving. Props to David M. for spotting and reporting the issue.
-
-* **[FIXED in Pro] Content Management >> Media Categories**: fixed CSS so filter bar items in the list view does not spill over to the second line.
-
-* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: properly output "Hide until toggle" text without raw PHP code.
+* **[TRANSLATION]** ASE has now been translated into the following languages:
+  * **Chinese (China)**: ASE Free (completed) | ASE Pro (partial). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/).
+  * **Dutch**: ASE Free (completed) | ASE Pro (partial). Props to [Toine R](https://profiles.wordpress.org/toineenzo/) et al.
+  * **Hungarian**: ASE Free (completed) | ASE Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/).
+  * **Polish**: ASE Free (completed) | ASE Pro (partial). Props to [Dariusz Z.](https://profiles.wordpress.org/dariobros/).
+  * **Portuguese (Brazil)**: ASE Free (completed) | ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/).
+  * **Portuguese (Portugal)**: ASE Free (completed) | ASE Pro (partial). Props to [Ricardo C.](https://profiles.wordpress.org/madebyuh/).
+  * **Ukrainian**: ASE Free (completed) | ASE Pro (partial). Props to [Irina](https://profiles.wordpress.org/irinashl/).
+  * **Urdu**: ASE Free (completed) | ASE Pro (partial). Props to [Ayyaz A.](https://profiles.wordpress.org/ayyazahmad/).
+  * **Vietnamese**: ASE Free (completed) | ASE Pro (completed). Props to [Hoang N.Q.](https://profiles.wordpress.org/nguyenquanghoang/).
+  * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
+  * Note: simply change the language in your user profile editing screen to see the translations in action.
+  
+* **[IMPROVED in Free and Pro] Content Management >> Content Duplication**: will properly detect if a 'product' post type is registered by WooCommerce or not. If it's registered by WooCommerce, content duplication will use WooCommerce's native feature. If it's not registered by WooCommerce, e.g. by ACF, then ASE's content duplication feature will be used. Props to [@rikhen](https://wordpress.org/support/users/rikhen/) for [reporting the issue](https://wordpress.org/support/topic/content-duplication-not-always-working-for-cpts/) which prompted the improvement.
 
 [**See the full changelog >>**](https://www.wpase.com/documentation/changelog/)

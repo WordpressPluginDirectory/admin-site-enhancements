@@ -7,6 +7,5 @@ namespace ASENHA\Classes;
  *
  * @since 6.9.5
  */
-class AVIF_Upload
-{
+class AVIF_Upload {
 }

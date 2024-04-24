@@ -7,15 +7,13 @@ namespace ASENHA\Classes;
  *
  * @since 6.9.5
  */
-class Image_Upload_Control
-{
+class Image_Upload_Control {
     /**
      * Handler for image uploads. Convert and resize images.
      *
      * @since 4.3.0
      */
-    public function image_upload_handler( $upload )
-    {
+    public function image_upload_handler( $upload ) {
         $applicable_mime_types = array(
             'image/bmp',
             'image/x-ms-bmp',
@@ -24,9 +22,8 @@ class Image_Upload_Control
             'image/jpg',
             'image/webp'
         );
-        
         if ( in_array( $upload['type'], $applicable_mime_types ) ) {
-            global  $png_has_transparency ;
+            global $png_has_transparency;
             // Exlude from conversion and resizing images with filenames ending with '-nr', e.g. birds-nr.png
             if ( false !== strpos( $upload['file'], '-nr.' ) ) {
                 return $upload;
@@ -41,19 +38,16 @@ class Image_Upload_Control
             }
             // At this point, BMPs and non-transparent PNGs are already converted to JPGs, unless excluded with '-nr' suffix.
             // Let's perform resize operation as needed, i.e. if image dimension is larger than specified
-            $mime_types_to_resize = array( 'image/jpeg', 'image/jpg', 'image/png' );
-            
+            $mime_types_to_resize = array('image/jpeg', 'image/jpg', 'image/png');
             if ( !is_wp_error( $upload ) && in_array( $upload['type'], $mime_types_to_resize ) && filesize( $upload['file'] ) > 0 ) {
                 // https://developer.wordpress.org/reference/classes/wp_image_editor/
                 $wp_image_editor = wp_get_image_editor( $upload['file'] );
-                
                 if ( !is_wp_error( $wp_image_editor ) ) {
                     $image_size = $wp_image_editor->get_size();
                     $options = get_option( ASENHA_SLUG_U, array() );
                     $max_width = $options['image_max_width'];
                     $max_height = $options['image_max_height'];
                     // Check upload image's dimension and only resize if larger than the defined max dimension
-                    
                     if ( isset( $image_size['width'] ) && $image_size['width'] > $max_width || isset( $image_size['height'] ) && $image_size['height'] > $max_height ) {
                         $wp_image_editor->resize( $max_width, $max_height, false );
                         // false is for no cropping
@@ -61,29 +55,23 @@ class Image_Upload_Control
                         // default is 82
                         $wp_image_editor->save( $upload['file'] );
                     }
-                
                 }
-            
             }
-        
         }
-        
         return $upload;
     }
-    
+
     /**
      * Convert BMP or PNG without transparency into JPG
      *
      * @since 4.3.0
      */
-    public function maybe_convert_image( $file_extension, $upload )
-    {
-        global  $png_has_transparency ;
+    public function maybe_convert_image( $file_extension, $upload ) {
+        global $png_has_transparency;
         $image_object = null;
         // Get image object from uploaded BMP/PNG
         if ( 'bmp' === $file_extension ) {
             // Generate image object from BMP for conversion to JPG later
-            
             if ( function_exists( 'imagecreatefrombmp' ) ) {
                 // PHP >= v7.2
                 $image_object = imagecreatefrombmp( $upload['file'] );
@@ -92,9 +80,7 @@ class Image_Upload_Control
                 require_once ASENHA_PATH . 'includes/bmp-to-image-object.php';
                 $image_object = bmp_to_image_object( $upload['file'] );
             }
-        
         }
-        
         if ( 'png' === $file_extension ) {
             // Detect alpha/transparency in PNG
             $png_has_transparency = false;
@@ -104,12 +90,11 @@ class Image_Upload_Control
             // Get image dimension
             list( $width, $height ) = getimagesize( $upload['file'] );
             // Run through pixels until transparent pixel is found
-            for ( $x = 0 ;  $x < $width ;  $x++ ) {
-                for ( $y = 0 ;  $y < $height ;  $y++ ) {
+            for ($x = 0; $x < $width; $x++) {
+                for ($y = 0; $y < $height; $y++) {
                     $pixel_color_index = imagecolorat( $image_object, $x, $y );
                     $pixel_rgba = imagecolorsforindex( $image_object, $pixel_color_index );
                     // array of red, green, blue and alpha values
-                    
                     if ( $pixel_rgba['alpha'] > 0 ) {
                         // a pixel with alpha/transparency has been found
                         // alpha value range from 0 (completely opaque) to 127 (fully transparent).
@@ -118,7 +103,6 @@ class Image_Upload_Control
                         break 2;
                         // Break both 'for' loops
                     }
-                
                 }
             }
             // Do not convert PNG with alpha/transparency
@@ -126,7 +110,6 @@ class Image_Upload_Control
                 return $upload;
             }
         }
-        
         $wp_uploads = wp_upload_dir();
         $old_filename = wp_basename( $upload['file'] );
         // Assign new, unique file name for the converted image
@@ -134,7 +117,6 @@ class Image_Upload_Control
         $new_filename = str_ireplace( '.' . $file_extension, '.jpg', $old_filename );
         $new_filename = wp_unique_filename( dirname( $upload['file'] ), $new_filename );
         // When conversion from BMP/PNG to JPG is successful. Last parameter is JPG quality (0-100).
-        
         if ( imagejpeg( $image_object, $wp_uploads['path'] . '/' . $new_filename, 90 ) ) {
             unlink( $upload['file'] );
             // delete original BMP/PNG
@@ -143,7 +125,6 @@ class Image_Upload_Control
             $upload['url'] = $wp_uploads['url'] . '/' . $new_filename;
             $upload['type'] = 'image/jpeg';
         }
-        
         return $upload;
     }
 

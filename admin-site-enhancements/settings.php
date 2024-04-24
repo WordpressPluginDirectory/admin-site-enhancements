@@ -19,8 +19,7 @@ if ( false === get_option( ASENHA_SLUG_U . '_extra' ) ) {
  *
  * @since 1.0.0
  */
-function asenha_register_admin_menu()
-{
+function asenha_register_admin_menu() {
     add_submenu_page(
         'tools.php',
         // Parent page/menu
@@ -41,19 +40,18 @@ function asenha_register_admin_menu()
  *
  * @since 1.0.0
  */
-function asenha_add_settings_page()
-{
+function asenha_add_settings_page() {
     ?>
 	<div class="wrap asenha">
 
 		<div id="asenha-header" class="asenha-header">
 			<div class="asenha-header-left">
 				<img src="<?php 
-    echo  esc_html( ASENHA_URL ) . 'assets/img/ase_icon.png' ;
+    echo esc_html( ASENHA_URL ) . 'assets/img/ase_icon.png';
     ?>" class="asenha-icon"/>
 				<h1 class="asenha-heading">
 					<?php 
-    echo  esc_html( get_admin_page_title() ) ;
+    echo esc_html( get_admin_page_title() );
     ?>
 					(ASE)
 					<?php 
@@ -79,13 +77,13 @@ function asenha_add_settings_page()
     $svg_sponsor = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M8.753 2.247L8 3l-.753-.753A4.243 4.243 0 0 0 1.25 8.25l5.69 5.69L8 15l1.06-1.06l5.69-5.69a4.243 4.243 0 0 0-5.997-6.003ZM8 12.879l5.69-5.69a2.743 2.743 0 0 0-3.877-3.881l-.752.753L8 5.12L6.94 4.06l-.753-.752v-.001A2.743 2.743 0 0 0 2.31 7.189L8 12.88Z" clip-rule="evenodd"/></svg>';
     ?>
 	 				<a href="https://wordpress.org/plugins/admin-site-enhancements/#reviews" target="_blank" class="asenha-header-action review"><?php 
-    echo  wp_kses( $svg_star, get_kses_with_svg_ruleset() ) . esc_html__( 'Review', 'admin-site-enhancements' ) ;
+    echo wp_kses( $svg_star, get_kses_with_svg_ruleset() ) . esc_html__( 'Review', 'admin-site-enhancements' );
     ?></a>
 					<a href="https://wordpress.org/support/plugin/admin-site-enhancements/" target="_blank" class="asenha-header-action feedback"><?php 
-    echo  wp_kses( $svg_feedback, get_kses_with_svg_ruleset() ) . esc_html__( 'Feedback', 'admin-site-enhancements' ) ;
+    echo wp_kses( $svg_feedback, get_kses_with_svg_ruleset() ) . esc_html__( 'Feedback', 'admin-site-enhancements' );
     ?></a>
 					<a href="https://www.wpase.com/trnslt-plgnhdr" target="_blank" class="asenha-header-action translate"><?php 
-    echo  wp_kses( $svg_translate, get_kses_with_svg_ruleset() ) . esc_html__( 'Translate', 'admin-site-enhancements' ) ;
+    echo wp_kses( $svg_translate, get_kses_with_svg_ruleset() ) . esc_html__( 'Translate', 'admin-site-enhancements' );
     ?></a>
 					<!--<a href="https://www.wpasenha.com/docs/" target="_blank" class="asenha-header-action docs"><?php 
     // echo $svg_docs . esc_html__( 'Docs', 'admin-site-enhancements' );
@@ -94,12 +92,12 @@ function asenha_add_settings_page()
     // echo $svg_sponsor . esc_html__( 'Sponsor', 'admin-site-enhancements' );
     ?></a>-->
 	                <a href="https://www.wpase.com/upgrade-btn" target="_blank" id="plugin-upgrade" class="button button-primary plugin-upgrade"><?php 
-    echo  esc_html__( 'Get ASE Pro', 'admin-site-enhancements' ) ;
+    echo esc_html__( 'Get ASE Pro', 'admin-site-enhancements' );
     ?></a>
 				<?php 
     ?>
 				<a class="button button-primary asenha-save-button"><?php 
-    echo  esc_html__( 'Save Changes', 'admin-site-enhancements' ) ;
+    echo esc_html__( 'Save Changes', 'admin-site-enhancements' );
     ?></a>
 				<!-- https://icon-sets.iconify.design/svg-spinners/180-ring-with-bg/ -->
 				<div class="asenha-saving-changes" style="display:none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#2271b1" d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25"/><path fill="#2271b1" d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"><animateTransform attributeName="transform" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg></div>
@@ -112,10 +110,10 @@ function asenha_add_settings_page()
     ?>
 			<div class="asenha-upgrade-nudge" style="display: none;">
 				<div class="asenha-upgrade-nudge__message"><?php 
-    echo  esc_html__( 'The Pro version of ASE is here! Lifetime Deal (LTD) available.', 'admin-site-enhancements' ) ;
+    echo esc_html__( 'The Pro version of ASE is here! Lifetime Deal (LTD) available.', 'admin-site-enhancements' );
     ?></div>
 				<a href="https://www.wpase.com/upgrade-ndg" class="button asenha-upgrade-nudge__button" target="_blank"><?php 
-    echo  esc_html__( 'Find Out More', 'admin-site-enhancements' ) ;
+    echo esc_html__( 'Find Out More', 'admin-site-enhancements' );
     ?></a>
 				<a href="#" id="dismiss-upgrade-nudge" class="asenha-upgrade-nudge__dismiss">
 					<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="currentColor" d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24l9.6-9.6l9.6 9.6l2.4-2.4l-9.6-9.6z"/></svg>
@@ -151,14 +149,14 @@ function asenha_add_settings_page()
     ?></h4>
 						<div class="nudge-ctas">
 							<a href="https://www.facebook.com/sharer.php?u=<?php 
-    echo  urlencode( 'https://www.wpase.com' ) ;
+    echo urlencode( 'https://www.wpase.com' );
     ?>" target="_blank" class="button button-outline asenha-share-button"><?php 
     _e( 'Facebook', 'admin-site-enhancements' );
     ?></a>
 							<a href="https://twitter.com/intent/post?url=<?php 
-    echo  urlencode( 'https://www.wpase.com' ) ;
+    echo urlencode( 'https://www.wpase.com' );
     ?>&text=<?php 
-    echo  esc_attr( urlencode( 'Admin and Site Enhancements (ASE)' ) ) ;
+    echo esc_attr( urlencode( 'Admin and Site Enhancements (ASE)' ) );
     ?>" target="_blank" class="button button-outline asenha-share-button"><?php 
     _e( 'X / Twitter', 'admin-site-enhancements' );
     ?></a>
@@ -207,36 +205,36 @@ function asenha_add_settings_page()
     $icon_utilities = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="m10.05 10.607l-7.07 7.07a2 2 0 0 0 0 2.83v0a2 2 0 0 0 2.828 0l7.07-7.072m4.315.365l3.878 3.878a2 2 0 0 1 0 2.828v0a2 2 0 0 1-2.828 0l-6.209-6.208M6.733 5.904L4.61 6.61L2.49 3.075l1.414-1.414L7.44 3.782l-.707 2.122Zm0 0l2.83 2.83"/><path d="M10.05 10.607c-.844-2.153-.679-4.978 1.061-6.718c1.74-1.74 4.95-2.121 6.717-1.06l-3.04 3.04l-.283 3.111l3.111-.282l3.04-3.041c1.062 1.768.68 4.978-1.06 6.717c-1.74 1.74-4.564 1.905-6.717 1.061"/></g></svg>';
     ?>
 					    <input id="tab-content-management" type="radio" name="tabs" checked><label for="tab-content-management"><?php 
-    echo  wp_kses( $icon_content_management, get_kses_with_svg_ruleset() ) ;
-    echo  esc_html__( 'Content Management', 'admin-site-enhancements' ) ;
+    echo wp_kses( $icon_content_management, get_kses_with_svg_ruleset() );
+    echo esc_html__( 'Content Management', 'admin-site-enhancements' );
     ?></label>
 					    <input id="tab-admin-interface" type="radio" name="tabs"><label for="tab-admin-interface"><?php 
-    echo  wp_kses( $icon_admin_interface, get_kses_with_svg_ruleset() ) ;
-    echo  esc_html__( 'Admin Interface', 'admin-site-enhancements' ) ;
+    echo wp_kses( $icon_admin_interface, get_kses_with_svg_ruleset() );
+    echo esc_html__( 'Admin Interface', 'admin-site-enhancements' );
     ?></label>
 					    <input id="tab-login-logout" type="radio" name="tabs"><label for="tab-login-logout"><?php 
-    echo  wp_kses( $icon_login_logout, get_kses_with_svg_ruleset() ) ;
-    echo  esc_html__( 'Log In | Log Out', 'admin-site-enhancements' ) ;
+    echo wp_kses( $icon_login_logout, get_kses_with_svg_ruleset() );
+    echo esc_html__( 'Log In | Log Out', 'admin-site-enhancements' );
     ?></label>
 					    <input id="tab-custom-code" type="radio" name="tabs"><label for="tab-custom-code"><?php 
-    echo  wp_kses( $icon_custom_code, get_kses_with_svg_ruleset() ) ;
-    echo  esc_html__( 'Custom Code', 'admin-site-enhancements' ) ;
+    echo wp_kses( $icon_custom_code, get_kses_with_svg_ruleset() );
+    echo esc_html__( 'Custom Code', 'admin-site-enhancements' );
     ?></label>
 					    <input id="tab-disable-components" type="radio" name="tabs"><label for="tab-disable-components"><?php 
-    echo  wp_kses( $icon_disable_components, get_kses_with_svg_ruleset() ) ;
-    echo  esc_html__( 'Disable Components', 'admin-site-enhancements' ) ;
+    echo wp_kses( $icon_disable_components, get_kses_with_svg_ruleset() );
+    echo esc_html__( 'Disable Components', 'admin-site-enhancements' );
     ?></label>
 					    <input id="tab-security" type="radio" name="tabs"><label for="tab-security"><?php 
-    echo  wp_kses( $icon_security, get_kses_with_svg_ruleset() ) ;
-    echo  esc_html__( 'Security', 'admin-site-enhancements' ) ;
+    echo wp_kses( $icon_security, get_kses_with_svg_ruleset() );
+    echo esc_html__( 'Security', 'admin-site-enhancements' );
     ?></label>
 					    <input id="tab-optimizations" type="radio" name="tabs"><label for="tab-optimizations"><?php 
-    echo  wp_kses( $icon_optimizations, get_kses_with_svg_ruleset() ) ;
-    echo  esc_html__( 'Optimizations', 'admin-site-enhancements' ) ;
+    echo wp_kses( $icon_optimizations, get_kses_with_svg_ruleset() );
+    echo esc_html__( 'Optimizations', 'admin-site-enhancements' );
     ?></label>
 					    <input id="tab-utilities" type="radio" name="tabs"><label for="tab-utilities"><?php 
-    echo  wp_kses( $icon_utilities, get_kses_with_svg_ruleset() ) ;
-    echo  esc_html__( 'Utilities', 'admin-site-enhancements' ) ;
+    echo wp_kses( $icon_utilities, get_kses_with_svg_ruleset() );
+    echo esc_html__( 'Utilities', 'admin-site-enhancements' );
     ?></label>
 					</div>
 					<div class="asenha-tab-contents">
@@ -310,7 +308,7 @@ function asenha_add_settings_page()
     ?>
 			<div id="bottom-upgrade-nudge" class="asenha-upgrade-nudge-bottom" style="display:none;">
 				<div class="asenha-upgrade-nudge-bottom__message"><?php 
-    echo  __( 'Do more with <a href="https://www.wpase.com/upgrade-ndg-btm" target="_blank">ASE Pro</a>. Lifetime deal (LTD) <a href="https://www.wpase.com/upgrade-ndg-btm-prc" target="_blank">available</a>.', 'admin-site-enhancements' ) ;
+    echo __( 'Do more with <a href="https://www.wpase.com/upgrade-ndg-btm" target="_blank">ASE Pro</a>. Lifetime deal (LTD) <a href="https://www.wpase.com/upgrade-ndg-btm-prc" target="_blank">available</a>.', 'admin-site-enhancements' );
     ?></div>
 			</div>
 			<?php 
@@ -325,10 +323,8 @@ function asenha_add_settings_page()
     // Record the number of times changes were saved as well as the date of last save
     $asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
     $changes_saved = ( isset( $_GET['settings-updated'] ) && 'true' == $_GET['settings-updated'] ? true : false );
-    
     if ( $changes_saved ) {
         $current_date = date( 'Y-m-d', time() );
-        
         if ( !isset( $asenha_stats['first_save_date'] ) ) {
             $asenha_stats['first_save_date'] = $current_date;
             $asenha_stats['last_save_date'] = $current_date;
@@ -343,10 +339,8 @@ function asenha_add_settings_page()
             $save_count++;
             $asenha_stats['save_count'] = $save_count;
         }
-        
         update_option( ASENHA_SLUG_U . '_stats', $asenha_stats );
     }
-
 }
 
 /**
@@ -354,9 +348,8 @@ function asenha_add_settings_page()
  *
  * @since 1.1.0
  */
-function asenha_suppress_add_notices()
-{
-    global  $plugin_page ;
+function asenha_suppress_add_notices() {
+    global $plugin_page;
     // Suppress all notices
     if ( ASENHA_SLUG === $plugin_page ) {
         remove_all_actions( 'admin_notices' );
@@ -379,9 +372,8 @@ function asenha_suppress_add_notices()
  *
  * @since 2.7.0
  */
-function asenha_suppress_generic_notices()
-{
-    global  $plugin_page ;
+function asenha_suppress_generic_notices() {
+    global $plugin_page;
     // Suppress all notices
     if ( ASENHA_SLUG === $plugin_page ) {
         remove_all_actions( 'all_admin_notices' );
@@ -393,8 +385,7 @@ function asenha_suppress_generic_notices()
  *
  * @since 1.0.0
  */
-function asenha_admin_scripts( $hook_suffix )
-{
+function asenha_admin_scripts(  $hook_suffix  ) {
     global 
         $wp_version,
         $pagenow,
@@ -407,7 +398,6 @@ function asenha_admin_scripts( $hook_suffix )
     // Get all WP Enhancements options, default to empty array in case it's not been created yet
     $options = get_option( 'admin_site_enhancements', array() );
     // For main page of this plugin
-    
     if ( is_asenha() ) {
         wp_enqueue_style(
             'asenha-jbox',
@@ -425,7 +415,7 @@ function asenha_admin_scripts( $hook_suffix )
         wp_enqueue_script(
             'asenha-jsticky',
             ASENHA_URL . 'assets/js/jquery.jsticky.mod.min.js',
-            array( 'jquery' ),
+            array('jquery'),
             ASENHA_VERSION,
             false
         );
@@ -442,18 +432,17 @@ function asenha_admin_scripts( $hook_suffix )
         wp_register_script(
             'jquery-ui-core',
             get_site_url() . '/wp-includes/js/jquery/ui/core.min.js',
-            array( 'jquery' ),
+            array('jquery'),
             ASENHA_VERSION,
             false
         );
         wp_enqueue_script( 'jquery-ui-core' );
-        
         if ( version_compare( $wp_version, '5.6.0', '>=' ) ) {
             wp_deregister_script( 'jquery-ui-mouse' );
             wp_register_script(
                 'jquery-ui-mouse',
                 get_site_url() . '/wp-includes/js/jquery/ui/mouse.min.js',
-                array( 'jquery-ui-core' ),
+                array('jquery-ui-core'),
                 ASENHA_VERSION,
                 false
             );
@@ -463,7 +452,7 @@ function asenha_admin_scripts( $hook_suffix )
             wp_register_script(
                 'jquery-ui-widget',
                 get_site_url() . '/wp-includes/js/jquery/ui/widget.min.js',
-                array( 'jquery' ),
+                array('jquery'),
                 ASENHA_VERSION,
                 false
             );
@@ -472,18 +461,17 @@ function asenha_admin_scripts( $hook_suffix )
             wp_register_script(
                 'jquery-ui-mouse',
                 get_site_url() . '/wp-includes/js/jquery/ui/mouse.min.js',
-                array( 'jquery-ui-core', 'jquery-ui-widget' ),
+                array('jquery-ui-core', 'jquery-ui-widget'),
                 ASENHA_VERSION,
                 false
             );
             wp_enqueue_script( 'jquery-ui-mouse' );
         }
-        
         wp_deregister_script( 'jquery-ui-sortable' );
         wp_register_script(
             'jquery-ui-sortable',
             get_site_url() . '/wp-includes/js/jquery/ui/sortable.min.js',
-            array( 'jquery-ui-mouse' ),
+            array('jquery-ui-mouse'),
             ASENHA_VERSION,
             false
         );
@@ -492,7 +480,7 @@ function asenha_admin_scripts( $hook_suffix )
         wp_register_script(
             'jquery-ui-draggable',
             get_site_url() . '/wp-includes/js/jquery/ui/draggable.min.js',
-            array( 'jquery-ui-mouse' ),
+            array('jquery-ui-mouse'),
             ASENHA_VERSION,
             false
         );
@@ -501,7 +489,7 @@ function asenha_admin_scripts( $hook_suffix )
         wp_register_script(
             'jquery-ui-droppable',
             get_site_url() . '/wp-includes/js/jquery/ui/droppable.min.js',
-            array( 'jquery-ui-draggable' ),
+            array('jquery-ui-draggable'),
             ASENHA_VERSION,
             false
         );
@@ -510,7 +498,7 @@ function asenha_admin_scripts( $hook_suffix )
         wp_enqueue_script(
             'asenha-custom-admin-menu',
             ASENHA_URL . 'assets/js/custom-admin-menu.js',
-            array( 'jquery-ui-draggable' ),
+            array('jquery-ui-draggable'),
             ASENHA_VERSION,
             false
         );
@@ -531,42 +519,42 @@ function asenha_admin_scripts( $hook_suffix )
         wp_enqueue_script(
             'asenha-codemirror',
             ASENHA_URL . 'assets/js/codemirror/codemirror.min.js',
-            array( 'jquery' ),
+            array('jquery'),
             ASENHA_VERSION,
             true
         );
         wp_enqueue_script(
             'asenha-codemirror-htmlmixed-mode',
             ASENHA_URL . 'assets/js/codemirror/htmlmixed.js',
-            array( 'asenha-codemirror' ),
+            array('asenha-codemirror'),
             ASENHA_VERSION,
             true
         );
         wp_enqueue_script(
             'asenha-codemirror-xml-mode',
             ASENHA_URL . 'assets/js/codemirror/xml.js',
-            array( 'asenha-codemirror' ),
+            array('asenha-codemirror'),
             ASENHA_VERSION,
             true
         );
         wp_enqueue_script(
             'asenha-codemirror-javascript-mode',
             ASENHA_URL . 'assets/js/codemirror/javascript.js',
-            array( 'asenha-codemirror' ),
+            array('asenha-codemirror'),
             ASENHA_VERSION,
             true
         );
         wp_enqueue_script(
             'asenha-codemirror-css-mode',
             ASENHA_URL . 'assets/js/codemirror/css.js',
-            array( 'asenha-codemirror' ),
+            array('asenha-codemirror'),
             ASENHA_VERSION,
             true
         );
         wp_enqueue_script(
             'asenha-codemirror-markdown-mode',
             ASENHA_URL . 'assets/js/codemirror/markdown.js',
-            array( 'asenha-codemirror' ),
+            array('asenha-codemirror'),
             ASENHA_VERSION,
             true
         );
@@ -580,7 +568,7 @@ function asenha_admin_scripts( $hook_suffix )
         wp_enqueue_script(
             'asenha-datatables',
             ASENHA_URL . 'assets/js/datatables/datatables.min.js',
-            array( 'jquery' ),
+            array('jquery'),
             ASENHA_VERSION,
             false
         );
@@ -599,32 +587,32 @@ function asenha_admin_scripts( $hook_suffix )
             'asenha-admin-page',
             ASENHA_URL . 'assets/css/admin-page.css',
             array(
-            'asenha-jbox',
-            'asenha-codemirror',
-            'asenha-datatables',
-            'wp-color-picker'
-        ),
+                'asenha-jbox',
+                'asenha-codemirror',
+                'asenha-datatables',
+                'wp-color-picker'
+            ),
             ASENHA_VERSION
         );
         wp_enqueue_script(
             'asenha-admin-page',
             ASENHA_URL . 'assets/js/admin-page.js',
             array(
-            'asenha-jsticky',
-            'asenha-jbox',
-            'asenha-js-cookie',
-            'asenha-codemirror-htmlmixed-mode',
-            'asenha-codemirror-xml-mode',
-            'asenha-codemirror-javascript-mode',
-            'asenha-codemirror-css-mode',
-            'asenha-codemirror-markdown-mode',
-            'asenha-datatables',
-            'asenha-custom-admin-menu',
-            'wp-color-picker',
-            'wp-mediaelement',
-            'wp-tinymce-root',
-            'wp-tinymce'
-        ),
+                'asenha-jsticky',
+                'asenha-jbox',
+                'asenha-js-cookie',
+                'asenha-codemirror-htmlmixed-mode',
+                'asenha-codemirror-xml-mode',
+                'asenha-codemirror-javascript-mode',
+                'asenha-codemirror-css-mode',
+                'asenha-codemirror-markdown-mode',
+                'asenha-datatables',
+                'asenha-custom-admin-menu',
+                'wp-color-picker',
+                'wp-mediaelement',
+                'wp-tinymce-root',
+                'wp-tinymce'
+            ),
             ASENHA_VERSION,
             false
         );
@@ -635,23 +623,22 @@ function asenha_admin_scripts( $hook_suffix )
             'expandText'           => __( 'Expand', 'admin-site-enhancements' ),
             'collapseText'         => __( 'Collapse', 'admin-site-enhancements' ),
             'dataTable'            => array(
-            'emptyTable'   => __( 'No data available in table', 'admin-site-enhancements' ),
-            'info'         => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'admin-site-enhancements' ),
-            'infoEmpty'    => __( 'Showing 0 to 0 of 0 entries', 'admin-site-enhancements' ),
-            'infoFiltered' => __( '(filtered from _MAX_ total entries)', 'admin-site-enhancements' ),
-            'lengthMenu'   => __( 'Show _MENU_ entries', 'admin-site-enhancements' ),
-            'search'       => __( 'Search:', 'admin-site-enhancements' ),
-            'zeroRecords'  => __( 'No matching records found', 'admin-site-enhancements' ),
-            'paginate'     => array(
-            'first'    => __( 'First', 'admin-site-enhancements' ),
-            'last'     => __( 'Last', 'admin-site-enhancements' ),
-            'next'     => __( 'Next', 'admin-site-enhancements' ),
-            'previous' => __( 'Previous', 'admin-site-enhancements' ),
-        ),
-        ),
+                'emptyTable'   => __( 'No data available in table', 'admin-site-enhancements' ),
+                'info'         => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'admin-site-enhancements' ),
+                'infoEmpty'    => __( 'Showing 0 to 0 of 0 entries', 'admin-site-enhancements' ),
+                'infoFiltered' => __( '(filtered from _MAX_ total entries)', 'admin-site-enhancements' ),
+                'lengthMenu'   => __( 'Show _MENU_ entries', 'admin-site-enhancements' ),
+                'search'       => __( 'Search:', 'admin-site-enhancements' ),
+                'zeroRecords'  => __( 'No matching records found', 'admin-site-enhancements' ),
+                'paginate'     => array(
+                    'first'    => __( 'First', 'admin-site-enhancements' ),
+                    'last'     => __( 'Last', 'admin-site-enhancements' ),
+                    'next'     => __( 'Next', 'admin-site-enhancements' ),
+                    'previous' => __( 'Previous', 'admin-site-enhancements' ),
+                ),
+            ),
         ) );
     }
-    
     // Enqueue on all wp-admin
     wp_enqueue_style(
         'asenha-wp-admin',
@@ -669,7 +656,6 @@ function asenha_admin_scripts( $hook_suffix )
         );
     }
     // Content Management >> Enable Media Replacement
-    
     if ( $current_screen->base == 'upload' || $current_screen->id == 'attachment' ) {
         // wp_enqueue_style( 'asenha-jbox', ASENHA_URL . 'assets/css/jBox.all.min.css', array(), ASENHA_VERSION );
         // wp_enqueue_script( 'asenha-jbox', ASENHA_URL . 'assets/js/jBox.all.min.js', array(), ASENHA_VERSION, false );
@@ -692,19 +678,15 @@ function asenha_admin_scripts( $hook_suffix )
         );
         wp_localize_script( 'asenha-media-replace', 'mediaReplace', $media_replace );
     }
-    
     // Utilities >> Image Sizes Panel
-    
     if ( 'post' == $current_screen->base && 'attachment' == $current_screen->id ) {
-        global  $post ;
+        global $post;
         // Only enqueue if the attachment is an image
         if ( property_exists( $post, 'post_mime_type' ) && false !== strpos( $post->post_mime_type, 'image' ) ) {
             wp_enqueue_style( 'asenha-image-sizes-panel', ASENHA_URL . 'assets/css/image-sizes-panel.css' );
         }
     }
-    
     // Content Management >> Hide Admin Notices
-    
     if ( array_key_exists( 'hide_admin_notices', $options ) && $options['hide_admin_notices'] ) {
         $hide_for_nonadmins = ( isset( $options['hide_admin_notices_for_nonadmins'] ) ? $options['hide_admin_notices_for_nonadmins'] : false );
         $minimum_capability = 'manage_options';
@@ -713,7 +695,6 @@ function asenha_admin_scripts( $hook_suffix )
                 $minimum_capability = 'read';
             }
         }
-        
         if ( current_user_can( $minimum_capability ) ) {
             wp_enqueue_style(
                 'asenha-jbox',
@@ -737,14 +718,12 @@ function asenha_admin_scripts( $hook_suffix )
             wp_enqueue_script(
                 'asenha-hide-admin-notices',
                 ASENHA_URL . 'assets/js/hide-admin-notices.js',
-                array( 'asenha-jbox' ),
+                array('asenha-jbox'),
                 ASENHA_VERSION,
                 false
             );
         }
-    
     }
-    
     // Utilities >> Multiple User Roles
     if ( array_key_exists( 'multiple_user_roles', $options ) && $options['multiple_user_roles'] ) {
         if ( 'user-edit.php' == $hook_suffix || 'user-new.php' == $hook_suffix ) {
@@ -753,7 +732,7 @@ function asenha_admin_scripts( $hook_suffix )
                 wp_enqueue_script(
                     'asenha-multiple-user-roles',
                     ASENHA_URL . 'assets/js/multiple-user-roles.js',
-                    array( 'jquery' ),
+                    array('jquery'),
                     ASENHA_VERSION,
                     false
                 );
@@ -773,52 +752,40 @@ function asenha_admin_scripts( $hook_suffix )
         'showSupportNudge'    => false,
         'saveChangesJsonpUrl' => 'https://bowo.io/asenha-save-btn',
     );
-    
-    if ( !empty($asenha_stats) ) {
+    if ( !empty( $asenha_stats ) ) {
         $hide_upgrade_nudge = ( isset( $asenha_stats['upgrade_nudge_dismissed'] ) ? $asenha_stats['upgrade_nudge_dismissed'] : false );
         $have_supported = ( isset( $asenha_stats['have_supported'] ) ? $asenha_stats['have_supported'] : false );
         $changes_saved = ( isset( $_GET['settings-updated'] ) && 'true' == sanitize_text_field( $_GET['settings-updated'] ) ? true : false );
         $save_count = ( isset( $asenha_stats['save_count'] ) ? $asenha_stats['save_count'] : 0 );
         // Compensate for redirect from settings-updated=true URL
-        
         if ( $changes_saved ) {
             $save_count = $save_count + 1;
         } else {
             $save_count = $save_count;
         }
-        
         $saves_to_nudge_support = 10;
-        
         if ( $save_count < $saves_to_nudge_support ) {
             $save_count_modulo = -1;
         } else {
             $save_count_modulo = $save_count % $saves_to_nudge_support;
         }
-        
         // User have not supported ASE
         if ( false === $have_supported ) {
             // Support nudge have not been dismissed
-            
             if ( isset( $asenha_stats['support_nudge_dismissed'] ) && false === $asenha_stats['support_nudge_dismissed'] ) {
                 // Show support nudge after every x saves
-                
                 if ( $save_count_modulo >= 0 ) {
                     $show_support_nudge = true;
                 } else {
                     $show_support_nudge = false;
                 }
-                
-                
                 if ( $show_support_nudge && $save_count_modulo >= 0 ) {
                     $asenha_stats['support_nudge_last_shown_date'] = $current_date;
                     $asenha_stats['support_nudge_last_shown_save_count'] = $save_count;
                     update_option( ASENHA_SLUG_U . '_stats', $asenha_stats );
                 }
-            
             } else {
-                
                 if ( $save_count_modulo == 0 ) {
-                    
                     if ( $save_count > $asenha_stats['support_nudge_last_shown_save_count'] ) {
                         $asenha_stats['support_nudge_dismissed'] = false;
                         update_option( ASENHA_SLUG_U . '_stats', $asenha_stats );
@@ -826,13 +793,10 @@ function asenha_admin_scripts( $hook_suffix )
                     } else {
                         $show_support_nudge = false;
                     }
-                
                 } else {
                     $show_support_nudge = false;
                 }
-            
             }
-        
         }
         $first_save_date = ( isset( $asenha_stats['first_save_date'] ) ? $asenha_stats['first_save_date'] : '' );
         $last_save_date = ( isset( $asenha_stats['last_save_date'] ) ? $asenha_stats['last_save_date'] : '' );
@@ -845,7 +809,6 @@ function asenha_admin_scripts( $hook_suffix )
             'saveChangesJsonpUrl' => 'https://bowo.io/asenha-save-btn',
         );
     }
-    
     wp_localize_script( 'asenha-admin-page', 'asenhaStats', $asenha_stats_localized );
 }
 
@@ -854,8 +817,7 @@ function asenha_admin_scripts( $hook_suffix )
  * 
  * @since 6.3.3
  */
-function asenha_dequeue_scritps()
-{
+function asenha_dequeue_scritps() {
     // https://wordpress.org/plugins/user-activity-log/
     wp_dequeue_script( 'chats-js' );
     wp_dequeue_script( 'custom_wp_admin_js' );
@@ -878,13 +840,11 @@ function asenha_dequeue_scritps()
  *
  * @since 3.9.0
  */
-function asenha_public_scripts( $hook_suffix )
-{
+function asenha_public_scripts(  $hook_suffix  ) {
     // Get all WP Enhancements options, default to empty array in case it's not been created yet
     $options = get_option( 'admin_site_enhancements', array() );
     // External Permalinks
     $enable_external_permalinks = ( array_key_exists( 'enable_external_permalinks', $options ) ? $options['enable_external_permalinks'] : false );
-    
     if ( $enable_external_permalinks ) {
         wp_enqueue_script(
             'asenha-public',
@@ -897,7 +857,6 @@ function asenha_public_scripts( $hook_suffix )
             'externalPermalinksEnabled' => $enable_external_permalinks,
         ) );
     }
-    
     // Media Categories
     $enable_media_categories = ( array_key_exists( 'enable_media_categories', $options ) ? $options['enable_media_categories'] : false );
     if ( $enable_media_categories && !is_admin() && is_user_logged_in() ) {
@@ -925,8 +884,7 @@ function asenha_public_scripts( $hook_suffix )
  * 
  * @since 6.2.1
  */
-function asenha_admin_bar_item_js_css()
-{
+function asenha_admin_bar_item_js_css() {
     if ( is_user_logged_in() ) {
         ?>
 		<!--<script></script>-->
@@ -944,8 +902,7 @@ function asenha_admin_bar_item_js_css()
  *
  * @since    1.0.0
  */
-function asenha_plugin_action_links( $links )
-{
+function asenha_plugin_action_links(  $links  ) {
     $settings_link = '<a href="tools.php?page=' . ASENHA_SLUG . '">Configure</a>';
     array_unshift( $links, $settings_link );
     return $links;
@@ -956,8 +913,7 @@ function asenha_plugin_action_links( $links )
  *
  * @since 1.0.0
  */
-function asenha_footer_text()
-{
+function asenha_footer_text() {
     // Show nothing
     ?>
 	<?php 
@@ -968,11 +924,10 @@ function asenha_footer_text()
  * 
  * @since 4.8.3
  */
-function asenha_footer_version_text()
-{
+function asenha_footer_version_text() {
     ?>
 		ASE <a href="https://www.wpase.com/documentation/changelog/" target="_blank">v<?php 
-    echo  esc_html( ASENHA_VERSION ) ;
+    echo esc_html( ASENHA_VERSION );
     ?></a>
 	<?php 
 }
@@ -982,11 +937,9 @@ function asenha_footer_version_text()
  *
  * @since 1.0.0
  */
-function is_asenha()
-{
+function is_asenha() {
     $request_uri = sanitize_text_field( $_SERVER['REQUEST_URI'] );
     // e.g. /wp-admin/index.php?page=page-slug
-    
     if ( strpos( $request_uri, 'page=' . ASENHA_SLUG ) !== false ) {
         return true;
         // Yes, this is the plugin's main page
@@ -994,7 +947,6 @@ function is_asenha()
         return false;
         // Nope, this is NOT the plugin's page
     }
-
 }
 
 /**
@@ -1002,27 +954,22 @@ function is_asenha()
  * 
  * @since 5.2.7
  */
-function asenha_have_supported()
-{
-    
+function asenha_have_supported() {
     if ( isset( $_REQUEST ) ) {
         $asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
         $asenha_stats['have_supported'] = true;
         $asenha_stats['support_nudge_dismissed'] = true;
         $success = update_option( ASENHA_SLUG_U . '_stats', $asenha_stats );
-        
         if ( $success ) {
-            echo  json_encode( array(
+            echo json_encode( array(
                 'success' => true,
-            ) ) ;
+            ) );
         } else {
-            echo  json_encode( array(
+            echo json_encode( array(
                 'success' => false,
-            ) ) ;
+            ) );
         }
-    
     }
-
 }
 
 /**
@@ -1030,26 +977,21 @@ function asenha_have_supported()
  * 
  * @since 5.8.2
  */
-function asenha_dismiss_upgrade_nudge()
-{
-    
+function asenha_dismiss_upgrade_nudge() {
     if ( isset( $_REQUEST ) ) {
         $asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
         $asenha_stats['upgrade_nudge_dismissed'] = true;
         $success = update_option( ASENHA_SLUG_U . '_stats', $asenha_stats );
-        
         if ( $success ) {
-            echo  json_encode( array(
+            echo json_encode( array(
                 'success' => true,
-            ) ) ;
+            ) );
         } else {
-            echo  json_encode( array(
+            echo json_encode( array(
                 'success' => false,
-            ) ) ;
+            ) );
         }
-    
     }
-
 }
 
 /**
@@ -1057,24 +999,19 @@ function asenha_dismiss_upgrade_nudge()
  * 
  * @since 5.2.7
  */
-function asenha_dismiss_support_nudge()
-{
-    
+function asenha_dismiss_support_nudge() {
     if ( isset( $_REQUEST ) ) {
         $asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
         $asenha_stats['support_nudge_dismissed'] = true;
         $success = update_option( ASENHA_SLUG_U . '_stats', $asenha_stats );
-        
         if ( $success ) {
-            echo  json_encode( array(
+            echo json_encode( array(
                 'success' => true,
-            ) ) ;
+            ) );
         } else {
-            echo  json_encode( array(
+            echo json_encode( array(
                 'success' => false,
-            ) ) ;
+            ) );
         }
-    
     }
-
 }
