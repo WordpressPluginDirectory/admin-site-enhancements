@@ -15,6 +15,8 @@ class Show_Custom_Taxonomy_Filters {
         'product_cat',
         // WooCommerce Product Categories
         'asenha_code_snippet_category',
+        // ASE Code Snippets Categories
+        'asenha-media-category',
     );
 
     /**

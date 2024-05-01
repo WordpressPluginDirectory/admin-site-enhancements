@@ -114,7 +114,7 @@ class Maintenance_Mode {
                     'title' => '',
                     'href'  => admin_url( 'tools.php?page=admin-site-enhancements#utilities' ),
                     'meta'  => array(
-                        'title' => 'Maintenance mode is currently enabled for this site.',
+                        'title' => __( 'Maintenance mode is currently enabled for this site.', 'admin-site-enhancements' ),
                     ),
                 ) );
             }

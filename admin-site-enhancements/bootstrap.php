@@ -277,6 +277,7 @@ class Admin_Site_Enhancements {
         if ( array_key_exists( 'disable_dashboard_widgets', $options ) && $options['disable_dashboard_widgets'] ) {
             $disable_dashboard_widgets = new ASENHA\Classes\Disable_Dashboard_Widgets();
             add_action( 'wp_dashboard_setup', [$disable_dashboard_widgets, 'disable_dashboard_widgets'], 99 );
+            add_action( 'admin_init', [$disable_dashboard_widgets, 'maybe_remove_welcome_panel'] );
         }
         // Hide Admin Bar
         if ( array_key_exists( 'hide_admin_bar', $options ) && $options['hide_admin_bar'] ) {

@@ -109,7 +109,7 @@ class Content_Duplication {
         if ( $allow_duplication && $post_type_is_duplicable ) {
             // Not WooCommerce product
             if ( in_array( 'post-action', $duplication_link_locations ) ) {
-                $actions['asenha-duplicate'] = '<a href="admin.php?action=duplicate_content&amp;post=' . $post->ID . '&amp;nonce=' . wp_create_nonce( 'asenha-duplicate-' . $post->ID ) . '" title="Duplicate this as draft">Duplicate</a>';
+                $actions['asenha-duplicate'] = '<a href="admin.php?action=duplicate_content&amp;post=' . $post->ID . '&amp;nonce=' . wp_create_nonce( 'asenha-duplicate-' . $post->ID ) . '" title="' . __( 'Duplicate this as draft', 'admin-site-enhancements' ) . '">' . __( 'Duplicate', 'admin-site-enhancements' ) . '</a>';
             }
         }
         return $actions;
@@ -137,7 +137,11 @@ class Content_Duplication {
                                 'id'     => 'duplicate-content',
                                 'parent' => null,
                                 'group'  => null,
-                                'title'  => 'Duplicate ' . $post_type_singular_label,
+                                'title'  => sprintf( 
+                                    /* translators: %s is the singular label for the post type */
+                                    __( 'Duplicate %s', 'admin-site-enhancements' ),
+                                    $post_type_singular_label
+                                 ),
                                 'href'   => admin_url( 'admin.php?action=duplicate_content&amp;post=' . $post->ID . '&amp;nonce=' . wp_create_nonce( 'asenha-duplicate-' . $post->ID ) ),
                             ) );
                         }

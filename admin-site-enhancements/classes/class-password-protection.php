@@ -34,7 +34,7 @@ class Password_Protection {
                     'title' => '',
                     'href'  => admin_url( 'tools.php?page=admin-site-enhancements#utilities' ),
                     'meta'  => array(
-                        'title' => 'Password protection is currently enabled for this site.',
+                        'title' => __( 'Password protection is currently enabled for this site.', 'admin-site-enhancements' ),
                     ),
                 ) );
             }

@@ -143,8 +143,8 @@ class Admin_Menu_Organizer {
         }
         if ( !empty( $menu_hidden_by_toggle ) && $show_toggle_menu ) {
             add_menu_page(
-                'Show All',
-                'Show All',
+                __( 'Show All', 'admin-site-enhancements' ),
+                __( 'Show All', 'admin-site-enhancements' ),
                 'read',
                 'asenha_show_hidden_menu',
                 function () {
@@ -154,8 +154,8 @@ class Admin_Menu_Organizer {
                 300
             );
             add_menu_page(
-                'Show Less',
-                'Show Less',
+                __( 'Show Less', 'admin-site-enhancements' ),
+                __( 'Show Less', 'admin-site-enhancements' ),
                 'read',
                 'asenha_hide_hidden_menu',
                 function () {

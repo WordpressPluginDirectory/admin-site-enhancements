@@ -2,6 +2,7 @@
 
 namespace ASENHA\Classes;
 
+use Imagick;
 /**
  * Class for Image Upload Control module
  *

@@ -87,4 +87,20 @@ class Disable_Dashboard_Widgets {
 
     }
     
+    /**
+     * Maybe remove welcome panel from dashboard
+     * 
+     * @since 6.9.10
+     */
+    public function maybe_remove_welcome_panel() {
+
+        $options = get_option( ASENHA_SLUG_U, array() );
+        $disable_welcome_panel = isset( $options['disable_welcome_panel_in_dashboard'] ) ? $options['disable_welcome_panel_in_dashboard'] : false;
+        
+        if ( $disable_welcome_panel ) {
+            remove_action( 'welcome_panel', 'wp_welcome_panel' );
+        }
+
+    }
+    
 }

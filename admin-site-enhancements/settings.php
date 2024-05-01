@@ -903,7 +903,7 @@ function asenha_admin_bar_item_js_css() {
  * @since    1.0.0
  */
 function asenha_plugin_action_links(  $links  ) {
-    $settings_link = '<a href="tools.php?page=' . ASENHA_SLUG . '">Configure</a>';
+    $settings_link = '<a href="tools.php?page=' . ASENHA_SLUG . '">' . __( 'Configure', 'admin-site-enhancements' ) . '</a>';
     array_unshift( $links, $settings_link );
     return $links;
 }

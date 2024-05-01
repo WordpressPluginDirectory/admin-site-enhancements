@@ -31,7 +31,7 @@ class Hide_Admin_Notices {
 
         if ( current_user_can( $minimum_capability ) ) {
 
-            echo '<div class="asenha-admin-notices-drawer" style="display:none;"><h2>Admin Notices</h2></div>';
+            echo '<div class="asenha-admin-notices-drawer" style="display:none;"><h2>' . __( 'Admin Notices', 'admin-site-enhancements' ) . '</h2></div>';
             
         }
 
@@ -65,11 +65,11 @@ class Hide_Admin_Notices {
                     'id'        => 'asenha-hide-admin-notices',
                     'parent'    => 'top-secondary',
                     'grou'      => null,
-                    'title'     => 'Notices<span class="asenha-admin-notices-counter" style="opacity:0;">0</span>',
+                    'title'     => __( 'Notices', 'admin-site-enhancements' ) . '<span class="asenha-admin-notices-counter" style="opacity:0;">0</span>',
                     // 'href'       => '',
                     'meta'      => array(
                         'class'     => 'asenha-admin-notices-menu',
-                        'title'     => 'Click to view hidden admin notices',
+                        'title'     => __( 'Click to view hidden admin notices', 'admin-site-enhancements' ),
                     ),
                 ) );
 

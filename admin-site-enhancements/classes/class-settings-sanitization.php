@@ -159,6 +159,10 @@ class Settings_Sanitization {
                 $options['disabled_dashboard_widgets'][$widget['id'] . '__' . $widget['context'] . '__' . $widget['priority']] = ( 'on' == $options['disabled_dashboard_widgets'][$widget['id'] . '__' . $widget['context'] . '__' . $widget['priority']] ? true : false );
             }
         }
+        if ( !isset( $options['disable_welcome_panel_in_dashboard'] ) ) {
+            $options['disable_welcome_panel_in_dashboard'] = false;
+        }
+        $options['disable_welcome_panel_in_dashboard'] = ( 'on' == $options['disable_welcome_panel_in_dashboard'] ? true : false );
         // Hide Admin Bar
         if ( !isset( $options['hide_admin_bar'] ) ) {
             $options['hide_admin_bar'] = false;

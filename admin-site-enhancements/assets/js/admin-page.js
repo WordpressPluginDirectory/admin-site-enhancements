@@ -153,6 +153,7 @@
       $('.hide-admin-notices').appendTo('.fields-admin-interface > table > tbody');
       
       $('.disable-dashboard-widgets').appendTo('.fields-admin-interface > table > tbody');
+      $('.disable-welcome-panel-in-dashboard').appendTo('.fields-admin-interface .disable-dashboard-widgets .asenha-subfields');
       $('.disabled-dashboard-widgets').appendTo('.fields-admin-interface .disable-dashboard-widgets .asenha-subfields');
       $('.hide-admin-bar').appendTo('.fields-admin-interface > table > tbody');
       

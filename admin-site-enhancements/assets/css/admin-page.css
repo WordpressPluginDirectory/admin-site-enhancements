@@ -1503,6 +1503,12 @@ a.asenha-support-nudge-dismiss:hover,
     justify-content: center;
 }
 
+/* Utility Classes */
+
+.force-hide {
+    display: none !important;
+}
+
 
 
 /* ======================================================= */

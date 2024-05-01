@@ -669,6 +669,27 @@ class Settings_Sections_Fields {
                 'class'                  => 'asenha-toggle admin-interface ' . $field_slug,
             )
         );
+        $field_id = 'disable_welcome_panel_in_dashboard';
+        $field_slug = 'disable-welcome-panel-in-dashboard';
+        add_settings_field(
+            $field_id,
+            // Field ID
+            '',
+            // Field title
+            [$render_field, 'render_checkbox_plain'],
+            // Callback to render field with custom arguments in the array below
+            ASENHA_SLUG,
+            // Settings page slug
+            'main-section',
+            // Section ID
+            array(
+                'option_name' => ASENHA_SLUG_U,
+                'field_id'    => $field_id,
+                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_label' => __( 'Welcome to WordPress', 'admin-site-enhancements' ),
+                'class'       => 'asenha-checkbox asenha-hide-th admin-interface ' . $field_slug,
+            )
+        );
         $field_id = 'disabled_dashboard_widgets';
         $field_slug = 'disabled-dashboard-widgets';
         if ( array_key_exists( 'dashboard_widgets', $options_extra ) ) {
@@ -869,7 +890,7 @@ class Settings_Sections_Fields {
         add_settings_field(
             $field_id,
             // Field ID
-            'Show Custom Taxonomy Filters',
+            __( 'Show Custom Taxonomy Filters', 'admin-site-enhancements' ),
             // Field title
             [$render_field, 'render_checkbox_toggle'],
             // Callback to render field with custom arguments in the array below
