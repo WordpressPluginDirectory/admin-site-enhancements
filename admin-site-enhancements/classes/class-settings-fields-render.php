@@ -546,14 +546,14 @@ class Settings_Fields_Render {
         $renaming_not_allowed = array(
             'menu-dashboard',
             'menu-pages',
-            'menu-posts',
+            // 'menu-posts',
             'menu-media',
             'menu-comments',
             'menu-appearance',
             'menu-plugins',
             'menu-users',
             'menu-tools',
-            'menu-settings'
+            'menu-settings',
         );
         // Get custom menu item titles
         if ( array_key_exists( 'custom_menu_titles', $options ) ) {

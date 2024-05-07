@@ -8,7 +8,6 @@ namespace ASENHA\Classes;
  * @since 6.9.5
  */
 class Enhance_List_Tables {
-    
     /**
      * Current post type. For Content Admin >> Show Custom Taxonomy Filters functionality.
      */
@@ -20,20 +19,20 @@ class Enhance_List_Tables {
      * @since 1.0.0
      */
     public function show_featured_image_column() {
-
-        $post_types = get_post_types( array( 'public' => true ), 'names' );
-
+        $post_types = get_post_types( array(
+            'public' => true,
+        ), 'names' );
         foreach ( $post_types as $post_type_key => $post_type_name ) {
-
             if ( post_type_supports( $post_type_key, 'thumbnail' ) ) {
-
-                add_filter( "manage_{$post_type_name}_posts_columns",[ $this, 'add_featured_image_column' ], 999 );
-                add_action( "manage_{$post_type_name}_posts_custom_column", [ $this, 'add_featured_image' ], 10, 2 );
-
+                add_filter( "manage_{$post_type_name}_posts_columns", [$this, 'add_featured_image_column'], 999 );
+                add_action(
+                    "manage_{$post_type_name}_posts_custom_column",
+                    [$this, 'add_featured_image'],
+                    10,
+                    2
+                );
             }
-
         }
-
     }
 
     /**
@@ -44,36 +43,23 @@ class Enhance_List_Tables {
      * @since 1.0.0
      */
     public function add_featured_image_column( $columns ) {
-        
         $new_columns = array();
-
         foreach ( $columns as $key => $value ) {
-
-            if ( 'title' == $key) {
-                
+            if ( 'title' == $key ) {
                 // We add featured image column before the 'title' column
-                $new_columns['asenha-featured-image'] = 'Featured Image';   
-
+                $new_columns['asenha-featured-image'] = 'Featured Image';
             }
-            
-            if ( 'thumb' == $key )  {
-
+            if ( 'thumb' == $key ) {
                 // For WooCommerce products, we add featured image column before it's native thumbnail column
-                $new_columns['asenha-featured-image'] = 'Product Image';    
-
+                $new_columns['asenha-featured-image'] = 'Product Image';
             }
-
             $new_columns[$key] = $value;
-
         }
-        
         // Replace WooCommerce thumbnail column with ASE featured image column
         if ( array_key_exists( 'thumb', $new_columns ) ) {
-            unset( $new_columns['thumb'] );         
+            unset($new_columns['thumb']);
         }
-
         return $new_columns;
-
     }
 
     /**
@@ -84,22 +70,14 @@ class Enhance_List_Tables {
      * @since 1.0.0
      */
     public function add_featured_image( $column_name, $id ) {
-
         if ( 'asenha-featured-image' === $column_name ) {
-
             if ( has_post_thumbnail( $id ) ) {
-
                 $size = 'thumbnail';
-
                 echo get_the_post_thumbnail( $id, $size, '' );
-
             } else {
-
                 echo '<img src="' . esc_url( plugins_url( 'assets/img/default_featured_image.jpg', __DIR__ ) ) . '" />';
-
             }
         }
-
     }
 
     /**
@@ -108,20 +86,20 @@ class Enhance_List_Tables {
      * @since 1.0.0
      */
     public function show_excerpt_column() {
-
-        $post_types = get_post_types( array( 'public' => true ), 'names' );
-
+        $post_types = get_post_types( array(
+            'public' => true,
+        ), 'names' );
         foreach ( $post_types as $post_type_key => $post_type_name ) {
-
             if ( post_type_supports( $post_type_key, 'excerpt' ) ) {
-
-                add_filter( "manage_{$post_type_name}_posts_columns",[ $this, 'add_excerpt_column' ] );
-                add_action( "manage_{$post_type_name}_posts_custom_column", [ $this, 'add_excerpt' ], 10, 2 );
-
+                add_filter( "manage_{$post_type_name}_posts_columns", [$this, 'add_excerpt_column'] );
+                add_action(
+                    "manage_{$post_type_name}_posts_custom_column",
+                    [$this, 'add_excerpt'],
+                    10,
+                    2
+                );
             }
-
         }
-
     }
 
     /**
@@ -132,23 +110,14 @@ class Enhance_List_Tables {
      * @since 1.0.0
      */
     public function add_excerpt_column( $columns ) {
-
         $new_columns = array();
-
         foreach ( $columns as $key => $value ) {
-
             $new_columns[$key] = $value;
-
             if ( $key == 'title' ) {
-
-                $new_columns['asenha-excerpt'] = 'Excerpt'; 
-
+                $new_columns['asenha-excerpt'] = 'Excerpt';
             }
-
         }
-
         return $new_columns;
-
     }
 
     /**
@@ -159,17 +128,14 @@ class Enhance_List_Tables {
      * @since 1.0.0
      */
     public function add_excerpt( $column_name, $id ) {
-
         if ( 'asenha-excerpt' === $column_name ) {
-
-            $excerpt = get_the_excerpt( $id ); // about 310 characters
-            $excerpt = substr( $excerpt, 0, 160 ); // truncate to 160 characters
+            $excerpt = get_the_excerpt( $id );
+            // about 310 characters
+            $excerpt = substr( $excerpt, 0, 160 );
+            // truncate to 160 characters
             $short_excerpt = substr( $excerpt, 0, strrpos( $excerpt, ' ' ) );
-
             echo wp_kses_post( $short_excerpt );
-
         }
-
     }
 
     /**
@@ -178,43 +144,59 @@ class Enhance_List_Tables {
      * @since 1.0.0
      */
     public function show_id_column() {
-
         // For pages and hierarchical post types list table
-
-        add_filter( 'manage_pages_columns', [ $this, 'add_id_column' ] );
-        add_action( 'manage_pages_custom_column', [ $this, 'add_id_echo_value' ], 10, 2 );              
-
+        add_filter( 'manage_pages_columns', [$this, 'add_id_column'] );
+        add_action(
+            'manage_pages_custom_column',
+            [$this, 'add_id_echo_value'],
+            10,
+            2
+        );
         // For posts and non-hierarchical custom posts list table
-
-        add_filter( 'manage_posts_columns', [ $this, 'add_id_column' ] );
-        add_action( 'manage_posts_custom_column', [ $this, 'add_id_echo_value' ], 10, 2 );
-
+        add_filter( 'manage_posts_columns', [$this, 'add_id_column'] );
+        add_action(
+            'manage_posts_custom_column',
+            [$this, 'add_id_echo_value'],
+            10,
+            2
+        );
         // For media list table
-
-        add_filter( 'manage_media_columns', [ $this, 'add_id_column' ] );
-        add_action( 'manage_media_custom_column', [ $this, 'add_id_echo_value' ], 10, 2 );
-
+        add_filter( 'manage_media_columns', [$this, 'add_id_column'] );
+        add_action(
+            'manage_media_custom_column',
+            [$this, 'add_id_echo_value'],
+            10,
+            2
+        );
         // For list table of all taxonomies
-
-        $taxonomies = get_taxonomies( [ 'public' => true ], 'names' );
-
+        $taxonomies = get_taxonomies( [
+            'public' => true,
+        ], 'names' );
         foreach ( $taxonomies as $taxonomy ) {
-            
-            add_filter( 'manage_edit-' . $taxonomy . '_columns', [ $this, 'add_id_column' ] );
-            add_action( 'manage_' . $taxonomy . '_custom_column', [ $this, 'add_id_return_value' ], 10, 3 );
-
+            add_filter( 'manage_edit-' . $taxonomy . '_columns', [$this, 'add_id_column'] );
+            add_action(
+                'manage_' . $taxonomy . '_custom_column',
+                [$this, 'add_id_return_value'],
+                10,
+                3
+            );
         }
-
         // For users list table
-
-        add_filter( 'manage_users_columns', [ $this, 'add_id_column' ]);    
-        add_action( 'manage_users_custom_column', [ $this, 'add_id_return_value' ], 10, 3 );
-
+        add_filter( 'manage_users_columns', [$this, 'add_id_column'] );
+        add_action(
+            'manage_users_custom_column',
+            [$this, 'add_id_return_value'],
+            10,
+            3
+        );
         // For comments list table
-
-        add_filter( 'manage_edit-comments_columns', [ $this, 'add_id_column' ]);
-        add_action( 'manage_comments_custom_column', [ $this, 'add_id_echo_value' ], 10, 3 );
-
+        add_filter( 'manage_edit-comments_columns', [$this, 'add_id_column'] );
+        add_action(
+            'manage_comments_custom_column',
+            [$this, 'add_id_echo_value'],
+            10,
+            3
+        );
     }
 
     /**
@@ -225,11 +207,8 @@ class Enhance_List_Tables {
      * @since 1.0.0
      */
     public function add_id_column( $columns ) {
-
         $columns['asenha-id'] = 'ID';
-
         return $columns;
-
     }
 
     /**
@@ -240,11 +219,9 @@ class Enhance_List_Tables {
      * @since 1.0.0
      */
     public function add_id_echo_value( $column_name, $id ) {
-
         if ( 'asenha-id' === $column_name ) {
             echo esc_html( $id );
         }
-
     }
 
     /**
@@ -256,13 +233,10 @@ class Enhance_List_Tables {
      * @since 1.0.0
      */
     public function add_id_return_value( $value, $column_name, $id ) {
-
         if ( 'asenha-id' === $column_name ) {
             $value = $id;
         }
-
         return $value;
-
     }
 
     /**
@@ -272,9 +246,9 @@ class Enhance_List_Tables {
      */
     public function add_column_file_size( $columns ) {
         $columns['asenha-file-size'] = 'File Size';
-        return $columns;        
+        return $columns;
     }
-    
+
     /**
      * Display the file size value
      *
@@ -284,9 +258,9 @@ class Enhance_List_Tables {
         if ( 'asenha-file-size' != $column_name ) {
             return;
         }
-
         $file_size = filesize( get_attached_file( $attachment_id ) );
-        $file_size = size_format( $file_size, 1 ); // Show one decimal point
+        $file_size = size_format( $file_size, 1 );
+        // Show one decimal point
         echo esc_html( $file_size );
     }
 
@@ -305,15 +279,48 @@ class Enhance_List_Tables {
      * @since 4.7.4
      */
     public function show_id_in_action_row() {
-
-        add_filter( 'page_row_actions', array( $this, 'add_id_in_action_row' ), 10, 2 );
-        add_filter( 'post_row_actions', array( $this, 'add_id_in_action_row' ), 10, 2 );
-        add_filter( 'cat_row_actions', array( $this, 'add_id_in_action_row' ), 10, 2 );
-        add_filter( 'tag_row_actions', array( $this, 'add_id_in_action_row' ), 10, 2 );
-        add_filter( 'media_row_actions', array( $this, 'add_id_in_action_row' ), 10, 2 );
-        add_filter( 'comment_row_actions', array( $this, 'add_id_in_action_row' ), 10, 2 );
-        add_filter( 'user_row_actions', array( $this, 'add_id_in_action_row' ), 10, 2 );
-
+        add_filter(
+            'page_row_actions',
+            array($this, 'add_id_in_action_row'),
+            10,
+            2
+        );
+        add_filter(
+            'post_row_actions',
+            array($this, 'add_id_in_action_row'),
+            10,
+            2
+        );
+        add_filter(
+            'cat_row_actions',
+            array($this, 'add_id_in_action_row'),
+            10,
+            2
+        );
+        add_filter(
+            'tag_row_actions',
+            array($this, 'add_id_in_action_row'),
+            10,
+            2
+        );
+        add_filter(
+            'media_row_actions',
+            array($this, 'add_id_in_action_row'),
+            10,
+            2
+        );
+        add_filter(
+            'comment_row_actions',
+            array($this, 'add_id_in_action_row'),
+            10,
+            2
+        );
+        add_filter(
+            'user_row_actions',
+            array($this, 'add_id_in_action_row'),
+            10,
+            2
+        );
     }
 
     /**
@@ -322,30 +329,22 @@ class Enhance_List_Tables {
      * @since 4.7.4
      */
     public function add_id_in_action_row( $actions, $object ) {
-
         if ( current_user_can( 'edit_posts' ) ) {
-
             // For pages, posts, custom post types, media/attachments, users
             if ( property_exists( $object, 'ID' ) ) {
                 $id = $object->ID;
             }
-
             // For taxonomies
             if ( property_exists( $object, 'term_id' ) ) {
                 $id = $object->term_id;
             }
-
             // For comments
             if ( property_exists( $object, 'comment_ID' ) ) {
                 $id = $object->comment_ID;
             }
-
             $actions['asenha-list-table-item-id'] = '<span class="asenha-list-table-item-id">ID: ' . $id . '</span>';
-
         }
-
         return $actions;
-
     }
 
     /**
@@ -354,29 +353,20 @@ class Enhance_List_Tables {
      * @since 1.0.0
      */
     public function hide_comments_column() {
-
-        $post_types = get_post_types( array( 'public' => true ), 'names' );
-
+        $post_types = get_post_types( array(
+            'public' => true,
+        ), 'names' );
         foreach ( $post_types as $post_type_key => $post_type_name ) {
-
             if ( post_type_supports( $post_type_key, 'comments' ) ) {
-
                 if ( 'attachment' != $post_type_name ) {
-
                     // For list tables of pages, posts and other post types
-                    add_filter( "manage_{$post_type_name}_posts_columns", [ $this, 'remove_comment_column' ] );
-
+                    add_filter( "manage_{$post_type_name}_posts_columns", [$this, 'remove_comment_column'] );
                 } else {
-
                     // For list table of media/attachment
-                    add_filter( 'manage_media_columns', [ $this, 'remove_comment_column' ] );
-
+                    add_filter( 'manage_media_columns', [$this, 'remove_comment_column'] );
                 }
-
             }
-
         }
-
     }
 
     /**
@@ -387,11 +377,8 @@ class Enhance_List_Tables {
      * @since 1.0.0
      */
     public function remove_comment_column( $columns ) {
-
-        unset( $columns['comments'] );
-
+        unset($columns['comments']);
         return $columns;
-
     }
 
     /**
@@ -400,19 +387,14 @@ class Enhance_List_Tables {
      * @since 1.0.0
      */
     public function hide_post_tags_column() {
-
-        $post_types = get_post_types( array( 'public' => true ), 'names' );
-
+        $post_types = get_post_types( array(
+            'public' => true,
+        ), 'names' );
         foreach ( $post_types as $post_type_key => $post_type_name ) {
-
             if ( $post_type_name == 'post' ) {
-
-                add_filter( "manage_posts_columns", [ $this, 'remove_post_tags_column' ] );
-
+                add_filter( "manage_posts_columns", [$this, 'remove_post_tags_column'] );
             }
-
         }
-
     }
 
     /**
@@ -423,11 +405,8 @@ class Enhance_List_Tables {
      * @since 1.0.0
      */
     public function remove_post_tags_column( $columns ) {
-
-        unset( $columns['tags'] );
-
+        unset($columns['tags']);
         return $columns;
-
     }
-            
+
 }

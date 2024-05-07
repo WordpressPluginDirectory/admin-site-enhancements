@@ -39,7 +39,12 @@ class Image_Upload_Control {
             }
             // At this point, BMPs and non-transparent PNGs are already converted to JPGs, unless excluded with '-nr' suffix.
             // Let's perform resize operation as needed, i.e. if image dimension is larger than specified
-            $mime_types_to_resize = array('image/jpeg', 'image/jpg', 'image/png');
+            $mime_types_to_resize = array(
+                'image/jpeg',
+                'image/jpg',
+                'image/png',
+                'image/webp'
+            );
             if ( !is_wp_error( $upload ) && in_array( $upload['type'], $mime_types_to_resize ) && filesize( $upload['file'] ) > 0 ) {
                 // https://developer.wordpress.org/reference/classes/wp_image_editor/
                 $wp_image_editor = wp_get_image_editor( $upload['file'] );
@@ -52,8 +57,10 @@ class Image_Upload_Control {
                     if ( isset( $image_size['width'] ) && $image_size['width'] > $max_width || isset( $image_size['height'] ) && $image_size['height'] > $max_height ) {
                         $wp_image_editor->resize( $max_width, $max_height, false );
                         // false is for no cropping
-                        $wp_image_editor->set_quality( 90 );
-                        // default is 82
+                        if ( 'image/jpg' === $upload['type'] || 'image/jpeg' === $upload['type'] ) {
+                            $wp_image_editor->set_quality( 90 );
+                            // default is 82
+                        }
                         $wp_image_editor->save( $upload['file'] );
                     }
                 }
@@ -127,6 +134,33 @@ class Image_Upload_Control {
             $upload['type'] = 'image/jpeg';
         }
         return $upload;
+    }
+
+    /**
+     * Generate image object from PNG/JPG with GD library
+     * 
+     * @since 6.9.11
+     */
+    public function gd_generate_webp(
+        $file,
+        $file_extension,
+        $webp_path,
+        $webp_conversion_quality
+    ) {
+        if ( 'png' == $file_extension ) {
+            $image_object = imagecreatefrompng( $file );
+            if ( $png_has_transparency ) {
+                imagepalettetotruecolor( $image_object );
+            }
+        }
+        if ( 'jpg' == $file_extension || 'jpeg' == $file_extension ) {
+            $image_object = imagecreatefromjpeg( $file );
+        }
+        // When creation of image object from PNG/JPG is successful. let's generate WebP image
+        // Second parameter is file path, last parameter is WebP quality (0-100).
+        if ( !is_null( $image_object ) && is_object( $image_object ) ) {
+            imagewebp( $image_object, $webp_path, $webp_conversion_quality );
+        }
     }
 
 }

@@ -1,10 +1,48 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **90 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **92 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
+
+### 6.9.11 (2024.05.07) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Admin Interface >> Admin Menu Organizer**: allow renaming the Posts menu item. Some projects require renaming this to News, Articles, etc. Props to Simone S. for the sharing the use case and suggesting this.
+
+* **[IMPROVED in Pro] Optimizations >> Image Upload Control**: added GD library WebP conversion fallback for when Imagick is the active editor but has no WebP support. Props to Aleš S. for reporting the issue that prompted the improvement.
+
+* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: improved protection against XSS (cross-site scripting) by escaping unescaped variables.
+
+* **[CHANGED in Pro] Admin Interface >> Admin Columns Manager**: disable formatting that adds thousands separator (comma) to columns for number fields. Also made columns for ASE radio and number fields sortable.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Options Pages**: fixed an issue in Bricks builder query loop where querying for repeater field's sub-fields returned nothing. Props to Jacob O. for reporthing the issue.
+
+* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fixed an issue where default and custom field columns are not able to be sorted properly despite being marked as sortable. Props to Sebastian A. and Uli L. for reporting the issue.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: fixed deprecation notices on custom field group editing screen in PHP 8.2.
+
+* **[TRANSLATION]** 2 new languages have been added. ASE has now been translated into 14 languages:
+  * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/).
+  * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/).
+  * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/).
+  * **Vietnamese**: ASE Free and Pro (completed). Props to [Hoang N.Q.](https://profiles.wordpress.org/nguyenquanghoang/).
+  * **Italian**: ASE Free and Pro (completed). Props to [Fabio P.](https://profiles.wordpress.org/fabioperri/) et. al.
+  * **Dutch**: ASE Free and Pro (completed). Props to [Toine R](https://profiles.wordpress.org/toineenzo/) and [Peter S.](https://profiles.wordpress.org/psmits1567/) et al.
+  * **Polish**: ASE Free (completed) | ASE Pro (in progress). Props to [Dariusz Z.](https://profiles.wordpress.org/dariobros/).
+  * **Portuguese (Portugal)**: ASE Free (completed) | ASE Pro (partial). Props to [Ricardo C.](https://profiles.wordpress.org/madebyuh/).
+  * **Ukrainian**: ASE Free (completed) | ASE Pro (partial). Props to [Irina](https://profiles.wordpress.org/irinashl/).
+  * **Urdu**: ASE Free (completed) | ASE Pro (partial). Props to [Ayyaz A.](https://profiles.wordpress.org/ayyazahmad/).
+  * **Swedish**: ASE Free (completed) | ASE Pro (partial). Props to [Robert M.](https://profiles.wordpress.org/robertmichalski/) and [Tor-Bjorn F.](https://profiles.wordpress.org/tobifjellner/).
+  * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/).
+  * **Korean**: ASE Free (completed) | ASE Pro (partial). Props to [@chazmlab](https://profiles.wordpress.org/chazmlab/).
+  * **German (Formal)**: ASE Free (completed) | ASE Pro (partial). Props to [@markussss](https://profiles.wordpress.org/markussss/) et al.
+  * **More strings** have been internationalized. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
+  * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
+
+### 6.9.10.1 (2024.05.01) - ASE Pro
+
+* **[FIXED in Pro] Optimizations >> Image Upload Control**: fixed an issue with WebP upload as reported by Konstantin T, where the resulting upload is a broken image. Also made sure WebP upload will be resized to the maximum dimension defined in the settings.
 
 ### 6.9.10 (2024.04.30) - ASE Free and Pro
 
@@ -25,11 +63,11 @@ Each **_point release_** usually corresponds with the addition of one new module
 * **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fixed empty value being returned for ASE hyperlink field in certain scenarios.
 
 * **[TRANSLATION]** ASE has now been translated into 12 languages:
-  * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/).
-  * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/).
-  * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/).
-  * **Vietnamese**: ASE Free and Pro (completed). Props to [Hoang N.Q.](https://profiles.wordpress.org/nguyenquanghoang/).
-  * **Italian**: ASE Free and Pro (completed). Props to [Fabio P.](https://profiles.wordpress.org/fabioperri/) et. al.
+  * **Chinese (China)**: ASE Free and Pro (**completed**). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/).
+  * **Portuguese (Brazil)**: ASE Free and ASE Pro (**completed**). Props to [Dennis F.](https://profiles.wordpress.org/dnn/).
+  * **Hungarian**: ASE Free and Pro (**completed**). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/).
+  * **Vietnamese**: ASE Free and Pro (**completed**). Props to [Hoang N.Q.](https://profiles.wordpress.org/nguyenquanghoang/).
+  * **Italian**: ASE Free and Pro (**completed**). Props to [Fabio P.](https://profiles.wordpress.org/fabioperri/) et. al.
   * **Dutch**: ASE Free (completed) | ASE Pro (partial). Props to [Toine R](https://profiles.wordpress.org/toineenzo/) and [Peter S.](https://profiles.wordpress.org/psmits1567/) et al.
   * **Polish**: ASE Free (completed) | ASE Pro (partial). Props to [Dariusz Z.](https://profiles.wordpress.org/dariobros/).
   * **Portuguese (Portugal)**: ASE Free (completed) | ASE Pro (partial). Props to [Ricardo C.](https://profiles.wordpress.org/madebyuh/).
