@@ -277,6 +277,7 @@
       $('.smtp-default-from-name').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');
       $('.smtp-default-from-email').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');
       $('.smtp-force-from').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');
+      
       $('.smtp--description').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');
       $('.smtp-host').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');
       $('.smtp-port').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');

@@ -3157,7 +3157,7 @@ class Settings_Sections_Fields {
                 'field_id'    => $field_id,
                 'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_label' => __( 'Force the usage of the sender name/email defined above. It will override those set by other plugins.', 'admin-site-enhancements' ),
-                'class'       => 'asenha-checkbox asenha-hide-th bottom-border utilities ' . $field_slug,
+                'class'       => 'asenha-checkbox asenha-hide-th utilities ' . $field_slug,
             )
         );
         $field_id = 'smtp_description';
@@ -3176,7 +3176,7 @@ class Settings_Sections_Fields {
             array(
                 'option_name'       => ASENHA_SLUG_U,
                 'field_description' => __( 'If set, the following SMTP service/account wil be used to deliver your emails.', 'admin-site-enhancements' ),
-                'class'             => 'asenha-description utilities ' . $field_slug,
+                'class'             => 'asenha-description top-border utilities ' . $field_slug,
             )
         );
         $field_id = 'smtp_host';
@@ -3705,6 +3705,7 @@ class Settings_Sections_Fields {
         // Display System Summary
         $field_id = 'display_system_summary';
         $field_slug = 'display-system-summary';
+        $module_description = __( 'Show quick summary of the system the site is running on to admins, in the "At a Glance" dashboard widget. This includes the web server software, the PHP version, the database software and server IP address.', 'admin-site-enhancements' );
         add_settings_field(
             $field_id,
             // Field ID
@@ -3721,7 +3722,7 @@ class Settings_Sections_Fields {
                 'field_id'              => $field_id,
                 'field_slug'            => $field_slug,
                 'field_name'            => ASENHA_SLUG_U . '[' . $field_id . ']',
-                'field_description'     => __( 'Show quick summary of the system the site is running on to admins, in the "At a Glance" dashboard widget. This includes the web server software, the PHP version, the database software and server IP address.', 'admin-site-enhancements' ),
+                'field_description'     => $module_description,
                 'field_options_wrapper' => true,
                 'class'                 => 'asenha-toggle utilities ' . $field_slug,
             )

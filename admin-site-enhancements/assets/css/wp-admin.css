@@ -82,6 +82,8 @@ ul#adminmenu a.wp-has-current-submenu.hidden {
 	padding: 0 !important;
 }
 
+
+
 /* Utilities >> View Admin as Role */
 #role-view-reset {
 	position: fixed;
@@ -104,3 +106,4 @@ ul#adminmenu a.wp-has-current-submenu.hidden {
 .cfgroup_wysiwyg.ready .mce-branding {
 	display: none;
 }
+

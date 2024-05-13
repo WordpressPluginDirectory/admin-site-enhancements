@@ -4,8 +4,8 @@ Contributors: qriouslad
 Donate link: https://bowo.io/asenha-sp-rdm  
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
-Tested up to: 6.5.2  
-Stable tag: 6.9.11  
+Tested up to: 6.5.3  
+Stable tag: 6.9.12  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -43,7 +43,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 ### FEATURES & MODULES
 
 **62 modules** in total:
-**54 free modules** (19 has Pro features) | **8 Pro modules**
+**54 free modules** (22 has Pro features) | **8 Pro modules**
 
 [**See all features >>**](https://www.wpase.com/features/)
 
@@ -83,7 +83,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **Login ID Type**. Restrict login ID to username or email address only.
 * **Site Identity on Login Page**. Use the site icon and URL to replace the default WordPress logo with link to wordpress.org on the login page.
 * **Log In/Out Menu**. Enable log in, log out and dynamic log in/out menu item for addition to any menu.
-* **Last Login Column**. Log when users on the site last logged in and display the date and time in the users list table.
+* **Last Login Column**. Log when users on the site last logged in and display the date and time in the users list table. [ASE Pro](https://www.wpase.com/rdme-to-web) makes the column sortable.
 * **Redirect After Login / Logout**. Set custom redirect URL for all or some user roles after login / logout.
 
 ### Custom Code
@@ -120,7 +120,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### Utilities
 
-* **Email Delivery**. Set custom sender name and email. Optionally use external SMTP service to ensure notification and transactional emails from your site are being delivered to inboxes.
+* **Email Delivery**. Set custom sender name and email. Optionally use external SMTP service to ensure notification and transactional emails from your site are being delivered to inboxes. [ASE Pro](https://www.wpase.com/rdme-to-web) adds the option to specify a custom reply-to name and email.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Local User Avatar**. Enable usage of any image from WordPress Media Library as user avatars.
 * **Multiple User Roles**. Enable assignment of multiple roles during user account creation and editing.
 * **Image Sizes Panel**. Display a panel showing and linking to all available sizes when viewing an image in the media library. [ASE Pro](https://www.wpase.com/rdme-to-web) adds a convenient button to copy the image URL on click.
@@ -128,7 +128,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **Password Protection**. Password-protect the entire site to hide the content from public view and search engine bots / crawlers. [ASE Pro](https://www.wpase.com/rdme-to-web) adds IP whitelisting and bypassing via URL parameter.
 * **Maintenance Mode**. Show a simple maintenance message. [ASE Pro](https://www.wpase.com/rdme-to-web) adds option to set custom page / browser tab title and use WYSIWYG editor, image / solid color background and custom CSS.
 * **Redirect 404**. Perform 301 (permanent) redirect to the homepage for all 404 (not found) pages. [ASE Pro](https://www.wpase.com/rdme-to-web) adds option to set custom redirect URL.
-* **Display System Summary**. Show web server software, PHP version, database software and server IP address in the "At a Glance" dashboard widget.
+* **Display System Summary**. Show web server software, PHP version, database software and server IP address in the "At a Glance" dashboard widget. [ASE Pro](https://www.wpase.com/rdme-to-web) also shows the size of the site, database and root, wp-content, plugins, themes and upload folders.
 * **Search Engines Visibility Status**. Show admin bar status and admin notice when search engines are set to be discouraged from indexing the site.
 
 [**See all features >>**](https://www.wpase.com/features/)
@@ -176,42 +176,38 @@ You can skip step 1 and 2 if you still have access to your wp-admin dashboard.
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **92 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **93 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
-### 6.9.11 (2024.05.07) - ASE Free and Pro
+### 6.9.12 (2024.05.13) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Admin Interface >> Admin Menu Organizer**: allow renaming the Posts menu item. Some projects require renaming this to News, Articles, etc. Props to Simone S. for the sharing the use case and suggesting this.
+* **[IMPROVED in Free and Pro] Admin Interface >> Admin Menu Organizer**: if the menu title for 'Posts' has been modified, the word 'Posts' will be changed as well throughout wp-admin. Props to [@tinnyfusion](https://wordpress.org/support/users/tinnyfusion/) for [sharing the snippet](https://wordpress.org/support/topic/recent-update-renaming-posts/) this improvement is based upon.
 
-* **[IMPROVED in Pro] Optimizations >> Image Upload Control**: added GD library WebP conversion fallback for when Imagick is the active editor but has no WebP support. Props to Aleš S. for reporting the issue that prompted the improvement.
+* **[IMPROVED in Pro] Admin Interface >> Admin Menu Organizer**: the 'Contact' menu item from Contact Form 7 can now be always hidden. Props to Wence W. for reporting the issue.
 
-* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: improved protection against XSS (cross-site scripting) by escaping unescaped variables.
+* **[IMPROVED in Free and Pro] Log In | Log Out >> Last Login Column**: Date time format now uses the one set in Settings >> General. In ASE Pro, the last login column is now sortable.
 
-* **[CHANGED in Pro] Admin Interface >> Admin Columns Manager**: disable formatting that adds thousands separator (comma) to columns for number fields. Also made columns for ASE radio and number fields sortable.
+* **[IMPROVED in Pro] Utilities >> Display System Summary**: added info on database, site, wp-content, plugins, themes and upload folders sizes. Props to [@unrealnfs](https://wordpress.org/support/users/unrealnfs/) for [suggesting this](https://wordpress.org/support/topic/request-dashboard-widget-plugin-my-simple-space/).
 
-* **[FIXED in Pro] Content Management >> Custom Content Types >> Options Pages**: fixed an issue in Bricks builder query loop where querying for repeater field's sub-fields returned nothing. Props to Jacob O. for reporthing the issue.
+* **[IMPROVED in Pro] Utilities >> Email Delivery**: added the option to specify a custom reply-to name and email address. Props to @designidit for suggesting this.
 
-* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fixed an issue where default and custom field columns are not able to be sorted properly despite being marked as sortable. Props to Sebastian A. and Uli L. for reporting the issue.
-
-* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: fixed deprecation notices on custom field group editing screen in PHP 8.2.
-
-* **[TRANSLATION]** 2 new languages have been added. ASE has now been translated into 14 languages:
+* **[TRANSLATION]** Korean translation has been completed. ASE has now been translated into 14 languages:
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/).
   * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/).
   * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/).
   * **Vietnamese**: ASE Free and Pro (completed). Props to [Hoang N.Q.](https://profiles.wordpress.org/nguyenquanghoang/).
   * **Italian**: ASE Free and Pro (completed). Props to [Fabio P.](https://profiles.wordpress.org/fabioperri/) et. al.
   * **Dutch**: ASE Free and Pro (completed). Props to [Toine R](https://profiles.wordpress.org/toineenzo/) and [Peter S.](https://profiles.wordpress.org/psmits1567/) et al.
-  * **Polish**: ASE Free (completed) | ASE Pro (in progress). Props to [Dariusz Z.](https://profiles.wordpress.org/dariobros/).
+  * **Korean**: ASE Free and Pro (completed). Props to [@chazmlab](https://profiles.wordpress.org/chazmlab/).
+  * **Polish**: ASE Free (completed) | ASE Pro (partial). Props to [Dariusz Z.](https://profiles.wordpress.org/dariobros/).
   * **Portuguese (Portugal)**: ASE Free (completed) | ASE Pro (partial). Props to [Ricardo C.](https://profiles.wordpress.org/madebyuh/).
   * **Ukrainian**: ASE Free (completed) | ASE Pro (partial). Props to [Irina](https://profiles.wordpress.org/irinashl/).
   * **Urdu**: ASE Free (completed) | ASE Pro (partial). Props to [Ayyaz A.](https://profiles.wordpress.org/ayyazahmad/).
   * **Swedish**: ASE Free (completed) | ASE Pro (partial). Props to [Robert M.](https://profiles.wordpress.org/robertmichalski/) and [Tor-Bjorn F.](https://profiles.wordpress.org/tobifjellner/).
   * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/).
-  * **Korean**: ASE Free (completed) | ASE Pro (partial). Props to [@chazmlab](https://profiles.wordpress.org/chazmlab/).
   * **German (Formal)**: ASE Free (completed) | ASE Pro (partial). Props to [@markussss](https://profiles.wordpress.org/markussss/) et al.
   * **More strings** have been internationalized. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
