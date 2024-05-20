@@ -114,9 +114,34 @@ class Admin_Menu_Organizer {
     }
 
     /**
+     * For 'Posts', apply custom label
+     * 
+     * @link https://developer.wordpress.org/reference/hooks/post_type_labels_post_type/
+     * @since 6.9.13
+     */
+    public function change_post_labels( $labels ) {
+        $post_object = get_post_type_object( 'post' );
+        // object
+        if ( property_exists( $post_object, 'label' ) ) {
+            $posts_default_title_plural = $post_object->label;
+        } else {
+            $posts_default_title_plural = $post_object->labels->name;
+        }
+        $posts_default_title_singular = $post_object->labels->singular_name;
+        $posts_custom_title = $this->get_posts_custom_title();
+        foreach ( $labels as $key => $label ) {
+            if ( null === $label ) {
+                continue;
+            }
+            $labels->{$key} = str_replace( [$posts_default_title_plural, $posts_default_title_singular], $posts_custom_title, $label );
+        }
+        return $labels;
+    }
+
+    /**
      * For 'Posts', apply custom label in post object
      * 
-     * @since 6.9.13
+     * @since 6.9.12
      */
     public function change_post_object_label() {
         global $wp_post_types;
@@ -149,7 +174,7 @@ class Admin_Menu_Organizer {
     /**
      * For 'Posts', apply custom label in menu and submenu
      * 
-     * @since 6.9.13
+     * @since 6.9.12
      */
     public function change_post_menu_label() {
         global $submenu;
@@ -172,7 +197,7 @@ class Admin_Menu_Organizer {
     /**
      * For 'Posts', apply custom label in admin bar
      * 
-     * @since 6.9.13
+     * @since 6.9.12
      */
     public function change_wp_admin_bar( $wp_admin_bar ) {
         $posts_custom_title = $this->get_posts_custom_title();
@@ -184,7 +209,7 @@ class Admin_Menu_Organizer {
     }
 
     /**
-     * Hide menu items by adding a class to hide them (part of WP Core's common.css)
+     * Hide parent menu items by adding class(es) to hide them
      *
      * @since 2.0.0
      */
@@ -216,6 +241,7 @@ class Admin_Menu_Organizer {
         // Get menu items hidden by toggle
         $common_methods = new Common_Methods();
         $menu_hidden_by_toggle = $common_methods->get_menu_hidden_by_toggle();
+        $submenu_hidden_by_toggle = array();
         // Get user capabilities the "Show All/Less" toggle should be shown for
         $user_capabilities_to_show_menu_toggle_for = $common_methods->get_user_capabilities_to_show_menu_toggle_for();
         // Get current user's capabilities from the user's role(s)
@@ -238,7 +264,7 @@ class Admin_Menu_Organizer {
                 break;
             }
         }
-        if ( !empty( $menu_hidden_by_toggle ) && $show_toggle_menu ) {
+        if ( (!empty( $menu_hidden_by_toggle ) || !empty( $submenu_hidden_by_toggle )) && $show_toggle_menu ) {
             add_menu_page(
                 __( 'Show All', 'admin-site-enhancements' ),
                 __( 'Show All', 'admin-site-enhancements' ),
@@ -273,7 +299,8 @@ class Admin_Menu_Organizer {
         // Get menu items hidden by toggle
         $common_methods = new Common_Methods();
         $menu_hidden_by_toggle = $common_methods->get_menu_hidden_by_toggle();
-        if ( !empty( $menu_hidden_by_toggle ) ) {
+        $submenu_hidden_by_toggle = array();
+        if ( !empty( $menu_hidden_by_toggle ) || !empty( $submenu_hidden_by_toggle ) ) {
             // Script to set behaviour and actions of the sortable menu
             wp_enqueue_script(
                 'asenha-toggle-hidden-menu',

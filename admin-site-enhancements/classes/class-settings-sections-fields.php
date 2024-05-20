@@ -2062,7 +2062,7 @@ class Settings_Sections_Fields {
                 'field_id'               => $field_id,
                 'field_slug'             => $field_slug,
                 'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
-                'field_description'      => 'Disable the Gutenberg block editor for some or all applicable post types.',
+                'field_description'      => __( 'Disable the Gutenberg block editor for some or all applicable post types.', 'admin-site-enhancements' ),
                 'field_options_wrapper'  => true,
                 'field_options_moreless' => true,
                 'class'                  => 'asenha-toggle disable-components ' . $field_slug,
@@ -3730,6 +3730,8 @@ class Settings_Sections_Fields {
         // Search Engines Visibility Status
         $field_id = 'search_engine_visibility_status';
         $field_slug = 'search-engine-visibility-status';
+        $field_options_moreless = false;
+        $field_options_wrapper = false;
         add_settings_field(
             $field_id,
             // Field ID
@@ -3742,13 +3744,14 @@ class Settings_Sections_Fields {
             'main-section',
             // Section ID
             array(
-                'option_name'           => ASENHA_SLUG_U,
-                'field_id'              => $field_id,
-                'field_slug'            => $field_slug,
-                'field_name'            => ASENHA_SLUG_U . '[' . $field_id . ']',
-                'field_description'     => __( 'Show admin bar status when search engines are set to be discouraged from indexing the site. This is set through a "Search engine visibility" checkbox in Settings >> Reading.', 'admin-site-enhancements' ),
-                'field_options_wrapper' => true,
-                'class'                 => 'asenha-toggle utilities ' . $field_slug,
+                'option_name'            => ASENHA_SLUG_U,
+                'field_id'               => $field_id,
+                'field_slug'             => $field_slug,
+                'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_description'      => __( 'Show admin bar status when search engines are set to be discouraged from indexing the site. This is set through a "Search engine visibility" checkbox in Settings >> Reading.', 'admin-site-enhancements' ),
+                'field_options_moreless' => $field_options_moreless,
+                'field_options_wrapper'  => $field_options_wrapper,
+                'class'                  => 'asenha-toggle utilities ' . $field_slug,
             )
         );
     }

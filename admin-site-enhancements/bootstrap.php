@@ -268,7 +268,7 @@ class Admin_Site_Enhancements {
         // Hide Admin Notices
         if ( array_key_exists( 'hide_admin_notices', $options ) && $options['hide_admin_notices'] ) {
             $hide_admin_notices = new ASENHA\Classes\Hide_Admin_Notices();
-            add_action( 'admin_notices', [$hide_admin_notices, 'admin_notices_wrapper'], 9 );
+            add_action( 'admin_footer', [$hide_admin_notices, 'admin_notices_wrapper'], 9 );
             // add_action( 'all_admin_notices', [ $hide_admin_notices, 'admin_notices_wrapper' ] );
             add_action( 'admin_bar_menu', [$hide_admin_notices, 'admin_notices_menu'] );
             add_action( 'admin_print_styles', [$hide_admin_notices, 'admin_notices_menu_inline_css'] );
@@ -317,6 +317,7 @@ class Admin_Site_Enhancements {
                             $posts_default_title = $post_object->labels->name;
                         }
                         if ( $posts_default_title != $posts_custom_title ) {
+                            add_filter( 'post_type_labels_post', [$admin_menu_organizer, 'change_post_labels'] );
                             add_action( 'init', [$admin_menu_organizer, 'change_post_object_label'] );
                             add_action( 'admin_menu', [$admin_menu_organizer, 'change_post_menu_label'], PHP_INT_MAX );
                             add_action( 'admin_bar_menu', [$admin_menu_organizer, 'change_wp_admin_bar'], 80 );

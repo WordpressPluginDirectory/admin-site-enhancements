@@ -13,6 +13,7 @@
          $('#toplevel_page_asenha_hide_hidden_menu').show();
          $('.menu-top.asenha_hidden_menu').toggleClass('hidden');
          $('.wp-menu-separator.asenha_hidden_menu').toggleClass('hidden');
+         
          $(document).trigger('wp-window-resized');         
       });
 
@@ -24,9 +25,10 @@
          $('#toplevel_page_asenha_hide_hidden_menu').hide();
          $('.menu-top.asenha_hidden_menu').toggleClass('hidden');
          $('.wp-menu-separator.asenha_hidden_menu').toggleClass('hidden');
+         
          $(document).trigger('wp-window-resized');         
       });
-
+      
    });
 
 })( jQuery );

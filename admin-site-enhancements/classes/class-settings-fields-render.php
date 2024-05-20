@@ -164,6 +164,9 @@ class Settings_Fields_Render {
         $field_description = $args['field_description'];
         $field_placeholder = ( isset( $args['field_placeholder'] ) ? $args['field_placeholder'] : '' );
         $field_option_value = ( isset( $options[$args['field_id']] ) ? $options[$args['field_id']] : '' );
+        if ( $field_id == 'live_site_url' ) {
+            $field_option_value = ( isset( $options[$args['field_id']] ) ? base64_decode( $options[$args['field_id']] ) : '' );
+        }
         if ( !empty( $field_prefix ) && !empty( $field_suffix ) ) {
             $field_classname = ' with-prefix with-suffix';
         } elseif ( !empty( $field_prefix ) && empty( $field_suffix ) ) {
@@ -583,10 +586,13 @@ class Settings_Fields_Render {
                     $menu_url_fragment = '';
                     if ( $custom_menu_item == $menu_item_id ) {
                         $menu_item_id_transformed = $common_methods->transform_menu_item_id( $menu_item_id );
+                        $is_custom_menu = 'no';
                         ?>
 						<li id="<?php 
                         echo esc_attr( $menu_item_id );
-                        ?>" class="menu-item parent-menu-item menu-item-depth-0">
+                        ?>" class="menu-item parent-menu-item menu-item-depth-0" data-custom-menu-item="<?php 
+                        echo esc_attr( $is_custom_menu );
+                        ?>">
 							<div class="menu-item-bar">
 								<div class="menu-item-handle">
 									<span class="dashicons dashicons-menu"></span>
@@ -689,6 +695,7 @@ class Settings_Fields_Render {
 							<?php 
                         $i = 1;
                         ?>
+							<div class="remove-menu-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="#bbbbbb" d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24l9.6-9.6l9.6 9.6l2.4-2.4l-9.6-9.6z"/></svg></div>
 						</li>
 						<?php 
                         $menu_key_in_use[] = $menu_key;
@@ -710,10 +717,13 @@ class Settings_Fields_Render {
                     // Exclude Show All/Less toggles
                     if ( false === strpos( $menu_item_id, 'toplevel_page_asenha_' ) ) {
                         $menu_item_id_transformed = $common_methods->transform_menu_item_id( $menu_item_id );
+                        $is_custom_menu = 'no';
                         ?>
 						<li id="<?php 
                         echo esc_attr( $menu_item_id );
-                        ?>" class="menu-item parent-menu-item menu-item-depth-0">
+                        ?>" class="menu-item parent-menu-item menu-item-depth-0" data-custom-menu-item="<?php 
+                        echo esc_attr( $is_custom_menu );
+                        ?>">
 							<div class="menu-item-bar">
 								<div class="menu-item-handle">
 									<span class="dashicons dashicons-menu"></span>
@@ -751,8 +761,14 @@ class Settings_Fields_Render {
                         echo esc_attr( $menu_item_id_transformed );
                         ?>" class="<?php 
                         echo esc_attr( $checkbox_class );
+                        ?>" data-menu-item-title="<?php 
+                        echo esc_attr( $common_methods->strip_html_tags_and_content( $menu_item_title ) );
                         ?>" data-menu-item-id="<?php 
                         echo esc_attr( $menu_item_id_transformed );
+                        ?>" data-menu-item-id-ori="<?php 
+                        echo esc_attr( $menu_item_id );
+                        ?>" data-menu-url-fragment="<?php 
+                        echo esc_attr( $menu_url_fragment );
                         ?>">
 												<span><?php 
                         echo esc_html( $hide_text );
@@ -767,6 +783,7 @@ class Settings_Fields_Render {
 							<?php 
                         $i = 1;
                         ?>
+							<div class="remove-menu-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="#bbbbbb" d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24l9.6-9.6l9.6 9.6l2.4-2.4l-9.6-9.6z"/></svg></div>
 						</li><!-- end of .menu-item -->
 						<?php 
                     }
@@ -786,10 +803,13 @@ class Settings_Fields_Render {
                 $menu_item_id_transformed = $common_methods->transform_menu_item_id( $menu_item_id );
                 // Strip tags
                 $menu_item_title = $common_methods->strip_html_tags_and_content( $menu_item_title );
+                $is_custom_menu = 'no';
                 ?>
 				<li id="<?php 
                 echo esc_attr( $menu_item_id );
-                ?>" class="menu-item parent-menu-item menu-item-depth-0">
+                ?>" class="menu-item parent-menu-item menu-item-depth-0" data-custom-menu-item="<?php 
+                echo esc_attr( $is_custom_menu );
+                ?>">
 					<div class="menu-item-bar">
 						<div class="menu-item-handle">
 							<span class="dashicons dashicons-menu"></span>
@@ -831,8 +851,14 @@ class Settings_Fields_Render {
                 echo esc_attr( $menu_item_id_transformed );
                 ?>" class="<?php 
                 echo esc_attr( $checkbox_class );
+                ?>" data-menu-item-title="<?php 
+                echo esc_attr( $common_methods->strip_html_tags_and_content( $menu_item_title ) );
                 ?>" data-menu-item-id="<?php 
                 echo esc_attr( $menu_item_id_transformed );
+                ?>" data-menu-item-id-ori="<?php 
+                echo esc_attr( $menu_item_id );
+                ?>" data-menu-url-fragment="<?php 
+                echo esc_attr( $menu_url_fragment );
                 ?>">
 										<span><?php 
                 echo esc_html( $hide_text );
@@ -847,6 +873,7 @@ class Settings_Fields_Render {
 				<?php 
                 $i = 1;
                 ?>
+					<div class="remove-menu-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="#bbbbbb" d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24l9.6-9.6l9.6 9.6l2.4-2.4l-9.6-9.6z"/></svg></div>
 				</li>
 				<?php 
             }
@@ -857,16 +884,21 @@ class Settings_Fields_Render {
         // Hidden input field to store custom menu order (from options as is, or sortupdate) upon clicking Save Changes.
         $field_id = $args['field_id'];
         $field_name = $args['field_name'];
-        $field_description = $args['field_description'];
         $field_option_value = ( isset( $options[$args['field_id']] ) ? $options[$args['field_id']] : '' );
         echo '<input type="hidden" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-text" name="' . esc_attr( $field_name ) . '" value="' . esc_attr( $field_option_value ) . '">';
         // Hidden input field to store custom menu titles (from options as is, or custom values entered on each non-WP-default menu items.
-        $field_id = 'custom_menu_titles';
-        $field_name = ASENHA_SLUG_U . '[' . $field_id . ']';
-        $field_option_value = ( isset( $options[$field_id] ) ? $options[$field_id] : '' );
-        echo '<input type="hidden" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-text" name="' . esc_attr( $field_name ) . '" value="' . esc_attr( $field_option_value ) . '">';
+        $this->output_admin_menu_organizer_hidden_field( 'custom_menu_titles' );
         // Hidden input field to store hidden menu items (from options as is, or 'Hide' checkbox clicks) upon clicking Save Changes.
-        $field_id = 'custom_menu_hidden';
+        $this->output_admin_menu_organizer_hidden_field( 'custom_menu_hidden' );
+    }
+
+    /**
+     * Output hidden field
+     * 
+     * @since 6.9.13
+     */
+    public function output_admin_menu_organizer_hidden_field( $field_id ) {
+        $options = get_option( ASENHA_SLUG_U, array() );
         $field_name = ASENHA_SLUG_U . '[' . $field_id . ']';
         $field_option_value = ( isset( $options[$field_id] ) ? $options[$field_id] : '' );
         echo '<input type="hidden" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-text" name="' . esc_attr( $field_name ) . '" value="' . esc_attr( $field_option_value ) . '">';

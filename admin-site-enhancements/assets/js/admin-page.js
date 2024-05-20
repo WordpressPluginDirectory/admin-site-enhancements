@@ -310,6 +310,7 @@
       
       $('.display-system-summary').appendTo('.fields-utilities > table > tbody');
       $('.search-engine-visibility-status').appendTo('.fields-utilities > table > tbody');
+      
 
       // Remove empty .form-table that originally holds the fields
       const formTableCount = $('.form-table').length;

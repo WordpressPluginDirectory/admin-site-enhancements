@@ -27,8 +27,54 @@ class Change_Login_URL {
         // If URL contains the custom login slug, redirect to the dashboard
         if ( false !== strpos( $url_input, '/' . $custom_login_slug . '/' ) ) {
             if ( is_user_logged_in() ) {
-                // Redirect to dashboard
-                wp_safe_redirect( get_admin_url() );
+                if ( array_key_exists( 'redirect_after_login', $options ) && $options['redirect_after_login'] ) {
+                    if ( array_key_exists( 'redirect_after_login_for', $options ) && !empty( $options['redirect_after_login_for'] ) ) {
+                        // An almost exact replica of redirect_after_login() in class-redirect-after-login.php
+                        $redirect_after_login_to_slug_raw = ( isset( $options['redirect_after_login_to_slug'] ) ? $options['redirect_after_login_to_slug'] : '' );
+                        if ( !empty( $redirect_after_login_to_slug_raw ) ) {
+                            $redirect_after_login_to_slug = trim( trim( $redirect_after_login_to_slug_raw ), '/' );
+                            if ( false !== strpos( $redirect_after_login_to_slug, '.php' ) ) {
+                                $slug_suffix = '';
+                            } else {
+                                $slug_suffix = '/';
+                            }
+                            $relative_path = $redirect_after_login_to_slug . $slug_suffix;
+                        } else {
+                            $relative_path = '';
+                        }
+                        $redirect_after_login_for = $options['redirect_after_login_for'];
+                        if ( isset( $redirect_after_login_for ) && count( $redirect_after_login_for ) > 0 ) {
+                            // Assemble single-dimensional array of roles for which custom URL redirection should happen
+                            $roles_for_custom_redirect = array();
+                            foreach ( $redirect_after_login_for as $role_slug => $custom_redirect ) {
+                                if ( $custom_redirect ) {
+                                    $roles_for_custom_redirect[] = $role_slug;
+                                }
+                            }
+                            // Does the user have roles data in array form?
+                            $user = wp_get_current_user();
+                            if ( isset( $user->roles ) && is_array( $user->roles ) ) {
+                                $current_user_roles = $user->roles;
+                            }
+                            // Set custom redirect URL for roles set in the settings. Otherwise, leave redirect URL to the default, i.e. admin dashboard.
+                            foreach ( $current_user_roles as $role ) {
+                                if ( in_array( $role, $roles_for_custom_redirect ) ) {
+                                    wp_safe_redirect( home_url( $relative_path ) );
+                                    exit;
+                                } else {
+                                    // Redirect to dashboard
+                                    wp_safe_redirect( get_admin_url() );
+                                }
+                            }
+                        }
+                    } else {
+                        // Redirect to dashboard
+                        wp_safe_redirect( get_admin_url() );
+                    }
+                } else {
+                    // Redirect to dashboard
+                    wp_safe_redirect( get_admin_url() );
+                }
             } else {
                 // Redirect to the login URL with custom login slug in the query parameters
                 wp_safe_redirect( site_url( '/wp-login.php?' . $custom_login_slug . '&redirect=false' ) );

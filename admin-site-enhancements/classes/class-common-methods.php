@@ -18,39 +18,137 @@ class Common_Methods {
      * @link https://stackoverflow.com/q/1634782
      * @since 2.5.0
      */
-    public function get_user_ip_address() {
+    public function get_user_ip_address( $return_type = 'ip', $for_which_module = 'limit-login-attempts' ) {
         // Check for shared internet/ISP IP
         if ( !empty( $_SERVER['HTTP_CLIENT_IP'] ) && $this->is_ip_valid( $_SERVER['HTTP_CLIENT_IP'] ) ) {
-            return sanitize_text_field( $_SERVER['HTTP_CLIENT_IP'] );
+            switch ( $return_type ) {
+                case 'ip':
+                    return sanitize_text_field( $_SERVER['HTTP_CLIENT_IP'] );
+                    break;
+                case 'header':
+                    return 'HTTP_CLIENT_IP';
+                    break;
+            }
+        }
+        // Check if Cloudflare is used as a proxy
+        // Ref: https://developers.cloudflare.com/fundamentals/reference/http-request-headers/#x-forwarded-for
+        if ( !empty( $_SERVER['CF_CONNECTING_IP'] ) && $this->is_ip_valid( $_SERVER['CF_CONNECTING_IP'] ) ) {
+            switch ( $return_type ) {
+                case 'ip':
+                    return sanitize_text_field( $_SERVER['CF_CONNECTING_IP'] );
+                    break;
+                case 'header':
+                    return 'CF_CONNECTING_IP';
+                    break;
+            }
+        }
+        if ( !empty( $_SERVER['HTTP_CF_CONNECTING_IP'] ) && $this->is_ip_valid( $_SERVER['HTTP_CF_CONNECTING_IP'] ) ) {
+            switch ( $return_type ) {
+                case 'ip':
+                    return sanitize_text_field( $_SERVER['HTTP_CF_CONNECTING_IP'] );
+                    break;
+                case 'header':
+                    return 'HTTP_CF_CONNECTING_IP';
+                    break;
+            }
+        }
+        if ( !empty( $_SERVER['TRUE_CLIENT_IP'] ) && $this->is_ip_valid( $_SERVER['TRUE_CLIENT_IP'] ) ) {
+            switch ( $return_type ) {
+                case 'ip':
+                    return sanitize_text_field( $_SERVER['TRUE_CLIENT_IP'] );
+                    break;
+                case 'header':
+                    return 'TRUE_CLIENT_IP';
+                    break;
+            }
+        }
+        if ( !empty( $_SERVER['HTTP_TRUE_CLIENT_IP'] ) && $this->is_ip_valid( $_SERVER['HTTP_TRUE_CLIENT_IP'] ) ) {
+            switch ( $return_type ) {
+                case 'ip':
+                    return sanitize_text_field( $_SERVER['HTTP_TRUE_CLIENT_IP'] );
+                    break;
+                case 'header':
+                    return 'HTTP_TRUE_CLIENT_IP';
+                    break;
+            }
         }
         // Check for IPs passing through proxies
         if ( !empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
             // Check if multiple IP addresses exist in var
             $ip_list = explode( ',', $_SERVER['HTTP_X_FORWARDED_FOR'] );
-            if ( is_array( $ip_list ) ) {
+            if ( is_array( $ip_list ) && count( $ip_list ) > 1 ) {
                 foreach ( $ip_list as $ip ) {
                     if ( $this->is_ip_valid( trim( $ip ) ) ) {
-                        return sanitize_text_field( trim( $ip ) );
+                        switch ( $return_type ) {
+                            case 'ip':
+                                return sanitize_text_field( trim( $ip ) );
+                                break;
+                            case 'header':
+                                return 'HTTP_X_FORWARDED_FOR (multiple IPs)';
+                                break;
+                        }
                     }
                 }
             } else {
-                return sanitize_text_field( $_SERVER['HTTP_X_FORWARDED_FOR'] );
+                switch ( $return_type ) {
+                    case 'ip':
+                        return sanitize_text_field( $_SERVER['HTTP_X_FORWARDED_FOR'] );
+                        break;
+                    case 'header':
+                        return 'HTTP_X_FORWARDED_FOR';
+                        break;
+                }
             }
         }
         if ( !empty( $_SERVER['HTTP_X_FORWARDED'] ) && $this->is_ip_valid( $_SERVER['HTTP_X_FORWARDED'] ) ) {
-            return sanitize_text_field( $_SERVER['HTTP_X_FORWARDED'] );
+            switch ( $return_type ) {
+                case 'ip':
+                    return sanitize_text_field( $_SERVER['HTTP_X_FORWARDED'] );
+                    break;
+                case 'header':
+                    return 'HTTP_X_FORWARDED';
+                    break;
+            }
         }
         if ( !empty( $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'] ) && $this->is_ip_valid( $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'] ) ) {
-            return sanitize_text_field( $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'] );
+            switch ( $return_type ) {
+                case 'ip':
+                    return sanitize_text_field( $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'] );
+                    break;
+                case 'header':
+                    return 'HTTP_X_CLUSTER_CLIENT_IP';
+                    break;
+            }
         }
         if ( !empty( $_SERVER['HTTP_FORWARDED_FOR'] ) && $this->is_ip_valid( $_SERVER['HTTP_FORWARDED_FOR'] ) ) {
-            return sanitize_text_field( $_SERVER['HTTP_FORWARDED_FOR'] );
+            switch ( $return_type ) {
+                case 'ip':
+                    return sanitize_text_field( $_SERVER['HTTP_FORWARDED_FOR'] );
+                    break;
+                case 'header':
+                    return 'HTTP_FORWARDED_FOR';
+                    break;
+            }
         }
         if ( !empty( $_SERVER['HTTP_FORWARDED'] ) && $this->is_ip_valid( $_SERVER['HTTP_FORWARDED'] ) ) {
-            return sanitize_text_field( $_SERVER['HTTP_FORWARDED'] );
+            switch ( $return_type ) {
+                case 'ip':
+                    return sanitize_text_field( $_SERVER['HTTP_FORWARDED'] );
+                    break;
+                case 'header':
+                    return 'HTTP_FORWARDED';
+                    break;
+            }
         }
         // Return unreliable IP address since all else failed
-        return sanitize_text_field( $_SERVER['REMOTE_ADDR'] );
+        switch ( $return_type ) {
+            case 'ip':
+                return sanitize_text_field( $_SERVER['REMOTE_ADDR'] );
+                break;
+            case 'header':
+                return 'REMOTE_ADDR';
+                break;
+        }
     }
 
     /**
@@ -61,10 +159,11 @@ class Common_Methods {
      * @return boolean		true if supplied address is valid IP, and false otherwise
      */
     public function is_ip_valid( $ip ) {
-        if ( empty( $ipt ) ) {
+        if ( empty( $ip ) ) {
             return false;
         }
-        if ( false == filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE ) ) {
+        // Ref: https://www.php.net/manual/en/filter.filters.validate.php
+        if ( false == filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) ) {
             return false;
         } else {
             return true;
@@ -130,7 +229,7 @@ class Common_Methods {
      * @since 5.1.0
      */
     public function get_user_capabilities_to_show_menu_toggle_for() {
-        global $menu;
+        global $menu, $submenu;
         $menu_always_hidden = array();
         $user_capabilities_menus_are_hidden_for = array();
         $menu_hidden_by_toggle = $this->get_menu_hidden_by_toggle();

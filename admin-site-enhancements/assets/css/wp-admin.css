@@ -43,9 +43,7 @@ ul#adminmenu a.wp-has-current-submenu.hidden {
 	display: block;
 }
 
-.always-hidden {
-	display: none !important;
-}
+
 
 /* Utilities >> Enable Login Logout */
 .accordion-section #login-logout-links-checklist.categorychecklist {
@@ -79,7 +77,9 @@ ul#adminmenu a.wp-has-current-submenu.hidden {
 }
 
 #dashboard_right_now .inside .sub > .system-summary {
-	padding: 0 !important;
+	margin-top: 8px;
+	padding: 8px 0 0 0 !important;
+	border-top: 1px solid #ddd;
 }
 
 
