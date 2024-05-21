@@ -51,7 +51,7 @@ class Limit_Login_Attempts {
         $common_methods = new Common_Methods;
 
         // Get user/visitor IP address
-        $ip_address = $common_methods->get_user_ip_address();
+        $ip_address = $common_methods->get_user_ip_address( 'ip', 'limit-login-attempts' );
         
         if ( ! in_array( $ip_address, $ip_address_whitelist ) ) { // IP is not whitelisted
             // Check if IP address has failed login attempts recorded in the DB log

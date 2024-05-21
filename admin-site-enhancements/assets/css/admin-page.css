@@ -875,6 +875,17 @@ a.asenha-support-nudge-dismiss:hover,
     padding: 0;
 }
 
+.form-table .asenha-toggle .asenha-radio-buttons td:not(.datatable-td) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.asenha-subfield-radio-button-wrapper,
+.asenha-subfield-radio-button-description {
+    display: block;
+}
+
 .form-table .asenha-subfields td:not(.datatable-td) label {
     position: relative;
     top: -2px;
@@ -1298,6 +1309,7 @@ li[id^="separator"] .menu-item-title {
 #custom-admin-menu .menu-item-bar .menu-item-handle:hover .dashicons-menu {
     color: #1d2327;
 }
+
 
 .menu-item[data-custom-menu-item="no"] .remove-menu-item {
     display: none;

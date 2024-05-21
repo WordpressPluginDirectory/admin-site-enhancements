@@ -114,10 +114,16 @@ class Settings_Fields_Render {
         } else {
             $default_value = false;
         }
+        $field_description = ( isset( $args['field_description'] ) ? $args['field_description'] : '' );
         $field_option_value = ( isset( $options[$field_id] ) ? $options[$field_id] : $default_value );
+        echo '<div class="asenha-subfield-radio-button-wrapper">';
         foreach ( $field_radios as $radio_label => $radio_value ) {
             echo '<input type="radio" id="' . esc_attr( $field_id . '_' . $radio_value ) . '" class="asenha-subfield-radio-button" name="' . esc_attr( $field_name ) . '" value="' . esc_attr( $radio_value ) . '" ' . checked( $radio_value, $field_option_value, false ) . '>';
             echo '<label for="' . esc_attr( $field_id . '_' . $radio_value ) . '" class="asenha-subfield-radio-button-label">' . wp_kses_post( $radio_label ) . '</label>';
+        }
+        echo '</div>';
+        if ( !empty( $field_description ) ) {
+            echo '<div class="asenha-subfield-radio-button-description">' . wp_kses_post( $field_description ) . '</div>';
         }
     }
 

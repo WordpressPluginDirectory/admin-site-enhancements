@@ -1,10 +1,22 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **94 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **96 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
+
+### 6.9.13.2 (2024.05.27) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Log In | Log Out >> Change Login URL**: add trailing slash suffix in the custom login URL input field, and make sure if a trailing slash is added in the input, it will be stripped. Props to Wence W. for reporting the issue with the trailing slash that prompted this improvement.
+
+* **[FIXED in Pro] Utilities >> Display System Summary**: fixed fatal error when trying to get the total size of the wp-content folder in certain scenarios. Props to Marcellus J. for reporting the issue and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fixed an issue where the option to hide submenu items did not appear on click of the 'Hide' checkbox. Props to Geoff L. for reporting the issue when The Events Calendar Pro is active, showing it's submenu items. Unfortunately, this fix introduces a breaking change, so, you may need to re-do the hide settings for your submenu items done with v6.9.13. Please check on your site(s).
+
+### 6.9.13.1 (2024.05.20) - ASE Free
+
+* **[FIXED] Admin Interface >> Admin Menu Organizer**: fixed fatal error when installing / updating to v6.9.13. Props to [@timbre-design](https://wordpress.org/support/users/timbre-design/) and Kenneth L. for [reporting the issue](https://wordpress.org/support/topic/fatal-error-4684/).
 
 ### 6.9.13 (2024.05.20) - ASE Free and Pro
 

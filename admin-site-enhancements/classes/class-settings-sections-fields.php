@@ -1277,7 +1277,7 @@ class Settings_Sections_Fields {
                 'field_name'        => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_type'        => 'with-prefix-suffix',
                 'field_prefix'      => site_url() . '/',
-                'field_suffix'      => '',
+                'field_suffix'      => '/',
                 'field_description' => '',
                 'class'             => 'asenha-text with-prefix-suffix login-logout ' . $field_slug,
             )

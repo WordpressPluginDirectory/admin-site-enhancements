@@ -188,6 +188,7 @@
       $('.change-login-url-description').appendTo('.fields-login-logout .change-login-url .asenha-subfields');
       $('.login-id-type-restriction').appendTo('.fields-login-logout > table > tbody');
       $('.login-id-type').appendTo('.fields-login-logout .login-id-type-restriction .asenha-subfields');
+      
       $('.site-identity-on-login').appendTo('.fields-login-logout > table > tbody');
       $('.enable-login-logout-menu').appendTo('.fields-login-logout > table > tbody');
       $('.enable-last-login-column').appendTo('.fields-login-logout > table > tbody');
@@ -574,6 +575,7 @@
       subfieldsToggler( 'hide_admin_bar', 'hide-admin-bar' );
       subfieldsToggler( 'change_login_url', 'change-login-url' );
       subfieldsToggler( 'login_id_type_restriction', 'login-id-type-restriction' );
+      
       subfieldsToggler( 'redirect_after_login', 'redirect-after-login' );
       subfieldsToggler( 'redirect_after_logout', 'redirect-after-logout' );
       subfieldsToggler( 'enable_custom_admin_css', 'enable-custom-admin-css', '', {adminCssEditor} );

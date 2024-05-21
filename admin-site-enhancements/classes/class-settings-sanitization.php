@@ -276,7 +276,7 @@ class Settings_Sanitization {
         if ( !isset( $options['custom_login_slug'] ) ) {
             $options['custom_login_slug'] = 'backend';
         }
-        $options['custom_login_slug'] = ( !empty( $options['custom_login_slug'] ) ? sanitize_text_field( $options['custom_login_slug'] ) : 'backend' );
+        $options['custom_login_slug'] = ( !empty( $options['custom_login_slug'] ) ? sanitize_text_field( trim( $options['custom_login_slug'], '/' ) ) : 'backend' );
         // Login ID Type
         if ( !isset( $options['login_id_type_restriction'] ) ) {
             $options['login_id_type_restriction'] = false;
