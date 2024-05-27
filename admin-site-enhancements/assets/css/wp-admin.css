@@ -33,6 +33,10 @@
 }
 
 /* Admin Interface >> Admin Menu Organizer */
+#adminmenuwrap {
+	height: auto !important;
+}
+
 .current.menu-top.hidden,
 .wp-has-current-submenu.hidden {
 	display: list-item;

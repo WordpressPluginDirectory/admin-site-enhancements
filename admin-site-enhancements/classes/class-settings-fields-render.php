@@ -63,7 +63,13 @@ class Settings_Fields_Render {
         }
         $field_name = $args['field_name'];
         $field_label = $args['field_label'];
-        $field_option_value = ( isset( $options[$args['field_id']] ) ? $options[$args['field_id']] : false );
+        $default_value = false;
+        switch ( $args['field_id'] ) {
+            case 'login_page_disable_registration':
+                $default_value = ( 1 == get_option( 'users_can_register' ) ? false : true );
+                break;
+        }
+        $field_option_value = ( isset( $options[$args['field_id']] ) ? $options[$args['field_id']] : $default_value );
         echo '<input type="checkbox" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox" name="' . esc_attr( $field_name ) . '" ' . checked( $field_option_value, true, false ) . '>';
         echo '<label for="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox-label">' . wp_kses_post( $field_label ) . '</label>';
     }
@@ -123,7 +129,7 @@ class Settings_Fields_Render {
         }
         echo '</div>';
         if ( !empty( $field_description ) ) {
-            echo '<div class="asenha-subfield-radio-button-description">' . wp_kses_post( $field_description ) . '</div>';
+            echo '<div class="asenha-subfield-description">' . wp_kses_post( $field_description ) . '</div>';
         }
     }
 
@@ -164,6 +170,7 @@ class Settings_Fields_Render {
         }
         $field_id = $args['field_id'];
         $field_name = $args['field_name'];
+        $field_width_classname = ( isset( $args['field_width_classname'] ) ? $args['field_width_classname'] : '' );
         $field_type = $args['field_type'];
         $field_prefix = $args['field_prefix'];
         $field_suffix = $args['field_suffix'];
@@ -182,6 +189,9 @@ class Settings_Fields_Render {
         } else {
             $field_classname = '';
         }
+        if ( !empty( $field_width_classname ) ) {
+            $field_classname .= ' ' . $field_width_classname;
+        }
         if ( $field_id == 'custom_login_slug' ) {
             $field_placeholder = __( 'e.g. backend', 'admin-site-enhancements' );
         } elseif ( $field_id == 'default_login_redirect_slug' ) {
@@ -194,6 +204,10 @@ class Settings_Fields_Render {
             $field_placeholder = '3';
         } elseif ( $field_id == 'login_lockout_maxcount' ) {
             $field_placeholder = '3';
+        } elseif ( $field_id == 'login_page_logo_image_width' ) {
+            $field_placeholder = __( 'e.g. 280px', 'admin-site-enhancements' );
+        } elseif ( $field_id == 'login_page_logo_image_height' ) {
+            $field_placeholder = __( 'e.g. 72px', 'admin-site-enhancements' );
         } else {
         }
         echo wp_kses_post( $field_prefix ) . '<input type="text" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-text' . esc_attr( $field_classname ) . '" name="' . esc_attr( $field_name ) . '" placeholder="' . esc_attr( $field_placeholder ) . '" value="' . esc_attr( $field_option_value ) . '">' . wp_kses_post( $field_suffix );
@@ -487,7 +501,7 @@ class Settings_Fields_Render {
 		<div class="media-subfield-wrapper">
 			<input id="<?php 
         echo esc_attr( $field_slug );
-        ?>" class="image-picker" type="text" size="36" name="<?php 
+        ?>" class="image-picker" type="text" size="40" name="<?php 
         echo esc_attr( $field_name );
         ?>" value="<?php 
         echo esc_url( $field_option_value );
@@ -495,6 +509,11 @@ class Settings_Fields_Render {
 			<button id="<?php 
         echo esc_attr( $field_slug );
         ?>-button" class="image-picker-button button-secondary">Select an Image</button>
+			<?php 
+        if ( !empty( $field_description ) ) {
+            echo '<div class="asenha-subfield-description media-subfield">' . wp_kses_post( $field_description ) . '</div>';
+        }
+        ?>
 		</div>
 		<?php 
     }
@@ -513,7 +532,7 @@ class Settings_Fields_Render {
         $field_description = $args['field_description'];
         $field_default_value = $args['field_default_value'];
         $options = get_option( $args['option_name'], array() );
-        $field_option_value = ( isset( $options[$field_id] ) ? $options[$field_id] : '' );
+        $field_option_value = ( isset( $options[$field_id] ) ? $options[$field_id] : $field_default_value );
         ?>
 		<div class="color-subfield-wrapper">
 			<input type="text" id="<?php 

@@ -97,7 +97,8 @@ class Admin_Site_Enhancements {
                 $content_order = new ASENHA\Classes\Content_Order();
                 add_action( 'admin_menu', [$content_order, 'add_content_order_submenu'] );
                 add_action( 'wp_ajax_save_custom_order', [$content_order, 'save_custom_content_order'] );
-                add_filter( 'pre_get_posts', [$content_order, 'orderby_menu_order'] );
+                add_filter( 'pre_get_posts', [$content_order, 'orderby_menu_order'], PHP_INT_MAX );
+                // TODO: https://developer.wordpress.org/reference/hooks/ajax_query_attachments_args/ (for grid view of media library)
                 add_filter(
                     'save_post',
                     [$content_order, 'set_menu_order_for_new_posts'],
@@ -185,6 +186,31 @@ class Admin_Site_Enhancements {
             );
             add_action( 'wp_ajax_svg_get_attachment_url', [$svg_upload, 'get_svg_attachment_url'] );
             add_filter( 'wp_prepare_attachment_for_js', [$svg_upload, 'get_svg_url_in_media_library'] );
+        }
+        // AVIF Upload
+        if ( array_key_exists( 'enable_avif_upload', $options ) && $options['enable_avif_upload'] ) {
+            $avif_upload = new ASENHA\Classes\AVIF_Upload();
+            add_filter( 'mime_types', [$avif_upload, 'add_avif_mime_type'] );
+            add_filter( 'upload_mimes', [$avif_upload, 'allow_avif_mime_type_upload'] );
+            add_filter( 'getimagesize_mimes_to_exts', [$avif_upload, 'add_avif_mime_type_to_exts'] );
+            add_filter(
+                'wp_generate_attachment_metadata',
+                [$avif_upload, 'add_avif_image_dimension'],
+                10,
+                3
+            );
+            add_filter(
+                'file_is_displayable_image',
+                [$avif_upload, 'make_avif_displayable'],
+                10,
+                2
+            );
+            add_filter(
+                'wp_check_filetype_and_ext',
+                [$avif_upload, 'handle_exif_and_fileinfo_fail'],
+                10,
+                5
+            );
         }
         // External Permalinks
         if ( array_key_exists( 'enable_external_permalinks', $options ) && $options['enable_external_permalinks'] ) {
@@ -298,7 +324,7 @@ class Admin_Site_Enhancements {
             // add_action( 'wp_ajax_save_custom_menu_order', [ $admin_menu_organizer, 'save_custom_menu_order' ] );
             // add_action( 'wp_ajax_save_hidden_menu_items', [ $admin_menu_organizer, 'save_hidden_menu_items' ] );
             if ( array_key_exists( 'custom_menu_order', $options ) ) {
-                add_filter( 'custom_menu_order', '__return_true' );
+                add_filter( 'custom_menu_order', '__return_true', PHP_INT_MAX );
                 add_filter( 'menu_order', [$admin_menu_organizer, 'render_custom_menu_order'], PHP_INT_MAX );
             }
             if ( array_key_exists( 'custom_menu_titles', $options ) ) {

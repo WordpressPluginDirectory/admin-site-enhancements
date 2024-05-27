@@ -617,6 +617,8 @@ function asenha_admin_scripts(  $hook_suffix  ) {
             false
         );
         wp_localize_script( 'asenha-admin-page', 'adminPageVars', array(
+            'siteUrl'              => get_site_url(),
+            'wpcontentUrl'         => content_url(),
             'mediaFrameTitle'      => __( 'Select an Image', 'admin-site-enhancements' ),
             'mediaFrameButtonText' => __( 'Use Selected Image', 'admin-site-enhancements' ),
             'resetMenuNonce'       => wp_create_nonce( 'reset-menu-nonce' ),

@@ -80,7 +80,7 @@ class Content_Order {
             $post_type_slug = 'post';
         } elseif ( 'upload.php' == $parent_slug ) {
             $post_type_slug = 'attachment';
-            $post_status = 'inherit';
+            $post_status = array('inherit', 'private');
         } else {
             $post_type_slug = str_replace( 'edit.php?post_type=', '', $parent_slug );
         }
@@ -107,14 +107,19 @@ class Content_Order {
             </div>
         <?php 
         // Get posts
-        $query = new WP_Query(array(
+        $args = array(
             'post_type'      => $post_type_slug,
             'posts_per_page' => -1,
             'orderby'        => 'menu_order title',
             'order'          => 'ASC',
             'post_status'    => $post_status,
-            'post_parent'    => 0,
-        ));
+        );
+        // Add the following to non-attachment post types
+        if ( 'attachment' != $post_type_slug ) {
+            // In hierarchical post types, only return non-child posts as we currently only sort parent posts
+            $args['post_parent'] = 0;
+        }
+        $query = new WP_Query($args);
         if ( $query->have_posts() ) {
             ?>
             <ul id="item-list">
@@ -295,6 +300,7 @@ class Content_Order {
         }
         // Get ajax variables
         $action = ( isset( $_POST['action'] ) ? $_POST['action'] : '' );
+        // Item parent is currently 0, as we only handle sorting of non-child posts
         $item_parent = ( isset( $_POST['item_parent'] ) ? absint( $_POST['item_parent'] ) : 0 );
         $menu_order_start = ( isset( $_POST['start'] ) ? absint( $_POST['start'] ) : 0 );
         $post_id = ( isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0 );
@@ -321,15 +327,16 @@ class Content_Order {
             clean_post_cache( $post_id );
             $items_to_exclude[] = $post_id;
         }
-        $post_status = array(
-            'publish',
-            'future',
-            'draft',
-            'pending',
-            'private'
-        );
         if ( 'attachment' == $post_type ) {
-            $post_status = 'inherit';
+            $post_status = array('inherit', 'private');
+        } else {
+            $post_status = array(
+                'publish',
+                'future',
+                'draft',
+                'pending',
+                'private'
+            );
         }
         // Get all posts from the post type related to ajax request
         $query_args = array(
@@ -340,11 +347,16 @@ class Content_Order {
             'suppress_filters'       => true,
             'ignore_sticky_posts'    => true,
             'post_status'            => $post_status,
-            'post_parent'            => $item_parent,
             'post__not_in'           => $items_to_exclude,
             'update_post_term_cache' => false,
             'update_post_meta_cache' => false,
         );
+        if ( 'attachment' == $post_type ) {
+            // do nothing, we do not add post_parent parameter as media items can be attached to other posts, making them the parent.
+        } else {
+            // Item parent is currently 0, as we only handle sorting of non-child posts
+            $query_args['post_parent'] = $item_parent;
+        }
         $posts = new WP_Query($query_args);
         if ( $posts->have_posts() ) {
             // Iterate through posts and update menu order and post parent

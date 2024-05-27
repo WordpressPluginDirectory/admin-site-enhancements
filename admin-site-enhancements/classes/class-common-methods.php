@@ -443,4 +443,45 @@ class Common_Methods {
         }
     }
 
+    /**
+     * Convert HEX color to RGBA
+     * 
+     * @link https://stackoverflow.com/a/31934345
+     * @since 7.0.0
+     */
+    public function hex_to_rgba( $hex, $alpha = false ) {
+        $hex = str_replace( '#', '', trim( $hex ) );
+        $length = strlen( $hex );
+        $rgb['r'] = hexdec( ( $length == 6 ? substr( $hex, 0, 2 ) : (( $length == 3 ? str_repeat( substr( $hex, 0, 1 ), 2 ) : 0 )) ) );
+        $rgb['g'] = hexdec( ( $length == 6 ? substr( $hex, 2, 2 ) : (( $length == 3 ? str_repeat( substr( $hex, 1, 1 ), 2 ) : 0 )) ) );
+        $rgb['b'] = hexdec( ( $length == 6 ? substr( $hex, 4, 2 ) : (( $length == 3 ? str_repeat( substr( $hex, 2, 1 ), 2 ) : 0 )) ) );
+        if ( false !== $alpha ) {
+            $rgb['a'] = $alpha;
+        }
+        // Return array of r, g, b and a
+        // return $rgb;
+        // Return rgb(255,255,255) or rgba(255,255,255,.5)
+        return implode( array_keys( $rgb ) ) . '(' . implode( ', ', $rgb ) . ')';
+    }
+
+    /**
+     * Detect if a color is light or dark
+     * 
+     * @link https://stackoverflow.com/a/12228730
+     * @since 7.0.0
+     */
+    public function is_color_dark( $hex ) {
+        $hex = str_replace( '#', '', trim( $hex ) );
+        $r = hexdec( $hex[0] . $hex[1] );
+        $g = hexdec( $hex[2] . $hex[3] );
+        $b = hexdec( $hex[4] . $hex[5] );
+        $lightness = (max( $r, $g, $b ) + min( $r, $g, $b )) / 510.0;
+        // HSL algorithm
+        if ( $lightness > 0.8 ) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

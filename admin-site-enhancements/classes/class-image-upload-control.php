@@ -79,37 +79,41 @@ class Image_Upload_Control {
         $image_object = null;
         // Get image object from uploaded BMP/PNG
         if ( 'bmp' === $file_extension ) {
-            // Generate image object from BMP for conversion to JPG later
-            if ( function_exists( 'imagecreatefrombmp' ) ) {
-                // PHP >= v7.2
-                $image_object = imagecreatefrombmp( $upload['file'] );
-            } else {
-                // PHP < v7.2
-                require_once ASENHA_PATH . 'includes/bmp-to-image-object.php';
-                $image_object = bmp_to_image_object( $upload['file'] );
+            if ( is_file( $upload['file'] ) ) {
+                // Generate image object from BMP for conversion to JPG later
+                if ( function_exists( 'imagecreatefrombmp' ) ) {
+                    // PHP >= v7.2
+                    $image_object = imagecreatefrombmp( $upload['file'] );
+                } else {
+                    // PHP < v7.2
+                    require_once ASENHA_PATH . 'includes/bmp-to-image-object.php';
+                    $image_object = bmp_to_image_object( $upload['file'] );
+                }
             }
         }
         if ( 'png' === $file_extension ) {
             // Detect alpha/transparency in PNG
             $png_has_transparency = false;
-            // We assume GD library is present, so 'imagecreatefrompng' function is available
-            // Generate image object from PNG for potential conversion to JPG later.
-            $image_object = imagecreatefrompng( $upload['file'] );
-            // Get image dimension
-            list( $width, $height ) = getimagesize( $upload['file'] );
-            // Run through pixels until transparent pixel is found
-            for ($x = 0; $x < $width; $x++) {
-                for ($y = 0; $y < $height; $y++) {
-                    $pixel_color_index = imagecolorat( $image_object, $x, $y );
-                    $pixel_rgba = imagecolorsforindex( $image_object, $pixel_color_index );
-                    // array of red, green, blue and alpha values
-                    if ( $pixel_rgba['alpha'] > 0 ) {
-                        // a pixel with alpha/transparency has been found
-                        // alpha value range from 0 (completely opaque) to 127 (fully transparent).
-                        // Ref: https://www.php.net/manual/en/function.imagecolorallocatealpha.php
-                        $png_has_transparency = true;
-                        break 2;
-                        // Break both 'for' loops
+            if ( is_file( $upload['file'] ) ) {
+                // We assume GD library is present, so 'imagecreatefrompng' function is available
+                // Generate image object from PNG for potential conversion to JPG later.
+                $image_object = imagecreatefrompng( $upload['file'] );
+                // Get image dimension
+                list( $width, $height ) = getimagesize( $upload['file'] );
+                // Run through pixels until transparent pixel is found
+                for ($x = 0; $x < $width; $x++) {
+                    for ($y = 0; $y < $height; $y++) {
+                        $pixel_color_index = imagecolorat( $image_object, $x, $y );
+                        $pixel_rgba = imagecolorsforindex( $image_object, $pixel_color_index );
+                        // array of red, green, blue and alpha values
+                        if ( $pixel_rgba['alpha'] > 0 ) {
+                            // a pixel with alpha/transparency has been found
+                            // alpha value range from 0 (completely opaque) to 127 (fully transparent).
+                            // Ref: https://www.php.net/manual/en/function.imagecolorallocatealpha.php
+                            $png_has_transparency = true;
+                            break 2;
+                            // Break both 'for' loops
+                        }
                     }
                 }
             }
@@ -118,20 +122,22 @@ class Image_Upload_Control {
                 return $upload;
             }
         }
-        $wp_uploads = wp_upload_dir();
-        $old_filename = wp_basename( $upload['file'] );
-        // Assign new, unique file name for the converted image
-        // $new_filename    = wp_basename( str_ireplace( '.' . $file_extension, '.jpg', $old_filename ) );
-        $new_filename = str_ireplace( '.' . $file_extension, '.jpg', $old_filename );
-        $new_filename = wp_unique_filename( dirname( $upload['file'] ), $new_filename );
         // When conversion from BMP/PNG to JPG is successful. Last parameter is JPG quality (0-100).
-        if ( imagejpeg( $image_object, $wp_uploads['path'] . '/' . $new_filename, 90 ) ) {
-            unlink( $upload['file'] );
-            // delete original BMP/PNG
-            // Add converted JPG info into $upload
-            $upload['file'] = $wp_uploads['path'] . '/' . $new_filename;
-            $upload['url'] = $wp_uploads['url'] . '/' . $new_filename;
-            $upload['type'] = 'image/jpeg';
+        if ( is_object( $image_object ) ) {
+            $wp_uploads = wp_upload_dir();
+            $old_filename = wp_basename( $upload['file'] );
+            // Assign new, unique file name for the converted image
+            // $new_filename    = wp_basename( str_ireplace( '.' . $file_extension, '.jpg', $old_filename ) );
+            $new_filename = str_ireplace( '.' . $file_extension, '.jpg', $old_filename );
+            $new_filename = wp_unique_filename( dirname( $upload['file'] ), $new_filename );
+            if ( imagejpeg( $image_object, $wp_uploads['path'] . '/' . $new_filename, 90 ) ) {
+                unlink( $upload['file'] );
+                // delete original BMP/PNG
+                // Add converted JPG info into $upload
+                $upload['file'] = $wp_uploads['path'] . '/' . $new_filename;
+                $upload['url'] = $wp_uploads['url'] . '/' . $new_filename;
+                $upload['type'] = 'image/jpeg';
+            }
         }
         return $upload;
     }

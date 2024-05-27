@@ -133,7 +133,8 @@
       $('.media-library-infinite-scrolling').appendTo('.fields-content-management > table > tbody');
       $('.enable-svg-upload').appendTo('.fields-content-management > table > tbody');
       $('.enable-svg-upload-for').appendTo('.fields-content-management .enable-svg-upload .asenha-subfields');
-      
+      $('.enable-avif-upload').appendTo('.fields-content-management > table > tbody');
+      $('.avif-support-status').appendTo('.fields-content-management .enable-avif-upload .asenha-subfields');
       $('.enable-external-permalinks').appendTo('.fields-content-management > table > tbody');
       $('.enable-external-permalinks-for').appendTo('.fields-content-management .enable-external-permalinks .asenha-subfields');
       $('.external-links-new-tab').appendTo('.fields-content-management > table > tbody');
@@ -417,6 +418,7 @@
          $('.asenha-fields:not(.fields-login-logout)').hide();
          window.location.hash = 'login-logout';
          Cookies.set('asenha_tab', 'login-logout', { expires: 1 }); // expires in 1 day
+         
       });
 
       $('#tab-custom-code + label').click( function() {
@@ -561,7 +563,7 @@
       subfieldsToggler( 'content_order', 'content-order' );
       
       subfieldsToggler( 'enable_svg_upload', 'enable-svg-upload' );
-      
+      subfieldsToggler( 'enable_avif_upload', 'enable-avif-upload' );
       subfieldsToggler( 'enable_external_permalinks', 'enable-external-permalinks' );
       
       subfieldsToggler( 'enhance_list_tables', 'enhance-list-tables' );
@@ -675,55 +677,47 @@
       
       
       // Media frame handler for image selection / upload fields
-      // Source: https://plugins.trac.wordpress.org/browser/bm-custom-login/trunk/bm-custom-login.php
+      // Reference: https://plugins.trac.wordpress.org/browser/bm-custom-login/trunk/bm-custom-login.php
       function media_frame_init( selector, button_selector ) {
-         var clicked_button = false;
+         var theSelector = $(selector);
+         var button = $(button_selector);
 
-         $(selector).each(function (i, input) {
-            var button = $(input).next(button_selector);
-            button.click(function (event) {
-               event.preventDefault();
-               var selected_img;
-               clicked_button = $(this);
+         button.click(function (event) {
+            event.preventDefault();
 
-               // Check for media frame instance
-               if(wp.media.frames.frame) {
-                  wp.media.frames.frame.open();
+            // Configuration of the media frame new instance
+            wp.media.frames.frame = wp.media({
+               title: adminPageVars.mediaFrameTitle,
+               multiple: false,
+               library: {
+                  type: 'image'
+               },
+               button: {
+                  text: adminPageVars.mediaFrameButtonText
+               }
+            });
+
+            // Function used for the image selection and media manager closing
+            var media_set_image = function() {
+               var selection = wp.media.frames.frame.state().get('selection');
+
+               // Nothing is selected
+               if (!selection) {
                   return;
                }
-               // Configuration of the media frame new instance
-               wp.media.frames.frame = wp.media({
-                  title: adminPageVars.mediaFrameTitle,
-                  multiple: false,
-                  library: {
-                     type: 'image'
-                  },
-                  button: {
-                     text: adminPageVars.mediaFrameButtonText
-                  }
+
+               // Iterate through selected elements
+               selection.each(function(attachment) {
+                  // console.log(attachment);
+                  var url = attachment.attributes.url;
+                  url = url.replace( adminPageVars.wpcontentUrl, '' );
+                  theSelector.val(url);
                });
+            };
 
-               // Function used for the image selection and media manager closing
-               var media_set_image = function() {
-                  var selection = wp.media.frames.frame.state().get('selection');
-
-                  // no selection
-                  if (!selection) {
-                     return;
-                  }
-
-                  // Iterate through selected elements
-                  selection.each(function(attachment) {
-                     // console.log(attachment);
-                     var url = attachment.attributes.url;
-                     clicked_button.prev(selector).val(url);
-                  });
-               };
-
-               wp.media.frames.frame.on('close', media_set_image);
-               wp.media.frames.frame.on('select', media_set_image);
-               wp.media.frames.frame.open();
-            });
+            wp.media.frames.frame.on('close', media_set_image);
+            wp.media.frames.frame.on('select', media_set_image);
+            wp.media.frames.frame.open();
          });
       }
             

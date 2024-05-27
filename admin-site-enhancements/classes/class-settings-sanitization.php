@@ -75,6 +75,11 @@ class Settings_Sanitization {
                 $options['enable_svg_upload_for'][$role_slug] = ( 'on' == $options['enable_svg_upload_for'][$role_slug] ? true : false );
             }
         }
+        // Enable SVG Upload
+        if ( !isset( $options['enable_avif_upload'] ) ) {
+            $options['enable_avif_upload'] = false;
+        }
+        $options['enable_avif_upload'] = ( 'on' == $options['enable_avif_upload'] ? true : false );
         // Enable External Permalinks
         if ( !isset( $options['enable_external_permalinks'] ) ) {
             $options['enable_external_permalinks'] = false;

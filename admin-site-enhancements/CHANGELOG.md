@@ -1,10 +1,47 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **96 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **70 _point_ releases** (e.g. 1.1.0 ) and **96 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
+
+### 7.0.0 (2024.06.02) - ASE Free and Pro
+
+* **[NEW in PRO] Log In | Log Out >> Login Page Customizer**: added new module to easily customize the design of the login page. Props to Nami, Max Z., Vijayanand and John S. for suggesting this feature.
+
+* **[IMPROVED in Pro] Content Management >> Content Order**: media library items can now be custom ordered. Props to Ric M. for suggesting the improvement amd sharing their use case. Note: the custom order can only be previewed in the list view of the media library, and not in the grid view.
+
+* **[IMPROVED in Free and Pro] Optimizations >> Image Upload Control**: added a way to detect an invalid image that may cause errors. Props to Alberto O. Jr. for reporting the issue when importing Blocksy Child Starter theme that contains some demo content with an invalid image.
+
+* **[CHANGED in Free and Pro] Content Management >> AVIF Upload**: this has been moved from a Pro module into a free module as WP core increases support for handling AVIF images. This module may be phased out in the future.
+
+* **[FIXED in Free and Pro] Admin Interface >> Admin Menu Organizer**: 
+  * Fixed a PHP warning. Props to Tomas R., Francoies G., Susanne R., David D., Richard E., Benjamin O., Justin K. and Cameron C. for reporting it. 
+  * Fixed an edge case where custom menu order is not being respected because a theme was not returning `true` when hooking into `custom_menu_order hook`. Props to Paul B. for reporting the issue.
+  * Fixed an issue where admin menu is cut-off at the bottom after clicking Show All, which may happen if there are a lot of menu items, e.g. from plugins. Props to Nguyen Q.H. for reporting the issue with a quick screencast.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types**: fixed a conflict with WP Grid Builder causing it's settings pages to break. Props to Darren L. for reporting the issue and bridging troubleshooting with WPGB support.
+
+* **[TRANSLATION]** French translation completed. ASE is now translated into 15 languages:
+  * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/).
+  * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/).
+  * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/).
+  * **Vietnamese**: ASE Free and Pro (completed). Props to [Hoang N.Q.](https://profiles.wordpress.org/nguyenquanghoang/).
+  * **Italian**: ASE Free and Pro (completed). Props to [Fabio P.](https://profiles.wordpress.org/fabioperri/) et. al.
+  * **Dutch**: ASE Free and Pro (completed). Props to [Toine R](https://profiles.wordpress.org/toineenzo/) and [Peter S.](https://profiles.wordpress.org/psmits1567/) et al.
+  * **Korean**: ASE Free and Pro (completed). Props to [@chazmlab](https://profiles.wordpress.org/chazmlab/).
+  * **German (Formal)**: ASE Free and Pro (completed). Props to [@markussss](https://profiles.wordpress.org/markussss/), Bastian S. et al.
+  * **French**: ASE Free and Pro (completed). Props to [Stéphan G.](https://profiles.wordpress.org/gongonzo/), [@jeanfrancoisdelvin](https://profiles.wordpress.org/jeanfrancoisdelvin/), [@srossignol](https://profiles.wordpress.org/srossignol/), [@lucashw](https://profiles.wordpress.org/lucashw/), [@skippy43](https://profiles.wordpress.org/skippy43/), [@anlip](https://profiles.wordpress.org/anlip/), [@agencefacton](https://profiles.wordpress.org/agencefacton/), [@injsbx](https://profiles.wordpress.org/injsbx/) et al.
+  * **Polish**: ASE Free (completed) | ASE Pro (partial). Props to [Dariusz Z.](https://profiles.wordpress.org/dariobros/).
+  * **Portuguese (Portugal)**: ASE Free (completed) | ASE Pro (partial). Props to [Ricardo C.](https://profiles.wordpress.org/madebyuh/).
+  * **Ukrainian**: ASE Free (completed) | ASE Pro (partial). Props to [Irina](https://profiles.wordpress.org/irinashl/).
+  * **Urdu**: ASE Free (completed) | ASE Pro (partial). Props to [Ayyaz A.](https://profiles.wordpress.org/ayyazahmad/).
+  * **Swedish**: ASE Free (completed) | ASE Pro (partial). Props to [Robert M.](https://profiles.wordpress.org/robertmichalski/) and [Tor-Bjorn F.](https://profiles.wordpress.org/tobifjellner/).
+  * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/).
+  * **Translation updates**: added new/improved translation for Danish, Hungarian, Italian, Dutch, Swedish, Vietnamese, Hungarian, Italian and French.
+  * **More strings** have been internationalized. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
+  * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
 
 ### 6.9.13.2 (2024.05.27) - ASE Free and Pro
 

@@ -881,9 +881,16 @@ a.asenha-support-nudge-dismiss:hover,
     align-items: flex-start;
 }
 
-.asenha-subfield-radio-button-wrapper,
-.asenha-subfield-radio-button-description {
+.asenha-subfield-radio-button-wrapper {
     display: block;
+}
+
+.asenha-subfield-description {
+    display: block;
+}
+
+.asenha-subfield-description.media-subfield {
+    margin-top: 8px;
 }
 
 .form-table .asenha-subfields td:not(.datatable-td) label {
@@ -910,6 +917,14 @@ a.asenha-support-nudge-dismiss:hover,
 
 .field-sublabel {
     display: inline-block;
+}
+
+.sublabel-narrow {
+    min-width: 60px;
+}
+
+.sublabel-normal {
+    min-width: 100px;
 }
 
 .sublabel-wide {
@@ -959,6 +974,10 @@ a.asenha-support-nudge-dismiss:hover,
     margin-right: 6px;
     font-weight: 600;
     color: #3c434a;
+}
+
+.form-table .asenha-toggle .asenha-text.with-prefix-suffix.no-field-title th:not(.datatable-th) {
+    margin-right: 0;
 }
 
 .form-table .asenha-toggle .asenha-text.with-prefix-suffix.no-margin th:not(.datatable-th),
@@ -1035,6 +1054,18 @@ a.asenha-support-nudge-dismiss:hover,
     margin: 0 4px 0 0;
 }
 
+.asenha-subfield-text.narrow {
+    width: 80px;
+}
+
+.asenha-subfield-text.normal {
+    width: 120px;
+}
+
+.asenha-subfield-text.wide {
+    width: 180px;
+}
+
 .wide .asenha-subfield-text,
 .wide .asenha-subfield-password {
     width: 240px;
@@ -1061,13 +1092,30 @@ a.asenha-support-nudge-dismiss:hover,
     width: 54px;
 }
 
+/* Subfields Container */
+
+.subfields-container {
+    display: flex;
+}
+
+.subfields-container.subfields-in-row {
+    flex-direction: row;
+    gap: 40px;    
+}
+
 /* Spacers */
 
-.form-table .asenha-subfields tr:not(.datatable-tr).shift-up {
+.form-table .asenha-subfields tr:not(.datatable-tr).shift-up,
+.form-table .asenha-subfields tr:not(.datatable-tr).margin-top-m4 {
     margin-top: -4px;
 }
 
-.form-table .asenha-subfields tr:not(.datatable-tr).shift-more-up {
+.form-table .asenha-subfields tr:not(.datatable-tr).margin-top-m8 {
+    margin-top: -8px;
+}
+
+.form-table .asenha-subfields tr:not(.datatable-tr).shift-more-up,
+.form-table .asenha-subfields tr:not(.datatable-tr).margin-top-m12 {
     margin-top: -12px;
 }
 
@@ -1083,6 +1131,10 @@ a.asenha-support-nudge-dismiss:hover,
     margin-top: 16px !important;
 }
 
+.form-table .asenha-subfields tr:not(.datatable-tr).margin-top-20 {
+    margin-top: 20px !important;
+}
+
 .form-table .asenha-subfields tr:not(.datatable-tr).margin-bottom-8 {
     margin-bottom: 8px !important;
 }
@@ -1093,6 +1145,10 @@ a.asenha-support-nudge-dismiss:hover,
 
 .form-table .asenha-subfields tr:not(.datatable-tr).margin-bottom-16 {
     margin-bottom: 16px !important;
+}
+
+.form-table .asenha-subfields tr:not(.datatable-tr).margin-bottom-20 {
+    margin-bottom: 20px !important;
 }
 
 .form-table .asenha-subfields tr:not(.datatable-tr).padding-top-0 {
@@ -1111,6 +1167,10 @@ a.asenha-support-nudge-dismiss:hover,
     padding-top: 16px !important;
 }
 
+.form-table .asenha-subfields tr:not(.datatable-tr).padding-top-20 {
+    padding-top: 20px !important;
+}
+
 .form-table .asenha-subfields tr:not(.datatable-tr).padding-bottom-8 {
     padding-bottom: 8px !important;
 }
@@ -1121,6 +1181,10 @@ a.asenha-support-nudge-dismiss:hover,
 
 .form-table .asenha-subfields tr:not(.datatable-tr).padding-bottom-16 {
     padding-bottom: 16px !important;
+}
+
+.form-table .asenha-subfields tr:not(.datatable-tr).padding-bottom-20 {
+    padding-bottom: 20px !important;
 }
 
 .form-table .asenha-subfields tr:not(.datatable-tr).top-border {

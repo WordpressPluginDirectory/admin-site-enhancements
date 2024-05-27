@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.5.3  
-Stable tag: 6.9.13.2  
+Stable tag: 7.0.0  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -42,8 +42,8 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### FEATURES & MODULES
 
-**62 modules** in total:
-**54 free modules** (23 has Pro features) | **8 Pro modules**
+**63 modules** in total:
+**55 free modules** (23 has Pro features) | **8 Pro modules**
 
 [**See all features >>**](https://www.wpase.com/features/)
 
@@ -57,7 +57,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **Media Replacement**. Easily replace any type of media file with a new one while ensuring no existing links will break. [ASE Pro](https://www.wpase.com/rdme-to-web) allows replacing media from the grid view of media library as well.
 * **Media Library Infinite Scrolling**. Re-enable infinite scrolling in the grid view of the media library. 
 * **SVG Upload**. Allow some or all user roles to upload SVG files, which will then be sanitized to keep things secure.
-* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] AVIF Upload**. Enable uploading AVIF files in the Media Library.
+* **AVIF Upload**. Enable uploading AVIF files in the Media Library.
 * **External Permalinks**. Enable pages, posts and/or custom post types to have permalinks that point to external URLs.
 * **Open All External Links in New Tab**. Force all links to external sites to open in new browser tab via target="\_blank" attribute.
 * **Allow Custom Navigation Menu Items to Open in New Tab**. Allow custom navigation menu items to have links that open in new browser tab via target="\_blank" attribute.
@@ -81,6 +81,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 * **Change Login URL**. Make the login URL more memorable and secure by customizing it. [ASE Pro](https://www.wpase.com/rdme-to-web) adds compatibility with login process during WooCommerce checkout and custom 404 redirect on default login URLs.
 * **Login ID Type**. Restrict login ID to username or email address only.
+* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Login Page Customizer**. Easily customize the design of the login page.
 * **Site Identity on Login Page**. Use the site icon and URL to replace the default WordPress logo with link to wordpress.org on the login page.
 * **Log In/Out Menu**. Enable log in, log out and dynamic log in/out menu item for addition to any menu.
 * **Last Login Column**. Log when users on the site last logged in and display the date and time in the users list table. [ASE Pro](https://www.wpase.com/rdme-to-web) makes the column sortable.
@@ -176,37 +177,30 @@ You can skip step 1 and 2 if you still have access to your wp-admin dashboard.
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **96 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **70 _point_ releases** (e.g. 1.1.0 ) and **96 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
-### 6.9.13.2 (2024.05.27) - ASE Free and Pro
+### 7.0.0 (2024.05.27) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Log In | Log Out >> Change Login URL**: add trailing slash suffix in the custom login URL input field, and make sure if a trailing slash is added in the input, it will be stripped. Props to Wence W. for reporting the issue with the trailing slash that prompted this improvement.
+* **[NEW in PRO] Log In | Log Out >> Login Page Customizer**: added new module to easily customize the design of the login page. Props to Nami, Max Z., Vijayanand and John S. for suggesting this feature.
 
-* **[FIXED in Pro] Utilities >> Display System Summary**: fixed fatal error when trying to get the total size of the wp-content folder in certain scenarios. Props to Marcellus J. for reporting the issue and facilitating the troubleshooting process.
+* **[IMPROVED in Pro] Content Management >> Content Order**: media library items can now be custom ordered. Props to Ric M. for suggesting the improvement amd sharing their use case. Note: the custom order can only be previewed in the list view of the media library, and not in the grid view.
 
-* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fixed an issue where the option to hide submenu items did not appear on click of the 'Hide' checkbox. Props to Geoff L. for reporting the issue when The Events Calendar Pro is active, showing it's submenu items. Unfortunately, this fix introduces a breaking change, so, you may need to re-do the hide settings for your submenu items done with v6.9.13. Please check on your site(s).
+* **[IMPROVED in Free and Pro] Optimizations >> Image Upload Control**: added a way to detect an invalid image that may cause errors. Props to Alberto O. Jr. for reporting the issue when importing Blocksy Child Starter theme that contains some demo content with an invalid image.
 
-### 6.9.13.1 (2024.05.20) - ASE Free
+* **[CHANGED in Free and Pro] Content Management >> AVIF Upload**: this has been moved from a Pro module into a free module as WP core increases support for handling AVIF images. This module may be phased out in the future.
 
-* **[FIXED] Admin Interface >> Admin Menu Organizer**: fixed fatal error when installing / updating to v6.9.13. Props to [@timbre-design](https://wordpress.org/support/users/timbre-design/) and Kenneth L. for [reporting the issue](https://wordpress.org/support/topic/fatal-error-4684/).
+* **[FIXED in Free and Pro] Admin Interface >> Admin Menu Organizer**: 
+  * Fixed a PHP warning. Props to Tomas R., Francoies G., Susanne R., David D., Richard E., Benjamin O., Justin K. and Cameron C. for reporting it. 
+  * Fixed an edge case where custom menu order is not being respected because a theme was not returning `true` when hooking into `custom_menu_order hook`. Props to Paul B. for reporting the issue.
+  * Fixed an issue where admin menu is cut-off at the bottom after clicking Show All, which may happen if there are a lot of menu items, e.g. from plugins. Props to Nguyen Q.H. for reporting the issue with a quick screencast.
 
-### 6.9.13 (2024.05.20) - ASE Free and Pro
+* **[FIXED in Pro] Content Management >> Custom Content Types**: fixed a conflict with WP Grid Builder causing it's settings pages to break. Props to Darren L. for reporting the issue and bridging troubleshooting with WPGB support.
 
-* **[IMPROVED in Free and Pro] Log In | Log Out >> Change Login URL**: will now respect the Redirect After Login settings when a logged-in user is trying to open the custom login URL, i.e. will no longer redirect to the Dashboard /wp-admin/ and instead to the custom redirect URL for the user role. Props to Jacob O. for suggesting this improvement.
-
-* **[IMPROVED in Pro] Admin Interface >> Admin Menu Organizer**: implemented the option to add new separators. Props to Claudio P., Gabriel A. and Brandon Z. for suggesting this feature. Also implemented the option to hide submenu items. Props to Bengt R., Dana S., Steven Y., Andreas A. and Bill J. for suggesting this feature.
-
-* **[IMPROVED in Pro] Utilities >> Search Engine Visibility Status**: added an option to set the live / production site's URL, which will automatically prevent search engine visibility from being enabled on the development / staging site. Props to Gregory V. for suggesting this.
-
-* **[IMPROVED in Pro] Security >> Limit Login Attempts || Security >> Password Protection**: added detected user IP address along with the header it was detected from in the IP whitelisting section, to make it easy to whitelist your IP address. Also added a way to detect the real IP address of users/visitors if the site is behind Cloudflare proxy. Additionally, also added a way to define the preferred header to use when detecting the IP address. Props to Sebastian A. for prompting these improvements.
-
-* **[FIXED in Free and Pro] Admin Interface >> Hide Admin Notices**: properly hide notices on WooCommerce and TranslatePress settings pages. Props to @designidit and Simon L. for reporting the issues.
-
-* **[TRANSLATION]** French translation added. German translation completed. ASE is now translated into 15 languages:
+* **[TRANSLATION]** French translation completed. ASE is now translated into 15 languages:
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/).
   * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/).
   * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/).
@@ -215,14 +209,14 @@ Each **_point release_** usually corresponds with the addition of one new module
   * **Dutch**: ASE Free and Pro (completed). Props to [Toine R](https://profiles.wordpress.org/toineenzo/) and [Peter S.](https://profiles.wordpress.org/psmits1567/) et al.
   * **Korean**: ASE Free and Pro (completed). Props to [@chazmlab](https://profiles.wordpress.org/chazmlab/).
   * **German (Formal)**: ASE Free and Pro (completed). Props to [@markussss](https://profiles.wordpress.org/markussss/), Bastian S. et al.
+  * **French**: ASE Free and Pro (completed). Props to [Stéphan G.](https://profiles.wordpress.org/gongonzo/), [@jeanfrancoisdelvin](https://profiles.wordpress.org/jeanfrancoisdelvin/), [@srossignol](https://profiles.wordpress.org/srossignol/), [@lucashw](https://profiles.wordpress.org/lucashw/), [@skippy43](https://profiles.wordpress.org/skippy43/), [@anlip](https://profiles.wordpress.org/anlip/), [@agencefacton](https://profiles.wordpress.org/agencefacton/), [@injsbx](https://profiles.wordpress.org/injsbx/) et al.
   * **Polish**: ASE Free (completed) | ASE Pro (partial). Props to [Dariusz Z.](https://profiles.wordpress.org/dariobros/).
   * **Portuguese (Portugal)**: ASE Free (completed) | ASE Pro (partial). Props to [Ricardo C.](https://profiles.wordpress.org/madebyuh/).
   * **Ukrainian**: ASE Free (completed) | ASE Pro (partial). Props to [Irina](https://profiles.wordpress.org/irinashl/).
   * **Urdu**: ASE Free (completed) | ASE Pro (partial). Props to [Ayyaz A.](https://profiles.wordpress.org/ayyazahmad/).
   * **Swedish**: ASE Free (completed) | ASE Pro (partial). Props to [Robert M.](https://profiles.wordpress.org/robertmichalski/) and [Tor-Bjorn F.](https://profiles.wordpress.org/tobifjellner/).
   * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/).
-  * **French**: ASE Free (completed) | ASE Pro (partial). Props to [Stéphan G.](https://profiles.wordpress.org/gongonzo/), [@jeanfrancoisdelvin](https://profiles.wordpress.org/jeanfrancoisdelvin/), [@srossignol](https://profiles.wordpress.org/srossignol/), [@lucashw](https://profiles.wordpress.org/lucashw/), [@skippy43](https://profiles.wordpress.org/skippy43/), [@anlip](https://profiles.wordpress.org/anlip/), [@agencefacton](https://profiles.wordpress.org/agencefacton/), [@injsbx](https://profiles.wordpress.org/injsbx/) et al.
-  * **Translation updates**: added new/improved translation for Chinese, Vietnamese and Danish.
+  * **Translation updates**: added new/improved translation for Danish, Hungarian, Italian, Dutch, Swedish, Vietnamese, Hungarian, Italian and French.
   * **More strings** have been internationalized. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
 
