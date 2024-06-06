@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.5.3  
-Stable tag: 7.0.0  
+Stable tag: 7.0.2.1  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -42,8 +42,8 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### FEATURES & MODULES
 
-**63 modules** in total:
-**55 free modules** (23 has Pro features) | **8 Pro modules**
+**62 modules** in total:  
+**54 free modules** (24 has Pro features) | **8 Pro modules**
 
 [**See all features >>**](https://www.wpase.com/features/)
 
@@ -51,11 +51,10 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Custom Content Types**. Conveniently register and edit custom post types, custom taxonomies, custom field groups and options pages that integrates with Bricks, Breakdance, Oxygen and Elementor.
 * **Content Duplication**. One-click duplication of pages, posts and CPTs. [ASE Pro](https://www.wpase.com/rdme-to-web) enables duplication only for certain user roles and post types, and adds location option for duplication link.
-* **Content Order**. Enable custom ordering of various post types that are hierarchical or support page attributes, in wp-admin and on the frontend. [ASE Pro](https://www.wpase.com/rdme-to-web) enables ordering of post types that are non-hierarchical and does not support page attributes, and also enable toggling taxonomy terms and / or excerpt on the ordering page.
+* **Content Order**. Enable custom ordering of various post types that are hierarchical or support page attributes, in wp-admin. [ASE Pro](https://www.wpase.com/rdme-to-web) enables ordering of post types that are non-hierarchical and does not support page attributes, including media / attachments. It also enable toggling taxonomy terms and / or excerpt on the ordering page and applying the custom order on the frontend.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Terms Order**. Enable custom ordering of terms from various taxonomies in wp-admin and on the frontend.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Media Categories**. Add categories for the media library and enable drag-and-drop categorization of media items.
 * **Media Replacement**. Easily replace any type of media file with a new one while ensuring no existing links will break. [ASE Pro](https://www.wpase.com/rdme-to-web) allows replacing media from the grid view of media library as well.
-* **Media Library Infinite Scrolling**. Re-enable infinite scrolling in the grid view of the media library. 
 * **SVG Upload**. Allow some or all user roles to upload SVG files, which will then be sanitized to keep things secure.
 * **AVIF Upload**. Enable uploading AVIF files in the Media Library.
 * **External Permalinks**. Enable pages, posts and/or custom post types to have permalinks that point to external URLs.
@@ -74,7 +73,12 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Admin Columns Manager**. Manage and organize columns in the admin listing for pages, posts and custom post types. Currently supports ASE, ACF and Meta Box custom fields.
 * **Show Custom Taxonomy Filters**. Show additional filter(s) on list tables for hierarchical, custom taxonomies. [ASE Pro](https://www.wpase.com/rdme-to-web) adds option to show additional filter(s) for non-hierarchical taxonomies.
 * **Enhance List Tables**. Improve the usefulness of listing pages of various post types by adding / removing columns and elements, e.g. featured image, excerpt, ID columns.
-* **Display Active Plugins First**: Display active / activated plugins at the top of the Installed Plugins list.
+* **Various Admin UI Enhancements**: Various, smaller enhancements for different parts of the admin interface.
+  * **Media Library Infinite Scrolling**: Re-enable infinite scrolling in the grid view of the media library.
+  * **Display Active Plugins First**: Display active / activated plugins at the top of the Installed Plugins list.
+  * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Preserve Taxonomy Hierarchy**: Preserve the visual hierarchy of taxonomy terms checklist in the classic editor.
+  * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Enable Dashboard Columns Settings**: Enable manual settings of dashboard columns layout in Screen Options. You can choose between 1 to 4 columns.
+  
 * **Custom Admin Footer Text**: Customize the text you see on the footer of wp-admin pages. [ASE Pro](https://www.wpase.com/rdme-to-web) enables media upload / insertion.
 
 ### Log In / Log Out
@@ -177,30 +181,47 @@ You can skip step 1 and 2 if you still have access to your wp-admin dashboard.
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **70 _point_ releases** (e.g. 1.1.0 ) and **96 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **70 _point_ releases** (e.g. 1.1.0 ) and **99 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
-### 7.0.0 (2024.05.27) - ASE Free and Pro
+### 7.0.2.1 (2024.06.05) - ASE Free and Pro
 
-* **[NEW in PRO] Log In | Log Out >> Login Page Customizer**: added new module to easily customize the design of the login page. Props to Nami, Max Z., Vijayanand and John S. for suggesting this feature.
+* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: fixed an issue where default login URLs does not redirect to the not_found page after v7.0.2 update. Props to [@megacelik](https://wordpress.org/support/users/megacelik/) for [reporting the issue](https://wordpress.org/support/topic/change-login-url-not-work/).
 
-* **[IMPROVED in Pro] Content Management >> Content Order**: media library items can now be custom ordered. Props to Ric M. for suggesting the improvement amd sharing their use case. Note: the custom order can only be previewed in the list view of the media library, and not in the grid view.
+### 7.0.2 (2024.06.03) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Optimizations >> Image Upload Control**: added a way to detect an invalid image that may cause errors. Props to Alberto O. Jr. for reporting the issue when importing Blocksy Child Starter theme that contains some demo content with an invalid image.
+* **[ADDED in Pro] Admin Interface >> Various Admin UI Enhancements**:
+  * **Preserve Taxonomy Hierarchy**: Preserve the visual hierarchy of taxonomy terms checklist in the classic editor.
+  * **Enable Dashboard Columns Settings**: Enable manual settings of dashboard columns layout in Screen Options. You can choose between 1 to 4 columns. 
 
-* **[CHANGED in Free and Pro] Content Management >> AVIF Upload**: this has been moved from a Pro module into a free module as WP core increases support for handling AVIF images. This module may be phased out in the future.
+* **[CHANGED in Free and Pro] Content Management >> Media Library Infinite Scrolling**: moved inside Admin Interface >> Various Admin UI Enhancements module.
 
-* **[FIXED in Free and Pro] Admin Interface >> Admin Menu Organizer**: 
-  * Fixed a PHP warning. Props to Tomas R., Francoies G., Susanne R., David D., Richard E., Benjamin O., Justin K. and Cameron C. for reporting it. 
-  * Fixed an edge case where custom menu order is not being respected because a theme was not returning `true` when hooking into `custom_menu_order hook`. Props to Paul B. for reporting the issue.
-  * Fixed an issue where admin menu is cut-off at the bottom after clicking Show All, which may happen if there are a lot of menu items, e.g. from plugins. Props to Nguyen Q.H. for reporting the issue with a quick screencast.
+* **[CHANGED in Free and Pro] Admin Interface >> Display Active Plugins First**: moved inside Admin Interface >> Various Admin UI Enhancements module.
 
-* **[FIXED in Pro] Content Management >> Custom Content Types**: fixed a conflict with WP Grid Builder causing it's settings pages to break. Props to Darren L. for reporting the issue and bridging troubleshooting with WPGB support.
+* **[IMPROVED in Pro] Content Management >> Content Duplication**: enable duplication on non-public post types. Props to Matt B. for suggesting the improvement.
 
-* **[TRANSLATION]** French translation completed. ASE is now translated into 15 languages:
+* **[FIXED in Free and Pro] ASE Settings**: fixed an issue that affects several number input fields, where if nothing is typed in, the default value as shown in the input placeholder is not properly saved. Props to [@inacodeweb](https://wordpress.org/support/users/inacodeweb/) for [reporting this issue](https://wordpress.org/support/topic/revisions-missing-in-astra-theme/) in the Revisions Control module. Also added missing placeholders for several number input fields.
+
+* **[FIXED in Free and Pro] Content Management >> Media Replacement**: fixed a fatal error that happens in a certain scenario during replacement of a WebP image. Props to [@tormodg](https://wordpress.org/support/users/tormodg/) for [reporting the issue](https://wordpress.org/support/topic/trying-to-replace-webp-image-causes-fatal-crash/) with the details of the error.
+
+* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: 
+  * **Comment moderation links** in email notification will now redirect to the login page instead of the `not_found` URL when the user is not already logged-in. Props to Mathijs V.D.B. for reporting the issue. 
+  * **The "Login" link** in the password reset flow will now link to the custom login URL. Props to Sebastian A. for reporting the issue.
+
+* **[FIXED in Pro] Log In | Log Out >> Login Page Customizer**: fixed error message's font color in dark mode on the login form background. Props to Stewart R. for reporting the issue. Also fixed text color and spacing issues in other notices / messages.
+
+* **[FIXED in Free and Pro] Admin Interface >> Wider Admin Menu**: fixed an issue where on Elementor settings, the header is covered by the admin menu. Props to Stijn for reporting the issue and sharing the CSS fix.
+
+* **[FIXED in Free and Pro] Admin Interface >> Admin Menu Organizer**: fixed fatal error that occurs in certain scenario. This is related to changing the 'Posts' menu item's title. Props to [Goran](https://wordpress.org/support/users/goran63/) for [reporting this](https://wordpress.org/support/topic/crash-site-when-submitting-settings/).
+
+* **[FIXED in Pro] Content Management >> Media Categories**: 
+  - Fixed minor styling issues on the media frame in the frontend view, e.g. page builder edit mode. 
+  - Fixed styling issue of the categories tree
+
+* **[TRANSLATION]** Polish translation fully completed. ASE is now translated into 15 languages:
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/).
   * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/).
   * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/).
@@ -210,13 +231,15 @@ Each **_point release_** usually corresponds with the addition of one new module
   * **Korean**: ASE Free and Pro (completed). Props to [@chazmlab](https://profiles.wordpress.org/chazmlab/).
   * **German (Formal)**: ASE Free and Pro (completed). Props to [@markussss](https://profiles.wordpress.org/markussss/), Bastian S. et al.
   * **French**: ASE Free and Pro (completed). Props to [Stéphan G.](https://profiles.wordpress.org/gongonzo/), [@jeanfrancoisdelvin](https://profiles.wordpress.org/jeanfrancoisdelvin/), [@srossignol](https://profiles.wordpress.org/srossignol/), [@lucashw](https://profiles.wordpress.org/lucashw/), [@skippy43](https://profiles.wordpress.org/skippy43/), [@anlip](https://profiles.wordpress.org/anlip/), [@agencefacton](https://profiles.wordpress.org/agencefacton/), [@injsbx](https://profiles.wordpress.org/injsbx/) et al.
-  * **Polish**: ASE Free (completed) | ASE Pro (partial). Props to [Dariusz Z.](https://profiles.wordpress.org/dariobros/).
+  * **Polish**: ASE Free and Pro (completed). Props to [@kosmity](https://profiles.wordpress.org/kosmity/) and [Dariusz Z.](https://profiles.wordpress.org/dariobros/).
   * **Portuguese (Portugal)**: ASE Free (completed) | ASE Pro (partial). Props to [Ricardo C.](https://profiles.wordpress.org/madebyuh/).
   * **Ukrainian**: ASE Free (completed) | ASE Pro (partial). Props to [Irina](https://profiles.wordpress.org/irinashl/).
   * **Urdu**: ASE Free (completed) | ASE Pro (partial). Props to [Ayyaz A.](https://profiles.wordpress.org/ayyazahmad/).
   * **Swedish**: ASE Free (completed) | ASE Pro (partial). Props to [Robert M.](https://profiles.wordpress.org/robertmichalski/) and [Tor-Bjorn F.](https://profiles.wordpress.org/tobifjellner/).
   * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/).
-  * **Translation updates**: added new/improved translation for Danish, Hungarian, Italian, Dutch, Swedish, Vietnamese, Hungarian, Italian and French.
+  * **Translation updates**: added new/improved translation for:
+    * ASE Free: Hungarian, Italian, Swedish, Vietnamese, Polish
+    * ASE Pro: German, Hungarian, Italian, Dutch, Vietnamese, Polish
   * **More strings** have been internationalized. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
 

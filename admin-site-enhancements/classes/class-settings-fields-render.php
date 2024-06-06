@@ -174,8 +174,8 @@ class Settings_Fields_Render {
         $field_type = $args['field_type'];
         $field_prefix = $args['field_prefix'];
         $field_suffix = $args['field_suffix'];
-        $field_description = $args['field_description'];
         $field_placeholder = ( isset( $args['field_placeholder'] ) ? $args['field_placeholder'] : '' );
+        $field_description = $args['field_description'];
         $field_option_value = ( isset( $options[$args['field_id']] ) ? $options[$args['field_id']] : '' );
         if ( $field_id == 'live_site_url' ) {
             $field_option_value = ( isset( $options[$args['field_id']] ) ? base64_decode( $options[$args['field_id']] ) : '' );
@@ -191,24 +191,6 @@ class Settings_Fields_Render {
         }
         if ( !empty( $field_width_classname ) ) {
             $field_classname .= ' ' . $field_width_classname;
-        }
-        if ( $field_id == 'custom_login_slug' ) {
-            $field_placeholder = __( 'e.g. backend', 'admin-site-enhancements' );
-        } elseif ( $field_id == 'default_login_redirect_slug' ) {
-            $field_placeholder = __( 'e.g. my-account', 'admin-site-enhancements' );
-        } elseif ( $field_id == 'redirect_after_login_to_slug' ) {
-            // $field_placeholder = __( 'e.g. my-account', 'admin-site-enhancements' );
-        } elseif ( $field_id == 'redirect_after_logout_to_slug' ) {
-            // $field_placeholder = __( 'e.g. come-visit-again', 'admin-site-enhancements' );
-        } elseif ( $field_id == 'login_fails_allowed' ) {
-            $field_placeholder = '3';
-        } elseif ( $field_id == 'login_lockout_maxcount' ) {
-            $field_placeholder = '3';
-        } elseif ( $field_id == 'login_page_logo_image_width' ) {
-            $field_placeholder = __( 'e.g. 280px', 'admin-site-enhancements' );
-        } elseif ( $field_id == 'login_page_logo_image_height' ) {
-            $field_placeholder = __( 'e.g. 72px', 'admin-site-enhancements' );
-        } else {
         }
         echo wp_kses_post( $field_prefix ) . '<input type="text" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-text' . esc_attr( $field_classname ) . '" name="' . esc_attr( $field_name ) . '" placeholder="' . esc_attr( $field_placeholder ) . '" value="' . esc_attr( $field_option_value ) . '">' . wp_kses_post( $field_suffix );
         echo '<label for="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox-label">' . esc_html( $field_description ) . '</label>';
@@ -285,6 +267,7 @@ class Settings_Fields_Render {
         $field_prefix = $args['field_prefix'];
         $field_suffix = $args['field_suffix'];
         $field_intro = $args['field_intro'];
+        $field_placeholder = ( isset( $args['field_placeholder'] ) ? $args['field_placeholder'] : '' );
         $field_description = ( isset( $args['field_description'] ) ? $args['field_description'] : '' );
         $field_option_value = ( isset( $options[$args['field_id']] ) ? $options[$args['field_id']] : '' );
         if ( !empty( $field_prefix ) && !empty( $field_suffix ) ) {
@@ -296,18 +279,11 @@ class Settings_Fields_Render {
         } else {
             $field_classname = '';
         }
-        if ( $field_id == 'revisions_max_number' || $field_id == 'custom_frontend_css_priority' || $field_id == 'head_code_priority' || $field_id == 'body_code_priority' || $field_id == 'footer_code_priority' ) {
-            $placeholder = '10';
-        } elseif ( $field_id == 'convert_to_webp_quality' ) {
-            $placeholder = '82';
-        } else {
-            $placeholder = '';
-        }
         echo '<div class="asenha-subfield-number-wrapper">';
         if ( !empty( $field_intro ) ) {
             echo '<div class="asenha-subfield-number-intro">' . wp_kses_post( $field_intro ) . '</div>';
         }
-        echo '<div>' . wp_kses_post( $field_prefix ) . '<input type="number" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-number' . esc_attr( $field_classname ) . '" name="' . esc_attr( $field_name ) . '" placeholder="' . esc_attr( $placeholder ) . '" value="' . esc_attr( $field_option_value ) . '">' . wp_kses_post( $field_suffix ) . '</div>';
+        echo '<div>' . wp_kses_post( $field_prefix ) . '<input type="number" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-number' . esc_attr( $field_classname ) . '" name="' . esc_attr( $field_name ) . '" placeholder="' . esc_attr( $field_placeholder ) . '" value="' . esc_attr( $field_option_value ) . '">' . wp_kses_post( $field_suffix ) . '</div>';
         if ( !empty( $field_description ) ) {
             echo '<div class="asenha-subfield-number-description">' . wp_kses_post( $field_description ) . '</div>';
         }

@@ -50,6 +50,7 @@ class Settings_Sections_Fields {
             $wp_roles,
             $wpdb,
             $asenha_public_post_types,
+            $asenha_nonpublic_post_types,
             $asenha_gutenberg_post_types,
             $asenha_revisions_post_types,
             $active_plugin_slugs,
@@ -67,6 +68,19 @@ class Settings_Sections_Fields {
             $post_type_object = get_post_type_object( $post_type_name );
             $asenha_public_post_types[$post_type_name] = $post_type_object->label;
         }
+        asort( $asenha_public_post_types );
+        // sort by value, ascending
+        // Get array of slugs and plural labels for non-public post types, e.g. array( 'post' => 'Posts', 'page' => 'Pages' )
+        $asenha_nonpublic_post_types = array();
+        $public_post_type_names = get_post_types( array(
+            'public' => false,
+        ), 'names' );
+        foreach ( $public_post_type_names as $post_type_name ) {
+            $post_type_object = get_post_type_object( $post_type_name );
+            $asenha_nonpublic_post_types[$post_type_name] = $post_type_object->label;
+        }
+        asort( $asenha_nonpublic_post_types );
+        // sort by value, ascending
         // Get array of slugs and plural labels for post types that can be edited with the Gutenberg block editor, e.g. array( 'post' => 'Posts', 'page' => 'Pages' )
         $asenha_gutenberg_post_types = array();
         $gutenberg_not_applicable_types = array(
@@ -215,25 +229,6 @@ class Settings_Sections_Fields {
                 'field_slug'        => $field_slug,
                 'field_name'        => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_description' => __( 'Easily replace any type of media file with a new one while retaining the existing media ID, publish date and file name. So, no existing links will break.', 'admin-site-enhancements' ),
-                'class'             => 'asenha-toggle content-management ' . $field_slug,
-            )
-        );
-        // Media Library Infinite Scrolling
-        $field_id = 'media_library_infinite_scrolling';
-        $field_slug = 'media-library-infinite-scrolling';
-        add_settings_field(
-            $field_id,
-            __( 'Media Library Infinite Scrolling', 'admin-site-enhancements' ),
-            // Field title
-            [$render_field, 'render_checkbox_toggle'],
-            ASENHA_SLUG,
-            'main-section',
-            array(
-                'option_name'       => ASENHA_SLUG_U,
-                'field_id'          => $field_id,
-                'field_slug'        => $field_slug,
-                'field_name'        => ASENHA_SLUG_U . '[' . $field_id . ']',
-                'field_description' => __( 'Re-enable infinite scrolling in the grid view of the media library. Useful for scrolling through a large library.', 'admin-site-enhancements' ),
                 'class'             => 'asenha-toggle content-management ' . $field_slug,
             )
         );
@@ -960,23 +955,61 @@ class Settings_Sections_Fields {
                 'class'       => 'asenha-checkbox asenha-hide-th content-management ' . $field_slug,
             )
         );
-        // Display Active Plugins First
-        $field_id = 'display_active_plugins_first';
-        $field_slug = 'display-active-plugins-first';
+        // Various Admin UI Enhancements
+        $field_id = 'various_admin_ui_enhancements';
+        $field_slug = 'various-admin-ui-enhancements';
         add_settings_field(
             $field_id,
-            __( 'Display Active Plugins First', 'admin-site-enhancements' ),
+            __( 'Various Admin UI Enhancements', 'admin-site-enhancements' ),
             // Field title
             [$render_field, 'render_checkbox_toggle'],
             ASENHA_SLUG,
             'main-section',
             array(
-                'option_name'       => ASENHA_SLUG_U,
-                'field_id'          => $field_id,
-                'field_slug'        => $field_slug,
-                'field_name'        => ASENHA_SLUG_U . '[' . $field_id . ']',
-                'field_description' => __( 'Display active / activated plugins at the top of the Installed Plugins list. Useful when your site has many deactivated plugins for testing or development purposes.', 'admin-site-enhancements' ),
-                'class'             => 'asenha-toggle content-management ' . $field_slug,
+                'option_name'            => ASENHA_SLUG_U,
+                'field_id'               => $field_id,
+                'field_slug'             => $field_slug,
+                'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_description'      => __( 'Various, smaller enhancements for different parts of the admin interface.', 'admin-site-enhancements' ),
+                'field_options_wrapper'  => true,
+                'field_options_moreless' => true,
+                'class'                  => 'asenha-toggle admin-interface ' . $field_slug,
+            )
+        );
+        // Media Library Infinite Scrolling
+        $field_id = 'media_library_infinite_scrolling';
+        $field_slug = 'media-library-infinite-scrolling';
+        add_settings_field(
+            $field_id,
+            '',
+            // Field title
+            [$render_field, 'render_checkbox_plain'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name' => ASENHA_SLUG_U,
+                'field_id'    => $field_id,
+                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_label' => '<strong>' . __( 'Media Library Infinite Scrolling', 'admin-site-enhancements' ) . '</strong><br />' . __( 'Re-enable infinite scrolling in the grid view of the media library. Useful for scrolling through a large library.', 'admin-site-enhancements' ),
+                'class'       => 'asenha-toggle admin-interface ' . $field_slug,
+            )
+        );
+        // Display Active Plugins First
+        $field_id = 'display_active_plugins_first';
+        $field_slug = 'display-active-plugins-first';
+        add_settings_field(
+            $field_id,
+            '',
+            // Field title
+            [$render_field, 'render_checkbox_plain'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name' => ASENHA_SLUG_U,
+                'field_id'    => $field_id,
+                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_label' => '<strong>' . __( 'Display Active Plugins First', 'admin-site-enhancements' ) . '</strong><br />' . __( 'Display active / activated plugins at the top of the Installed Plugins list. Useful when your site has many deactivated plugins for testing or development purposes.', 'admin-site-enhancements' ),
+                'class'       => 'asenha-toggle admin-interface ' . $field_slug,
             )
         );
         // Custom Admin Footer Text
@@ -1126,6 +1159,7 @@ class Settings_Sections_Fields {
                 'field_type'        => 'with-prefix-suffix',
                 'field_prefix'      => site_url() . '/',
                 'field_suffix'      => '/',
+                'field_placeholder' => __( 'e.g. backend', 'admin-site-enhancements' ),
                 'field_description' => '',
                 'class'             => 'asenha-text with-prefix-suffix login-logout ' . $field_slug,
             )
@@ -1289,6 +1323,7 @@ class Settings_Sections_Fields {
                 'field_type'        => 'with-prefix-suffix',
                 'field_prefix'      => site_url() . '/',
                 'field_suffix'      => __( 'for:', 'admin-site-enhancements' ),
+                'field_placeholder' => '',
                 'field_description' => '',
                 'class'             => 'asenha-text with-prefix-suffix login-logout ' . $field_slug,
             )
@@ -1503,6 +1538,7 @@ class Settings_Sections_Fields {
                 'field_prefix'      => __( '<strong>Code to insert before &lt;/head&gt; with the priority of</strong>', 'admin-site-enhancements' ),
                 'field_suffix'      => '',
                 'field_intro'       => '',
+                'field_placeholder' => '10',
                 'field_description' => __( 'Default is 10. Larger number insert code closer to &lt;/head&gt;', 'admin-site-enhancements' ),
                 'class'             => 'asenha-number asenha-hide-th narrow custom-code ' . $field_slug,
             )
@@ -1545,6 +1581,7 @@ class Settings_Sections_Fields {
                 'field_prefix'      => __( '<strong>Code to insert after &lt;body&gt; with the priority of</strong>', 'admin-site-enhancements' ),
                 'field_suffix'      => '',
                 'field_intro'       => '',
+                'field_placeholder' => '10',
                 'field_description' => __( 'Default is 10. Smaller number insert code closer to &lt;body&gt;', 'admin-site-enhancements' ),
                 'class'             => 'asenha-number asenha-hide-th narrow custom-code ' . $field_slug,
             )
@@ -1587,6 +1624,7 @@ class Settings_Sections_Fields {
                 'field_prefix'      => __( '<strong>Code to insert in footer section before &lt;/body&gt; with the priority of</strong>', 'admin-site-enhancements' ),
                 'field_suffix'      => '',
                 'field_intro'       => '',
+                'field_placeholder' => '10',
                 'field_description' => __( 'Default is 10. Larger number insert code closer to &lt;/body&gt;', 'admin-site-enhancements' ),
                 'class'             => 'asenha-number asenha-hide-th narrow custom-code ' . $field_slug,
             )
@@ -2154,6 +2192,7 @@ class Settings_Sections_Fields {
                 'field_prefix'      => '',
                 'field_suffix'      => __( 'failed login attempts allowed before 15 minutes lockout', 'admin-site-enhancements' ),
                 'field_intro'       => '',
+                'field_placeholder' => '3',
                 'field_description' => '',
                 'class'             => 'asenha-text with-prefix-suffix extra-narrow no-margin security ' . $field_slug,
             )
@@ -2175,6 +2214,7 @@ class Settings_Sections_Fields {
                 'field_prefix'      => '',
                 'field_suffix'      => __( 'lockout(s) will block further login attempts for 24 hours', 'admin-site-enhancements' ),
                 'field_intro'       => '',
+                'field_placeholder' => '3',
                 'field_description' => '',
                 'class'             => 'asenha-text with-prefix-suffix extra-narrow no-margin security ' . $field_slug,
             )
@@ -2322,6 +2362,7 @@ class Settings_Sections_Fields {
                 'field_prefix'      => __( 'Max width:', 'admin-site-enhancements' ),
                 'field_suffix'      => __( 'pixels. <span class="faded">(Default is 1920 pixels)</span>', 'admin-site-enhancements' ),
                 'field_intro'       => '',
+                'field_placeholder' => '1920',
                 'field_description' => '',
                 'class'             => 'asenha-number asenha-hide-th narrow optimizations ' . $field_slug,
             )
@@ -2336,14 +2377,15 @@ class Settings_Sections_Fields {
             ASENHA_SLUG,
             'main-section',
             array(
-                'option_name'  => ASENHA_SLUG_U,
-                'field_id'     => $field_id,
-                'field_name'   => ASENHA_SLUG_U . '[' . $field_id . ']',
-                'field_type'   => 'with-prefix-suffix',
-                'field_prefix' => __( 'Max height:', 'admin-site-enhancements' ),
-                'field_suffix' => __( 'pixels <span class="faded">(Default is 1920 pixels)</span>', 'admin-site-enhancements' ),
-                'field_intro'  => '',
-                'class'        => 'asenha-number asenha-hide-th narrow margin-bottom-4 optimizations ' . $field_slug,
+                'option_name'       => ASENHA_SLUG_U,
+                'field_id'          => $field_id,
+                'field_name'        => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_type'        => 'with-prefix-suffix',
+                'field_prefix'      => __( 'Max height:', 'admin-site-enhancements' ),
+                'field_suffix'      => __( 'pixels <span class="faded">(Default is 1920 pixels)</span>', 'admin-site-enhancements' ),
+                'field_intro'       => '',
+                'field_placeholder' => '1920',
+                'class'             => 'asenha-number asenha-hide-th narrow margin-bottom-4 optimizations ' . $field_slug,
             )
         );
         $field_id = 'image_upload_control_description';
@@ -2400,6 +2442,7 @@ class Settings_Sections_Fields {
                 'field_prefix'      => __( 'Limit to', 'admin-site-enhancements' ),
                 'field_suffix'      => __( 'revisions for:', 'admin-site-enhancements' ),
                 'field_intro'       => '',
+                'field_placeholder' => '10',
                 'field_description' => '',
                 'class'             => 'asenha-number asenha-hide-th extra-narrow optimizations ' . $field_slug,
             )

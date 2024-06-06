@@ -25,11 +25,13 @@ if ( ! is_rtl() ) {
 }
 
 /* WooCommerce header fix */
-.woocommerce-layout__header {
+.woocommerce-layout__header,
+/* Elementor Settings */
+#e-admin-top-bar-root {
 	width: calc(100% - <?php echo esc_html( $custom_width ); ?>);
 }
 
-/* Gutenberg / Block Editor fix */
+/* Gutenberg / Block Editor fix */ /* Elementor Settings */
 .auto-fold .interface-interface-skeleton {
 	<?php echo esc_html( $position ); ?>: <?php echo esc_html( $custom_width ); ?>;	
 }

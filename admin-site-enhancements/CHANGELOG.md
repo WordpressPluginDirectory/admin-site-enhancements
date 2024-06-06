@@ -1,12 +1,46 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **70 _point_ releases** (e.g. 1.1.0 ) and **96 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **70 _point_ releases** (e.g. 1.1.0 ) and **98 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
-### 7.0.0 (2024.06.02) - ASE Free and Pro
+### 7.0.2 (2024.06.03) - ASE Free and Pro
+
+* **[ADDED in Pro] Admin Interface >> Various Admin UI Enhancements**:
+  * **Preserve Taxonomy Hierarchy**: Preserve the visual hierarchy of taxonomy terms checklist in the classic editor.
+  * **Enable Dashboard Columns Settings**: Enable manual settings of dashboard columns layout in Screen Options. You can choose between 1 to 4 columns. 
+
+* **[CHANGED in Free and Pro] Content Management >> Media Library Infinite Scrolling**: moved inside Admin Interface >> Various Admin UI Enhancements module.
+
+* **[CHANGED in Free and Pro] Admin Interface >> Display Active Plugins First**: moved inside Admin Interface >> Various Admin UI Enhancements module.
+
+* **[IMPROVED in Pro] Content Management >> Content Duplication**: enable duplication on non-public post types. Props to Matt B. for suggesting the improvement.
+
+* **[FIXED in Free and Pro] ASE Settings**: fixed an issue that affects several number input fields, where if nothing is typed in, the default value as shown in the input placeholder is not properly saved. Props to [@inacodeweb](https://wordpress.org/support/users/inacodeweb/) for [reporting this issue](https://wordpress.org/support/topic/revisions-missing-in-astra-theme/) in the Revisions Control module. Also added missing placeholders for several number input fields.
+
+* **[FIXED in Free and Pro] Content Management >> Media Replacement**: fixed a fatal error that happens in a certain scenario during replacement of a WebP image. Props to [@tormodg](https://wordpress.org/support/users/tormodg/) for [reporting the issue](https://wordpress.org/support/topic/trying-to-replace-webp-image-causes-fatal-crash/) with the details of the error.
+
+* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: 
+  * **Comment moderation links** in email notification will now redirect to the login page instead of the `not_found` URL when the user is not already logged-in. Props to Mathijs V.D.B. for reporting the issue. 
+  * **The "Login" link** in the password reset flow will now link to the custom login URL. Props to Sebastian A. for reporting the issue.
+
+* **[FIXED in Pro] Log In | Log Out >> Login Page Customizer**: fixed error message's font color in dark mode on the login form background. Props to Stewart R. for reporting the issue. Also fixed text color and spacing issues in other notices / messages.
+
+* **[FIXED in Free and Pro] Admin Interface >> Wider Admin Menu**: fixed an issue where on Elementor settings, the header is covered by the admin menu. Props to Stijn for reporting the issue and sharing the CSS fix.
+
+* **[FIXED in Free and Pro] Admin Interface >> Admin Menu Organizer**: fixed fatal error that occurs in certain scenario. This is related to changing the 'Posts' menu item's title. Props to [Goran](https://wordpress.org/support/users/goran63/) for [reporting this](https://wordpress.org/support/topic/crash-site-when-submitting-settings/).
+
+* **[FIXED in Pro] Content Management >> Media Categories**: 
+  - Fixed minor styling issues on the media frame in the frontend view, e.g. page builder edit mode. 
+  - Fixed styling issue of the categories tree
+
+### 7.0.1 (2024.05.27) - ASE Pro
+
+* **[FIXED in PRO] Log In | Log Out >> Login Page Customizer**: fixed responsive styling. Props to Stewart R. for reporting the issue. Also removed customization to body tag from the interim login modal window.
+
+### 7.0.0 (2024.05.27) - ASE Free and Pro
 
 * **[NEW in PRO] Log In | Log Out >> Login Page Customizer**: added new module to easily customize the design of the login page. Props to Nami, Max Z., Vijayanand and John S. for suggesting this feature.
 

@@ -18,6 +18,7 @@ class Settings_Sanitization {
         global 
             $wp_roles,
             $asenha_public_post_types,
+            $asenha_nonpublic_post_types,
             $asenha_gutenberg_post_types,
             $asenha_revisions_post_types,
             $active_plugin_slugs
@@ -56,11 +57,6 @@ class Settings_Sanitization {
             $options['enable_media_replacement'] = false;
         }
         $options['enable_media_replacement'] = ( 'on' == $options['enable_media_replacement'] ? true : false );
-        // Media Library Infinite Scrolling
-        if ( !isset( $options['media_library_infinite_scrolling'] ) ) {
-            $options['media_library_infinite_scrolling'] = false;
-        }
-        $options['media_library_infinite_scrolling'] = ( 'on' == $options['media_library_infinite_scrolling'] ? true : false );
         // Enable SVG Upload
         if ( !isset( $options['enable_svg_upload'] ) ) {
             $options['enable_svg_upload'] = false;
@@ -252,11 +248,6 @@ class Settings_Sanitization {
             $options['hide_post_tags_column'] = false;
         }
         $options['hide_post_tags_column'] = ( 'on' == $options['hide_post_tags_column'] ? true : false );
-        // Display Active Plugins First
-        if ( !isset( $options['display_active_plugins_first'] ) ) {
-            $options['display_active_plugins_first'] = false;
-        }
-        $options['display_active_plugins_first'] = ( 'on' == $options['display_active_plugins_first'] ? true : false );
         // Custom Admin Footer Text
         if ( !isset( $options['custom_admin_footer_text'] ) ) {
             $options['custom_admin_footer_text'] = false;
@@ -270,6 +261,21 @@ class Settings_Sanitization {
             $options['custom_admin_footer_right'] = '';
         }
         $options['custom_admin_footer_right'] = ( !empty( $options['custom_admin_footer_right'] ) ? wp_kses_post( $options['custom_admin_footer_right'] ) : '' );
+        // Various Admin Enhancements
+        if ( !isset( $options['various_admin_ui_enhancements'] ) ) {
+            $options['various_admin_ui_enhancements'] = false;
+        }
+        $options['various_admin_ui_enhancements'] = ( 'on' == $options['various_admin_ui_enhancements'] ? true : false );
+        // Media Library Infinite Scrolling
+        if ( !isset( $options['media_library_infinite_scrolling'] ) ) {
+            $options['media_library_infinite_scrolling'] = false;
+        }
+        $options['media_library_infinite_scrolling'] = ( 'on' == $options['media_library_infinite_scrolling'] ? true : false );
+        // Display Active Plugins First
+        if ( !isset( $options['display_active_plugins_first'] ) ) {
+            $options['display_active_plugins_first'] = false;
+        }
+        $options['display_active_plugins_first'] = ( 'on' == $options['display_active_plugins_first'] ? true : false );
         // =================================================================
         // LOG IN | LOG OUT
         // =================================================================
@@ -423,25 +429,25 @@ class Settings_Sanitization {
         }
         $options['insert_head_body_footer_code'] = ( 'on' == $options['insert_head_body_footer_code'] ? true : false );
         if ( !isset( $options['head_code_priority'] ) ) {
-            $options['head_code_priority'] = '';
+            $options['head_code_priority'] = 10;
         }
-        $options['head_code_priority'] = ( isset( $options['head_code_priority'] ) ? $options['head_code_priority'] : 10 );
+        $options['head_code_priority'] = ( !empty( $options['head_code_priority'] ) ? $options['head_code_priority'] : 10 );
         if ( !isset( $options['head_code'] ) ) {
             $options['head_code'] = '';
         }
         $options['head_code'] = ( !empty( $options['head_code'] ) ? $options['head_code'] : '' );
         if ( !isset( $options['body_code_priority'] ) ) {
-            $options['body_code_priority'] = '';
+            $options['body_code_priority'] = 10;
         }
-        $options['body_code_priority'] = ( isset( $options['body_code_priority'] ) ? $options['body_code_priority'] : 10 );
+        $options['body_code_priority'] = ( !empty( $options['body_code_priority'] ) ? $options['body_code_priority'] : 10 );
         if ( !isset( $options['body_code'] ) ) {
             $options['body_code'] = '';
         }
         $options['body_code'] = ( !empty( $options['body_code'] ) ? $options['body_code'] : '' );
         if ( !isset( $options['footer_code_priority'] ) ) {
-            $options['footer_code_priority'] = '';
+            $options['footer_code_priority'] = 10;
         }
-        $options['footer_code_priority'] = ( isset( $options['footer_code_priority'] ) ? $options['footer_code_priority'] : 10 );
+        $options['footer_code_priority'] = ( !empty( $options['footer_code_priority'] ) ? $options['footer_code_priority'] : 10 );
         if ( !isset( $options['footer_code'] ) ) {
             $options['footer_code'] = '';
         }
@@ -600,7 +606,7 @@ class Settings_Sanitization {
         if ( !isset( $options['revisions_max_number'] ) ) {
             $options['revisions_max_number'] = 10;
         }
-        $options['revisions_max_number'] = ( isset( $options['revisions_max_number'] ) ? sanitize_text_field( $options['revisions_max_number'] ) : 10 );
+        $options['revisions_max_number'] = ( !empty( $options['revisions_max_number'] ) ? sanitize_text_field( $options['revisions_max_number'] ) : 10 );
         if ( is_array( $asenha_revisions_post_types ) ) {
             foreach ( $asenha_revisions_post_types as $post_type_slug => $post_type_label ) {
                 // e.g. $post_type_slug is post,

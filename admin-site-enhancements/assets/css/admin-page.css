@@ -867,6 +867,16 @@ a.asenha-support-nudge-dismiss:hover,
     color: #3c434a;
 }
 
+.non-bold .asenha-subfields-heading {
+    font-weight: normal;
+}
+
+.underline .asenha-subfields-heading {
+    width: auto;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #ccc;
+}
+
 .form-table .asenha-subfields .non-bold-th th {
     font-weight: normal;
 }

@@ -29,7 +29,9 @@ if ( ! is_rtl() ) {
 
 @media (min-width:960px) {
 	/* WooCommerce header fix */
-	.woocommerce-layout__header {
+	.woocommerce-layout__header,
+	/* Elementor Settings */
+	#e-admin-top-bar-root {
 		width: calc(100% - <?php echo esc_html( $custom_width ); ?>);
 	}	
 }

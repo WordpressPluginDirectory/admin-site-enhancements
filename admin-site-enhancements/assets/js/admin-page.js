@@ -130,7 +130,6 @@
       
       
       $('.enable-media-replacement').appendTo('.fields-content-management > table > tbody');
-      $('.media-library-infinite-scrolling').appendTo('.fields-content-management > table > tbody');
       $('.enable-svg-upload').appendTo('.fields-content-management > table > tbody');
       $('.enable-svg-upload-for').appendTo('.fields-content-management .enable-svg-upload .asenha-subfields');
       $('.enable-avif-upload').appendTo('.fields-content-management > table > tbody');
@@ -175,7 +174,10 @@
       $('.show-id-in-action_row').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.hide-comments-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.hide-post-tags-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
-      $('.display-active-plugins-first').appendTo('.fields-admin-interface > table > tbody');
+      $('.various-admin-ui-enhancements').appendTo('.fields-admin-interface > table > tbody');
+      $('.media-library-infinite-scrolling').appendTo('.fields-admin-interface .various-admin-ui-enhancements .asenha-subfields');
+      $('.display-active-plugins-first').appendTo('.fields-admin-interface .various-admin-ui-enhancements .asenha-subfields');
+      
       $('.custom-admin-footer-text').appendTo('.fields-admin-interface > table > tbody');
       $('.custom-admin-footer-left').appendTo('.fields-admin-interface .custom-admin-footer-text .asenha-subfields');
       reinitWpEditor('admin_site_enhancements--custom_admin_footer_left');
@@ -571,6 +573,7 @@
       subfieldsToggler( 'wider_admin_menu', 'wider-admin-menu' );
       subfieldsToggler( 'customize_admin_menu', 'customize-admin-menu', 'custom-admin-menu' );
       subfieldsToggler( 'disable_dashboard_widgets', 'disable-dashboard-widgets' );
+      subfieldsToggler( 'various_admin_ui_enhancements', 'various-admin-ui-enhancements' );
       // Clean Up Admin Bar
       subfieldsToggler( 'hide_modify_elements', 'hide-modify-elements' );
       

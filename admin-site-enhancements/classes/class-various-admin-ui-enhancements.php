@@ -3,12 +3,11 @@
 namespace ASENHA\Classes;
 
 /**
- * Class for Display Active Plugins First module
+ * Class for Various Admin UI Enhancements module
  *
- * @since 6.9.5
+ * @since 7.0.2
  */
-class Display_Active_Plugins_First {
-    
+class Various_Admin_Ui_Enhancements {
     /**
      * Custom sort on the plugins listing to show active plugins first
      * 
@@ -17,12 +16,16 @@ class Display_Active_Plugins_First {
      */
     public function show_active_plugins_first() {
         global $wp_list_table, $status;
-
-        if ( ! in_array( $status, array( 'active', 'inactive', 'recently_activated', 'mustuse' ), true ) ) {
-            uksort( $wp_list_table->items, array( $this, 'plugins_order_callback' ) );
+        if ( !in_array( $status, array(
+            'active',
+            'inactive',
+            'recently_activated',
+            'mustuse'
+        ), true ) ) {
+            uksort( $wp_list_table->items, array($this, 'plugins_order_callback') );
         }
     }
-    
+
     /**
      * Reorder plugins list to show active ones first
      * 
@@ -31,17 +34,15 @@ class Display_Active_Plugins_First {
      */
     public function plugins_order_callback( $a, $b ) {
         global $wp_list_table;
-
         $a_active = is_plugin_active( $a );
         $b_active = is_plugin_active( $b );
-
-        if ( $a_active && ! $b_active ) {
+        if ( $a_active && !$b_active ) {
             return -1;
-        } elseif ( ! $a_active && $b_active ) {
+        } elseif ( !$a_active && $b_active ) {
             return 1;
         } else {
-            return @strcasecmp( $wp_list_table->items[ $a ]['Name'], $wp_list_table->items[ $b ]['Name'] );
+            return @strcasecmp( $wp_list_table->items[$a]['Name'], $wp_list_table->items[$b]['Name'] );
         }
     }
-        
+
 }

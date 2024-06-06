@@ -221,13 +221,11 @@ class Media_Replacement {
 
         // If original file is larger than 2560 pixel
         // https://make.wordpress.org/core/2019/10/09/introducing-handling-of-big-images-in-wordpress-5-3/
-        if ( array_key_exists( 'original_image', $attachment_meta ) ) {
+        $attachment_original_file_path = wp_get_original_image_path( $post_id );
 
-            $attachment_original_file_path = wp_get_original_image_path( $post_id );
-
-            // Delete the original file
-            wp_delete_file( $attachment_original_file_path );
-
+        // Maybe delete the original file if it's an image file, and the original file path exists / was found
+        if ( $attachment_original_file_path ) {
+            wp_delete_file( $attachment_original_file_path );            
         }
 
     }
