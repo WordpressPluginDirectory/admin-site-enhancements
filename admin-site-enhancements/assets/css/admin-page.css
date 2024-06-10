@@ -1110,7 +1110,23 @@ a.asenha-support-nudge-dismiss:hover,
 
 .subfields-container.subfields-in-row {
     flex-direction: row;
+    align-items: center;
+}
+
+.flex-gap-40 {
     gap: 40px;    
+}
+
+.flex-gap-8 {
+    gap: 8px;    
+}
+
+.form-table .asenha-subfields .subfields-in-row tr:not(.datatable-tr) {
+    width: unset;
+}
+
+.subfields-container.subfields-in-column {
+    flex-direction: column;
 }
 
 /* Spacers */

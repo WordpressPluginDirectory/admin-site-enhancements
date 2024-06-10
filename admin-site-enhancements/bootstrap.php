@@ -447,7 +447,10 @@ class Admin_Site_Enhancements {
                 add_action( 'wp_loaded', [$change_login_url, 'redirect_on_default_login_urls'] );
                 add_action( 'wp_login_failed', [$change_login_url, 'redirect_to_custom_login_url_on_login_fail'] );
                 add_filter( 'login_message', [$change_login_url, 'add_failed_login_message'] );
-                add_action( 'wp_logout', [$change_login_url, 'redirect_to_custom_login_url_on_logout_success'] );
+                // No need to modify logout_url or perform redirect on logout
+                // The customized login URL is already being returned after logout
+                // add_action( 'wp_logout', [ $change_login_url, 'redirect_to_custom_login_url_on_logout_success' ] );
+                // add_filter( 'logout_url', [ $change_login_url, 'customize_logout_url' ], 10, 2 );
             }
         }
         // Login ID Type

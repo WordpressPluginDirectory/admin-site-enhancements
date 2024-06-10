@@ -788,7 +788,8 @@ function asenha_admin_scripts(  $hook_suffix  ) {
                 }
             } else {
                 if ( $save_count_modulo == 0 ) {
-                    if ( $save_count > $asenha_stats['support_nudge_last_shown_save_count'] ) {
+                    $support_nudge_last_shown_save_count = ( isset( $asenha_stats['support_nudge_last_shown_save_count'] ) ? $asenha_stats['support_nudge_last_shown_save_count'] : 0 );
+                    if ( $save_count > $support_nudge_last_shown_save_count ) {
                         $asenha_stats['support_nudge_dismissed'] = false;
                         update_option( ASENHA_SLUG_U . '_stats', $asenha_stats );
                         $show_support_nudge = true;
@@ -820,21 +821,23 @@ function asenha_admin_scripts(  $hook_suffix  ) {
  * @since 6.3.3
  */
 function asenha_dequeue_scritps() {
-    // https://wordpress.org/plugins/user-activity-log/
-    wp_dequeue_script( 'chats-js' );
-    wp_dequeue_script( 'custom_wp_admin_js' );
-    // https://wordpress.org/plugins/print-invoices-packing-slip-labels-for-woocommerce/
-    wp_dequeue_script( 'print-invoices-packing-slip-labels-for-woocommerce' );
-    wp_dequeue_script( 'print-invoices-packing-slip-labels-for-woocommerce-form-wizard' );
-    // https://wordpress.org/plugins/wp-reading-progress/
-    wp_dequeue_script( 'ruigehond006_admin_javascript' );
-    // WordPress Mentions Légales plugin v1.2.3 by Jean-Baptiste Aramendy - http://jba-development.fr/
-    wp_dequeue_script( 'jquery-ui' );
-    wp_dequeue_script( 'wordpress-mentions-legales' );
-    // https://wordpress.org/plugins/us-weather-widget-willyweather/
-    wp_dequeue_script( 'self' );
-    // iThemes Security Pro / Solid Security Pro
-    wp_dequeue_script( 'itsec-core-admin-notices' );
+    if ( is_asenha() ) {
+        // https://wordpress.org/plugins/user-activity-log/
+        wp_dequeue_script( 'chats-js' );
+        wp_dequeue_script( 'custom_wp_admin_js' );
+        // https://wordpress.org/plugins/print-invoices-packing-slip-labels-for-woocommerce/
+        wp_dequeue_script( 'print-invoices-packing-slip-labels-for-woocommerce' );
+        wp_dequeue_script( 'print-invoices-packing-slip-labels-for-woocommerce-form-wizard' );
+        // https://wordpress.org/plugins/wp-reading-progress/
+        wp_dequeue_script( 'ruigehond006_admin_javascript' );
+        // WordPress Mentions Légales plugin v1.2.3 by Jean-Baptiste Aramendy - http://jba-development.fr/
+        wp_dequeue_script( 'jquery-ui' );
+        wp_dequeue_script( 'wordpress-mentions-legales' );
+        // https://wordpress.org/plugins/us-weather-widget-willyweather/
+        wp_dequeue_script( 'self' );
+        // iThemes Security Pro / Solid Security Pro
+        wp_dequeue_script( 'itsec-core-admin-notices' );
+    }
 }
 
 /**

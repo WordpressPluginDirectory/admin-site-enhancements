@@ -123,6 +123,7 @@ class Settings_Sections_Fields {
             $active_plugin = explode( "/", $active_plugin );
             $active_plugin_slugs[] = $active_plugin[0];
         }
+        $background_pattern_options = array();
         // Enable Content Duplication
         $field_id = 'enable_duplication';
         $field_slug = 'enable-duplication';
@@ -1237,7 +1238,8 @@ class Settings_Sections_Fields {
                 'field_name'            => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_description'     => sprintf( 
                     /* translators: %s is URL to the Customizer */
-                    __( 'Use the site icon and URL to replace the default WordPress logo with link to wordpress.org on the login page. Go to the <a href="%s">customizer</a> to set or change your site icon.', 'admin-site-enhancements' ),
+                    __( 'Use the site icon and URL to replace the default WordPress logo with link to wordpress.org on the login page. Go to <a href="%1$s">General Settings</a> or the <a href="%2$s">Customizer</a> to set or change your site icon.', 'admin-site-enhancements' ),
+                    admin_url( 'options-general.php' ),
                     admin_url( 'customize.php' )
                  ),
                 'field_options_wrapper' => true,
@@ -3095,6 +3097,19 @@ class Settings_Sections_Fields {
                 'class'                  => 'asenha-toggle utilities ' . $field_slug,
             )
         );
+        $field_id = 'maintenance_page_type_custom';
+        $field_slug = 'maintenance-page-type-custom';
+        add_settings_field(
+            $field_id,
+            '',
+            // Field title
+            [$render_field, 'render_custom_html'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'html' => '<div class="subfields-container subfields-in-column maintenance-page-type-custom"></div>',
+            )
+        );
         $field_id = 'maintenance_page_heading';
         $field_slug = 'maintenance-page-heading';
         add_settings_field(
@@ -3113,7 +3128,7 @@ class Settings_Sections_Fields {
                 'field_suffix'      => '',
                 'field_description' => '',
                 'field_placeholder' => __( 'We\'ll be back soon.', 'admin-site-enhancements' ),
-                'class'             => 'asenha-text utilities full-width ' . $field_slug,
+                'class'             => 'asenha-text utilities full-width margin-bottom-20 ' . $field_slug,
             )
         );
         $field_id = 'maintenance_page_description';

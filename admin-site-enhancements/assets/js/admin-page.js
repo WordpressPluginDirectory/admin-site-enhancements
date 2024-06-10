@@ -303,11 +303,12 @@
       
       $('.maintenance-mode').appendTo('.fields-utilities > table > tbody');
       
-      $('.maintenance-page-heading').appendTo('.fields-utilities .maintenance-mode .asenha-subfields');
-      reinitWpEditor('admin_site_enhancements--maintenance_page_heading');
-      $('.maintenance-page-description').appendTo('.fields-utilities .maintenance-mode .asenha-subfields');
-      reinitWpEditor('admin_site_enhancements--maintenance_page_description');
-      $('.maintenance-page-background').appendTo('.fields-utilities .maintenance-mode .asenha-subfields');
+      $('.maintenance-page-type-custom').appendTo('.fields-utilities .maintenance-mode .asenha-subfields');
+      
+      $('.maintenance-page-heading').appendTo('.maintenance-page-type-custom');
+      $('.maintenance-page-description').appendTo('.maintenance-page-type-custom');
+      
+      $('.maintenance-page-background').appendTo('.maintenance-page-type-custom');
       
       $('.maintenance-mode-description').appendTo('.fields-utilities .maintenance-mode .asenha-subfields');
       $('.redirect-404-to-homepage').appendTo('.fields-utilities > table > tbody');

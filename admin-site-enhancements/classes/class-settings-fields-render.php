@@ -311,8 +311,8 @@ class Settings_Fields_Render {
         $field_select_default = $args['field_select_default'];
         $field_intro = $args['field_intro'];
         $field_description = $args['field_description'];
-        if ( !empty( $args['field_select_default'] ) ) {
-            $default_value = $args['field_select_default'];
+        if ( !empty( $field_select_default ) ) {
+            $default_value = $field_select_default;
         } else {
             $default_value = false;
         }
@@ -484,7 +484,9 @@ class Settings_Fields_Render {
         ?>" />
 			<button id="<?php 
         echo esc_attr( $field_slug );
-        ?>-button" class="image-picker-button button-secondary">Select an Image</button>
+        ?>-button" class="image-picker-button button-secondary"><?php 
+        echo __( 'Select an Image', 'admin-site-enhancements' );
+        ?></button>
 			<?php 
         if ( !empty( $field_description ) ) {
             echo '<div class="asenha-subfield-description media-subfield">' . wp_kses_post( $field_description ) . '</div>';
