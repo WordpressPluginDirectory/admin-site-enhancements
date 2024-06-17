@@ -290,6 +290,7 @@
       $('.smtp-password').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');
       $('.smtp-bypass-ssl-verification').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');
       $('.smtp-debug').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');
+      
       $('.smtp-send-test-email-description').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');
       $('.smtp-send-test-email-to').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');
       $('.smtp-send-test-email-result').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');

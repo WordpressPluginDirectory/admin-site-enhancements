@@ -2,12 +2,16 @@
 
 namespace ASENHA\Classes;
 
+use WP_Error;
+use ASENHA\EmailDelivery\Email_Log_Table;
 /**
  * Class for Email Delivery module
  *
  * @since 6.9.5
  */
 class Email_Delivery {
+    private $log_entry_id;
+
     /**
      * Send emails using external SMTP service
      *
@@ -158,6 +162,79 @@ class Email_Delivery {
                 );
             }
             echo json_encode( $response );
+        }
+    }
+
+    /**
+     * Perform additional logging for data that are not properly logged via wp_mail hook
+     * 
+     * @since 7.1.0
+     */
+    public function additional_logging__premium_onlly( $phpmailer ) {
+        // Set custom Message-ID header, e.g. // e.g. <message-3@subdomain.domain.com>>
+        // The number here is the ID of the message in the email delivery log table
+        $message_id = '<message-' . $this->log_entry_id . '@' . parse_url( get_site_url(), PHP_URL_HOST ) . '>';
+        $phpmailer->MessageID = $message_id;
+        // Get headers
+        // Reference: https://plugins.trac.wordpress.org/browser/mailarchiver/tags/4.0.0/includes/listeners/class-corelistener.php#L216
+        if ( method_exists( $phpmailer, 'createHeader' ) ) {
+            $headers = $phpmailer->createHeader();
+            if ( !is_array( $headers ) ) {
+                $headers = explode( "\n", str_replace( "\r\n", "\n", $headers ) );
+            }
+            // Remove empty elements and get sender info (name and email)
+            $sender = '';
+            $headers_array = array();
+            $sender = '';
+            $reply_to = '';
+            if ( !empty( $headers ) ) {
+                foreach ( $headers as $header ) {
+                    if ( '' !== $header ) {
+                        $headers_array[] = $header;
+                    }
+                    if ( false !== strpos( $header, 'From:' ) ) {
+                        $sender_array = explode( ': ', $header );
+                        $sender = ( isset( $sender_array[1] ) ? $sender_array[1] : '' );
+                    }
+                    if ( false !== strpos( $header, 'Reply-To:' ) ) {
+                        $reply_to_array = explode( ': ', $header );
+                        $reply_to = ( isset( $reply_to_array[1] ) ? $reply_to_array[1] : '' );
+                    }
+                    if ( false !== strpos( $header, 'Content-Type:' ) ) {
+                        $content_type_array = explode( ': ', $header );
+                        $content_type_maybe_with_charset = ( isset( $content_type_array[1] ) ? $content_type_array[1] : '' );
+                        // e.g. text/html; charset=UTF-8
+                        if ( false !== strpos( $content_type_maybe_with_charset, 'charset' ) ) {
+                            $content_type_array = explode( '; ', $content_type_maybe_with_charset );
+                            $content_type = ( isset( $content_type_array[0] ) ? $content_type_array[0] : '' );
+                        } else {
+                            $content_type = trim( $content_type_maybe_with_charset );
+                        }
+                    }
+                }
+            }
+            // Add sender and headers info to the existing log entry for the mail
+            // https://developer.wordpress.org/reference/classes/wpdb/update/
+            global $wpdb;
+            $result = $wpdb->update(
+                $wpdb->prefix . 'asenha_email_delivery',
+                // Log table name
+                array(
+                    'sender'       => sanitize_text_field( str_replace( array('<', '>'), array('(', ')'), $sender ) ),
+                    'reply_to'     => sanitize_text_field( str_replace( array('<', '>'), array('(', ')'), $reply_to ) ),
+                    'content_type' => sanitize_text_field( $content_type ),
+                    'headers'      => serialize( $headers_array ),
+                ),
+                array(
+                    'id' => $this->log_entry_id,
+                ),
+                array(
+                    '%s',
+                    // string - sender
+                    '%s',
+                ),
+                array('%d')
+            );
         }
     }
 

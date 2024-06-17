@@ -1,10 +1,48 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **70 _point_ releases** (e.g. 1.1.0 ) and **102 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **71 _point_ releases** (e.g. 1.1.0 ) and **102 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
+
+### 7.1.0 (2024.06.17) - ASE Free and Pro
+
+* **[IMPROVED in Pro] Utilities >> Email Delivery**: added an option to enable logging of email deliveries. Props to Francois G. and Jonathan L. for suggesting this.
+
+* **[IMPROVED in Pro] Log In | Log Out >> Login Page Customizer**: added an option to hide the "Remember Me" checkbox. Props to Markus R. for the suggestion.
+
+* **[FIXED in Free] Utilities >> Maintenance Mode**: fix missing background image/pattern after update to v7.0.3. Props to [@arj968653](https://wordpress.org/support/users/arj968653/) for [reporting this](https://wordpress.org/support/topic/maintenance-mode-background-not-shown/) in detail.
+
+* **[FIXED in Free] Security >> Email Address Obfuscator**: fix obfuscated email address not properly inlined in certain scenarios, e.g. used inside Elementor Text Editor widget. Props to [@lostguybrazil](https://wordpress.org/support/users/lostguybrazil/) for [reporting this](https://wordpress.org/support/topic/email-address-obfuscator-email-always-on-its-own-line/) with detailed explanation, screenshots and also proposing a working solution!... which was applied on this fix.
+
+* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fixed fatal error in a particular scenario involving the RWMB_Core class. Props to Kenneth S. for reporting the issue complete with the error log details.
+
+* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fixed an issue where JS error occurs when certain plugins uses a star icon in it's subemnu title.
+
+* **[TRANSLATION]** ASE is now translated into 17 languages:
+  * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/).
+  * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/).
+  * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/).
+  * **Vietnamese**: ASE Free and Pro (completed). Props to [Hoang N.Q.](https://profiles.wordpress.org/nguyenquanghoang/).
+  * **Italian**: ASE Free and Pro (completed). Props to [Fabio P.](https://profiles.wordpress.org/fabioperri/) et. al.
+  * **Dutch**: ASE Free and Pro (completed). Props to [Toine R](https://profiles.wordpress.org/toineenzo/) and [Peter S.](https://profiles.wordpress.org/psmits1567/) et al.
+  * **Korean**: ASE Free and Pro (completed). Props to [@chazmlab](https://profiles.wordpress.org/chazmlab/).
+  * **German (Formal)**: ASE Free and Pro (completed). Props to [@markussss](https://profiles.wordpress.org/markussss/), Bastian S. et al.
+  * **French**: ASE Free and Pro (completed). Props to [Stéphan G.](https://profiles.wordpress.org/gongonzo/), [@jeanfrancoisdelvin](https://profiles.wordpress.org/jeanfrancoisdelvin/), [@srossignol](https://profiles.wordpress.org/srossignol/), [@lucashw](https://profiles.wordpress.org/lucashw/), [@skippy43](https://profiles.wordpress.org/skippy43/), [@anlip](https://profiles.wordpress.org/anlip/), [@agencefacton](https://profiles.wordpress.org/agencefacton/), [@injsbx](https://profiles.wordpress.org/injsbx/) et al.
+  * **Polish**: ASE Free and Pro (completed). Props to [@kosmity](https://profiles.wordpress.org/kosmity/) and [Dariusz Z.](https://profiles.wordpress.org/dariobros/).
+  * **Norwegian**: ASE Free and Pro (completed). Props to [Alf O.F.](https://profiles.wordpress.org/skoen/).
+  * **Czech**: ASE Free and Pro (completed). Props to Jan S..
+  * **Portuguese (Portugal)**: ASE Free (completed) | ASE Pro (partial). Props to [Ricardo C.](https://profiles.wordpress.org/madebyuh/).
+  * **Ukrainian**: ASE Free (completed) | ASE Pro (partial). Props to [Irina](https://profiles.wordpress.org/irinashl/).
+  * **Urdu**: ASE Free (completed) | ASE Pro (partial). Props to [Ayyaz A.](https://profiles.wordpress.org/ayyazahmad/).
+  * **Swedish**: ASE Free (completed) | ASE Pro (partial). Props to [Robert M.](https://profiles.wordpress.org/robertmichalski/) and [Tor-Bjorn F.](https://profiles.wordpress.org/tobifjellner/).
+  * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/).
+  * **Translation updates**: added new/improved translation for:
+    * ASE Free: Danish, Hungarian, Italian, Norwegian, Dutch, Swedish
+    * ASE Pro: Chinese, Czech, Danish
+  * **More strings** have been internationalized. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
+  * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
 
 ### 7.0.3 (2024.06.10) - ASE Free and Pro
 
@@ -26,7 +64,7 @@ Each **_point release_** usually corresponds with the addition of one new module
   * **Fixed an incompatibility** with [WooCommerce PDF Invoices, Packing Slips, Delivery Notes and Shipping Labels](https://wordpress.org/plugins/print-invoices-packing-slip-labels-for-woocommerce/) that was breaking their admin pages and features. Props to [@jtphelan](https://wordpress.org/support/users/jtphelan/) for reporting the issue [here](https://wordpress.org/support/topic/breaks-bulk-pdf-creation-of-woocommerce-pdf-invoices/) and [@webvizionph](https://wordpress.org/support/users/webvizionph/) for reporting it [here](https://wordpress.org/support/topic/incompatible-with-webtoffees-woocommerce-pdf-invoices-packing-slips/).
   * **Fixed PHP warning**. Props to [@mdeg79](https://wordpress.org/support/users/mdeg79/) for [reporting the issue](https://wordpress.org/support/topic/changing-the-login-url-breaks-functionality-on-the-front-end/page/2/#post-17807687).
 
-* **[TRANSLATION]** Norwegian and Czech translation added (complete). ASE is now translated into 17 languages:
+* **[TRANSLATION]** Norwegian translation added (complete). ASE is now translated into 16 languages:
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/).
   * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/).
   * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/).
@@ -38,7 +76,6 @@ Each **_point release_** usually corresponds with the addition of one new module
   * **French**: ASE Free and Pro (completed). Props to [Stéphan G.](https://profiles.wordpress.org/gongonzo/), [@jeanfrancoisdelvin](https://profiles.wordpress.org/jeanfrancoisdelvin/), [@srossignol](https://profiles.wordpress.org/srossignol/), [@lucashw](https://profiles.wordpress.org/lucashw/), [@skippy43](https://profiles.wordpress.org/skippy43/), [@anlip](https://profiles.wordpress.org/anlip/), [@agencefacton](https://profiles.wordpress.org/agencefacton/), [@injsbx](https://profiles.wordpress.org/injsbx/) et al.
   * **Polish**: ASE Free and Pro (completed). Props to [@kosmity](https://profiles.wordpress.org/kosmity/) and [Dariusz Z.](https://profiles.wordpress.org/dariobros/).
   * **Norwegian**: ASE Free and Pro (completed). Props to [Alf O.F.](https://profiles.wordpress.org/skoen/).
-  * **Czech**: ASE Free and Pro (completed). Props to Jan S..
   * **Portuguese (Portugal)**: ASE Free (completed) | ASE Pro (partial). Props to [Ricardo C.](https://profiles.wordpress.org/madebyuh/).
   * **Ukrainian**: ASE Free (completed) | ASE Pro (partial). Props to [Irina](https://profiles.wordpress.org/irinashl/).
   * **Urdu**: ASE Free (completed) | ASE Pro (partial). Props to [Ayyaz A.](https://profiles.wordpress.org/ayyazahmad/).

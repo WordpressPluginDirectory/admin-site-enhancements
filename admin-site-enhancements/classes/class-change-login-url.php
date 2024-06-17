@@ -252,7 +252,7 @@ class Change_Login_URL {
         global $asenha_limit_login;
         if ( isset( $_REQUEST['failed_login'] ) && $_REQUEST['failed_login'] == 'true' ) {
             if ( is_null( $asenha_limit_login ) ) {
-                $message = '<div id="login_error" class="notice notice-error"><b>Error:</b> Invalid username/email or incorrect password.</div>';
+                $message = '<div id="login_error" class="notice notice-error"><b>' . __( 'Error:', 'admin-site-enhancements' ) . '</b> ' . __( 'Invalid username/email or incorrect password.', 'admin-site-enhancements' ) . '</div>';
             }
         }
         return $message;

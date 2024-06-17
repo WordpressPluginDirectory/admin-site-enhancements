@@ -219,7 +219,7 @@ class Limit_Login_Attempts {
                     $errors->remove( 'incorrect_password' ); // Outputs info that implies username exist. May encourage login attempt with a different password.
 
                     // Add a new error message that does not provide useful clues to hackers
-                    $errors->add( 'invalid_username_or_incorrect_password', '<b>Error:</b> Invalid username/email or incorrect password.' );
+                    $errors->add( 'invalid_username_or_incorrect_password', '<b>' . __( 'Error:', 'admin-site-enhancements' ) . '</b> ' . __( 'Invalid username/email or incorrect password.', 'admin-site-enhancements' ) );
 
                     // $errors->add( 'another_error_code', 'The error message.' );
 
@@ -326,7 +326,7 @@ class Limit_Login_Attempts {
 
             if ( ! is_null( $asenha_limit_login ) && isset( $asenha_limit_login['within_lockout_period'] ) && ! $asenha_limit_login['within_lockout_period'] ) {
 
-                $message = '<div id="login_error" class="notice notice-error"><b>Error:</b> Invalid username/email or incorrect password.</div>';
+                $message = '<div id="login_error" class="notice notice-error"><b>' . __( 'Error:', 'admin-site-enhancements' ) . '</b> ' . __( 'Invalid username/email or incorrect password.', 'admin-site-enhancements' ) . '</div>';
 
             }
 

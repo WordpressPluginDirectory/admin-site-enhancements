@@ -51,7 +51,7 @@ class Email_Address_Obfuscator {
         }
         $link = $atts['link'];
         $class = $atts['class'];
-        return '<div style="display:inline;' . esc_attr( $css_bidi_styles ) . ';direction:rtl;" class="' . esc_attr( $class ) . '">' . esc_html( $email_rev_parts[0] ) . '<span style="display:none;">obfsctd</span>&#64;' . esc_html( $email_rev_parts[1] ) . '</div>';
+        return '<span style="' . esc_attr( $display_css ) . esc_attr( $css_bidi_styles ) . ';direction:rtl;" class="' . esc_attr( $class ) . '">' . esc_html( $email_rev_parts[0] ) . '<span style="display:none;">obfsctd</span>&#64;' . esc_html( $email_rev_parts[1] ) . '</span>';
     }
 
 }

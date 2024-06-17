@@ -2885,7 +2885,7 @@ class Settings_Sections_Fields {
                 'field_id'    => $field_id,
                 'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_label' => __( 'Bypass verification of SSL certificate. This would be insecure if mail is delivered across the internet but could help in certain local and/or containerized WordPress scenarios.', 'admin-site-enhancements' ),
-                'class'       => 'asenha-checkbox asenha-hide-th utilities ' . $field_slug,
+                'class'       => 'asenha-checkbox asenha-hide-th margin-top-8 utilities ' . $field_slug,
             )
         );
         $field_id = 'smtp_debug';

@@ -680,6 +680,19 @@ function asenha_admin_scripts(  $hook_suffix  ) {
         );
         wp_localize_script( 'asenha-media-replace', 'mediaReplace', $media_replace );
     }
+    // Utilities >> Email Delivery Log
+    if ( 'tools_page_email-delivery-log' == $hook_suffix ) {
+        wp_enqueue_style( 'jquery-ui-css', ASENHA_URL . 'assets/premium/css/jquery-ui/jquery-ui.min.css' );
+        wp_enqueue_style( 'asenha-email-delivery-log', ASENHA_URL . 'assets/premium/css/email-delivery-log.css' );
+        wp_enqueue_script( 'jquery-ui' );
+        // wp_enqueue_script( 'jquery-ui-datepicker' );
+        wp_enqueue_script( 'jquery-ui-tabs' );
+        wp_enqueue_script( 'asenha-email-delivery-log', ASENHA_URL . 'assets/premium/js/email-delivery-log.js' );
+        $nonce = wp_create_nonce( 'email-delivery-log' . get_current_user_id() );
+        wp_localize_script( 'asenha-email-delivery-log', 'emailLog', array(
+            'nonce' => $nonce,
+        ) );
+    }
     // Utilities >> Image Sizes Panel
     if ( 'post' == $current_screen->base && 'attachment' == $current_screen->id ) {
         global $post;

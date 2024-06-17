@@ -29,7 +29,10 @@ class Maintenance_Mode {
                 // Tell search engine bots to return after 3600 seconds, i.e. 1 hour
                 $heading = $options['maintenance_page_heading'];
                 $description = $options['maintenance_page_description'];
-                if ( isset( $options['maintenance_page_background'] ) && !in_array( $options['maintenance_page_background'], array('lines', 'stripes', 'curves') ) ) {
+                $background = ( isset( $options['maintenance_page_background'] ) ? $options['maintenance_page_background'] : 'stripes' );
+                $background_options = array('lines', 'stripes', 'curves');
+                // Set default
+                if ( !in_array( $background, $background_options ) ) {
                     $background = 'stripes';
                 }
                 $title = '';
