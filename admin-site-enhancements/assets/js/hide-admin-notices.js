@@ -43,7 +43,7 @@
 			// TotalPress Custom post types - https://wordpress.org/plugins/custom-post-types/
 
 			// Reposition notices with the following selectors. Excluding 'notice-system'.
-			$('#wpbody-content > .wrap > .notice:not(.system-notice,.hidden),'
+			$('#wpbody-content > .wrap > .notice:not(.system-notice,.hidden,.wcml-notice),'
 			+ '#wpbody-content > .wrap > .notice-error,'
 			+ '#wpbody-content > .wrap > .error:not(.hidden),'
 			+ '#wpbody-content > .wrap > .notice-info,'
@@ -99,7 +99,19 @@
 			+ '#wpbody-content > #trp-main-settings > form > .notice-updated,'
 			+ '#wpbody-content > #trp-main-settings > form > .updated,'
 			+ '#wpbody-content > #trp-main-settings > form > .update-nag,'
-			+ '#wpbody-content > .notice,' // LearnDash
+			// TranslatePress
+			+ '#wpbody-content > .bwfan_header > .notice:not(.system-notice,.hidden),'
+			+ '#wpbody-content > .bwfan_header > .notice-error,'
+			+ '#wpbody-content > .bwfan_header > .error:not(.hidden),'
+			+ '#wpbody-content > .bwfan_header > .notice-info,'
+			+ '#wpbody-content > .bwfan_header > .notice-information,'
+			+ '#wpbody-content > .bwfan_header > #message,'
+			+ '#wpbody-content > .bwfan_header > .notice-warning:not(.hidden),'
+			+ '#wpbody-content > .bwfan_header > .notice-success,'
+			+ '#wpbody-content > .bwfan_header > .notice-updated,'
+			+ '#wpbody-content > .bwfan_header > .updated,'
+			+ '#wpbody-content > .bwfan_header > .update-nag,'
+			+ '#wpbody-content > .notice:not(.otgs-notice,.wcml-notice),' // LearnDash, WPML WooCommerce Multilingual
 			+ '#wpbody-content > .update-nag,' // LearnDash
 			+ '#wpbody-content > .jp-connection-banner,' // Jetpack
 			+ '#wpbody-content > .jitm-banner,' // Jetpack

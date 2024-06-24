@@ -89,18 +89,20 @@ class SVG_Upload {
 
         if ( 'image/svg+xml' === $file_type ) {
 
-            // Load sanitizer library - https://github.com/darylldoyle/svg-sanitizer
-            require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/data/AttributeInterface.php';
-            require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/data/TagInterface.php';
-            require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/data/AllowedAttributes.php';
-            require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/data/AllowedTags.php';
-            require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/data/XPath.php';
-            require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/ElementReference/Resolver.php';
-            require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/ElementReference/Subject.php';
-            require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/ElementReference/Usage.php';
-            require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/Exceptions/NestingException.php';
-            require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/Helper.php';
-            require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/Sanitizer.php';
+            if ( ! class_exists( '\enshrined\svgSanitize\Sanitizer' ) ) {
+                // Load sanitizer library - https://github.com/darylldoyle/svg-sanitizer
+                require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/data/AttributeInterface.php';
+                require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/data/TagInterface.php';
+                require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/data/AllowedAttributes.php';
+                require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/data/AllowedTags.php';
+                require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/data/XPath.php';
+                require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/ElementReference/Resolver.php';
+                require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/ElementReference/Subject.php';
+                require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/ElementReference/Usage.php';
+                require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/Exceptions/NestingException.php';
+                require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/Helper.php';
+                require_once ASENHA_PATH . 'vendor/enshrined/svg-sanitize/src/Sanitizer.php';
+            }
 
             // $sanitizer = new Sanitizer();
             $sanitizer = new \enshrined\svgSanitize\Sanitizer();

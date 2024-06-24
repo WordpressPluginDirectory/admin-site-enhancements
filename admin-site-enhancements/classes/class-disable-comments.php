@@ -18,7 +18,7 @@ class Disable_Comments {
         $disable_comments_type = 'only-on';
         $disable_comments_for = $options['disable_comments_for'];
         foreach ( $disable_comments_for as $post_type_slug => $is_post_type_checked ) {
-            if ( 'only-on' == $disable_comments_type && $is_post_type_checked || 'except-on' == $disable_comments_type && !$is_post_type_checked ) {
+            if ( 'only-on' == $disable_comments_type && $is_post_type_checked || 'except-on' == $disable_comments_type && !$is_post_type_checked || 'all-post-types' == $disable_comments_type ) {
                 remove_post_type_support( $post_type_slug, 'comments' );
                 remove_post_type_support( $post_type_slug, 'trackbacks' );
                 remove_meta_box( 'commentstatusdiv', $post_type_slug, 'normal' );
@@ -44,7 +44,7 @@ class Disable_Comments {
         $disable_comments_for = $options['disable_comments_for'];
         $current_post_type = get_post_type();
         foreach ( $disable_comments_for as $post_type_slug => $is_post_type_checked ) {
-            if ( 'only-on' == $disable_comments_type && $current_post_type === $post_type_slug && $is_post_type_checked || 'except-on' == $disable_comments_type && $current_post_type === $post_type_slug && !$is_post_type_checked ) {
+            if ( 'only-on' == $disable_comments_type && $current_post_type === $post_type_slug && $is_post_type_checked || 'except-on' == $disable_comments_type && $current_post_type === $post_type_slug && !$is_post_type_checked || 'all-post-types' == $disable_comments_type ) {
                 add_filter(
                     'comments_array',
                     '__return_empty_array',
@@ -67,7 +67,7 @@ class Disable_Comments {
         $post = get_post( $post_id );
         $current_post_type = $post->post_type;
         foreach ( $disable_comments_for as $post_type_slug => $is_post_type_checked ) {
-            if ( 'only-on' == $disable_comments_type && $current_post_type === $post_type_slug && $is_post_type_checked || 'except-on' == $disable_comments_type && $current_post_type === $post_type_slug && !$is_post_type_checked ) {
+            if ( 'only-on' == $disable_comments_type && $current_post_type === $post_type_slug && $is_post_type_checked || 'except-on' == $disable_comments_type && $current_post_type === $post_type_slug && !$is_post_type_checked || 'all-post-types' == $disable_comments_type ) {
                 return array();
             } else {
                 return $comments;
@@ -92,7 +92,7 @@ class Disable_Comments {
         $post = get_post( $post_id );
         $current_post_type = $post->post_type;
         foreach ( $disable_comments_for as $post_type_slug => $is_post_type_checked ) {
-            if ( 'only-on' == $disable_comments_type && $current_post_type === $post_type_slug && $is_post_type_checked || 'except-on' == $disable_comments_type && $current_post_type === $post_type_slug && !$is_post_type_checked ) {
+            if ( 'only-on' == $disable_comments_type && $current_post_type === $post_type_slug && $is_post_type_checked || 'except-on' == $disable_comments_type && $current_post_type === $post_type_slug && !$is_post_type_checked || 'all-post-types' == $disable_comments_type ) {
                 return false;
             }
         }
@@ -112,7 +112,7 @@ class Disable_Comments {
         if ( is_object( $post ) && property_exists( $post, 'post_type' ) ) {
             $current_post_type = $post->post_type;
             foreach ( $disable_comments_for as $post_type_slug => $is_post_type_checked ) {
-                if ( 'only-on' == $disable_comments_type && $current_post_type === $post_type_slug && $is_post_type_checked || 'except-on' == $disable_comments_type && $current_post_type === $post_type_slug && !$is_post_type_checked ) {
+                if ( 'only-on' == $disable_comments_type && $current_post_type === $post_type_slug && $is_post_type_checked || 'except-on' == $disable_comments_type && $current_post_type === $post_type_slug && !$is_post_type_checked || 'all-post-types' == $disable_comments_type ) {
                     return 0;
                 }
             }
@@ -171,7 +171,7 @@ class Disable_Comments {
         $disable_comments_for = $options['disable_comments_for'];
         $current_post_type = get_post_type();
         foreach ( $disable_comments_for as $post_type_slug => $is_post_type_checked ) {
-            if ( 'only-on' == $disable_comments_type && $current_post_type === $post_type_slug && $is_post_type_checked || 'except-on' == $disable_comments_type && $current_post_type === $post_type_slug && !$is_post_type_checked ) {
+            if ( 'only-on' == $disable_comments_type && $current_post_type === $post_type_slug && $is_post_type_checked || 'except-on' == $disable_comments_type && $current_post_type === $post_type_slug && !$is_post_type_checked || 'all-post-types' == $disable_comments_type ) {
                 if ( is_singular() ) {
                     add_filter( 'comments_template', [$this, 'load_blank_comment_template'], 20 );
                 }

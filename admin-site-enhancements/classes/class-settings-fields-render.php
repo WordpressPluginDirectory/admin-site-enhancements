@@ -532,6 +532,7 @@ class Settings_Fields_Render {
      * @since 2.0.0
      */
     function render_sortable_menu( $args ) {
+        $triangle_right_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 16 16"><path fill="currentColor" d="M14.222 6.687a1.5 1.5 0 0 1 0 2.629l-10 5.499A1.5 1.5 0 0 1 2 13.5V2.502a1.5 1.5 0 0 1 2.223-1.314z"/></svg>';
         ?>
 			<div class="subfield-description"><?php 
         echo esc_html__( 'Drag and drop menu items to the desired position. Optionally change 3rd party plugin/theme\'s menu item titles or hide some items until toggled by clicking "Show All" at the bottom of the admin menu.', 'admin-site-enhancements' );
@@ -1037,7 +1038,7 @@ class Settings_Fields_Render {
         echo '<div class="status-item"><span class="status-item-title">GD</span> : ' . wp_kses_post( $gd_status ) . '</div>';
         echo '<div class="status-item"><span class="status-item-title">ImageMagick</span> : ' . wp_kses_post( $imagick_status ) . '</div>';
         echo '</div>';
-        echo '<div class="status-footer">' . __( 'Full AVIF support requires that your server / hosting has <a href="https://php.watch/versions/8.1/gd-avif" target="_blank">GD extension</a> compiled with AVIF support in PHP 8.1 or greater, or, <a href="https://avif.io/blog/tutorials/imagemagick/" target="_blank">ImageMagick 7.0.25 or greater</a> installed. Without either, you can still upload AVIF files but without auto-generation of the smaller thumbnail sizes. A majority of <a href="https://avif.io/blog/articles/avif-browser-support/" target="_blank">modern desktop and mobile browsers</a> support the display of AVIF files.', 'admin-site-enhancements' ) . '</div>';
+        echo '<div class="status-footer">' . __( 'Full AVIF support requires that your server / hosting has <a href="https://php.watch/versions/8.1/gd-avif" target="_blank">GD extension</a> compiled with AVIF support in PHP 8.1 or greater, or, <a href="https://web.archive.org/web/20240104012918/https://avif.io/blog/tutorials/imagemagick/" target="_blank">ImageMagick 7.0.25 or greater</a> installed. Without either, you can still upload AVIF files but without auto-generation of the smaller thumbnail sizes. A majority of <a href="https://web.archive.org/web/20231207174740/https://avif.io/blog/articles/avif-browser-support/" target="_blank">modern desktop and mobile browsers</a> support the display of AVIF files.', 'admin-site-enhancements' ) . '</div>';
         echo '</div>';
     }
 

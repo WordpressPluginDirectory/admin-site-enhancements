@@ -1850,7 +1850,7 @@ class Settings_Sections_Fields {
                         'field_id'        => $post_type_slug,
                         'field_name'      => ASENHA_SLUG_U . '[' . $field_id . '][' . $post_type_slug . ']',
                         'field_label'     => $post_type_label . ' <span class="faded">(' . $post_type_slug . ')</span>',
-                        'class'           => 'asenha-checkbox asenha-hide-th asenha-half disable-components ' . $field_slug . ' ' . $post_type_slug,
+                        'class'           => 'asenha-checkbox asenha-checkbox-item asenha-hide-th asenha-half disable-components ' . $field_slug . ' ' . $post_type_slug,
                     )
                 );
             }
@@ -1911,7 +1911,7 @@ class Settings_Sections_Fields {
                         'field_id'        => $post_type_slug,
                         'field_name'      => ASENHA_SLUG_U . '[' . $field_id . '][' . $post_type_slug . ']',
                         'field_label'     => $post_type_label . ' <span class="faded">(' . $post_type_slug . ')</span>',
-                        'class'           => 'asenha-checkbox asenha-hide-th asenha-half disable-components ' . $field_slug . ' ' . $post_type_slug,
+                        'class'           => 'asenha-checkbox asenha-checkbox-item asenha-hide-th asenha-half disable-components ' . $field_slug . ' ' . $post_type_slug,
                     )
                 );
             }

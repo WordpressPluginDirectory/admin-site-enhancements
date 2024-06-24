@@ -17,9 +17,10 @@ class Maintenance_Mode {
         $options = get_option( ASENHA_SLUG_U, array() );
         // Let's make a bypass key that is unique to each site
         $hashed_site_url = wp_hash_password( site_url() );
+        $allow_frontend_access = $this->is_user_allowed_frontend_access();
         if ( isset( $_GET['bypass'] ) && $hashed_site_url == sanitize_text_field( $_GET['bypass'] ) ) {
             // Do nothing. We want to load the page normally, which is needed when using an existing page as a maintenance page
-        } elseif ( !is_admin() && !is_login() && !current_user_can( 'manage_options' ) ) {
+        } elseif ( !is_admin() && !is_login() && !$allow_frontend_access ) {
             $maintenance_page_type = 'custom';
             // ======== Customizable maintenance page ========
             if ( 'custom' == $maintenance_page_type ) {
@@ -118,8 +119,9 @@ class Maintenance_Mode {
      */
     public function add_maintenance_mode_admin_bar_item() {
         global $wp_admin_bar;
+        $allow_frontend_access = $this->is_user_allowed_frontend_access();
         if ( is_user_logged_in() ) {
-            if ( current_user_can( 'manage_options' ) ) {
+            if ( $allow_frontend_access ) {
                 $wp_admin_bar->add_menu( array(
                     'id'    => 'maintenance_mode',
                     'title' => '',
@@ -138,8 +140,9 @@ class Maintenance_Mode {
      * @since 4.1.0
      */
     public function add_maintenance_mode_admin_bar_item_styles() {
+        $allow_frontend_access = $this->is_user_allowed_frontend_access();
         if ( is_user_logged_in() ) {
-            if ( current_user_can( 'manage_options' ) ) {
+            if ( $allow_frontend_access ) {
                 ?>
                 <style>
                     #wp-admin-bar-maintenance_mode { 
@@ -163,6 +166,19 @@ class Maintenance_Mode {
                 <?php 
             }
         }
+    }
+
+    /**
+     * Check if a user role is allowed to access the frontend
+     * 
+     * @since 6.9.3
+     */
+    public function is_user_allowed_frontend_access() {
+        $allow_frontend_access = false;
+        if ( current_user_can( 'edit_posts' ) ) {
+            $allow_frontend_access = true;
+        }
+        return $allow_frontend_access;
     }
 
 }

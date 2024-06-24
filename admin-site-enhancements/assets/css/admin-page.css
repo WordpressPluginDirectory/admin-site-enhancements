@@ -885,6 +885,10 @@ a.asenha-support-nudge-dismiss:hover,
     padding: 0;
 }
 
+.form-table .asenha-subfields .padding-left-20 td:not(.datatable-td) {
+    padding-left: 20px;
+}
+
 .form-table .asenha-toggle .asenha-radio-buttons td:not(.datatable-td) {
     display: flex;
     flex-direction: column;

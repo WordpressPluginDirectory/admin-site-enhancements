@@ -49,7 +49,7 @@ class Disable_Gutenberg {
             }
         }
         // Selectively disable Gutenberg
-        if ( 'only-on' == $disable_gutenberg_type && in_array( $post_type, $post_types_for_disable_gutenberg ) || 'except-on' == $disable_gutenberg_type && !in_array( $post_type, $post_types_for_disable_gutenberg ) ) {
+        if ( 'only-on' == $disable_gutenberg_type && in_array( $post_type, $post_types_for_disable_gutenberg ) || 'except-on' == $disable_gutenberg_type && !in_array( $post_type, $post_types_for_disable_gutenberg ) || 'all-post-types' == $disable_gutenberg_type ) {
             // For WP v5.0.0 upwards
             add_filter( 'use_block_editor_for_post_type', '__return_false', 100 );
             // If Gutenberg feature plugin is activated
@@ -128,7 +128,7 @@ class Disable_Gutenberg {
                     }
                 }
                 // Selectively disable for the selected post types
-                if ( 'only-on' == $disable_gutenberg_type && in_array( $post_type, $post_types_for_disable_gutenberg ) || 'except-on' == $disable_gutenberg_type && !in_array( $post_type, $post_types_for_disable_gutenberg ) ) {
+                if ( 'only-on' == $disable_gutenberg_type && in_array( $post_type, $post_types_for_disable_gutenberg ) || 'except-on' == $disable_gutenberg_type && !in_array( $post_type, $post_types_for_disable_gutenberg ) || 'all-post-types' == $disable_gutenberg_type ) {
                     global $wp_styles;
                     // As needed, exclude some block styles from dequeuing
                     $keep_enqueued = array();

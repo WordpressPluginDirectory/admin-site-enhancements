@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.5.4  
-Stable tag: 7.1.0  
+Stable tag: 7.1.1  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -20,9 +20,9 @@ Admin and Site Enhancements (ASE) helps you to **easily enhance** various admin 
 
 **Pro version** with Lifetime Deal (LTD) is available at [www.wpase.com](https://www.wpase.com/rdme-to-web).
 
-Here's a detailed walkthrough of ASE at v6.2.5 by Ferdy Korpershoek.
+Here's a detailed walkthrough of ASE at v7.0.3 by Pascal Claro.
 
-https://www.youtube.com/watch?v=noesMRHohVM
+https://www.youtube.com/watch?v=bX-2gmpCEMU
 
 Here's a demo of ASE Pro at v6.2.6 by David McCan.
 
@@ -103,8 +103,8 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### Disable Components
 
-* **Disable Gutenberg**. Disable the Gutenberg block editor for some or all applicable post types. Optionally disable frontend block assets. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to disable only on / except on certain post types.
-* **Disable Comments**. Disable comments for some or all public post types. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to disable only on / except on certain post types.
+* **Disable Gutenberg**. Disable the Gutenberg block editor for some or all applicable post types. Optionally disable frontend block assets. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to disable only on / except on certain post types, or on all post types.
+* **Disable Comments**. Disable comments for some or all public post types. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to disable only on / except on certain post types, or on all post types.
 * **Disable REST API**. Disable REST API access for non-authenticated users and remove URL traces from &lt;head&gt;, HTTP headers and WP RSD endpoint.
 * **Disable Feeds**. Disable all RSS, Atom and RDF feeds.
 * **Disable All Updates**. Completely disable core, theme and plugin updates and auto-updates. Will also disable update checks, notices and emails.
@@ -131,7 +131,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **Image Sizes Panel**. Display a panel showing and linking to all available sizes when viewing an image in the media library. [ASE Pro](https://www.wpase.com/rdme-to-web) adds a convenient button to copy the image URL on click.
 * **View Admin as Role**. View admin pages and the site (logged-in) as one of the non-administrator user roles.
 * **Password Protection**. Password-protect the entire site to hide the content from public view and search engine bots / crawlers. [ASE Pro](https://www.wpase.com/rdme-to-web) adds IP whitelisting and bypassing via URL parameter, and also applies design elements from the Login Page Customizer module.
-* **Maintenance Mode**. Show a simple maintenance message. [ASE Pro](https://www.wpase.com/rdme-to-web) adds option to set custom page and browser tab title, use WYSIWYG editor, use pattern, image, solid color background, apply custom CSS, and also add the option to use an existing page created with the block / classic editor or a page builder as the maintenance page.
+* **Maintenance Mode**. Show a simple maintenance message. [ASE Pro](https://www.wpase.com/rdme-to-web) adds option to set custom page and browser tab title, use WYSIWYG editor, use pattern, image, solid color background, apply custom CSS, and also add the option to use an existing page created with the block / classic editor or a page builder as the maintenance page. It also adds an option to allow non-admins to access the frontend.
 * **Redirect 404**. Perform 301 (permanent) redirect to the homepage for all 404 (not found) pages. [ASE Pro](https://www.wpase.com/rdme-to-web) adds option to set custom redirect URL.
 * **Display System Summary**. Show web server software, PHP version, database software and server IP address in the "At a Glance" dashboard widget. [ASE Pro](https://www.wpase.com/rdme-to-web) also shows the size of the site, database and root, wp-content, plugins, themes and upload folders.
 * **Search Engines Visibility Status**. Show admin bar status and admin notice when search engines are set to be discouraged from indexing the site. [ASE Pro](https://www.wpase.com/rdme-to-web) adds a way to prevent dev / staging sites from having search engine visibility enabled.
@@ -181,29 +181,39 @@ You can skip step 1 and 2 if you still have access to your wp-admin dashboard.
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **71 _point_ releases** (e.g. 1.1.0 ) and **102 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **71 _point_ releases** (e.g. 1.1.0 ) and **103 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
-### 7.1.0 (2024.06.17) - ASE Free and Pro
+### 7.1.1 (2024.06.17) - ASE Free and Pro
 
-* **[IMPROVED in Pro] Utilities >> Email Delivery**: added an option to enable logging of email deliveries. Props to Francois G. and Jonathan L. for suggesting this.
+* **[IMPROVED in Pro] Utilities >> Email Delivery**: add option to set the number of most recent email delivery log entries to keep. This should prevent database bloat when logging is enabled.
 
-* **[IMPROVED in Pro] Log In | Log Out >> Login Page Customizer**: added an option to hide the "Remember Me" checkbox. Props to Markus R. for the suggestion.
+* **[IMPROVED in Pro] Utilities >> Maintenance Mode**: add option to allow frontend access for non-administrator role(s). Props to Jan W. for suggesting the improvement.
 
-* **[FIXED in Free] Utilities >> Maintenance Mode**: fix missing background image/pattern after update to v7.0.3. Props to [@arj968653](https://wordpress.org/support/users/arj968653/) for [reporting this](https://wordpress.org/support/topic/maintenance-mode-background-not-shown/) in detail.
+* **[IMPROVED in Pro] Disable Components >> Disable Gutenberg & Disable Comments**: add an option to "Disable on all post types". Props to PJ for suggesting the improvement.
 
-* **[FIXED in Free] Security >> Email Address Obfuscator**: fix obfuscated email address not properly inlined in certain scenarios, e.g. used inside Elementor Text Editor widget. Props to [@lostguybrazil](https://wordpress.org/support/users/lostguybrazil/) for [reporting this](https://wordpress.org/support/topic/email-address-obfuscator-email-always-on-its-own-line/) with detailed explanation, screenshots and also proposing a working solution!... which was applied on this fix.
+* **[CHANGED in Pro] Log In | Log Out >> Site Identity on the Login Page**: this module is now disabled in the Pro version as it's features are included in the Login Page Customizer module.
 
-* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fixed fatal error in a particular scenario involving the RWMB_Core class. Props to Kenneth S. for reporting the issue complete with the error log details.
+* **[FIXED / IMPROVED in Pro] Admin Interface >> Admin Menu Organizer**: 
+  * fixed a JS error preventing the module to work properly when WP Activity Log plugin is active. Props to @admin_truemarket for reporting the issue.
+  * replaced triangle HTML symbol with SVG icon to prevent styling from being affected by emoji script.
+  
+* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: trying to open /wp-admin/profile.php while not being logged-in will no longer redirect to the custom login URL. Props to Orlando M. for reporting the issue.
 
-* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fixed an issue where JS error occurs when certain plugins uses a star icon in it's subemnu title.
+* **[FIXED in Free and Pro] Content Management >> AVIF Upload**: fix broken links in the module description. Props to [@jlop77](https://wordpress.org/support/users/jlop77/) for [reporting](https://wordpress.org/support/topic/%e2%98%a0%ef%b8%8f-is-this-a-security-bug-it-redirects-me-to-a-strange-page/) the issue.
 
-* **[TRANSLATION]** ASE is now translated into 17 languages:
+* **[FIXED in Free and Pro] Admin Interface >> Hide Admin Notices**:
+  * Fix an issue where WPML WooCommerce Multilingual & Multicurrency plugin's Setup Wizard was hidden. Props to [@ignasr](https://wordpress.org/support/users/ignasr/) for [reporting](https://wordpress.org/support/topic/incompatability-with-wpml/) the issue.
+  * Fix an issue where notices are not being hidden in FunnelKit Funnel Builder plugin's Licenses screen. Props to Simon L. for reporting this.
+  
+* **[FIXED in Free and Pro] Content Management >> SVG Upload**: fixed a plugin conflict issue with SVG Block plugin, and in general, with any other plugin that uses the \enshrined\svgSanitize\Sanitizer class in their code. Props to [@jlop77](https://wordpress.org/support/users/jlop77/) for [reporting](https://wordpress.org/support/topic/svg-issues-3/) the issue and narrowing it down to a conflict with SVG Block plugin and even reported the incidence on [their support forum](https://wordpress.org/support/topic/conflict-with-ase-plugin/). So very helpful!
+
+* **[TRANSLATION]** Spanish translation added (complete)! ASE is now translated into 18 languages:
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/).
-  * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/).
+  * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/), [denisgomesfranco](https://profiles.wordpress.org/denisgomesfranco/), [Denison C.](https://profiles.wordpress.org/denisoncarlos/) and [@ofmarconi](https://profiles.wordpress.org/ofmarconi/).
   * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/).
   * **Vietnamese**: ASE Free and Pro (completed). Props to [Hoang N.Q.](https://profiles.wordpress.org/nguyenquanghoang/).
   * **Italian**: ASE Free and Pro (completed). Props to [Fabio P.](https://profiles.wordpress.org/fabioperri/) et. al.
@@ -213,15 +223,16 @@ Each **_point release_** usually corresponds with the addition of one new module
   * **French**: ASE Free and Pro (completed). Props to [Stéphan G.](https://profiles.wordpress.org/gongonzo/), [@jeanfrancoisdelvin](https://profiles.wordpress.org/jeanfrancoisdelvin/), [@srossignol](https://profiles.wordpress.org/srossignol/), [@lucashw](https://profiles.wordpress.org/lucashw/), [@skippy43](https://profiles.wordpress.org/skippy43/), [@anlip](https://profiles.wordpress.org/anlip/), [@agencefacton](https://profiles.wordpress.org/agencefacton/), [@injsbx](https://profiles.wordpress.org/injsbx/) et al.
   * **Polish**: ASE Free and Pro (completed). Props to [@kosmity](https://profiles.wordpress.org/kosmity/) and [Dariusz Z.](https://profiles.wordpress.org/dariobros/).
   * **Norwegian**: ASE Free and Pro (completed). Props to [Alf O.F.](https://profiles.wordpress.org/skoen/).
-  * **Czech**: ASE Free and Pro (completed). Props to Jan S..
+  * **Czech**: ASE Free and Pro (completed). Props to Jan S.
+  * **Spanish**: ASE Free and Pro (completed). Props to [@marcorubiol](https://profiles.wordpress.org/marcorubiol/).
   * **Portuguese (Portugal)**: ASE Free (completed) | ASE Pro (partial). Props to [Ricardo C.](https://profiles.wordpress.org/madebyuh/).
   * **Ukrainian**: ASE Free (completed) | ASE Pro (partial). Props to [Irina](https://profiles.wordpress.org/irinashl/).
   * **Urdu**: ASE Free (completed) | ASE Pro (partial). Props to [Ayyaz A.](https://profiles.wordpress.org/ayyazahmad/).
   * **Swedish**: ASE Free (completed) | ASE Pro (partial). Props to [Robert M.](https://profiles.wordpress.org/robertmichalski/) and [Tor-Bjorn F.](https://profiles.wordpress.org/tobifjellner/).
   * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/).
   * **Translation updates**: added new/improved translation for:
-    * ASE Free: Danish, Hungarian, Italian, Norwegian, Dutch, Swedish
-    * ASE Pro: Chinese, Czech, Danish
+    * ASE Free: Spanish, French, Hungarian, Italian, Norwegian, Dutch, Polish, Brazilian Portuguese, Ukraininan and Vietnamese
+    * ASE Pro: Spanish, Hungarian, Brazilian Portuguese
   * **More strings** have been internationalized. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
 
