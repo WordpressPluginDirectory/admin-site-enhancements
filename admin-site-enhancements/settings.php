@@ -6,13 +6,19 @@
  * @since 6.4.1
  */
 if ( false === get_option( ASENHA_SLUG_U ) ) {
-    add_option( ASENHA_SLUG_U, array() );
+    add_option( ASENHA_SLUG_U, array(), true );
 }
 if ( false === get_option( ASENHA_SLUG_U . '_stats' ) ) {
-    add_option( ASENHA_SLUG_U . '_stats', array() );
+    add_option( ASENHA_SLUG_U . '_stats', array(), false );
 }
 if ( false === get_option( ASENHA_SLUG_U . '_extra' ) ) {
-    add_option( ASENHA_SLUG_U . '_extra', array() );
+    add_option( ASENHA_SLUG_U . '_extra', array(), true );
+}
+// Bugfix in v7.1.2 for Custom Content Type module
+$options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
+if ( !isset( $options_extra['cfgroup_next_field_id'] ) ) {
+    $options_extra['cfgroup_next_field_id'] = 1;
+    update_option( ASENHA_SLUG_U . '_extra', $options_extra, true );
 }
 /**
  * Register admin menu
@@ -339,7 +345,7 @@ function asenha_add_settings_page() {
             $save_count++;
             $asenha_stats['save_count'] = $save_count;
         }
-        update_option( ASENHA_SLUG_U . '_stats', $asenha_stats );
+        update_option( ASENHA_SLUG_U . '_stats', $asenha_stats, false );
     }
 }
 
@@ -797,14 +803,14 @@ function asenha_admin_scripts(  $hook_suffix  ) {
                 if ( $show_support_nudge && $save_count_modulo >= 0 ) {
                     $asenha_stats['support_nudge_last_shown_date'] = $current_date;
                     $asenha_stats['support_nudge_last_shown_save_count'] = $save_count;
-                    update_option( ASENHA_SLUG_U . '_stats', $asenha_stats );
+                    update_option( ASENHA_SLUG_U . '_stats', $asenha_stats, false );
                 }
             } else {
                 if ( $save_count_modulo == 0 ) {
                     $support_nudge_last_shown_save_count = ( isset( $asenha_stats['support_nudge_last_shown_save_count'] ) ? $asenha_stats['support_nudge_last_shown_save_count'] : 0 );
                     if ( $save_count > $support_nudge_last_shown_save_count ) {
                         $asenha_stats['support_nudge_dismissed'] = false;
-                        update_option( ASENHA_SLUG_U . '_stats', $asenha_stats );
+                        update_option( ASENHA_SLUG_U . '_stats', $asenha_stats, false );
                         $show_support_nudge = true;
                     } else {
                         $show_support_nudge = false;
@@ -977,7 +983,7 @@ function asenha_have_supported() {
         $asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
         $asenha_stats['have_supported'] = true;
         $asenha_stats['support_nudge_dismissed'] = true;
-        $success = update_option( ASENHA_SLUG_U . '_stats', $asenha_stats );
+        $success = update_option( ASENHA_SLUG_U . '_stats', $asenha_stats, false );
         if ( $success ) {
             echo json_encode( array(
                 'success' => true,
@@ -999,7 +1005,7 @@ function asenha_dismiss_upgrade_nudge() {
     if ( isset( $_REQUEST ) ) {
         $asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
         $asenha_stats['upgrade_nudge_dismissed'] = true;
-        $success = update_option( ASENHA_SLUG_U . '_stats', $asenha_stats );
+        $success = update_option( ASENHA_SLUG_U . '_stats', $asenha_stats, false );
         if ( $success ) {
             echo json_encode( array(
                 'success' => true,
@@ -1021,7 +1027,7 @@ function asenha_dismiss_support_nudge() {
     if ( isset( $_REQUEST ) ) {
         $asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
         $asenha_stats['support_nudge_dismissed'] = true;
-        $success = update_option( ASENHA_SLUG_U . '_stats', $asenha_stats );
+        $success = update_option( ASENHA_SLUG_U . '_stats', $asenha_stats, false );
         if ( $success ) {
             echo json_encode( array(
                 'success' => true,

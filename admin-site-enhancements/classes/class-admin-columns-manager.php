@@ -90,7 +90,7 @@ class Admin_Columns_Manager {
         asort( $available_columns );
         $options = get_option( ASENHA_SLUG_U . '_extra', array() );
         $options['admin_columns_available'][$post_type] = $available_columns;
-        update_option( ASENHA_SLUG_U . '_extra', $options );
+        update_option( ASENHA_SLUG_U . '_extra', $options, true );
         return $available_columns;
     }
 

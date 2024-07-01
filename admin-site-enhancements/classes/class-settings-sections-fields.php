@@ -630,7 +630,7 @@ class Settings_Sections_Fields {
             $disable_dashboard_widgets = new Disable_Dashboard_Widgets();
             $dashboard_widgets = $disable_dashboard_widgets->get_dashboard_widgets();
             $options_extra['dashboard_widgets'] = $dashboard_widgets;
-            update_option( 'admin_site_enhancements_extra', $options_extra );
+            update_option( ASENHA_SLUG_U . '_extra', $options_extra, true );
         }
         foreach ( $dashboard_widgets as $widget ) {
             add_settings_field(

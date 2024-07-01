@@ -126,7 +126,7 @@ class Hide_Admin_Notices {
                 #wpbody-content .notice-updated,
                 #wpbody-content .updated:not(.active, .inactive, .plugin-update-tr),
                 #wpbody-content .update-nag, */
-                #wpbody-content > .wrap > .notice:not(#plugin-activated-successfully,.system-notice,.hidden,),
+                #wpbody-content > .wrap > .notice:not(#plugin-activated-successfully,.system-notice,.hidden),
                 #wpbody-content > .wrap > .notice-error,
                 #wpbody-content > .wrap > .error:not(.hidden),
                 #wpbody-content > .wrap > .notice-info,

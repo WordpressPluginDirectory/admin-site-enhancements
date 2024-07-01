@@ -249,7 +249,7 @@ class View_Admin_As_Role {
                 
                 // Store current user's username in options
                 $options['viewing_admin_as_role_are'][] = $current_user_username;
-                update_option( ASENHA_SLUG_U, $options );
+                update_option( ASENHA_SLUG_U, $options, true );
                 
                 // Remove all current roles from current user.
                 foreach ( $current_user_role_slugs as $current_user_role_slug ) {
@@ -313,7 +313,7 @@ class View_Admin_As_Role {
                     }
                 }
                 $options['viewing_admin_as_role_are'] = $usernames;
-                update_option( ASENHA_SLUG_U, $options );
+                update_option( ASENHA_SLUG_U, $options, true );
 
                 // Mark that the user has switched back to an administrator role
                 update_user_meta( get_current_user_id(), '_asenha_viewing_admin_as', 'administrator' );
@@ -361,7 +361,7 @@ class View_Admin_As_Role {
                         }
                     }
                     $options['viewing_admin_as_role_are'] = $usernames;
-                    update_option( ASENHA_SLUG_U, $options );
+                    update_option( ASENHA_SLUG_U, $options, true );
 
                     // Redirect to login URL, including when custom login slug is set and active
                     if ( array_key_exists( 'change_login_url', $options ) && $options['change_login_url'] ) {

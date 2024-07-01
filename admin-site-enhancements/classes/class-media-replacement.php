@@ -180,7 +180,7 @@ class Media_Replacement {
             $recently_replaced_media[] = $old_attachment_id;
             $recently_replaced_media = array_unique( $recently_replaced_media );
             $options_extra['recently_replaced_media'] = $recently_replaced_media;
-            update_option( 'admin_site_enhancements_extra', $options_extra );
+            update_option( ASENHA_SLUG_U . '_extra', $options_extra, true );
 
         }
 

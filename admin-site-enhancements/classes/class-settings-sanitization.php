@@ -26,7 +26,7 @@ class Settings_Sanitization {
         $roles = $wp_roles->get_names();
         $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
         if ( false === $options_extra ) {
-            add_option( ASENHA_SLUG_U . '_extra', array() );
+            add_option( ASENHA_SLUG_U . '_extra', array(), true );
         }
         // Content Duplication
         if ( !isset( $options['enable_duplication'] ) ) {
@@ -409,7 +409,7 @@ class Settings_Sanitization {
                     $robots_txt_backup_filename = 'robots_backup_' . date( 'Y_m_d__H_i', time() ) . '.txt';
                     $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
                     $options_extra['robots_txt_backup_file_name'] = $robots_txt_backup_filename;
-                    update_option( ASENHA_SLUG_U . '_extra', $options_extra );
+                    update_option( ASENHA_SLUG_U . '_extra', $options_extra, true );
                     rename( ABSPATH . 'robots.txt', ABSPATH . $robots_txt_backup_filename );
                 } elseif ( 'on' != $options['manage_robots_txt'] ) {
                     $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );

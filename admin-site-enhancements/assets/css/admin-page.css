@@ -912,6 +912,10 @@ a.asenha-support-nudge-dismiss:hover,
     top: -2px;
 }
 
+.form-table .asenha-subfields .with-description td:not(.datatable-td) label.asenha-subfield-checkbox-label {
+    top: 0;
+}
+
 .form-table .asenha-subfields .bold-label td:not(.datatable-td) label {
     font-weight: 600;
 }
@@ -1005,6 +1009,12 @@ a.asenha-support-nudge-dismiss:hover,
 .form-table .asenha-toggle .asenha-radio-buttons.with-prefix-suffix td:not(.datatable-td) {
     display: flex;
     align-items: center;
+}
+
+.form-table .asenha-toggle .asenha-text.with-description td:not(.datatable-td) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .form-table .asenha-toggle .margin-bottom-4 {

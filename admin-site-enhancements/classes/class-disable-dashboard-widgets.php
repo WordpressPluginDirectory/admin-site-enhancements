@@ -26,7 +26,7 @@ class Disable_Dashboard_Widgets {
         $dashboard_widgets = $this->get_dashboard_widgets();
         $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
         $options_extra['dashboard_widgets'] = $dashboard_widgets;
-        update_option( 'admin_site_enhancements_extra', $options_extra );
+        update_option( ASENHA_SLUG_U . '_extra', $options_extra, true );
 
         // Disable widgets
         if ( is_array( $disabled_dashboard_widgets ) || is_object( $disabled_dashboard_widgets ) ) {

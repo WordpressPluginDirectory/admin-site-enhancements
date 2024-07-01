@@ -591,6 +591,7 @@
       subfieldsToggler( 'enable_custom_body_class', 'enable-custom-body-class' );
       subfieldsToggler( 'manage_ads_appads_txt', 'manage-ads-appads-txt', '', {adsTxtEditor,appAdsTxtEditor} );
       subfieldsToggler( 'manage_robots_txt', 'manage-robots-txt', '', {robotsTxtEditor} );
+      
       subfieldsToggler( 'disable_gutenberg', 'disable-gutenberg' );
       subfieldsToggler( 'disable_comments', 'disable-comments' );
       subfieldsToggler( 'disable_smaller_components', 'disable-smaller-components' );

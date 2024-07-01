@@ -4,8 +4,8 @@ Contributors: qriouslad
 Donate link: https://bowo.io/asenha-sp-rdm  
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
-Tested up to: 6.5.4  
-Stable tag: 7.1.1  
+Tested up to: 6.5.5  
+Stable tag: 7.1.2  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -83,7 +83,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### Log In / Log Out
 
-* **Change Login URL**. Make the login URL more memorable and secure by customizing it. [ASE Pro](https://www.wpase.com/rdme-to-web) adds compatibility with login process during WooCommerce checkout and custom 404 redirect on default login URLs.
+* **Change Login URL**. Make the login URL more memorable and secure by customizing it. [ASE Pro](https://www.wpase.com/rdme-to-web) adds compatibility with login process in WooCommerce pages, i.e. account and checkout, and custom 404 redirect on default login URLs.
 * **Login ID Type**. Restrict login ID to username or email address only.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Login Page Customizer**. Easily customize the design of the login page.
 * **Site Identity on Login Page**. Use the site icon and URL to replace the default WordPress logo with link to wordpress.org on the login page.
@@ -125,7 +125,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### Utilities
 
-* **Email Delivery**. Set custom sender name and email. Optionally use external SMTP service to ensure notification and transactional emails from your site are being delivered to inboxes. [ASE Pro](https://www.wpase.com/rdme-to-web) adds the option to specify a custom reply-to name and email and the option to log email delivery.
+* **Email Delivery**. Set custom sender name and email. Optionally use external SMTP service to ensure notification and transactional emails from your site are being delivered to inboxes. [ASE Pro](https://www.wpase.com/rdme-to-web) adds the option to specify a custom reply-to name and email, Bcc address(es) and the option to log email delivery.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Local User Avatar**. Enable usage of any image from WordPress Media Library as user avatars.
 * **Multiple User Roles**. Enable assignment of multiple roles during user account creation and editing.
 * **Image Sizes Panel**. Display a panel showing and linking to all available sizes when viewing an image in the media library. [ASE Pro](https://www.wpase.com/rdme-to-web) adds a convenient button to copy the image URL on click.
@@ -181,37 +181,31 @@ You can skip step 1 and 2 if you still have access to your wp-admin dashboard.
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **71 _point_ releases** (e.g. 1.1.0 ) and **103 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **71 _point_ releases** (e.g. 1.1.0 ) and **104 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
-### 7.1.1 (2024.06.17) - ASE Free and Pro
+### 7.1.2 (2024.07.01) - ASE Free and Pro
 
-* **[IMPROVED in Pro] Utilities >> Email Delivery**: add option to set the number of most recent email delivery log entries to keep. This should prevent database bloat when logging is enabled.
+* **[IMPROVED in Pro] Utilities >> Email Delivery**: add option to set Bcc email address(es). Props to Gerold H. for suggesting this.
 
-* **[IMPROVED in Pro] Utilities >> Maintenance Mode**: add option to allow frontend access for non-administrator role(s). Props to Jan W. for suggesting the improvement.
+* **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**: add description on finding the Code Snippets menu item once the module is enabled.
 
-* **[IMPROVED in Pro] Disable Components >> Disable Gutenberg & Disable Comments**: add an option to "Disable on all post types". Props to PJ for suggesting the improvement.
+* **[CHANGED in Free and Pro] ASE Settings**: ASE will explicitlly autoload two of the options it creates in wp_options in anticipation of upcoming [changes in WP v6.6](https://make.wordpress.org/core/2024/06/18/options-api-disabling-autoload-for-large-options/).
 
-* **[CHANGED in Pro] Log In | Log Out >> Site Identity on the Login Page**: this module is now disabled in the Pro version as it's features are included in the Login Page Customizer module.
+* **[IMPROVED in Pro] Log In | Log Out >> Change Login URL**: when failing to login on WooCommerce My Account page, you'll no longer be redirected to the custom login URL, thus revealing it's location, but will remain on the My Account page with an error message shown there. Props to Gustavo F. for reporting the issue in great detail.
 
-* **[FIXED / IMPROVED in Pro] Admin Interface >> Admin Menu Organizer**: 
-  * fixed a JS error preventing the module to work properly when WP Activity Log plugin is active. Props to @admin_truemarket for reporting the issue.
-  * replaced triangle HTML symbol with SVG icon to prevent styling from being affected by emoji script.
+* **[FIXED in Free and Pro] Admin Interface >> Hide Admin Notices**: fixed briefly flashing notices issue that crept into v7.1.1 release. Props to Justin for noticing and taking the time to open a support ticket to quickly report it.
+
+* **[FIXED in Free and Pro] Admin Interface >> Admin Menu Organizer**: fixed fatal error in a certain scenario. Props to Ralf L. for reporting the issue and proposing the code fix.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: 
+  * fixed an issue where on a fresh install, the **first custom field being added and saved would go missing** upon adding and saving a second one in a custom field group. Props to Michael S. for finding the bug and reporting the steps to re-create the bug reliably, which helps in troubleshooting it.
+  * fixed an issue with **Breakdance integration** where using the **Post Content** element in a Single Post template causes HTTP 500 error. Props to Alexandre M. for performing a thorough test to confirm the bug and recording a detailed screencast to prove it. Props to Darren L. and Henry R. for reporting a similar issue and helping with troubleshooting and testing the fix. If you've been using Template Content Area, you can now switch to Post Content if you need to.
   
-* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: trying to open /wp-admin/profile.php while not being logged-in will no longer redirect to the custom login URL. Props to Orlando M. for reporting the issue.
-
-* **[FIXED in Free and Pro] Content Management >> AVIF Upload**: fix broken links in the module description. Props to [@jlop77](https://wordpress.org/support/users/jlop77/) for [reporting](https://wordpress.org/support/topic/%e2%98%a0%ef%b8%8f-is-this-a-security-bug-it-redirects-me-to-a-strange-page/) the issue.
-
-* **[FIXED in Free and Pro] Admin Interface >> Hide Admin Notices**:
-  * Fix an issue where WPML WooCommerce Multilingual & Multicurrency plugin's Setup Wizard was hidden. Props to [@ignasr](https://wordpress.org/support/users/ignasr/) for [reporting](https://wordpress.org/support/topic/incompatability-with-wpml/) the issue.
-  * Fix an issue where notices are not being hidden in FunnelKit Funnel Builder plugin's Licenses screen. Props to Simon L. for reporting this.
-  
-* **[FIXED in Free and Pro] Content Management >> SVG Upload**: fixed a plugin conflict issue with SVG Block plugin, and in general, with any other plugin that uses the \enshrined\svgSanitize\Sanitizer class in their code. Props to [@jlop77](https://wordpress.org/support/users/jlop77/) for [reporting](https://wordpress.org/support/topic/svg-issues-3/) the issue and narrowing it down to a conflict with SVG Block plugin and even reported the incidence on [their support forum](https://wordpress.org/support/topic/conflict-with-ase-plugin/). So very helpful!
-
-* **[TRANSLATION]** Spanish translation added (complete)! ASE is now translated into 18 languages:
+* **[TRANSLATION in Free and Pro]** ASE is now translated into 18 languages:
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/).
   * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/), [denisgomesfranco](https://profiles.wordpress.org/denisgomesfranco/), [Denison C.](https://profiles.wordpress.org/denisoncarlos/) and [@ofmarconi](https://profiles.wordpress.org/ofmarconi/).
   * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/).
@@ -231,8 +225,7 @@ Each **_point release_** usually corresponds with the addition of one new module
   * **Swedish**: ASE Free (completed) | ASE Pro (partial). Props to [Robert M.](https://profiles.wordpress.org/robertmichalski/) and [Tor-Bjorn F.](https://profiles.wordpress.org/tobifjellner/).
   * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/).
   * **Translation updates**: added new/improved translation for:
-    * ASE Free: Spanish, French, Hungarian, Italian, Norwegian, Dutch, Polish, Brazilian Portuguese, Ukraininan and Vietnamese
-    * ASE Pro: Spanish, Hungarian, Brazilian Portuguese
+    * ASE Free: Hungarian, Dutch, Swedish, Ukrainian, Chinese
   * **More strings** have been internationalized. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
 
