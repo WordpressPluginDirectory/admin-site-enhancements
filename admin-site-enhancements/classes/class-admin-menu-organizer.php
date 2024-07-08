@@ -94,10 +94,13 @@ class Admin_Menu_Organizer {
     public function get_posts_custom_title() {
         $post_object = get_post_type_object( 'post' );
         // object
-        if ( property_exists( $post_object, 'label' ) ) {
-            $posts_default_title = $post_object->label;
-        } else {
-            $posts_default_title = $post_object->labels->name;
+        $posts_default_title = '';
+        if ( is_object( $post_object ) ) {
+            if ( property_exists( $post_object, 'label' ) ) {
+                $posts_default_title = $post_object->label;
+            } else {
+                $posts_default_title = $post_object->labels->name;
+            }
         }
         $posts_custom_title = $posts_default_title;
         $options = get_option( ASENHA_SLUG_U );

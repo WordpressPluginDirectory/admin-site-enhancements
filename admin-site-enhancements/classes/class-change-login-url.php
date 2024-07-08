@@ -166,7 +166,8 @@ class Change_Login_URL {
                 'wp-admin',
                 'login',
                 'wp-login',
-                'wp-login.php'
+                'wp-login.php',
+                'login.php'
             ) ) && (!isset( $url_input_parts[2] ) || isset( $url_input_parts[2] ) && empty( $url_input_parts[2] ) || isset( $url_input_parts[2] ) && false !== strpos( $url_input_parts[2], '.php' )) ) {
                 // Redirect to /not_found/ or custom redirect slug
                 wp_safe_redirect( home_url( $redirect_slug . '/' ), 302 );

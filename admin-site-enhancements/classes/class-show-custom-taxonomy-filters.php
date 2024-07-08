@@ -47,8 +47,15 @@ class Show_Custom_Taxonomy_Filters {
      * @since 6.9.7
      */
     public function render_additional_filter( $taxonomy ) {
+        $show_option_all_label = sprintf( 'All %s', ucwords( $taxonomy->label ) );
+        if ( property_exists( $taxonomy, 'labels' ) ) {
+            $taxonomy_labels = $taxonomy->labels;
+            if ( property_exists( $taxonomy_labels, 'all_items' ) && !empty( $taxonomy_labels->all_items ) ) {
+                $show_option_all_label = $taxonomy->labels->all_items;
+            }
+        }
         wp_dropdown_categories( array(
-            'show_option_all' => sprintf( 'All %s', ucwords( $taxonomy->label ) ),
+            'show_option_all' => $show_option_all_label,
             'orderby'         => 'name',
             'order'           => 'ASC',
             'hide_empty'      => false,
