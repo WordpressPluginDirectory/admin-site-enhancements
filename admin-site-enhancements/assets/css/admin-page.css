@@ -334,6 +334,10 @@ p.nudge-description.nudge-closing {
     border-color: var(--ase-accent-grey-dark);
     transition: .1s;
 }
+.rtl .button.button-outline {
+    margin-right: 0;
+    margin-left: 16px;
+}
 
 .button.button-outline:hover {
     color: #fff;
@@ -449,6 +453,11 @@ a.asenha-support-nudge-dismiss:hover,
     border-radius: 4px;
 }
 
+.rtl .asenha-icon {
+    margin-right: 0;
+    margin-left: 8px;    
+}
+
 .wrap h1.asenha-heading {
     font-size: 1.5em;
     line-height: 26px;
@@ -479,6 +488,11 @@ a.asenha-support-nudge-dismiss:hover,
 .asenha-header-action svg {
     margin-right: 4px;
     transition: .25s;
+}
+
+.rtl .asenha-header-action svg {
+    margin-right: 0;
+    margin-left: 4px;    
 }
 
 .asenha-header-action:first-child {
@@ -644,6 +658,10 @@ a.asenha-support-nudge-dismiss:hover,
   transition: background 0.2s ease-in-out;
   text-indent: calc( var(--toggleWidth) + 10px);
 }
+.rtl .asenha-field-checkbox + label {
+  margin-right: 0;
+  margin-left: 8px;    
+}
 .asenha-field-checkbox + label:after {
   content: "";
   background: #fff;
@@ -675,6 +693,11 @@ a.asenha-support-nudge-dismiss:hover,
 .asenha-tab-buttons {
     background: #fff;
     border-right: 1px solid #ccd0d4;
+}
+
+.rtl .asenha-tab-buttons {
+    border-right: none;
+    border-left: 1px solid #ccd0d4;    
 }
 
 .asenha-tab-buttons {
@@ -729,8 +752,18 @@ a.asenha-support-nudge-dismiss:hover,
     background: var(--ase-accent);
 }
 
+.rtl .asenha-tab-buttons > input:checked + label:before {
+    left: unset;
+    right: 0;    
+}
+
 .asenha-tab-buttons > label svg {
     margin-right: 6px;
+}
+
+.rtl .asenha-tab-buttons > label svg {
+    margin-right: 0;
+    margin-left: 6px;    
 }
 
 .asenha-tab-contents > section {
@@ -788,6 +821,10 @@ a.asenha-support-nudge-dismiss:hover,
     cursor: pointer;
     z-index: 3;
     transition: .25s;
+}
+.rtl .is-enabled .show-more-less {
+    left: unset;
+    right: 0;
 }
 
 .is-enabled .show-more-less:active,
@@ -925,6 +962,10 @@ a.asenha-support-nudge-dismiss:hover,
 
 .form-table .asenha-subfields .asenha-radio-buttons td:not(.datatable-td) label {
     margin-right: 12px;
+}
+.rtl .form-table .asenha-subfields .asenha-radio-buttons td:not(.datatable-td) label {
+    margin-right: 0;
+    margin-left: 12px;
 }
 
 .asenha-subfields .vspacer {
@@ -1331,6 +1372,9 @@ a.asenha-support-nudge-dismiss:hover,
     align-items: center;
     margin-right: 0;
     line-height: 30px;
+}
+.rtl .custom-menu-order .menu-item-handle .item-title {
+    
 }
 
 .custom-menu-order .menu-item-handle .item-title .menu-item-title a {

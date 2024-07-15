@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.5.5  
-Stable tag: 7.1.3  
+Stable tag: 7.1.4  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -20,7 +20,7 @@ Admin and Site Enhancements (ASE) helps you to **easily enhance** various admin 
 
 **Pro version** with Lifetime Deal (LTD) is available at [www.wpase.com](https://www.wpase.com/rdme-to-web).
 
-Here's a detailed walkthrough of ASE at v7.0.3 by Pascal Claro.
+Here's a detailed walkthrough of ASE Free at v7.0.3 by Pascal Claro.
 
 https://www.youtube.com/watch?v=bX-2gmpCEMU
 
@@ -49,7 +49,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### Content Management
 
-* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Custom Content Types**. Conveniently register and edit custom post types (CPT), custom taxonomies, custom field groups and options pages that integrates with Bricks, Breakdance, Oxygen and Elementor. This an alternative for ACF Pro, Meta Box, Toolset, Pods or JetEngine.
+* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Custom Content Types**. Conveniently register and edit custom post types (CPT), custom taxonomies, custom field groups and options pages that integrates with Bricks, Breakdance, Oxygen and Elementor. This is an alternative for ACF Pro, Meta Box, Toolset, Pods or JetEngine.
 * **Content Duplication**. One-click duplication of pages, posts and CPTs. [ASE Pro](https://www.wpase.com/rdme-to-web) enables duplication only for certain user roles and post types, and adds location option for duplication link.
 * **Content Order**. Enable custom ordering of various post types that are hierarchical or support page attributes, in wp-admin. [ASE Pro](https://www.wpase.com/rdme-to-web) enables ordering of post types that are non-hierarchical and does not support page attributes, including media / attachments. It also enable toggling taxonomy terms and / or excerpt on the ordering page and applying the custom order on the frontend.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Terms Order**. Enable custom ordering of terms from various taxonomies in wp-admin and on the frontend.
@@ -185,21 +185,27 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **71 _point_ releases** (e.g. 1.1.0 ) and **105 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **71 _point_ releases** (e.g. 1.1.0 ) and **106 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
-### 7.1.3 (2024.07.08) - ASE Free and Pro
+### 7.1.4 (2024.07.15) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Admin Interface >> Show Custom Taxonomy Filters**: when set, will now use `$taxonomy->labels->all_items` instead of "All {post type plural label)" where "All" is hardcoded, albeit still internationalized. Props to [@jpagano](https://wordpress.org/support/users/jpagano/) for [suggesting this](https://wordpress.org/support/topic/use-taxonomy-labels-all_items-in-the-custom-taxonomy-filter-all-option/).
+* **[MILESTONE] ASE Free just reached [100,000 active installs](https://wordpress.org/plugins/admin-site-enhancements/advanced/)!** If you've been enjoying using ASE on your site(s), please consider writing [a quick 5-star review](https://wordpress.org/plugins/admin-site-enhancements/#reviews). Thank you!
 
-* **[IMPROVED in Pro] Utilities >> Email Delivery >> Email Delivery Log** added a feature to resend emails that failed during delivery attempt. You can also specify a different destination email, e.g. useful when, for example, there's a typo in the original destination email. Props to Mathijs V.D.B. for suggesting the improvement.
+* **[IMPROVED in Pro] Utilities >> Search Engines Visibility Status**: will now automatically strip the trailing slash in the live / production site's URL added in the module's settings. This prevents "Settings >> Reading >> Discourage search engines from indexing this site" from being auto re-cchecked on the live / production site, when a trailing slash is included in the module's settings. Props to Henry R. for testing and reporting the issue in detail.
 
-* **[IMPROVED in Pro] Log In | Log Out >> Login Page Customizer**: if numeric values are entered in the logo width and height settings, the 'px' unit will be automatically added upon saving changes. This will prevent the logo from showing up in the default 84x84 pixels. Props to Matt B. for prompting the improvement.
+* **[IMPROVED in Pro] Content Management >> Media Categories**: fixed an issue where the Screen Options tab is not clickable. Props to Steven Y. for reporting the issue and suggesting a fix for it.
+
+* **[IMPROVED in Pro] Utilities >> Email Delivery >> Email Delivery Log**: 
+  * Make the Resend button / feature available for entries with 'Successful' status as well. Props to Mathijs V.D.B. for the suggestion.
+  * Added feature to **delete individual log entries** and to **clear the whole log**. Props to Francois G. for suggesting this feature.
+
+* **[FIXED in Free and Pro] ASE Settings**: layout fixes for RTL languages, e.g. Arabic.
   
-* **[TRANSLATION in Free and Pro]** Added Arabic translation. ASE is now translated into 19 languages:
+* **[TRANSLATION in Free and Pro]** Added Slovak translation. ASE is now translated into 20 languages:
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/).
   * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/), [denisgomesfranco](https://profiles.wordpress.org/denisgomesfranco/), [Denison C.](https://profiles.wordpress.org/denisoncarlos/) and [@ofmarconi](https://profiles.wordpress.org/ofmarconi/).
   * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/).
@@ -213,6 +219,7 @@ Each **_point release_** usually corresponds with the addition of one new module
   * **Norwegian**: ASE Free and Pro (completed). Props to [Alf O.F.](https://profiles.wordpress.org/skoen/).
   * **Czech**: ASE Free and Pro (completed). Props to Jan S.
   * **Spanish**: ASE Free and Pro (completed). Props to [@marcorubiol](https://profiles.wordpress.org/marcorubiol/).
+  * **Slovak**: ASE Free and Pro (completed). Props to [Dominik K.](https://profiles.wordpress.org/dominokozmali/).
   * **Portuguese (Portugal)**: ASE Free (completed) | ASE Pro (partial). Props to [Ricardo C.](https://profiles.wordpress.org/madebyuh/).
   * **Ukrainian**: ASE Free (completed) | ASE Pro (partial). Props to [Irina](https://profiles.wordpress.org/irinashl/).
   * **Urdu**: ASE Free (completed) | ASE Pro (partial). Props to [Ayyaz A.](https://profiles.wordpress.org/ayyazahmad/).
@@ -220,7 +227,8 @@ Each **_point release_** usually corresponds with the addition of one new module
   * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/).
   * **Arabic**: ASE Free (completed) | ASE Pro (partial). Props to [Mohammed J.](https://profiles.wordpress.org/ih4xz/).
   * **Translation updates**: added new/improved translation for:
-    * ASE Free: Vietnamese, Ukrainian, German, Brazilian Portuguese
+    * ASE Free: Arabic, Italian, Norwegian, Dutch
+    * ASE Pro: Vietnamese, Slovak
   * **More strings** have been internationalized. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
 
