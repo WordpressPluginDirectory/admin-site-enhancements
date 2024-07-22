@@ -345,13 +345,20 @@ class Limit_Login_Attempts {
 
         $table_name = $wpdb->prefix . 'asenha_failed_logins';
 
+        $ip_address = isset( $asenha_limit_login['ip_address'] ) ? $asenha_limit_login['ip_address'] : '';
+        $request_uri = isset( $asenha_limit_login['request_uri'] ) ? $asenha_limit_login['request_uri'] : '';
+        
         // Check if the IP address has been used in a failed login attempt before, i.e. has it been recorded in the database?
-        $sql = $wpdb->prepare( "SELECT * FROM `" . $table_name . "` WHERE `ip_address` = %s", $asenha_limit_login['ip_address'] );
+        $sql = $wpdb->prepare( "SELECT * FROM `" . $table_name . "` WHERE `ip_address` = %s", $ip_address );
         $result = $wpdb->get_results( $sql, ARRAY_A );
-        $result_count = count( $result );
+        if ( $result ) {
+            $result_count = count( $result );
+        }
 
         // Update logged info for the IP address in the global variable
-        $asenha_limit_login['ip_address_log'] = $result;
+        if ( $result ) {
+            $asenha_limit_login['ip_address_log'] = $result;        
+        }
 
         if ( $result_count == 0 ) { // IP address has not been recorded in the database.
 
@@ -360,8 +367,10 @@ class Limit_Login_Attempts {
 
         } else { // IP address has been recorded in the database.
 
+            $login_fails_allowed = isset( $asenha_limit_login['login_fails_allowed'] ) ? $asenha_limit_login['login_fails_allowed'] : 3;
+
             $new_fail_count = $result[0]['fail_count'] + 1;
-            $new_lockout_count = floor( ( $result[0]['fail_count'] + 1 ) / $asenha_limit_login['login_fails_allowed'] );
+            $new_lockout_count = floor( ( $result[0]['fail_count'] + 1 ) / $login_fails_allowed );
 
         }
 
@@ -377,11 +386,11 @@ class Limit_Login_Attempts {
         }
 
         $data = array(
-            'ip_address'    => $asenha_limit_login['ip_address'],
+            'ip_address'    => $ip_address,
             'username'      => $username,
             'fail_count'    => $new_fail_count,
             'lockout_count' => $new_lockout_count,
-            'request_uri'   => $asenha_limit_login['request_uri'],
+            'request_uri'   => $request_uri,
             'unixtime'      => $unixtime,
             'datetime_wp'   => $datetime_wp,
             'info'          => '',

@@ -16,11 +16,12 @@ class Redirect_Fourofour {
     public function redirect_404() {
         if ( !is_404() || is_admin() || defined( 'DOING_CRON' ) && DOING_CRON || defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) {
             return;
-        } else {
+        } elseif ( is_404() ) {
             $redirect_url = site_url();
             header( 'HTTP/1.1 301 Moved Permanently' );
             header( 'Location: ' . sanitize_url( $redirect_url ) );
             exit;
+        } else {
         }
     }
 

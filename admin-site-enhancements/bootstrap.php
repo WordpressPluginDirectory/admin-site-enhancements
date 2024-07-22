@@ -328,7 +328,7 @@ class Admin_Site_Enhancements {
                 add_filter( 'menu_order', [$admin_menu_organizer, 'render_custom_menu_order'], PHP_INT_MAX );
             }
             if ( array_key_exists( 'custom_menu_titles', $options ) ) {
-                add_action( 'admin_menu', [$admin_menu_organizer, 'apply_custom_menu_item_titles'], 999995 );
+                add_action( 'admin_menu', [$admin_menu_organizer, 'apply_custom_menu_item_titles'], 9999999995 );
                 // For 'Posts' menu, if the title has been changed, try changing the labels for it everywhere
                 $custom_menu_titles = explode( ',', $options['custom_menu_titles'] );
                 foreach ( $custom_menu_titles as $custom_menu_title ) {
@@ -346,8 +346,8 @@ class Admin_Site_Enhancements {
                 }
             }
             if ( array_key_exists( 'custom_menu_hidden', $options ) || array_key_exists( 'custom_menu_always_hidden', $options ) ) {
-                add_action( 'admin_menu', [$admin_menu_organizer, 'hide_menu_items'], 999996 );
-                add_action( 'admin_menu', [$admin_menu_organizer, 'add_hidden_menu_toggle'], 999997 );
+                add_action( 'admin_menu', [$admin_menu_organizer, 'hide_menu_items'], 9999999996 );
+                add_action( 'admin_menu', [$admin_menu_organizer, 'add_hidden_menu_toggle'], 9999999997 );
                 add_action( 'admin_enqueue_scripts', [$admin_menu_organizer, 'enqueue_toggle_hidden_menu_script'] );
             }
         }
@@ -954,7 +954,7 @@ class Admin_Site_Enhancements {
         // Redirect 404 to Homepage
         if ( array_key_exists( 'redirect_404_to_homepage', $options ) && $options['redirect_404_to_homepage'] ) {
             $redirect_fourofour = new ASENHA\Classes\Redirect_Fourofour();
-            add_filter( 'wp', [$redirect_fourofour, 'redirect_404'] );
+            add_filter( 'template_redirect', [$redirect_fourofour, 'redirect_404'], PHP_INT_MAX );
         }
         // Display System Summary
         if ( array_key_exists( 'display_system_summary', $options ) && $options['display_system_summary'] ) {

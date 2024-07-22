@@ -197,7 +197,9 @@ class Common_Methods {
     public function strip_html_tags_and_content( $string ) {
         // Strip HTML tags and content inside them. Ref: https://stackoverflow.com/a/39320168
         if ( !is_null( $string ) ) {
-            $string = preg_replace( '@<(\\w+)\\b.*?>.*?</\\1>@si', '', $string );
+            if ( false === strpos( $string, 'fs-submenu-item' ) ) {
+                $string = preg_replace( '@<(\\w+)\\b.*?>.*?</\\1>@si', '', $string );
+            }
             // Strip any remaining HTML or PHP tags
             $string = strip_tags( $string );
         }

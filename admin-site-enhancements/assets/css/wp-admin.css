@@ -97,17 +97,3 @@ ul#adminmenu a.wp-has-current-submenu.hidden {
 	box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
-/* Content Management >> Custom Content Types >> Custom Field Groups */
-/* Hide menubar (File | Edit | View | Insert | Format) in block editor */
-.cfgroup_wysiwyg.ready .mce-container-body .mce-container.mce-menubar {
-	display: none;
-}
-.cfgroup_wysiwyg.ready .mce-toolbar-grp .mce-container-body.mce-stack-layout {
-	display: flex;
-	flex-direction: row;
-    flex-wrap: wrap;
-}
-.cfgroup_wysiwyg.ready .mce-branding {
-	display: none;
-}
-

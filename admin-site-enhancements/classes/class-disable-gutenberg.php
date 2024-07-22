@@ -134,7 +134,7 @@ class Disable_Gutenberg {
                     $keep_enqueued = array();
                     // e.g. array( 'wp-block-navigation' );
                     foreach ( $wp_styles->queue as $handle ) {
-                        // For all stye handles that starts with 'wp-block'
+                        // For all stye handles that starts with 'wp-block', e.g. 'wp-block-library', 'wp-block-library-theme'
                         if ( false !== strpos( $handle, 'wp-block' ) ) {
                             if ( !in_array( $handle, $keep_enqueued ) ) {
                                 wp_dequeue_style( $handle );

@@ -4,8 +4,8 @@ Contributors: qriouslad
 Donate link: https://bowo.io/asenha-sp-rdm  
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
-Tested up to: 6.5.5  
-Stable tag: 7.1.4  
+Tested up to: 6.6  
+Stable tag: 7.1.5  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -20,7 +20,7 @@ Admin and Site Enhancements (ASE) helps you to **easily enhance** various admin 
 
 **Pro version** with Lifetime Deal (LTD) is available at [www.wpase.com](https://www.wpase.com/rdme-to-web).
 
-Here's a detailed walkthrough of ASE Free at v7.0.3 by Pascal Claro.
+Here's a detailed walkthrough of ASE Free t v7.0.3 by Pascal Claro.
 
 https://www.youtube.com/watch?v=bX-2gmpCEMU
 
@@ -185,27 +185,29 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **71 _point_ releases** (e.g. 1.1.0 ) and **106 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **71 _point_ releases** (e.g. 1.1.0 ) and **107 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
-### 7.1.4 (2024.07.15) - ASE Free and Pro
+### 7.1.5 (2024.07.22) - ASE Free and Pro
 
-* **[MILESTONE] ASE Free just reached [100,000 active installs](https://wordpress.org/plugins/admin-site-enhancements/advanced/)!** If you've been enjoying using ASE on your site(s), please consider writing [a quick 5-star review](https://wordpress.org/plugins/admin-site-enhancements/#reviews). Thank you!
+* **[IMPROVED in Free and Pro] Admin Interface >> Hide Admin Notices**: the Notices admin bar menu item will now be hidden by default and only shown when there are notices on the page. Previously, it was shown briefly and disappear when there are no notices on the page. Props to Stijn V. for suggesting the improvement.
 
-* **[IMPROVED in Pro] Utilities >> Search Engines Visibility Status**: will now automatically strip the trailing slash in the live / production site's URL added in the module's settings. This prevents "Settings >> Reading >> Discourage search engines from indexing this site" from being auto re-cchecked on the live / production site, when a trailing slash is included in the module's settings. Props to Henry R. for testing and reporting the issue in detail.
+* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: the WYSIWYG field will now include ordered and unordered list buttons and be more similar to WP classic editor. Props to Daniel and Michael R. for prompting the improvement.
 
-* **[IMPROVED in Pro] Content Management >> Media Categories**: fixed an issue where the Screen Options tab is not clickable. Props to Steven Y. for reporting the issue and suggesting a fix for it.
+* **[CHANGED in Pro] Content Management >> Custom Content Types >> Custom Taxonomies**: the default 'Uncategorized' term will no longer be created by default. If you've created custom taxonomies prior to ASE Pro v7.1.5 and want to remove that term, please follow [this documentation](https://www.wpase.com/documentation/how-to-remove-uncategorized-taxonomy-term/). Props to Hadar B., Di C., Ole P. for prompting this change.
 
-* **[IMPROVED in Pro] Utilities >> Email Delivery >> Email Delivery Log**: 
-  * Make the Resend button / feature available for entries with 'Successful' status as well. Props to Mathijs V.D.B. for the suggestion.
-  * Added feature to **delete individual log entries** and to **clear the whole log**. Props to Francois G. for suggesting this feature.
+* **[FIXED in Free and Pro] Security >> Limit Login Attempts**: fixed PHP notices that appears in a certain scenario. Props to Oliver S. for reporting this with a copy of the relevant PHP/error/debug log entries.
 
-* **[FIXED in Free and Pro] ASE Settings**: layout fixes for RTL languages, e.g. Arabic.
+* **[FIXED in Free and Pro] Utilities >> Redirect 404**: fixed an issue where ASE's redirection overrides those set by SEOPress Pro. Props to Markus B. for reporting the issue with a screencast and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: 
+  * **Fixed submenu items with blank titles** that appears in certain scenarios / for certain plugin's submenu items. Props to Marvin A. for reporting this.
+  * **Fixed submenu items not being always hidden** in certain scenarios / for certain plugin's submenu items. Props Marvin A. for reporting this and facilitating troubleshooting.
   
-* **[TRANSLATION in Free and Pro]** Added Slovak translation. ASE is now translated into 20 languages:
+* **[TRANSLATION in Free and Pro]** ASE is now translated into 20 languages:
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/).
   * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/), [denisgomesfranco](https://profiles.wordpress.org/denisgomesfranco/), [Denison C.](https://profiles.wordpress.org/denisoncarlos/) and [@ofmarconi](https://profiles.wordpress.org/ofmarconi/).
   * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/).
@@ -227,8 +229,7 @@ Each **_point release_** usually corresponds with the addition of one new module
   * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/).
   * **Arabic**: ASE Free (completed) | ASE Pro (partial). Props to [Mohammed J.](https://profiles.wordpress.org/ih4xz/).
   * **Translation updates**: added new/improved translation for:
-    * ASE Free: Arabic, Italian, Norwegian, Dutch
-    * ASE Pro: Vietnamese, Slovak
+    * ASE Free: Italian, Dutch, Brazilian Portuguese, Portugal Portuguese, Vietnamese
   * **More strings** have been internationalized. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
 
