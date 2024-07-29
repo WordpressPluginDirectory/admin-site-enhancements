@@ -135,7 +135,7 @@ class Hide_Admin_Notices {
                 #wpbody-content > .wrap > .notice-warning:not(.hidden),
                 #wpbody-content > .wrap > .notice-success:not(#plugin-activated-successfully),
                 #wpbody-content > .wrap > .notice-updated,
-                #wpbody-content > .wrap > .updated,
+                #wpbody-content > .wrap > .updated:not(.inline),
                 #wpbody-content > .wrap > .update-nag,
                 #wpbody-content > .wrap > div:not(#loco-notices,#loco-content) > .notice:not(.system-notice,.hidden),
                 #wpbody-content > .wrap > div:not(#loco-notices,#loco-content) > .notice-error,
@@ -157,7 +157,7 @@ class Hide_Admin_Notices {
                 #wpbody-content > div > .wrap > .notice-warning:not(.hidden),
                 #wpbody-content > div > .wrap > .notice-success,
                 #wpbody-content > div > .wrap > .notice-updated,
-                #wpbody-content > div > .wrap > .updated,
+                #wpbody-content > div > .wrap > .updated:not(.inline),
                 #wpbody-content > div > .wrap > .update-nag,
                 #wpbody-content > .wrap.woocommerce > form > .notice:not(.system-notice,.hidden),
                 #wpbody-content > .wrap.woocommerce > form > .notice-error,
@@ -168,7 +168,7 @@ class Hide_Admin_Notices {
                 #wpbody-content > .wrap.woocommerce > form > .notice-warning:not(.hidden),
                 #wpbody-content > .wrap.woocommerce > form > .notice-success,
                 #wpbody-content > .wrap.woocommerce > form > .notice-updated,
-                #wpbody-content > .wrap.woocommerce > form > .updated,
+                #wpbody-content > .wrap.woocommerce > form > .updated:not(.inline),
                 #wpbody-content > .wrap.woocommerce > form > .update-nag,
                 /* TranslatePress */
                 #wpbody-content > #trp-main-settings > form > .notice:not(.system-notice,.hidden),
@@ -180,7 +180,7 @@ class Hide_Admin_Notices {
                 #wpbody-content > #trp-main-settings > form > .notice-warning:not(.hidden),
                 #wpbody-content > #trp-main-settings > form > .notice-success,
                 #wpbody-content > #trp-main-settings > form > .notice-updated,
-                #wpbody-content > #trp-main-settings > form > .updated,
+                #wpbody-content > #trp-main-settings > form > .updated:not(.inline),
                 #wpbody-content > #trp-main-settings > form > .update-nag,
                 /* Funnel Builder for WordPress by FunnelKit */
                 #wpbody-content > .bwfan_header > .notice:not(.system-notice,.hidden),
@@ -192,11 +192,11 @@ class Hide_Admin_Notices {
                 #wpbody-content > .bwfan_header > .notice-warning:not(.hidden),
                 #wpbody-content > .bwfan_header > .notice-success,
                 #wpbody-content > .bwfan_header > .notice-updated,
-                #wpbody-content > .bwfan_header > .updated,
+                #wpbody-content > .bwfan_header > .updated:not(.inline),
                 #wpbody-content > .bwfan_header > .update-nag,
                 #wpbody-content > .notice:not(.otgs-notice,.wcml-notice),
                 #wpbody-content > .error,
-                #wpbody-content > .updated,
+                #wpbody-content > .updated:not(.inline),
                 #wpbody-content > .update-nag,
                 #wpbody-content > .jp-connection-banner,
                 #wpbody-content > .jitm-banner,
@@ -214,7 +214,7 @@ class Hide_Admin_Notices {
                 #wpbody-content > .wrap.gblocks-dashboard-wrap .notice-warning:not(.hidden),
                 #wpbody-content > .wrap.gblocks-dashboard-wrap .notice-success,
                 #wpbody-content > .wrap.gblocks-dashboard-wrap .notice-updated,
-                #wpbody-content > .wrap.gblocks-dashboard-wrap .updated,
+                #wpbody-content > .wrap.gblocks-dashboard-wrap .updated:not(.inline),
                 #wpbody-content > .wrap.gblocks-dashboard-wrap .update-nag {
                     position: absolute !important;
                     visibility: hidden !important;

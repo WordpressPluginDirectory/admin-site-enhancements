@@ -4,7 +4,6 @@
 }
 
 /* Admin Interface >> Hide Howdy */
-
 #wp-admin-bar-my-account.no-avatar > .ab-item:before {
 	display: none;
 }

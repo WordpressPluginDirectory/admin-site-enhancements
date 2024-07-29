@@ -52,7 +52,7 @@
 			+ '#wpbody-content > .wrap > .notice-warning:not(.hidden),'
 			+ '#wpbody-content > .wrap > .notice-success,'
 			+ '#wpbody-content > .wrap > .notice-updated,'
-			+ '#wpbody-content > .wrap > .updated,'
+			+ '#wpbody-content > .wrap > .updated:not(.inline),'
 			+ '#wpbody-content > .wrap > .update-nag,'
 			+ '#wpbody-content > .wrap > div:not(#loco-notices,#loco-content) > .notice:not(.system-notice,.hidden),'
 			+ '#wpbody-content > .wrap > div:not(#loco-notices,#loco-content) > .notice-error,'
@@ -63,7 +63,7 @@
 			+ '#wpbody-content > .wrap > div:not(#loco-notices,#loco-content) > .notice-warning:not(.hidden),'
 			+ '#wpbody-content > .wrap > div:not(#loco-notices,#loco-content) > .notice-success,'
 			+ '#wpbody-content > .wrap > div :not(#loco-notices,#loco-content)> .notice-updated,'
-			+ '#wpbody-content > .wrap > div:not(#loco-notices,#loco-content) > .updated,'
+			+ '#wpbody-content > .wrap > div:not(#loco-notices,#loco-content) > .updated:not(.inline),'
 			+ '#wpbody-content > .wrap > div > .update-nag,'
 			+ '#wpbody-content > div > .wrap > .notice:not(.system-notice,.hidden),'
 			+ '#wpbody-content > div > .wrap > .notice-error,'
@@ -74,7 +74,7 @@
 			+ '#wpbody-content > div > .wrap > .notice-warning:not(.hidden),'
 			+ '#wpbody-content > div > .wrap > .notice-success,'
 			+ '#wpbody-content > div > .wrap > .notice-updated,'
-			+ '#wpbody-content > div > .wrap > .updated,'
+			+ '#wpbody-content > div > .wrap > .updated:not(.inline),'
 			+ '#wpbody-content > div > .wrap > .update-nag,'
 			+ '#wpbody-content > .wrap.woocommerce > form > .notice:not(.system-notice,.hidden),'
 			+ '#wpbody-content > .wrap.woocommerce > form > .notice-error,'
@@ -85,7 +85,7 @@
 			+ '#wpbody-content > .wrap.woocommerce > form > .notice-warning:not(.hidden),'
 			+ '#wpbody-content > .wrap.woocommerce > form > .notice-success,'
 			+ '#wpbody-content > .wrap.woocommerce > form > .notice-updated,'
-			+ '#wpbody-content > .wrap.woocommerce > form > .updated,'
+			+ '#wpbody-content > .wrap.woocommerce > form > .updated:not(.inline),'
 			+ '#wpbody-content > .wrap.woocommerce > form > .update-nag,'
 			// TranslatePress
 			+ '#wpbody-content > #trp-main-settings > form > .notice:not(.system-notice,.hidden),'
@@ -97,7 +97,7 @@
 			+ '#wpbody-content > #trp-main-settings > form > .notice-warning:not(.hidden),'
 			+ '#wpbody-content > #trp-main-settings > form > .notice-success,'
 			+ '#wpbody-content > #trp-main-settings > form > .notice-updated,'
-			+ '#wpbody-content > #trp-main-settings > form > .updated,'
+			+ '#wpbody-content > #trp-main-settings > form > .updated:not(.inline),'
 			+ '#wpbody-content > #trp-main-settings > form > .update-nag,'
 			// TranslatePress
 			+ '#wpbody-content > .bwfan_header > .notice:not(.system-notice,.hidden),'
@@ -109,7 +109,7 @@
 			+ '#wpbody-content > .bwfan_header > .notice-warning:not(.hidden),'
 			+ '#wpbody-content > .bwfan_header > .notice-success,'
 			+ '#wpbody-content > .bwfan_header > .notice-updated,'
-			+ '#wpbody-content > .bwfan_header > .updated,'
+			+ '#wpbody-content > .bwfan_header > .updated:not(.inline),'
 			+ '#wpbody-content > .bwfan_header > .update-nag,'
 			+ '#wpbody-content > .notice:not(.otgs-notice,.wcml-notice),' // LearnDash, WPML WooCommerce Multilingual
 			+ '#wpbody-content > .update-nag,' // LearnDash
@@ -129,7 +129,7 @@
 			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .notice-warning:not(.hidden),' // GenerateBlocks
 			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .notice-success,' // GenerateBlocks
 			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .notice-updated,' // GenerateBlocks
-			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .updated,' // GenerateBlocks
+			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .updated:not(.inline),' // GenerateBlocks
 			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .update-nag' // GenerateBlocks
 			).not(':hidden').detach()
 			.appendTo(noticesPanel)

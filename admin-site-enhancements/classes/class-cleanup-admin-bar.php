@@ -12,6 +12,7 @@ class Cleanup_Admin_Bar {
      * Modify admin bar menu for Admin Interface >> Hide or Modify Elements feature
      *
      * @param $wp_admin_bar object The admin bar.
+     * @link https://wordpress.stackexchange.com/a/12652
      * @since 1.9.0
      */
     public function modify_admin_bar_menu( $wp_admin_bar ) {
@@ -45,6 +46,9 @@ class Cleanup_Admin_Bar {
         if ( array_key_exists( 'hide_ab_howdy', $options ) && $options['hide_ab_howdy'] ) {
             // Remove the whole my account sectino and later rebuild it
             remove_action( 'admin_bar_menu', 'wp_admin_bar_my_account_item', 7 );
+            // Up to WP v6.5.5
+            remove_action( 'admin_bar_menu', 'wp_admin_bar_my_account_item', 9991 );
+            // Since WP v6.6
             $current_user = wp_get_current_user();
             $user_id = get_current_user_id();
             $profile_url = get_edit_profile_url( $user_id );

@@ -4,8 +4,8 @@ Contributors: qriouslad
 Donate link: https://bowo.io/asenha-sp-rdm  
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
-Tested up to: 6.6  
-Stable tag: 7.1.5  
+Tested up to: 6.6.1  
+Stable tag: 7.2.0  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -42,8 +42,8 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### FEATURES & MODULES
 
-**62 modules** in total:  
-**54 free modules** (24 has Pro features) | **8 Pro modules**
+**63 modules** in total:  
+**54 free modules** (24 has Pro features) | **9 Pro modules**
 
 [**See all features >>**](https://www.wpase.com/features/)
 
@@ -68,6 +68,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **Hide Admin Notices**. Clean up admin pages by moving notices into a separate panel easily accessible via the admin bar. [ASE Pro](https://www.wpase.com/rdme-to-web) adds the option to also hide notices for non-admins.
 * **Disable Dashboard Widgets**. Clean up and speed up the dashboard by completely disabling some or all widgets.
 * **Hide Admin Bar**. Hide admin bar on the frontend for all or some user roles. [ASE Pro](https://www.wpase.com/rdme-to-web) also allows hiding the admin bar on the backend for all or some user roles.
+* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Admin Logo**. White label your admin area by making your branding stand out. Upload your brand logo in the admin bar or the (top of) admin menu.
 * **Wider Admin Menu**. Give the admin menu more room to better accommodate wider items.
 * **Admin Menu Editor / Organizer**. Customize the order of the admin menu and optionally change menu item title or hide some items. [ASE Pro](https://www.wpase.com/rdme-to-web) enables always hiding menu items for some or all user roles and reorder submenu items.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Admin Columns Manager**. Manage and organize columns in the admin listing for pages, posts and custom post types. Currently supports ASE, ACF and Meta Box custom fields.
@@ -185,27 +186,23 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **71 _point_ releases** (e.g. 1.1.0 ) and **107 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **72 _point_ releases** (e.g. 1.1.0 ) and **107 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
-### 7.1.5 (2024.07.22) - ASE Free and Pro
+### 7.2.0 (2024.07.29) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Admin Interface >> Hide Admin Notices**: the Notices admin bar menu item will now be hidden by default and only shown when there are notices on the page. Previously, it was shown briefly and disappear when there are no notices on the page. Props to Stijn V. for suggesting the improvement.
+* **[NEW in Pro] Admin Interface >> Admin Logo**: add custom logo to the admin dashboard. You can choose to show it on the admin bar, or at the top of the admin menu. Props to Rino D.B. and Matt B. for prompting the addition of this new module.
 
-* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: the WYSIWYG field will now include ordered and unordered list buttons and be more similar to WP classic editor. Props to Daniel and Michael R. for prompting the improvement.
+* **[FIXED in Free and Pro] Admin Interface >> Clean Up Admin Bar**: fixed 'Howdy' no longer being hidden since WP v6.6. Props to [@wesleypeace](https://wordpress.org/support/users/wesleypeace/), [@lookazd](https://wordpress.org/support/users/lookazd/), [@colourstone](https://wordpress.org/support/users/colourstone/), [@verysiberian](https://wordpress.org/support/users/verysiberian/) and Marco M.J. for [reporting the issue](https://wordpress.org/support/topic/hide-howdy-not-working/).
 
-* **[CHANGED in Pro] Content Management >> Custom Content Types >> Custom Taxonomies**: the default 'Uncategorized' term will no longer be created by default. If you've created custom taxonomies prior to ASE Pro v7.1.5 and want to remove that term, please follow [this documentation](https://www.wpase.com/documentation/how-to-remove-uncategorized-taxonomy-term/). Props to Hadar B., Di C., Ole P. for prompting this change.
+* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: fixed a compatibility issue with User Switching plugin, preventing it to perform user switching. Props to George N. for reporting the issue.
 
-* **[FIXED in Free and Pro] Security >> Limit Login Attempts**: fixed PHP notices that appears in a certain scenario. Props to Oliver S. for reporting this with a copy of the relevant PHP/error/debug log entries.
+* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fix several PHP warnings. Props to Marco for reporting the issue.
 
-* **[FIXED in Free and Pro] Utilities >> Redirect 404**: fixed an issue where ASE's redirection overrides those set by SEOPress Pro. Props to Markus B. for reporting the issue with a screencast and facilitating the troubleshooting process.
-
-* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: 
-  * **Fixed submenu items with blank titles** that appears in certain scenarios / for certain plugin's submenu items. Props to Marvin A. for reporting this.
-  * **Fixed submenu items not being always hidden** in certain scenarios / for certain plugin's submenu items. Props Marvin A. for reporting this and facilitating troubleshooting.
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: fixed PHP warning and deprecation notices in certain scenarios. Props to Leigh H. for reporting the issue in great details and facilitating the troubleshooting process.
   
 * **[TRANSLATION in Free and Pro]** ASE is now translated into 20 languages:
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/).
@@ -228,8 +225,6 @@ Each **_point release_** usually corresponds with the addition of one new module
   * **Swedish**: ASE Free (completed) | ASE Pro (partial). Props to [Robert M.](https://profiles.wordpress.org/robertmichalski/) and [Tor-Bjorn F.](https://profiles.wordpress.org/tobifjellner/).
   * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/).
   * **Arabic**: ASE Free (completed) | ASE Pro (partial). Props to [Mohammed J.](https://profiles.wordpress.org/ih4xz/).
-  * **Translation updates**: added new/improved translation for:
-    * ASE Free: Italian, Dutch, Brazilian Portuguese, Portugal Portuguese, Vietnamese
   * **More strings** have been internationalized. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
 

@@ -576,6 +576,7 @@
       subfieldsToggler( 'customize_admin_menu', 'customize-admin-menu', 'custom-admin-menu' );
       subfieldsToggler( 'disable_dashboard_widgets', 'disable-dashboard-widgets' );
       subfieldsToggler( 'various_admin_ui_enhancements', 'various-admin-ui-enhancements' );
+      
       // Clean Up Admin Bar
       subfieldsToggler( 'hide_modify_elements', 'hide-modify-elements' );
       

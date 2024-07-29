@@ -279,9 +279,6 @@ class Admin_Site_Enhancements {
             add_action( 'wp_head', [$auto_publish_posts_with_missed_schedule, 'publish_missed_schedule_posts'] );
             add_action( 'admin_head', [$auto_publish_posts_with_missed_schedule, 'publish_missed_schedule_posts'] );
         }
-        // =================================================================
-        // ADMIN INTERFACE
-        // =================================================================
         // Hide or Modify Elements / Clean Up Admin Bar
         if ( array_key_exists( 'hide_modify_elements', $options ) && $options['hide_modify_elements'] ) {
             $cleanup_admin_bar = new ASENHA\Classes\Cleanup_Admin_Bar();

@@ -489,4 +489,14 @@ class Common_Methods {
         }
     }
 
+    /**
+     * Return SVG for small triangle in place of using &#9654; HTMl character
+     * which may be converted to emoticon by the browser or app
+     * 
+     * @since 7.2.0
+     */
+    public function get_svg_triangle() {
+        return '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 16 16"><path fill="currentColor" d="M14.222 6.687a1.5 1.5 0 0 1 0 2.629l-10 5.499A1.5 1.5 0 0 1 2 13.5V2.502a1.5 1.5 0 0 1 2.223-1.314z"/></svg>';
+    }
+
 }
