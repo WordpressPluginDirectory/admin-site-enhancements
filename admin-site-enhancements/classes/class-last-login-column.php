@@ -29,7 +29,7 @@ class Last_Login_Column {
      * @since 3.6.0
      */
     public function add_last_login_column( $columns ) {
-        $columns['asenha_last_login'] = 'Last Login';
+        $columns['asenha_last_login'] = __( 'Last Login', 'admin-site-enhancements' );
         return $columns;
     }
 

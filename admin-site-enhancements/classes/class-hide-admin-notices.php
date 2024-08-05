@@ -215,7 +215,11 @@ class Hide_Admin_Notices {
                 #wpbody-content > .wrap.gblocks-dashboard-wrap .notice-success,
                 #wpbody-content > .wrap.gblocks-dashboard-wrap .notice-updated,
                 #wpbody-content > .wrap.gblocks-dashboard-wrap .updated:not(.inline),
-                #wpbody-content > .wrap.gblocks-dashboard-wrap .update-nag {
+                #wpbody-content > .wrap.gblocks-dashboard-wrap .update-nag,
+                /* WooCommerce Stock Sync */
+                #wpbody-content > .wrap > .ssgs-influencer-banner,
+                #wpbody-content > .wrap > .ssgs-upgrade-banner,
+                #wpbody-content > .wrap > .ssgs-rating-banner {
                     position: absolute !important;
                     visibility: hidden !important;
                 }

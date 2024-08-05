@@ -499,4 +499,29 @@ class Common_Methods {
         return '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 16 16"><path fill="currentColor" d="M14.222 6.687a1.5 1.5 0 0 1 0 2.629l-10 5.499A1.5 1.5 0 0 1 2 13.5V2.502a1.5 1.5 0 0 1 2.223-1.314z"/></svg>';
     }
 
+    /**
+     * Get an image URL from an ASE setting field, which could be an internal relative URL or an external URL
+     * 
+     * @since 7.2.1
+     */
+    public function get_image_url( $ase_settings_field_name ) {
+        $options = get_option( ASENHA_SLUG_U, array() );
+        if ( isset( $options[$ase_settings_field_name] ) ) {
+            if ( false === strpos( $options[$ase_settings_field_name], 'http' ) && false !== strpos( $options[$ase_settings_field_name], '/uploads/' ) ) {
+                $logo_image = content_url() . $options[$ase_settings_field_name];
+            } else {
+                // $maybe_valid_url = filter_var( $options['admin_logo_image'], FILTER_SANITIZE_URL );
+                $maybe_valid_url = sanitize_url( $options[$ase_settings_field_name], array('http', 'https') );
+                if ( false !== filter_var( $maybe_valid_url, FILTER_VALIDATE_URL ) ) {
+                    $logo_image = $maybe_valid_url;
+                } else {
+                    $logo_image = '';
+                }
+            }
+        } else {
+            $logo_image = '';
+        }
+        return $logo_image;
+    }
+
 }

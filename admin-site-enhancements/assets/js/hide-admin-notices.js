@@ -120,17 +120,22 @@
 			+ '#wpbody-content > .imagify-welcome,' // Imagify
 			+ '#wpbody-content #wordfenceAutoUpdateChoice,' // Wordfence
 			+ '#wpbody-content #easy-updates-manager-dashnotice,' // Easy Updates Manager
-			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .notice:not(.system-notice,.hidden),' // GenerateBlocks
-			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .notice-error,' // GenerateBlocks
-			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .error:not(.hidden),' // GenerateBlocks
-			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .notice-info,' // GenerateBlocks
-			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .notice-information,' // GenerateBlocks
-			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap #message,' // GenerateBlocks
-			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .notice-warning:not(.hidden),' // GenerateBlocks
-			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .notice-success,' // GenerateBlocks
-			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .notice-updated,' // GenerateBlocks
-			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .updated:not(.inline),' // GenerateBlocks
-			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .update-nag' // GenerateBlocks
+			// GenerateBlocks
+			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .notice:not(.system-notice,.hidden),'
+			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .notice-error,'
+			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .error:not(.hidden),'
+			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .notice-info,'
+			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .notice-information,'
+			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap #message,'
+			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .notice-warning:not(.hidden),'
+			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .notice-success,'
+			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .notice-updated,'
+			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .updated:not(.inline),'
+			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .update-nag,'
+			// WooCommerce Stock Sync
+			+ '#wpbody-content > .wrap > .ssgs-influencer-banner,'
+			+ '#wpbody-content > .wrap > .ssgs-upgrade-banner,'
+			+ '#wpbody-content > .wrap > .ssgs-rating-banner'
 			).not(':hidden').detach()
 			.appendTo(noticesPanel)
 			.show();

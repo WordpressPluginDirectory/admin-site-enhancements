@@ -699,7 +699,7 @@ function asenha_admin_scripts(  $hook_suffix  ) {
             'nonce' => $nonce,
         ) );
     }
-    // Utilities >> Image Sizes Panel
+    // Utilities >> Image Sizes Panel∂
     if ( 'post' == $current_screen->base && 'attachment' == $current_screen->id ) {
         global $post;
         // Only enqueue if the attachment is an image

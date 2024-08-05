@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Admin and Site Enhancements (ASE) 7.1.2\n"
+"Project-Id-Version: Admin and Site Enhancements (ASE) 7.2.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/admin-site-enhancements\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-29T02:25:56+00:00\n"
+"POT-Creation-Date: 2024-08-02T08:50:07+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: admin-site-enhancements\n"
@@ -39,36 +39,36 @@ msgstr ""
 msgid "https://www.wpase.com/author-uri"
 msgstr ""
 
-#: classes/class-admin-menu-organizer.php:155
-#: classes/class-admin-menu-organizer.php:156
+#: classes/class-admin-menu-organizer.php:158
+#: classes/class-admin-menu-organizer.php:159
 msgid "Add New"
 msgstr ""
 
-#: classes/class-admin-menu-organizer.php:157
+#: classes/class-admin-menu-organizer.php:160
 msgid "Edit"
 msgstr ""
 
-#: classes/class-admin-menu-organizer.php:159
+#: classes/class-admin-menu-organizer.php:162
 msgid "View"
 msgstr ""
 
-#: classes/class-admin-menu-organizer.php:272
-#: classes/class-admin-menu-organizer.php:273
+#: classes/class-admin-menu-organizer.php:275
+#: classes/class-admin-menu-organizer.php:276
 msgid "Show All"
 msgstr ""
 
-#: classes/class-admin-menu-organizer.php:283
-#: classes/class-admin-menu-organizer.php:284
+#: classes/class-admin-menu-organizer.php:286
+#: classes/class-admin-menu-organizer.php:287
 msgid "Show Less"
 msgstr ""
 
-#: classes/class-change-login-url.php:255
+#: classes/class-change-login-url.php:272
 #: classes/class-limit-login-attempts.php:222
 #: classes/class-limit-login-attempts.php:329
 msgid "Error:"
 msgstr ""
 
-#: classes/class-change-login-url.php:255
+#: classes/class-change-login-url.php:272
 #: classes/class-limit-login-attempts.php:222
 #: classes/class-limit-login-attempts.php:329
 msgid "Invalid username/email or incorrect password."
@@ -91,6 +91,11 @@ msgstr ""
 msgid "Duplicate %s"
 msgstr ""
 
+#: classes/class-content-order.php:31
+#: classes/class-content-order.php:45
+msgid "Order"
+msgstr ""
+
 #: classes/class-hide-admin-notices.php:32
 msgid "Admin Notices"
 msgstr ""
@@ -101,6 +106,10 @@ msgstr ""
 
 #: classes/class-hide-admin-notices.php:68
 msgid "Click to view hidden admin notices"
+msgstr ""
+
+#: classes/class-last-login-column.php:32
+msgid "Last Login"
 msgstr ""
 
 #: classes/class-last-login-column.php:55
@@ -1141,11 +1150,11 @@ msgstr ""
 msgid "Show admin bar status when search engines are set to be discouraged from indexing the site. This is set through a \"Search engine visibility\" checkbox in Settings >> Reading."
 msgstr ""
 
-#: includes/password-protected-login.php:79
+#: includes/password-protected-login.php:80
 msgid "Password"
 msgstr ""
 
-#: includes/password-protected-login.php:84
+#: includes/password-protected-login.php:85
 msgid "View Content"
 msgstr ""
 

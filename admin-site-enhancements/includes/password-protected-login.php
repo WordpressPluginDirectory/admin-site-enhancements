@@ -42,6 +42,7 @@ bloginfo( 'html_type' );
 bloginfo( 'charset' );
 ?>" />
 	<meta name="viewport" content="width=device-width" />
+	<meta name="robots" content="noindex">
 	<title><?php 
 bloginfo( 'name' );
 ?></title>

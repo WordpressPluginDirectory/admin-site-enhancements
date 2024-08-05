@@ -28,7 +28,7 @@ class Content_Order {
                             $hook_suffix = add_posts_page(
                                 $post_type_name_plural . ' Order',
                                 // Page title
-                                'Order',
+                                __( 'Order', 'admin-site-enhancements' ),
                                 // Menu title
                                 'edit_pages',
                                 // Capability required
@@ -42,7 +42,7 @@ class Content_Order {
                                 // Parent (menu) slug. Ref: https://developer.wordpress.org/reference/functions/add_submenu_page/#comment-1404
                                 $post_type_name_plural . ' Order',
                                 // Page title
-                                'Order',
+                                __( 'Order', 'admin-site-enhancements' ),
                                 // Menu title
                                 'edit_pages',
                                 // Capability required
