@@ -143,4 +143,15 @@ class Disable_Smaller_Components {
         remove_action( 'admin_print_styles', 'print_emoji_styles' );
     }
     
+    /**
+     * Add loading="eager" attribute for featured images
+     * 
+     * @link https://plugins.trac.wordpress.org/browser/disable-lazy-loading/tags/2.1/disable-lazy-loading.php
+     * @since 7.3.0
+     */
+    public function eager_load_featured_images( $attr, $attachment = null ) {
+        $attr['loading'] = 'eager';
+        return $attr;
+    }
+    
 }

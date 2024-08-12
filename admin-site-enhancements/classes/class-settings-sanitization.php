@@ -543,6 +543,10 @@ class Settings_Sanitization {
             $options['disable_block_widgets'] = false;
         }
         $options['disable_block_widgets'] = ( 'on' == $options['disable_block_widgets'] ? true : false );
+        if ( !isset( $options['disable_lazy_load'] ) ) {
+            $options['disable_lazy_load'] = false;
+        }
+        $options['disable_lazy_load'] = ( 'on' == $options['disable_lazy_load'] ? true : false );
         // =================================================================
         // SECURITY
         // =================================================================

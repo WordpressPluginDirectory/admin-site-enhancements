@@ -131,8 +131,11 @@ class Image_Upload_Control {
             $new_filename = str_ireplace( '.' . $file_extension, '.jpg', $old_filename );
             $new_filename = wp_unique_filename( dirname( $upload['file'] ), $new_filename );
             if ( imagejpeg( $image_object, $wp_uploads['path'] . '/' . $new_filename, 90 ) ) {
-                unlink( $upload['file'] );
-                // delete original BMP/PNG
+                // original image is always deleted in ASE Free
+                $keep_original_image = false;
+                if ( !$keep_original_image ) {
+                    unlink( $upload['file'] );
+                }
                 // Add converted JPG info into $upload
                 $upload['file'] = $wp_uploads['path'] . '/' . $new_filename;
                 $upload['url'] = $wp_uploads['url'] . '/' . $new_filename;

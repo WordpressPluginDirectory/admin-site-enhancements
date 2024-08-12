@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.6.1  
-Stable tag: 7.2.1  
+Stable tag: 7.3.0  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -20,13 +20,13 @@ Admin and Site Enhancements (ASE) helps you to **easily enhance** various admin 
 
 **Pro version** with Lifetime Deal (LTD) is available at [www.wpase.com](https://www.wpase.com/rdme-to-web).
 
-Here's a detailed walkthrough of ASE Free t v7.0.3 by Pascal Claro.
+Here's a walkthrough of ASE Free at v7.1.5 by Jakson.
+
+https://www.youtube.com/watch?v=ZEiIKfz2p2Q
+
+Here's a detailed walkthrough of ASE Free at v7.0.3 by Pascal Claro.
 
 https://www.youtube.com/watch?v=bX-2gmpCEMU
-
-Here's a demo of ASE Pro at v6.2.6 by David McCan.
-
-https://www.youtube.com/watch?v=0va_LsaeBfY
 
 [**See more video reviews >>**](https://www.wpase.com/video-reviews/)
 
@@ -109,7 +109,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **Disable REST API**. Disable REST API access for non-authenticated users and remove URL traces from &lt;head&gt;, HTTP headers and WP RSD endpoint.
 * **Disable Feeds**. Disable all RSS, Atom and RDF feeds.
 * **Disable All Updates**. Completely disable core, theme and plugin updates and auto-updates. Will also disable update checks, notices and emails.
-* **Disable Smaller Components**. Prevent smaller components from running or loading. e.g. generator &lt;meta&gt; tag, version number, Windows Live Writer (WLW) manifest &lt;link&gt; tag, Really Simple Discovery (RSD) &lt;link&gt; tag, WordPress shortlink &lt;link&gt; tag in &lt;head&gt;, and also dashicons CSS and JS files, emoji support, jQuery Migrate and block-based widgets settings screen.
+* **Disable Smaller Components**. Prevent smaller components from running or loading. Those are generator &lt;meta&gt; tag, version number, Windows Live Writer (WLW) manifest &lt;link&gt; tag, Really Simple Discovery (RSD) &lt;link&gt; tag, WordPress shortlink &lt;link&gt; tag in &lt;head&gt;, and also dashicons CSS and JS files, emoji support, jQuery Migrate, block-based widgets settings screen and native lazy load of images.
 
 ### Security
 
@@ -186,30 +186,32 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **72 _point_ releases** (e.g. 1.1.0 ) and **108 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **73 _point_ releases** (e.g. 1.1.0 ) and **108 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
-### 7.2.1 (2024.08.05) - ASE Free and Pro
+### 7.3.0 (2024.08.12) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Utilities >> Password Protection**: password-protected pages will now be marked with `noindex` to prevent "duplicate – from user not as canonical set up" warning in SEO reports, e.g. by google. Props to Christian S. for [suggesting this](https://wordpress.org/support/topic/how-to-set-passwort-protection-page-noindex/).
+* **[NEW in Free and Pro] Disable Components >> Disable Smaller Components >> Disable Lazy Load**: Disable lazy loading of images that was natively added since WordPress v5.5. Props to [@boxhamster](https://wordpress.org/support/users/boxhamster/) and [@masvil](https://wordpress.org/support/users/masvil/) for [suggesting this](https://wordpress.org/support/topic/feature-request-disable-wp-core-lazy-loading/).
 
-* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: the number field now supports decimal values. Props to Philippe G. for prompting the improvement.
+* **[IMPROVED in Free and Pro] Content Management >> SVG Upload**: will now properly display SVGs uploaded using another plugin, e.g. SVG Support. Props to [@tomislo](https://wordpress.org/support/users/tomislo/) and [@ingarb](https://wordpress.org/support/users/ingarb/) for [reporting the issue](https://wordpress.org/support/topic/svg-issues-4/#post-17933277) which prompted this improvement.
 
-* **[IMPROVED in Pro] Admin Interface >> Admin Logo**: enable the use of an image URL hosted on another site as the logo image. Props to Bayley S. for suggesting this improvement.
+* **[IMPROVED in Free and Pro] Content Management >> Content Order**: will now work with non-public post types as well. Props to Robert G. for prompting this improvement.
 
-* **[FIXED in Free and Pro] Admin Interface >> Hide Admin Notices**: fix for notices coming from "Stock Sync with Google Sheet for WooCommerce" and "Stock Sync with Google Sheet for WooCommerce Ultimate" plugins not being hidden. Props to Manish S. for reporting the issue and facilitating the troubleshooting process.
+* **[IMPROVED in Pro] Log In | Log Out >> Login Page Customizer**: enable use of the site icon as the login page logo. Props to Ron R. for suggesting this improvement.
 
-* **[FIXED in Pro] Content Management >> Media Categories**: 
-  * **fix a conflict with WP to Buffer plugin** causing the plugins list page to show hidden modals. Props to Riza A. for reporting the issue in detail.
-  * **fix CSS layout issue with WP 6.6** and greater when viewing the media library. This happens when both "Clean Up Admin Bar >> Remove the Help tab and drawer" and "Enhance List Tables >> Show file size column in media library" are checked. Props to Marcellus J. for reporting the issue.
-  
+* **[CHANGED in Pro] ASE Settings Export**: the "live site URL" field value will be emptied when exporting ASE settings. This will prevent "Reading >> Search engine visibility >> Discourage search engines from indexing this site" from being auto-checked, since the site the settings is being imported into will likely have a different URL than the original live site URL. Props to Val J. for prompting this change.
+
+* **[FIXED in Pro] Content Management >> Media Categories**: improve the fix in in v7.2.1 for layout issue as reported by Marcellus J. Will now cover more scenarios.
+
 * **[TRANSLATION in Free and Pro]** ASE is now translated into 20 languages:
   * **Added new/improved translation** for:
-    * ASE Free: Hungarian, Korean, Brazilian Portuguese, Slovak, Vietnamese
-    * ASE Pro: Hungarian, Brazilian Portuguese, Slovak, Vietnamese, Chinese
+    * ASE Free: Arabic, Dutch, Brazilian Portuguese, Slovak, Swedish, Vietnamese
+    * ASE Pro: Danish, Brazilian Portuguese, Slovak, Vietnamese
+  * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
+  * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.
   * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/), [denisgomesfranco](https://profiles.wordpress.org/denisgomesfranco/), [Denison C.](https://profiles.wordpress.org/denisoncarlos/) and [@ofmarconi](https://profiles.wordpress.org/ofmarconi/).
   * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/) et al.
@@ -217,7 +219,7 @@ Each **_point release_** usually corresponds with the addition of one new module
   * **Italian**: ASE Free and Pro (completed). Props to [Fabio P.](https://profiles.wordpress.org/fabioperri/) et. al.
   * **Dutch**: ASE Free and Pro (completed). Props to [Toine R](https://profiles.wordpress.org/toineenzo/) and [Peter S.](https://profiles.wordpress.org/psmits1567/) et al.
   * **Korean**: ASE Free and Pro (completed). Props to [@chazmlab](https://profiles.wordpress.org/chazmlab/) et al.
-  * **German (Formal)**: ASE Free and Pro (completed). Props to [@markussss](https://profiles.wordpress.org/markussss/), Bastian S. et al.
+  * **German (Formal)**: ASE Free and Pro (completed). Props to [@markussss](https://profiles.wordpress.org/markussss/), [@leonstadler](https://profiles.wordpress.org/leonstadler/), Bastian S. et al.
   * **French**: ASE Free and Pro (completed). Props to [Stéphan G.](https://profiles.wordpress.org/gongonzo/), [@jeanfrancoisdelvin](https://profiles.wordpress.org/jeanfrancoisdelvin/), [@srossignol](https://profiles.wordpress.org/srossignol/), [@lucashw](https://profiles.wordpress.org/lucashw/), [@skippy43](https://profiles.wordpress.org/skippy43/), [@anlip](https://profiles.wordpress.org/anlip/), [@agencefacton](https://profiles.wordpress.org/agencefacton/), [@injsbx](https://profiles.wordpress.org/injsbx/) et al.
   * **Polish**: ASE Free and Pro (completed). Props to [@kosmity](https://profiles.wordpress.org/kosmity/) and [Dariusz Z.](https://profiles.wordpress.org/dariobros/) et al.
   * **Norwegian**: ASE Free and Pro (completed). Props to [Alf O.F.](https://profiles.wordpress.org/skoen/) et al.
@@ -230,7 +232,5 @@ Each **_point release_** usually corresponds with the addition of one new module
   * **Swedish**: ASE Free (completed) | ASE Pro (partial). Props to [Robert M.](https://profiles.wordpress.org/robertmichalski/) and [Tor-Bjorn F.](https://profiles.wordpress.org/tobifjellner/).
   * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/) et al.
   * **Arabic**: ASE Free (completed) | ASE Pro (partial). Props to [Mohammed J.](https://profiles.wordpress.org/ih4xz/) et al.
-  * **More strings** have been internationalized. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
-  * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
 
 [**See the full changelog >>**](https://www.wpase.com/documentation/changelog/)

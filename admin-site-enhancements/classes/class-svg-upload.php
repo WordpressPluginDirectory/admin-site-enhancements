@@ -171,6 +171,48 @@ class SVG_Upload {
     }
 
     /**
+     * Remove responsive image attributes, i.e. srcset attributes, from SVG images HTML
+     * This helps ensure SVGs are displayed properly on the frontend
+     * 
+     * @link https://plugins.trac.wordpress.org/browser/svg-support/tags/2.5.7/functions/attachment.php#L282
+     * @since 7.3.0
+     */
+    public function disable_svg_srcset( $sources ) {
+        $first_element = reset( $sources );
+
+        if ( isset( $first_element ) && ! empty( $first_element['url'] ) ) {
+            $extension = pathinfo( reset($sources)['url'], PATHINFO_EXTENSION );
+
+            if ( 'svg' === $extension ) {
+                $sources = array(); // return empty array
+                return $sources;
+            } else {
+                return $sources;
+            }
+        } else {
+            return $sources;
+        }
+    }
+        
+    /**
+     * Remove responsive image attributes, i.e. srcset attributes, from SVG images HTML
+     * This helps ensure SVGs are displayed properly on the frontend
+     * 
+     * @link https://gist.github.com/ericvalois/5b1e161c127632a1ace7d65ce1363e69
+     * @since 7.3.0
+     */
+    public function remove_svg_responsive_image_attr( string $sizes, array $size, $image_src = null ) {
+        $explode = explode( '.', $image_src );
+        $extension = end( $explode );
+        
+        if( 'svg' === $extension ){
+            $sizes = '';
+        }
+
+        return $sizes;
+    }
+
+    /**
      * Return svg file URL to show preview in media library
      *
      * @link https://developer.wordpress.org/reference/hooks/wp_ajax_action/
