@@ -115,7 +115,7 @@ class Content_Order {
             'post_status'    => $post_status,
         );
         // Add the following to non-attachment post types
-        if ( 'attachment' != $post_type_slug ) {
+        if ( 'attachment' != $post_type_slug && is_post_type_hierarchical( $post_type_slug ) ) {
             // In hierarchical post types, only return non-child posts as we currently only sort parent posts
             $args['post_parent'] = 0;
         }

@@ -117,7 +117,7 @@ class Password_Protection {
                 'protected-page' => 'view',
                 'source'         => urlencode( $current_url ),
             );
-            $pwd_protect_login_url = add_query_arg( $args, home_url() );
+            $pwd_protect_login_url = add_query_arg( $args, home_url( '/' ) );
             nocache_headers();
             wp_safe_redirect( $pwd_protect_login_url );
             exit;

@@ -42,6 +42,17 @@ class Cleanup_Admin_Bar {
             remove_action( 'admin_bar_menu', 'wp_admin_bar_new_content_menu', 70 );
             // priority needs to match default value. Use QM to reference.
         }
+    }
+
+    /**
+     * Remove 'Howdy' from admin bar's account item
+     *
+     * @param $wp_admin_bar object The admin bar.
+     * @link https://wordpress.stackexchange.com/a/12652
+     * @since 7.3.1
+     */
+    public function remove_howdy( $wp_admin_bar ) {
+        $options = get_option( ASENHA_SLUG_U, array() );
         // Hide 'Howdy' text
         if ( array_key_exists( 'hide_ab_howdy', $options ) && $options['hide_ab_howdy'] ) {
             // Remove the whole my account sectino and later rebuild it

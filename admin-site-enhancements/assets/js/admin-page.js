@@ -256,7 +256,7 @@
       $('.obfuscate-author-slugs').appendTo('.fields-security > table > tbody');
       $('.obfuscate-email-address').appendTo('.fields-security > table > tbody');
       $('.obfuscate-email-address-description').appendTo('.fields-security .obfuscate-email-address .asenha-subfields');
-      $('.obfuscate-email-address-in-content').appendTo('.fields-security .obfuscate-email-address .asenha-subfields');
+      
       $('.disable-xmlrpc').appendTo('.fields-security > table > tbody');
 
       // Place fields into "Optimizations" tab

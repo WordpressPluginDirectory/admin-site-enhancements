@@ -27,8 +27,8 @@ class Email_Address_Obfuscator {
             return;
         }
         // Reverse email address characters if not in Firefox, which has bug related to unicode-bidi CSS property
-        $http_user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : 'generic' );
-        if ( false !== stripos( sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] ), 'firefox' ) ) {
+        $http_user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ? sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] ) : 'generic' );
+        if ( false !== stripos( $http_user_agent, 'firefox' ) ) {
             // Do nothing. Do not reverse characters.
             $email_reversed = $email;
             $email_rev_parts = explode( '@', $email_reversed );
@@ -52,6 +52,18 @@ class Email_Address_Obfuscator {
         $link = $atts['link'];
         $class = $atts['class'];
         return '<span style="' . esc_attr( $display_css ) . esc_attr( $css_bidi_styles ) . ';direction:rtl;" class="' . esc_attr( $class ) . '">' . esc_html( $email_rev_parts[0] ) . '<span style="display:none;">obfsctd</span>&#64;' . esc_html( $email_rev_parts[1] ) . '</span>';
+    }
+
+    /**
+     * Add additional attributes to the list of safe CSS attributes
+     * This prevents those attributes from being stripped out when displaying the obfuscated email address
+     * 
+     * @since 7.3.1
+     */
+    public function add_additional_attributes_to_safe_css( $css_attributes ) {
+        $css_attributes[] = 'display';
+        $css_attributes[] = 'unicode-bidi';
+        return $css_attributes;
     }
 
 }

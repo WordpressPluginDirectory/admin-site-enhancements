@@ -291,6 +291,7 @@ class Admin_Site_Enhancements {
             $cleanup_admin_bar = new ASENHA\Classes\Cleanup_Admin_Bar();
             // Priority 5 to execute earlier than the normal 10. This is for removing default items.
             add_filter( 'admin_bar_menu', [$cleanup_admin_bar, 'modify_admin_bar_menu'], 5 );
+            add_filter( 'admin_bar_menu', [$cleanup_admin_bar, 'remove_howdy'], PHP_INT_MAX - 100 );
             if ( array_key_exists( 'hide_help_drawer', $options ) && $options['hide_help_drawer'] ) {
                 add_action( 'admin_head', [$cleanup_admin_bar, 'hide_help_drawer'] );
             }
@@ -855,6 +856,7 @@ class Admin_Site_Enhancements {
         if ( array_key_exists( 'obfuscate_email_address', $options ) && $options['obfuscate_email_address'] ) {
             $email_address_obfuscator = new ASENHA\Classes\Email_Address_Obfuscator();
             add_shortcode( 'obfuscate', [$email_address_obfuscator, 'obfuscate_string'] );
+            add_filter( 'safe_style_css', [$email_address_obfuscator, 'add_additional_attributes_to_safe_css'] );
             add_filter( 'widget_text', 'shortcode_unautop' );
             add_filter( 'widget_text', 'do_shortcode' );
             if ( array_key_exists( 'obfuscate_email_address_in_content', $options ) && $options['obfuscate_email_address_in_content'] ) {

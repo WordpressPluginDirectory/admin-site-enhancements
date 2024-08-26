@@ -74,7 +74,7 @@ do_action( 'asenha_password_protection_login_head' );
 do_action( 'asenha_password_protection_error_messages' );
 ?>
 	<form name="loginform" id="loginform" action="<?php 
-echo esc_url( add_query_arg( 'protected-page', 'view', home_url() ) );
+echo esc_url( add_query_arg( 'protected-page', 'view', home_url( '/' ) ) );
 ?>" method="post">
 		<label for="protected_page_pwd"><?php 
 echo __( 'Password', 'admin-site-enhancements' );

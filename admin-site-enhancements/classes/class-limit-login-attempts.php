@@ -353,6 +353,8 @@ class Limit_Login_Attempts {
         $result = $wpdb->get_results( $sql, ARRAY_A );
         if ( $result ) {
             $result_count = count( $result );
+        } else {
+            $result_count = 0;
         }
 
         // Update logged info for the IP address in the global variable

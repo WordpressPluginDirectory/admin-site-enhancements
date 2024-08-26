@@ -176,9 +176,19 @@ class Settings_Fields_Render {
         $field_suffix = $args['field_suffix'];
         $field_placeholder = ( isset( $args['field_placeholder'] ) ? $args['field_placeholder'] : '' );
         $field_description = $args['field_description'];
-        $field_option_value = ( isset( $options[$args['field_id']] ) ? $options[$args['field_id']] : '' );
-        if ( $field_id == 'live_site_url' ) {
-            $field_option_value = ( isset( $options[$args['field_id']] ) ? base64_decode( $options[$args['field_id']] ) : '' );
+        if ( isset( $options[$field_id] ) ) {
+            if ( 'live_site_url' == $field_id ) {
+                if ( false !== strpos( $options[$field_id], 'http' ) ) {
+                    $field_option_value = $options[$field_id];
+                } else {
+                    // Legacy support for when base64 encoding was used prior to v7.3.1
+                    $field_option_value = base64_decode( $options[$field_id] );
+                }
+            } else {
+                $field_option_value = $options[$field_id];
+            }
+        } else {
+            $field_option_value = '';
         }
         if ( !empty( $field_prefix ) && !empty( $field_suffix ) ) {
             $field_classname = ' with-prefix with-suffix';

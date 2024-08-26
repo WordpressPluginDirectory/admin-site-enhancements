@@ -17,6 +17,7 @@ class Settings_Sanitization {
         // Call WordPress globals required for validating the fields
         global 
             $wp_roles,
+            $asenha_all_post_types,
             $asenha_public_post_types,
             $asenha_nonpublic_post_types,
             $asenha_gutenberg_post_types,
@@ -41,8 +42,8 @@ class Settings_Sanitization {
             $options['content_order'] = false;
         }
         $options['content_order'] = ( 'on' == $options['content_order'] ? true : false );
-        if ( is_array( $asenha_public_post_types ) ) {
-            foreach ( $asenha_public_post_types as $post_type_slug => $post_type_label ) {
+        if ( is_array( $asenha_all_post_types ) ) {
+            foreach ( $asenha_all_post_types as $post_type_slug => $post_type_label ) {
                 // e.g. $post_type_slug is post, $post_type_label is Posts
                 if ( post_type_supports( $post_type_slug, 'page-attributes' ) || is_post_type_hierarchical( $post_type_slug ) ) {
                     if ( !isset( $options['content_order_for'][$post_type_slug] ) ) {
@@ -581,6 +582,10 @@ class Settings_Sanitization {
             $options['obfuscate_email_address_in_content'] = false;
         }
         $options['obfuscate_email_address_in_content'] = ( 'on' == $options['obfuscate_email_address_in_content'] ? true : false );
+        if ( !isset( $options['obfuscate_email_address_visitor_only'] ) ) {
+            $options['obfuscate_email_address_visitor_only'] = false;
+        }
+        $options['obfuscate_email_address_visitor_only'] = ( 'on' == $options['obfuscate_email_address_visitor_only'] ? true : false );
         // Disable XML-RPC
         if ( !isset( $options['disable_xmlrpc'] ) ) {
             $options['disable_xmlrpc'] = false;
