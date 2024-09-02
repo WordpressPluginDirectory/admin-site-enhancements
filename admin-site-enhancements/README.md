@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.6.1  
-Stable tag: 7.3.2  
+Stable tag: 7.3.3  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -43,7 +43,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 ### FEATURES & MODULES
 
 **63 modules** in total:  
-**54 free modules** (24 has Pro features) | **9 Pro modules**
+**54 free modules** (26 has Pro features) | **9 Pro modules**
 
 [**See all features >>**](https://www.wpase.com/features/)
 
@@ -90,7 +90,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **Site Identity on Login Page**. Use the site icon and URL to replace the default WordPress logo with link to wordpress.org on the login page.
 * **Log In/Out Menu**. Enable log in, log out and dynamic log in/out menu item for addition to any menu.
 * **Last Login Column**. Log when users on the site last logged in and display the date and time in the users list table. [ASE Pro](https://www.wpase.com/rdme-to-web) makes the column sortable.
-* **Redirect After Login / Logout**. Set custom redirect URL for all or some user roles after login / logout.
+* **Redirect After Login / Logout**. Set custom redirect URL for all or some user roles after login / logout. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to set separate redirect URL for each role.
 
 ### Custom Code
 
@@ -186,22 +186,28 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **73 _point_ releases** (e.g. 1.1.0 ) and **110 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **73 _point_ releases** (e.g. 1.1.0 ) and **111 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
-### 7.3.2 (2024.08.26) - ASE Free and Pro
+### 7.3.3 (2024.09.02) - ASE Free and Pro
 
-* **[IMPROVED in Pro] Security >> Email Address Obfuscator**: add option to only auto-obfuscate email addresses in post content for site visitors, not for logged-in users. This is useful for when you need to enable users to export post content that contains email addresses. Props to Wence W. for suggesting this improvement.
+* **[ADDED in Free and Pro] Disable Components >> Disable Smaller Components**: added an option to remove generator tag that contains WordPress version number in RSS feed. Props to [Emmanue ATSÉ](https://wordpress.org/support/users/eatse/) for [suggesting this](https://wordpress.org/support/topic/disable-version-number-version-still-present-in-rss-feed/).
 
-* **[FIXED in Free and Pro] Security >> Limit Login Attempts**: fix PHP warning. Props to [@malaga16](https://wordpress.org/support/topic/some-php-warning-in-debug-log/) for [reporting this](https://wordpress.org/support/topic/some-php-warning-in-debug-log/).
+* **[IMPROVED in Pro] Log In | Log Out >> Redirect After Login and Logout**: add option to redirect to separate URL for each user role.
+
+* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: fix PHP warning as [reported](https://wordpress.org/support/topic/php-warning-undefined-variable-4/#post-17984197) by [@dakotadevelopers](https://wordpress.org/support/users/dakotadevelopers/) and Thibaut V.
+
+* **[FIXED in Free and Pro] Admin Interface >> Hide Admin Notices**: some notices were not properly hidden on Wordfence plugin's dashboard, which is now fixed and will be properly hidden in the notices panel. Props to [@tomislo](https://wordpress.org/support/users/tomislo/) for [reporting the issue](https://wordpress.org/support/topic/hide-admin-notices-2/).
+
+* **[FIXED in Pro] Admin Interface >> Admin Logo**: when admin logo is shown in the admin menu and the menu is collapsed, the logo will now be hidden instead of shown in the original size, overflowing the collapsed menu. Props to @myleslasco for reporting the issue.
 
 * **[TRANSLATION in Free and Pro]** ASE is now translated into 22 languages:
   * **Added new/improved translation** for:
-    * Free: Arabic, Italian, Polish
-    * Pro: Italian, Norwegian
+    * Free: Hungarian, Indonesian, Slovak, Swedish, Vietnamese
+    * Pro: Italian, Vietnamese
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.

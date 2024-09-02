@@ -1035,6 +1035,14 @@ a.asenha-support-nudge-dismiss:hover,
     color: #3c434a;
 }
 
+.form-table .asenha-toggle .asenha-text.th-normal th:not(.datatable-th) {
+    font-weight: normal;
+}
+
+.form-table .asenha-toggle .asenha-text.th-hidden th:not(.datatable-th) {
+    display: none;
+}
+
 .form-table .asenha-toggle .asenha-text.with-prefix-suffix.no-field-title th:not(.datatable-th) {
     margin-right: 0;
 }
@@ -1230,6 +1238,26 @@ a.asenha-support-nudge-dismiss:hover,
 
 .form-table .asenha-subfields tr:not(.datatable-tr).margin-bottom-20 {
     margin-bottom: 20px !important;
+}
+
+.form-table .asenha-subfields tr:not(.datatable-tr).margin-left-4 {
+    margin-left: 4px !important;
+}
+
+.form-table .asenha-subfields tr:not(.datatable-tr).margin-left-8 {
+    margin-left: 8px !important;
+}
+
+.form-table .asenha-subfields tr:not(.datatable-tr).margin-left-12 {
+    margin-left: 12px !important;
+}
+
+.form-table .asenha-subfields tr:not(.datatable-tr).margin-left-16 {
+    margin-left: 16px !important;
+}
+
+.form-table .asenha-subfields tr:not(.datatable-tr).margin-left-20 {
+    margin-left: 20px !important;
 }
 
 .form-table .asenha-subfields tr:not(.datatable-tr).padding-top-0 {

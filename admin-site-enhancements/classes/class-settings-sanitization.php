@@ -313,6 +313,10 @@ class Settings_Sanitization {
             $options['redirect_after_login'] = false;
         }
         $options['redirect_after_login'] = ( 'on' == $options['redirect_after_login'] ? true : false );
+        if ( !isset( $options['redirect_after_login_type'] ) ) {
+            $options['redirect_after_login_type'] = 'single_url';
+        }
+        $options['redirect_after_login_type'] = ( !empty( $options['redirect_after_login_type'] ) ? sanitize_text_field( $options['redirect_after_login_type'] ) : 'single_url' );
         if ( !isset( $options['redirect_after_login_to_slug'] ) ) {
             $options['redirect_after_login_to_slug'] = '';
         }
@@ -331,6 +335,10 @@ class Settings_Sanitization {
             $options['redirect_after_logout'] = false;
         }
         $options['redirect_after_logout'] = ( 'on' == $options['redirect_after_logout'] ? true : false );
+        if ( !isset( $options['redirect_after_logout_type'] ) ) {
+            $options['redirect_after_logout_type'] = 'single_url';
+        }
+        $options['redirect_after_logout_type'] = ( !empty( $options['redirect_after_logout_type'] ) ? sanitize_text_field( $options['redirect_after_logout_type'] ) : 'single_url' );
         if ( !isset( $options['redirect_after_logout_to_slug'] ) ) {
             $options['redirect_after_logout_to_slug'] = '';
         }
@@ -512,6 +520,10 @@ class Settings_Sanitization {
             $options['disable_head_generator_tag'] = false;
         }
         $options['disable_head_generator_tag'] = ( 'on' == $options['disable_head_generator_tag'] ? true : false );
+        if ( !isset( $options['disable_feed_generator_tag'] ) ) {
+            $options['disable_feed_generator_tag'] = false;
+        }
+        $options['disable_feed_generator_tag'] = ( 'on' == $options['disable_feed_generator_tag'] ? true : false );
         if ( !isset( $options['disable_resource_version_number'] ) ) {
             $options['disable_resource_version_number'] = false;
         }

@@ -196,11 +196,15 @@
       $('.enable-login-logout-menu').appendTo('.fields-login-logout > table > tbody');
       $('.enable-last-login-column').appendTo('.fields-login-logout > table > tbody');
       $('.redirect-after-login').appendTo('.fields-login-logout > table > tbody');
+      
       $('.redirect-after-login-to-slug').appendTo('.fields-login-logout .redirect-after-login .asenha-subfields');
       $('.redirect-after-login-for').appendTo('.fields-login-logout .redirect-after-login .asenha-subfields');
+      
       $('.redirect-after-logout').appendTo('.fields-login-logout > table > tbody');
+      
       $('.redirect-after-logout-to-slug').appendTo('.fields-login-logout .redirect-after-logout .asenha-subfields');
       $('.redirect-after-logout-for').appendTo('.fields-login-logout .redirect-after-logout .asenha-subfields');
+      
 
       // Place fields into "Custom Code" tab
       
@@ -237,6 +241,7 @@
       $('.disable-all-updates').appendTo('.fields-disable-components > table > tbody');
       $('.disable-smaller-components').appendTo('.fields-disable-components > table > tbody');
       $('.disable-head-generator-tag').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');
+      $('.disable-feed-generator-tag').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');
       $('.disable-resource-version-number').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');
       $('.disable-head-wlwmanifest-tag').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');
       $('.disable-head-rsd-tag').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');

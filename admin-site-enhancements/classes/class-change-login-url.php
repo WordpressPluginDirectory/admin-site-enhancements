@@ -59,14 +59,14 @@ class Change_Login_URL {
                             // Set custom redirect URL for roles set in the settings. Otherwise, leave redirect URL to the default, i.e. admin dashboard.
                             foreach ( $current_user_roles as $role ) {
                                 if ( in_array( $role, $roles_for_custom_redirect ) ) {
-                                    if ( 'switch_to_user' != $_GET['action'] && 'switch_to_olduser' != $_GET['action'] ) {
+                                    if ( isset( $_GET['action'] ) && 'switch_to_user' != $_GET['action'] && 'switch_to_olduser' != $_GET['action'] ) {
                                         wp_safe_redirect( home_url( $relative_path ) );
                                         exit;
                                     } else {
                                         return;
                                     }
                                 } else {
-                                    if ( 'switch_to_user' != $_GET['action'] && 'switch_to_olduser' != $_GET['action'] ) {
+                                    if ( isset( $_GET['action'] ) && 'switch_to_user' != $_GET['action'] && 'switch_to_olduser' != $_GET['action'] ) {
                                         // Redirect to dashboard
                                         wp_safe_redirect( get_admin_url() );
                                     } else {
@@ -75,7 +75,7 @@ class Change_Login_URL {
                                 }
                             }
                         } else {
-                            if ( 'switch_to_user' == $_GET['action'] || 'switch_to_olduser' == $_GET['action'] ) {
+                            if ( isset( $_GET['action'] ) && ('switch_to_user' == $_GET['action'] || 'switch_to_olduser' == $_GET['action']) ) {
                                 return;
                             }
                         }
@@ -84,7 +84,7 @@ class Change_Login_URL {
                         wp_safe_redirect( get_admin_url() );
                     }
                 } else {
-                    if ( 'switch_to_user' != $_GET['action'] && 'switch_to_olduser' != $_GET['action'] ) {
+                    if ( isset( $_GET['action'] ) && 'switch_to_user' != $_GET['action'] && 'switch_to_olduser' != $_GET['action'] ) {
                         // Redirect to dashboard
                         wp_safe_redirect( get_admin_url() );
                     } else {

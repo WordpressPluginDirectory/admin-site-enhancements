@@ -95,7 +95,13 @@ class Settings_Fields_Render {
             // Default is false / checked
             $default_value = false;
         }
-        $field_option_value = ( isset( $options[$args['parent_field_id']][$args['field_id']] ) ? $options[$args['parent_field_id']][$args['field_id']] : $default_value );
+        $parent_field_id = ( isset( $args['parent_field_id'] ) ? $args['parent_field_id'] : '' );
+        $sub_field_id = ( isset( $args['sub_field_id'] ) ? $args['sub_field_id'] : '' );
+        if ( in_array( $parent_field_id, array('redirect_after_login_for_separate', 'redirect_after_logout_for_separate') ) && !empty( $sub_field_id ) ) {
+            $field_option_value = ( isset( $options[$sub_field_id][$args['field_id']] ) ? $options[$sub_field_id][$args['field_id']] : $default_value );
+        } else {
+            $field_option_value = ( isset( $options[$parent_field_id][$args['field_id']] ) ? $options[$parent_field_id][$args['field_id']] : $default_value );
+        }
         echo '<input type="checkbox" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox" name="' . esc_attr( $field_name ) . '" ' . checked( $field_option_value, true, false ) . '>';
         echo '<label for="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox-label">' . wp_kses_post( $field_label ) . '</label>';
     }
@@ -190,6 +196,51 @@ class Settings_Fields_Render {
         } else {
             $field_option_value = '';
         }
+        if ( !empty( $field_prefix ) && !empty( $field_suffix ) ) {
+            $field_classname = ' with-prefix with-suffix';
+        } elseif ( !empty( $field_prefix ) && empty( $field_suffix ) ) {
+            $field_classname = ' with-prefix';
+        } elseif ( empty( $field_prefix ) && !empty( $field_suffix ) ) {
+            $field_classname = ' with-suffix';
+        } else {
+            $field_classname = '';
+        }
+        if ( !empty( $field_width_classname ) ) {
+            $field_classname .= ' ' . $field_width_classname;
+        }
+        echo wp_kses_post( $field_prefix ) . '<input type="text" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-text' . esc_attr( $field_classname ) . '" name="' . esc_attr( $field_name ) . '" placeholder="' . esc_attr( $field_placeholder ) . '" value="' . esc_attr( $field_option_value ) . '">' . wp_kses_post( $field_suffix );
+        echo '<label for="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox-label">' . esc_html( $field_description ) . '</label>';
+    }
+
+    /**
+     * Render text field as sub-field of a checkbox field. e.g. in Redirect After Login module
+     *
+     * @since 7.3.3
+     */
+    function render_checkbox_field_text_subfield( $args ) {
+        $option_name = $args['option_name'];
+        if ( !empty( $option_name ) ) {
+            $options = get_option( $option_name, array() );
+        } else {
+            $options = get_option( ASENHA_SLUG_U, array() );
+        }
+        $field_id = $args['field_id'];
+        $field_name = $args['field_name'];
+        $field_width_classname = ( isset( $args['field_width_classname'] ) ? $args['field_width_classname'] : '' );
+        $field_type = $args['field_type'];
+        $field_prefix = $args['field_prefix'];
+        $field_suffix = $args['field_suffix'];
+        $field_placeholder = ( isset( $args['field_placeholder'] ) ? $args['field_placeholder'] : '' );
+        $field_description = $args['field_description'];
+        $parent_field_id = ( isset( $args['parent_field_id'] ) ? $args['parent_field_id'] : '' );
+        $sub_field_id = ( isset( $args['sub_field_id'] ) ? $args['sub_field_id'] : '' );
+        if ( 'redirect_after_login_for_separate' == $parent_field_id && !empty( $sub_field_id ) ) {
+            $field_option_value = ( isset( $options[$sub_field_id][$field_id] ) ? $options[$sub_field_id][$field_id] : '' );
+        } else {
+            $field_option_value = ( isset( $options[$parent_field_id][$field_id] ) ? $options[$parent_field_id][$field_id] : '' );
+        }
+        // $field_option_value = ( isset( $options[$field_id] ) ) ? $options[$field_id] : '';
+        $field_option_value = ( isset( $options[$parent_field_id . '_slug'][$args['field_id']] ) ? $options[$parent_field_id . '_slug'][$field_id] : '' );
         if ( !empty( $field_prefix ) && !empty( $field_suffix ) ) {
             $field_classname = ' with-prefix with-suffix';
         } elseif ( !empty( $field_prefix ) && empty( $field_suffix ) ) {

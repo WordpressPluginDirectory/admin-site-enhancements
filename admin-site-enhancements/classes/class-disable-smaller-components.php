@@ -22,6 +22,18 @@ class Disable_Smaller_Components {
         }
         return $src;
     }
+    
+    /** 
+     * Remove generator tag from RSS feed
+     * 
+     * @since 7.3.3
+     */
+    public function remove_feed_generator_tag( $generator_type, $type ) {
+        // e.g. <generator>https://wordpress.org/?v=6.6.1</generator>
+        if ( false !== strpos( $generator_type, '<generator>https://wordpress.org/?v=' ) ) {
+            return '';            
+        }
+    }
 
     /**
      * Disable loading of frontend public assets of dashicons

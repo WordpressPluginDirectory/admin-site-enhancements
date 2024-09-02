@@ -2027,6 +2027,23 @@ class Settings_Sections_Fields {
                 'class'       => 'asenha-checkbox asenha-hide-th disable-components ' . $field_slug,
             )
         );
+        $field_id = 'disable_feed_generator_tag';
+        $field_slug = 'disable-feed-generator-tag';
+        add_settings_field(
+            $field_id,
+            '',
+            // Field title
+            [$render_field, 'render_checkbox_plain'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name' => ASENHA_SLUG_U,
+                'field_id'    => $field_id,
+                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_label' => __( 'Disable the <strong>&lt;generator&gt; tag</strong> in RSS feed &lt;channel&gt;, which discloses the WordPress version number. Older versions(s) might contain unpatched security loophole(s).', 'admin-site-enhancements' ),
+                'class'       => 'asenha-checkbox asenha-hide-th disable-components ' . $field_slug,
+            )
+        );
         $field_id = 'disable_resource_version_number';
         $field_slug = 'disable-resource-version-number';
         add_settings_field(

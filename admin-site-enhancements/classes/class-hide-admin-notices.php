@@ -195,6 +195,18 @@ class Hide_Admin_Notices {
                 #wpbody-content > #trp-main-settings > form > .notice-updated,
                 #wpbody-content > #trp-main-settings > form > .updated:not(.inline),
                 #wpbody-content > #trp-main-settings > form > .update-nag,
+                /* WordFence */
+                #wpbody-content > .wrap > .wf-container-fluid .notice:not(#plugin-activated-successfully,.system-notice,.hidden),
+                #wpbody-content > .wrap > .wf-container-fluid .notice-error,
+                #wpbody-content > .wrap > .wf-container-fluid .error:not(.hidden),
+                #wpbody-content > .wrap > .wf-container-fluid .notice-info,
+                #wpbody-content > .wrap > .wf-container-fluid .notice-information,
+                #wpbody-content > .wrap > .wf-container-fluid #message,
+                #wpbody-content > .wrap > .wf-container-fluid .notice-warning:not(.hidden),
+                #wpbody-content > .wrap > .wf-container-fluid .notice-success:not(#plugin-activated-successfully),
+                #wpbody-content > .wrap > .wf-container-fluid .notice-updated,
+                #wpbody-content > .wrap > .wf-container-fluid .updated:not(.inline),
+                #wpbody-content > .wrap > .wf-container-fluid .update-nag,
                 /* Funnel Builder for WordPress by FunnelKit */
                 #wpbody-content > .bwfan_header > .notice:not(.system-notice,.hidden),
                 #wpbody-content > .bwfan_header > .notice-error,

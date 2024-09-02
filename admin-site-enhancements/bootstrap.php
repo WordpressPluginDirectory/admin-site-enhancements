@@ -771,6 +771,14 @@ class Admin_Site_Enhancements {
             if ( array_key_exists( 'disable_head_generator_tag', $options ) && $options['disable_head_generator_tag'] ) {
                 remove_action( 'wp_head', 'wp_generator' );
             }
+            if ( array_key_exists( 'disable_feed_generator_tag', $options ) && $options['disable_feed_generator_tag'] ) {
+                add_filter(
+                    'the_generator',
+                    [$disable_smaller_components, 'remove_feed_generator_tag'],
+                    10,
+                    2
+                );
+            }
             if ( array_key_exists( 'disable_resource_version_number', $options ) && $options['disable_resource_version_number'] ) {
                 add_filter( 'style_loader_src', [$disable_smaller_components, 'remove_resource_version_number'], PHP_INT_MAX );
                 add_filter( 'script_loader_src', [$disable_smaller_components, 'remove_resource_version_number'], PHP_INT_MAX );
