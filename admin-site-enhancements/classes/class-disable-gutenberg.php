@@ -55,7 +55,7 @@ class Disable_Gutenberg {
             // If Gutenberg feature plugin is activated
             if ( $gutenberg ) {
                 add_filter( 'gutenberg_can_edit_post_type', '__return_false', 100 );
-                $this->remove_all_gutenberg_hook();
+                $this->remove_all_gutenberg_hooks();
             }
         }
     }
@@ -113,7 +113,7 @@ class Disable_Gutenberg {
      * @since 2.8.0
      */
     public function disable_gutenberg_for_post_types_frontend() {
-        $post = get_queried_object();
+        global $post;
         if ( !is_null( $post ) ) {
             if ( property_exists( $post, 'post_type' ) ) {
                 $post_type = $post->post_type;
@@ -148,6 +148,7 @@ class Disable_Gutenberg {
                     wp_dequeue_style( 'classic-theme-styles' );
                     // classic theme
                 }
+                wp_deregister_style( 'wp-block-library' );
             }
         }
     }

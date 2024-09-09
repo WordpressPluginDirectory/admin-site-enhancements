@@ -169,9 +169,11 @@
       $('.enhance-list-tables').appendTo('.fields-admin-interface > table > tbody');
       $('.show-featured-image-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.show-excerpt-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
+      $('.show-last-modified-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.show-id-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.show-file-size-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.show-id-in-action_row').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
+      $('.hide-date-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.hide-comments-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.hide-post-tags-column').appendTo('.fields-admin-interface .enhance-list-tables .asenha-subfields');
       $('.various-admin-ui-enhancements').appendTo('.fields-admin-interface > table > tbody');
@@ -237,6 +239,7 @@
       
       $('.disable-comments-for').appendTo('.fields-disable-components .disable-comments .asenha-subfields');
       $('.disable-rest-api').appendTo('.fields-disable-components > table > tbody');
+      
       $('.disable-feeds').appendTo('.fields-disable-components > table > tbody');
       $('.disable-all-updates').appendTo('.fields-disable-components > table > tbody');
       $('.disable-smaller-components').appendTo('.fields-disable-components > table > tbody');
@@ -601,6 +604,7 @@
       
       subfieldsToggler( 'disable_gutenberg', 'disable-gutenberg' );
       subfieldsToggler( 'disable_comments', 'disable-comments' );
+      
       subfieldsToggler( 'disable_smaller_components', 'disable-smaller-components' );
       subfieldsToggler( 'limit_login_attempts', 'limit-login-attempts' );
       subfieldsToggler( 'obfuscate_email_address', 'obfuscate-email-address' );

@@ -876,6 +876,24 @@ class Settings_Sections_Fields {
                 'class'       => 'asenha-checkbox asenha-hide-th content-management ' . $field_slug,
             )
         );
+        // Show Last Modified Column
+        $field_id = 'show_last_modified_column';
+        $field_slug = 'show-last-modified-column';
+        add_settings_field(
+            $field_id,
+            '',
+            // Field title
+            [$render_field, 'render_checkbox_plain'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name' => ASENHA_SLUG_U,
+                'field_id'    => $field_id,
+                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_label' => __( 'Show last modified column', 'admin-site-enhancements' ),
+                'class'       => 'asenha-checkbox asenha-hide-th content-management ' . $field_slug,
+            )
+        );
         // Show ID Column
         $field_id = 'show_id_column';
         $field_slug = 'show-id-column';
@@ -927,6 +945,24 @@ class Settings_Sections_Fields {
                 'field_id'    => $field_id,
                 'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_label' => __( 'Show ID in action rows along with links for Edit, View, etc.', 'admin-site-enhancements' ),
+                'class'       => 'asenha-checkbox asenha-hide-th content-management ' . $field_slug,
+            )
+        );
+        // Hide Date Column
+        $field_id = 'hide_date_column';
+        $field_slug = 'hide-date-column';
+        add_settings_field(
+            $field_id,
+            '',
+            // Field title
+            [$render_field, 'render_checkbox_plain'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name' => ASENHA_SLUG_U,
+                'field_id'    => $field_id,
+                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_label' => __( 'Remove date column', 'admin-site-enhancements' ),
                 'class'       => 'asenha-checkbox asenha-hide-th content-management ' . $field_slug,
             )
         );

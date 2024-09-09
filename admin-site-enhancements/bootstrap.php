@@ -372,6 +372,10 @@ class Admin_Site_Enhancements {
             if ( array_key_exists( 'show_excerpt_column', $options ) && $options['show_excerpt_column'] ) {
                 add_action( 'admin_init', [$enhance_list_tables, 'show_excerpt_column'] );
             }
+            // Show Last Modified Column
+            if ( array_key_exists( 'show_last_modified_column', $options ) && $options['show_last_modified_column'] ) {
+                add_action( 'admin_init', [$enhance_list_tables, 'show_last_modified_column'] );
+            }
             // Show ID Column
             if ( array_key_exists( 'show_id_column', $options ) && $options['show_id_column'] ) {
                 add_action( 'admin_init', [$enhance_list_tables, 'show_id_column'] );
@@ -390,6 +394,10 @@ class Admin_Site_Enhancements {
             // Show ID in Action Row
             if ( array_key_exists( 'show_id_in_action_row', $options ) && $options['show_id_in_action_row'] ) {
                 add_action( 'admin_init', [$enhance_list_tables, 'show_id_in_action_row'] );
+            }
+            // Hide Date Column
+            if ( array_key_exists( 'hide_date_column', $options ) && $options['hide_date_column'] ) {
+                add_action( 'admin_init', [$enhance_list_tables, 'hide_date_column'] );
             }
             // Hide Comments Column
             if ( array_key_exists( 'hide_comments_column', $options ) && $options['hide_comments_column'] ) {
@@ -665,28 +673,39 @@ class Admin_Site_Enhancements {
         }
         // Disable REST API
         if ( array_key_exists( 'disable_rest_api', $options ) && $options['disable_rest_api'] ) {
-            if ( version_compare( get_bloginfo( 'version' ), '4.7', '>=' ) ) {
-                $disable_rest_api = new ASENHA\Classes\Disable_REST_API();
-                add_filter( 'rest_authentication_errors', [$disable_rest_api, 'disable_rest_api'] );
-            } else {
-                // REST API 1.x
-                add_filter( 'json_enabled', '__return_false' );
-                add_filter( 'json_jsonp_enabled', '__return_false' );
-                // REST API 2.x
-                add_filter( 'rest_enabled', '__return_false' );
-                add_filter( 'rest_jsonp_enabled', '__return_false' );
+            if ( !function_exists( 'is_user_logged_in' ) ) {
+                require_once ABSPATH . 'wp-includes/pluggable.php';
             }
-            remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
-            // Disable REST API links in HTML <head>
-            remove_action(
-                'template_redirect',
-                'rest_output_link_header',
-                11,
-                0
-            );
-            // Disable REST API link in HTTP headers
-            remove_action( 'xmlrpc_rsd_apis', 'rest_output_rsd' );
-            // Remove REST API URL from the WP RSD endpoint.
+            $allow_rest_api_access = false;
+            if ( !is_user_logged_in() ) {
+                $allow_rest_api_access = false;
+            } else {
+                $allow_rest_api_access = true;
+            }
+            if ( !$allow_rest_api_access ) {
+                if ( version_compare( get_bloginfo( 'version' ), '4.7', '>=' ) ) {
+                    $disable_rest_api = new ASENHA\Classes\Disable_REST_API();
+                    add_filter( 'rest_authentication_errors', [$disable_rest_api, 'disable_rest_api'] );
+                } else {
+                    // REST API 1.x
+                    add_filter( 'json_enabled', '__return_false' );
+                    add_filter( 'json_jsonp_enabled', '__return_false' );
+                    // REST API 2.x
+                    add_filter( 'rest_enabled', '__return_false' );
+                    add_filter( 'rest_jsonp_enabled', '__return_false' );
+                }
+                remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+                // Disable REST API links in HTML <head>
+                remove_action(
+                    'template_redirect',
+                    'rest_output_link_header',
+                    11,
+                    0
+                );
+                // Disable REST API link in HTTP headers
+                remove_action( 'xmlrpc_rsd_apis', 'rest_output_rsd' );
+                // Remove REST API URL from the WP RSD endpoint.
+            }
         }
         // Disable Feeds
         if ( array_key_exists( 'disable_feeds', $options ) && $options['disable_feeds'] ) {

@@ -88,15 +88,15 @@ class Settings_Fields_Render {
         }
         $field_name = $args['field_name'];
         $field_label = $args['field_label'];
-        if ( 'enable_duplication_for' == $args['parent_field_id'] ) {
+        $parent_field_id = ( isset( $args['parent_field_id'] ) ? $args['parent_field_id'] : '' );
+        $sub_field_id = ( isset( $args['sub_field_id'] ) ? $args['sub_field_id'] : '' );
+        if ( in_array( $parent_field_id, array('enable_duplication_for', 'enable_rest_api_for') ) ) {
             // Default is true/enabled. Usually for options introduced at a later date where the previous default is true/enabled.
             $default_value = true;
         } else {
             // Default is false / checked
             $default_value = false;
         }
-        $parent_field_id = ( isset( $args['parent_field_id'] ) ? $args['parent_field_id'] : '' );
-        $sub_field_id = ( isset( $args['sub_field_id'] ) ? $args['sub_field_id'] : '' );
         if ( in_array( $parent_field_id, array('redirect_after_login_for_separate', 'redirect_after_logout_for_separate') ) && !empty( $sub_field_id ) ) {
             $field_option_value = ( isset( $options[$sub_field_id][$args['field_id']] ) ? $options[$sub_field_id][$args['field_id']] : $default_value );
         } else {

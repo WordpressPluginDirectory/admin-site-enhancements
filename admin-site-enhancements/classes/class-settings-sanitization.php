@@ -219,6 +219,11 @@ class Settings_Sanitization {
             $options['show_excerpt_column'] = false;
         }
         $options['show_excerpt_column'] = ( 'on' == $options['show_excerpt_column'] ? true : false );
+        // Show Last Modified Column
+        if ( !isset( $options['show_last_modified_column'] ) ) {
+            $options['show_last_modified_column'] = false;
+        }
+        $options['show_last_modified_column'] = ( 'on' == $options['show_last_modified_column'] ? true : false );
         // Show ID Column
         if ( !isset( $options['show_id_column'] ) ) {
             $options['show_id_column'] = false;
@@ -239,6 +244,11 @@ class Settings_Sanitization {
             $options['show_custom_taxonomy_filters'] = false;
         }
         $options['show_custom_taxonomy_filters'] = ( 'on' == $options['show_custom_taxonomy_filters'] ? true : false );
+        // Hide Date Column
+        if ( !isset( $options['hide_date_column'] ) ) {
+            $options['hide_date_column'] = false;
+        }
+        $options['hide_date_column'] = ( 'on' == $options['hide_date_column'] ? true : false );
         // Hide Comments Column
         if ( !isset( $options['hide_comments_column'] ) ) {
             $options['hide_comments_column'] = false;

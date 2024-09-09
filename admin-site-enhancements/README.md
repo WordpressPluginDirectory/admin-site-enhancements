@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.6.1  
-Stable tag: 7.3.3  
+Stable tag: 7.4.0  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -73,7 +73,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **Admin Menu Editor / Organizer**. Customize the order of the admin menu and optionally change menu item title or hide some items. [ASE Pro](https://www.wpase.com/rdme-to-web) enables always hiding menu items for some or all user roles and reorder submenu items.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Admin Columns Manager**. Manage and organize columns in the admin listing for pages, posts and custom post types. Currently supports ASE, ACF and Meta Box custom fields.
 * **Show Custom Taxonomy Filters**. Show additional filter(s) on list tables for hierarchical, custom taxonomies. [ASE Pro](https://www.wpase.com/rdme-to-web) adds option to show additional filter(s) for non-hierarchical taxonomies.
-* **Enhance List Tables**. Improve the usefulness of listing pages of various post types by adding / removing columns and elements, e.g. featured image, excerpt, ID columns.
+* **Enhance List Tables**. Improve the usefulness of listing pages of various post types by adding / removing columns and elements, e.g. featured image, excerpt, last modified, ID, media file size columns.
 * **Various Admin UI Enhancements**: Various, smaller enhancements for different parts of the admin interface.
   * **Media Library Infinite Scrolling**: Re-enable infinite scrolling in the grid view of the media library.
   * **Display Active Plugins First**: Display active / activated plugins at the top of the Installed Plugins list.
@@ -106,7 +106,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 * **Disable Gutenberg**. Disable the Gutenberg block editor for some or all applicable post types. Optionally disable frontend block assets. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to disable only on / except on certain post types, or on all post types.
 * **Disable Comments**. Disable comments for some or all public post types. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to disable only on / except on certain post types, or on all post types.
-* **Disable REST API**. Disable REST API access for non-authenticated users and remove URL traces from &lt;head&gt;, HTTP headers and WP RSD endpoint.
+* **Disable REST API**. Disable REST API access for non-authenticated users and remove URL traces from &lt;head&gt;, HTTP headers and WP RSD endpoint. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to enable access only for some, authenticated user roles, e.g. administrators.
 * **Disable Feeds**. Disable all RSS, Atom and RDF feeds.
 * **Disable All Updates**. Completely disable core, theme and plugin updates and auto-updates. Will also disable update checks, notices and emails.
 * **Disable Smaller Components**. Prevent smaller components from running or loading. Those are generator &lt;meta&gt; tag, version number, Windows Live Writer (WLW) manifest &lt;link&gt; tag, Really Simple Discovery (RSD) &lt;link&gt; tag, WordPress shortlink &lt;link&gt; tag in &lt;head&gt;, and also dashicons CSS and JS files, emoji support, jQuery Migrate, block-based widgets settings screen and native lazy load of images.
@@ -186,28 +186,28 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **73 _point_ releases** (e.g. 1.1.0 ) and **111 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **74 _point_ releases** (e.g. 1.1.0 ) and **111 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
-### 7.3.3 (2024.09.02) - ASE Free and Pro
+### 7.4.0 (2024.09.09) - ASE Free and Pro
 
-* **[ADDED in Free and Pro] Disable Components >> Disable Smaller Components**: added an option to remove generator tag that contains WordPress version number in RSS feed. Props to [Emmanue ATSÉ](https://wordpress.org/support/users/eatse/) for [suggesting this](https://wordpress.org/support/topic/disable-version-number-version-still-present-in-rss-feed/).
-
-* **[IMPROVED in Pro] Log In | Log Out >> Redirect After Login and Logout**: add option to redirect to separate URL for each user role.
-
-* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: fix PHP warning as [reported](https://wordpress.org/support/topic/php-warning-undefined-variable-4/#post-17984197) by [@dakotadevelopers](https://wordpress.org/support/users/dakotadevelopers/) and Thibaut V.
-
-* **[FIXED in Free and Pro] Admin Interface >> Hide Admin Notices**: some notices were not properly hidden on Wordfence plugin's dashboard, which is now fixed and will be properly hidden in the notices panel. Props to [@tomislo](https://wordpress.org/support/users/tomislo/) for [reporting the issue](https://wordpress.org/support/topic/hide-admin-notices-2/).
-
-* **[FIXED in Pro] Admin Interface >> Admin Logo**: when admin logo is shown in the admin menu and the menu is collapsed, the logo will now be hidden instead of shown in the original size, overflowing the collapsed menu. Props to @myleslasco for reporting the issue.
+* **[ADDED in Free and Pro] Admin Interface >> Enhance List Tables**: 
+  * Add an option to show a sortable, last modified column. Props to [@nirmithamw](https://wordpress.org/support/users/nirmithamw/) for [suggesting this](https://wordpress.org/support/topic/feature-request-post-notes-last-modified/).
+  * Add an option to hide the date column. Maybe useful if you're showing the last modified column already.
+  
+* **[IMPROVED in Pro] Disable Components >> Disable REST API**: add an option to disable REST API access for some or all authenticated / logged-in user role(). May be useful if you have a membership or ecommerce site and would like to limit access to the REST API for admins only. Props to Yurkee for suggesting this improvement.
+  
+* **[FIXED in Free and Pro] Disable Components >> Disable Gutenberg**: fix an issue where frontend gutenberg CSS assets and styles were not properly removed in some scenarios when using Bricks builder / themne, even though it's been set to be disabled in ASE settings. Props to [@thekendog](https://wordpress.org/support/users/thekendog/) for [reporting this](https://wordpress.org/support/topic/dequeue-wp-block-library-css/).
+  
+* **[FIXED in Pro] Admin Interface >> Admin Logo**: fix styling issue when admin bar logo is enabled and shown in the admin bar on the frontend. Props to [@lulech23](https://wordpress.org/support/users/lulech23/) for reporting this.
 
 * **[TRANSLATION in Free and Pro]** ASE is now translated into 22 languages:
   * **Added new/improved translation** for:
-    * Free: Hungarian, Indonesian, Slovak, Swedish, Vietnamese
-    * Pro: Italian, Vietnamese
+    * Free: Spanish, Indonesian, Dutch, Polish, Brazilian Portuguese, Slovak, Vietnamese
+    * Pro: Hungarian, Norwegian, Vietnamese, Romanian
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.

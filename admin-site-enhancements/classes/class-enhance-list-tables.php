@@ -47,11 +47,11 @@ class Enhance_List_Tables {
         foreach ( $columns as $key => $value ) {
             if ( 'title' == $key ) {
                 // We add featured image column before the 'title' column
-                $new_columns['asenha-featured-image'] = 'Featured Image';
+                $new_columns['asenha-featured-image'] = __( 'Featured Image', 'admin-site-enhancements' );
             }
             if ( 'thumb' == $key ) {
                 // For WooCommerce products, we add featured image column before it's native thumbnail column
-                $new_columns['asenha-featured-image'] = 'Product Image';
+                $new_columns['asenha-featured-image'] = __( 'Product Image', 'admin-site-enhancements' );
             }
             $new_columns[$key] = $value;
         }
@@ -103,7 +103,7 @@ class Enhance_List_Tables {
     }
 
     /**
-     * Add a column called Featured Image as the first column
+     * Add a column called Excerpt as the first column
      *
      * @param mixed $columns
      * @return void
@@ -114,7 +114,7 @@ class Enhance_List_Tables {
         foreach ( $columns as $key => $value ) {
             $new_columns[$key] = $value;
             if ( $key == 'title' ) {
-                $new_columns['asenha-excerpt'] = 'Excerpt';
+                $new_columns['asenha-excerpt'] = __( 'Excerpt', 'admin-site-enhancements' );
             }
         }
         return $new_columns;
@@ -136,6 +136,71 @@ class Enhance_List_Tables {
             $short_excerpt = substr( $excerpt, 0, strrpos( $excerpt, ' ' ) );
             echo wp_kses_post( $short_excerpt );
         }
+    }
+
+    /** 
+     * Show last modified column for pages, posts and CPTs
+     * 
+     * @since 7.4.0
+     */
+    public function show_last_modified_column() {
+        foreach ( get_post_types() as $post_type ) {
+            add_filter(
+                'manage_' . $post_type . '_posts_columns',
+                [$this, 'add_last_modified_column'],
+                10,
+                1
+            );
+            add_action(
+                'manage_' . $post_type . '_posts_custom_column',
+                [$this, 'show_last_modified_datetime'],
+                10,
+                2
+            );
+            add_action(
+                'manage_edit-' . $post_type . '_sortable_columns',
+                [$this, 'make_last_modified_column_sortable'],
+                10,
+                1
+            );
+        }
+    }
+
+    /**
+     * Add a column called Last Modified
+     * 
+     * @since 7.4.0
+     */
+    public function add_last_modified_column( $columns ) {
+        $new_columns = array();
+        foreach ( $columns as $key => $value ) {
+            $new_columns[$key] = $value;
+            if ( $key == 'date' ) {
+                $new_columns['asenha-last-modified'] = __( 'Last Modified', 'admin-site-enhancements' );
+            }
+        }
+        return $new_columns;
+    }
+
+    /**
+     * Output the last modified date time for each post
+     * 
+     * @since 7.4.0
+     */
+    public function show_last_modified_datetime( $column_name, $id ) {
+        if ( 'asenha-last-modified' == $column_name ) {
+            echo '<span class="last-modified-timestamp">' . get_the_modified_date( 'Y/m/d' ) . '<br />' . get_the_modified_time( 'g:i a' ) . '</span>';
+        }
+    }
+
+    /**
+     * Make last modified column sortable
+     * 
+     * @since 7.4.0
+     */
+    public function make_last_modified_column_sortable() {
+        $columns['asenha-last-modified'] = 'modified';
+        return $columns;
     }
 
     /**
@@ -245,7 +310,7 @@ class Enhance_List_Tables {
      * @since 6.9.5
      */
     public function add_column_file_size( $columns ) {
-        $columns['asenha-file-size'] = 'File Size';
+        $columns['asenha-file-size'] = __( 'File Size', 'admin-site-enhancements' );
         return $columns;
     }
 
@@ -345,6 +410,32 @@ class Enhance_List_Tables {
             $actions['asenha-list-table-item-id'] = '<span class="asenha-list-table-item-id">ID: ' . $id . '</span>';
         }
         return $actions;
+    }
+
+    /** 
+     * Show last modified column for pages, posts and CPTs
+     * 
+     * @since 7.4.0
+     */
+    public function hide_date_column() {
+        foreach ( get_post_types() as $post_type ) {
+            add_filter(
+                'manage_' . $post_type . '_posts_columns',
+                [$this, 'remove_date_column'],
+                10,
+                1
+            );
+        }
+    }
+
+    /**
+     * Add a column called Last Modified
+     * 
+     * @since 7.4.0
+     */
+    public function remove_date_column( $columns ) {
+        unset($columns['date']);
+        return $columns;
     }
 
     /**
