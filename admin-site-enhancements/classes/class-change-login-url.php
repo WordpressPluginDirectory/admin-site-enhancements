@@ -29,7 +29,6 @@ class Change_Login_URL {
             if ( is_user_logged_in() ) {
                 if ( array_key_exists( 'redirect_after_login', $options ) && $options['redirect_after_login'] ) {
                     if ( array_key_exists( 'redirect_after_login_for', $options ) && !empty( $options['redirect_after_login_for'] ) ) {
-                        // An almost exact replica of redirect_after_login() in class-redirect-after-login.php
                         $redirect_after_login_to_slug_raw = ( isset( $options['redirect_after_login_to_slug'] ) ? $options['redirect_after_login_to_slug'] : '' );
                         if ( !empty( $redirect_after_login_to_slug_raw ) ) {
                             $redirect_after_login_to_slug = trim( trim( $redirect_after_login_to_slug_raw ), '/' );
@@ -59,43 +58,71 @@ class Change_Login_URL {
                             // Set custom redirect URL for roles set in the settings. Otherwise, leave redirect URL to the default, i.e. admin dashboard.
                             foreach ( $current_user_roles as $role ) {
                                 if ( in_array( $role, $roles_for_custom_redirect ) ) {
-                                    if ( isset( $_GET['action'] ) && 'switch_to_user' != $_GET['action'] && 'switch_to_olduser' != $_GET['action'] ) {
-                                        wp_safe_redirect( home_url( $relative_path ) );
-                                        exit;
+                                    if ( isset( $_GET['action'] ) ) {
+                                        // User Switching plugin
+                                        if ( 'switch_to_user' == $_GET['action'] || 'switch_to_olduser' == $_GET['action'] ) {
+                                            return;
+                                            // This ensures user switching proceeds
+                                        } else {
+                                            wp_safe_redirect( home_url( $relative_path ) );
+                                            exit;
+                                        }
                                     } else {
-                                        return;
-                                    }
-                                } else {
-                                    if ( isset( $_GET['action'] ) && 'switch_to_user' != $_GET['action'] && 'switch_to_olduser' != $_GET['action'] ) {
                                         // Redirect to dashboard
                                         wp_safe_redirect( get_admin_url() );
+                                        exit;
+                                    }
+                                } else {
+                                    if ( isset( $_GET['action'] ) ) {
+                                        // User Switching plugin
+                                        if ( 'switch_to_user' == $_GET['action'] || 'switch_to_olduser' == $_GET['action'] ) {
+                                            return;
+                                            // This ensures user switching proceeds
+                                        } else {
+                                            // Redirect to dashboard
+                                            wp_safe_redirect( get_admin_url() );
+                                            exit;
+                                        }
                                     } else {
-                                        return;
+                                        // Redirect to dashboard
+                                        wp_safe_redirect( get_admin_url() );
+                                        exit;
                                     }
                                 }
                             }
                         } else {
                             if ( isset( $_GET['action'] ) && ('switch_to_user' == $_GET['action'] || 'switch_to_olduser' == $_GET['action']) ) {
                                 return;
+                                // This ensures user switching proceeds
                             }
                         }
                     } else {
                         // Redirect to dashboard
                         wp_safe_redirect( get_admin_url() );
+                        exit;
                     }
                 } else {
-                    if ( isset( $_GET['action'] ) && 'switch_to_user' != $_GET['action'] && 'switch_to_olduser' != $_GET['action'] ) {
+                    if ( isset( $_GET['action'] ) ) {
+                        // User Switching plugin
+                        if ( 'switch_to_user' == $_GET['action'] || 'switch_to_olduser' == $_GET['action'] ) {
+                            return;
+                            // This ensures user switching proceeds
+                        } else {
+                            // Redirect to dashboard
+                            wp_safe_redirect( get_admin_url() );
+                            exit;
+                        }
+                    } else {
                         // Redirect to dashboard
                         wp_safe_redirect( get_admin_url() );
-                    } else {
-                        return;
+                        exit;
                     }
                 }
             } else {
                 // Redirect to the login URL with custom login slug in the query parameters
                 wp_safe_redirect( site_url( '/wp-login.php?' . $custom_login_slug . '&redirect=false' ) );
+                exit;
             }
-            exit;
         }
     }
 

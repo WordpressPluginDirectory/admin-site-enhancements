@@ -4,8 +4,8 @@ Contributors: qriouslad
 Donate link: https://bowo.io/asenha-sp-rdm  
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
-Tested up to: 6.6.1  
-Stable tag: 7.4.0  
+Tested up to: 6.6.2  
+Stable tag: 7.4.2  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -20,7 +20,7 @@ Admin and Site Enhancements (ASE) helps you to **easily enhance** various admin 
 
 **Pro version** with Lifetime Deal (LTD) is available at [www.wpase.com](https://www.wpase.com/rdme-to-web).
 
-Here's a walkthrough of ASE Free at v7.1.5 by Jakson.
+Here's a quick walkthrough of ASE Free at v7.1.5 by Jakson.
 
 https://www.youtube.com/watch?v=ZEiIKfz2p2Q
 
@@ -51,7 +51,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Custom Content Types**. Conveniently register and edit custom post types (CPT), custom taxonomies, custom field groups and options pages that integrates with Bricks, Breakdance, Oxygen and Elementor. This is an alternative for ACF Pro, Meta Box, Toolset, Pods or JetEngine.
 * **Content Duplication**. One-click duplication of pages, posts and CPTs. [ASE Pro](https://www.wpase.com/rdme-to-web) enables duplication only for certain user roles and post types, and adds location option for duplication link.
-* **Content Order**. Enable custom ordering of various post types that are hierarchical or support page attributes, in wp-admin. [ASE Pro](https://www.wpase.com/rdme-to-web) enables ordering of post types that are non-hierarchical and does not support page attributes, including media / attachments. It also enable toggling taxonomy terms and / or excerpt on the ordering page and applying the custom order on the frontend.
+* **Content Order**. Enable custom ordering of various post types that are hierarchical or support page attributes, in wp-admin. [ASE Pro](https://www.wpase.com/rdme-to-web) enables ordering of post types that are non-hierarchical and does not support page attributes, including media / attachments. It also enable toggling taxonomy terms and / or excerpt on the ordering page and applying the custom order on the frontend including for adjacent posts navigation.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Terms Order**. Enable custom ordering of terms from various taxonomies in wp-admin and on the frontend.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Media Categories**. Add categories for the media library and enable drag-and-drop categorization of media items.
 * **Media Replacement**. Easily replace any type of media file with a new one while ensuring no existing links will break. [ASE Pro](https://www.wpase.com/rdme-to-web) allows replacing media from the grid view of media library as well.
@@ -186,28 +186,22 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **74 _point_ releases** (e.g. 1.1.0 ) and **111 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **74 _point_ releases** (e.g. 1.1.0 ) and **113 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
-### 7.4.0 (2024.09.09) - ASE Free and Pro
+### 7.4.2 (2024.09.16) - ASE Free and Pro
 
-* **[ADDED in Free and Pro] Admin Interface >> Enhance List Tables**: 
-  * Add an option to show a sortable, last modified column. Props to [@nirmithamw](https://wordpress.org/support/users/nirmithamw/) for [suggesting this](https://wordpress.org/support/topic/feature-request-post-notes-last-modified/).
-  * Add an option to hide the date column. Maybe useful if you're showing the last modified column already.
-  
-* **[IMPROVED in Pro] Disable Components >> Disable REST API**: add an option to disable REST API access for some or all authenticated / logged-in user role(). May be useful if you have a membership or ecommerce site and would like to limit access to the REST API for admins only. Props to Yurkee for suggesting this improvement.
-  
-* **[FIXED in Free and Pro] Disable Components >> Disable Gutenberg**: fix an issue where frontend gutenberg CSS assets and styles were not properly removed in some scenarios when using Bricks builder / themne, even though it's been set to be disabled in ASE settings. Props to [@thekendog](https://wordpress.org/support/users/thekendog/) for [reporting this](https://wordpress.org/support/topic/dequeue-wp-block-library-css/).
-  
-* **[FIXED in Pro] Admin Interface >> Admin Logo**: fix styling issue when admin bar logo is enabled and shown in the admin bar on the frontend. Props to [@lulech23](https://wordpress.org/support/users/lulech23/) for reporting this.
+* **[IMPROVED in Pro] Content Management >> Content Order**: adjacent posts (next and previous posts) are now correctly reflecting the custom order. Props to Antoine L. for suggesting this improvement.
+
+* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: fix an issue where visiting the custom login URL while logged-in returns a 404 Not Found error. Props to Nadja v.M. for reporting the issue.
 
 * **[TRANSLATION in Free and Pro]** ASE is now translated into 22 languages:
   * **Added new/improved translation** for:
-    * Free: Spanish, Indonesian, Dutch, Polish, Brazilian Portuguese, Slovak, Vietnamese
-    * Pro: Hungarian, Norwegian, Vietnamese, Romanian
+    * Free: Spanish, Indonesian, Norwegian, Dutch, Polish, Brazilian Portuguese, Ukrainian, Vietnamese
+    * Pro: Vietnamese
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.

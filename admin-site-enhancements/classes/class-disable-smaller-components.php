@@ -16,7 +16,8 @@ class Disable_Smaller_Components {
      */
     public function remove_resource_version_number( $src ) {
         if ( ! is_user_logged_in() ) {
-            if ( strpos( $src, '?ver=' ) ) {
+            // https://wordpress.org/support/topic/disable-smaller-components-version-can-be-hidden/
+            if ( strpos( $src, 'ver=' ) ) {
                 $src = remove_query_arg( 'ver', $src );
             }
         }
