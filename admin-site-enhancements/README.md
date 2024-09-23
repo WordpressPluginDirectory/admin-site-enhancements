@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.6.2  
-Stable tag: 7.4.2  
+Stable tag: 7.4.4  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -186,22 +186,30 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **74 _point_ releases** (e.g. 1.1.0 ) and **113 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **74 _point_ releases** (e.g. 1.1.0 ) and **115 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
-### 7.4.2 (2024.09.16) - ASE Free and Pro
+### 7.4.4 (2024.09.23) - ASE Free and Pro
 
-* **[IMPROVED in Pro] Content Management >> Content Order**: adjacent posts (next and previous posts) are now correctly reflecting the custom order. Props to Antoine L. for suggesting this improvement.
+* **[IMPROVED in Free and Pro] Optimization >> Image Upload Control**:
+  * ASE Free and Pro: improved handling of PNG with transparency
+  * ASE Pro: fix for WebP conversion for certain type of PNG with transparency. Props to Aleš S. for reporting the issue.
+  
+* **[IMPROVED in Pro] Admin Interface >> Admin Columns Manager**: add an option to set custom formatting for number and date-time columns. This is applicable to default columns and custom field columns, including those by ASE, ACF, Meta Box.
 
-* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: fix an issue where visiting the custom login URL while logged-in returns a 404 Not Found error. Props to Nadja v.M. for reporting the issue.
+* **[FIXED in Free and Pro] Log In | Log Out >> Last Login Column**: fix login time not being properly logged. Props to [@pcamoz](https://wordpress.org/support/users/pcamoz/) for [reporting the issue](https://wordpress.org/support/topic/log-last-login-for-users/).
 
-* **[TRANSLATION in Free and Pro]** ASE is now translated into 22 languages:
+* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fix PHP warning. Props to Simon K. for reporting the issue.
+
+* **[FIXED in Pro] Content Management >> Media Categories**: fix CSS issue causing the search box position to shift leftward. Props to Mike D. for reporting the issue.
+
+* **[TRANSLATION in Free and Pro]** Added partial translation for Romanian and Chinese (Taiwan). ASE is now translated into 24 languages:
   * **Added new/improved translation** for:
-    * Free: Spanish, Indonesian, Norwegian, Dutch, Polish, Brazilian Portuguese, Ukrainian, Vietnamese
-    * Pro: Vietnamese
+    * Free: Updated Arabic, German, Korean and Vietnamese. Added Serbian (partial) and Chinese-Taiwan (partial).
+    * Pro: Updated Vietnamese. Added Arabic (complete).
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.
@@ -224,7 +232,9 @@ Each **_point release_** usually corresponds with the addition of one new module
   * **Urdu**: ASE Free (completed) | ASE Pro (partial). Props to [Ayyaz A.](https://profiles.wordpress.org/ayyazahmad/) et al.
   * **Swedish**: ASE Free (completed) | ASE Pro (partial). Props to [Robert M.](https://profiles.wordpress.org/robertmichalski/) and [Tor-Bjorn F.](https://profiles.wordpress.org/tobifjellner/).
   * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/) et al.
-  * **Arabic**: ASE Free (completed) | ASE Pro (partial). Props to [Mohammed J.](https://profiles.wordpress.org/ih4xz/) et al.
+  * **Arabic**: ASE Free (completed) | ASE Pro (completed). Props to [Mohammed J.](https://profiles.wordpress.org/ih4xz/), Yaser M., et al.
   * **Romanian**: ASE Free (completed) | ASE Pro (partial). Props to [Dan C.](https://profiles.wordpress.org/dancaragea/), [@ravishi](https://profiles.wordpress.org/ravishi/) et al.
+  * **Serbian**: ASE Free (partial). Props to [Igor E.](https://wordpress.org/support/users/igorel/).
+
 
 [**See the full changelog >>**](https://www.wpase.com/documentation/changelog/)

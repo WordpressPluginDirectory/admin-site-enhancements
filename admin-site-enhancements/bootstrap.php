@@ -514,7 +514,13 @@ class Admin_Site_Enhancements {
         // Enable Last Login Column
         if ( array_key_exists( 'enable_last_login_column', $options ) && $options['enable_last_login_column'] ) {
             $last_login_column = new ASENHA\Classes\Last_Login_Column();
-            add_action( 'wp_login', [$last_login_column, 'log_login_datetime'] );
+            add_action(
+                'wp_login',
+                [$last_login_column, 'log_login_datetime'],
+                3,
+                1
+            );
+            // Earlier than Redirect After Login
             add_filter( 'manage_users_columns', [$last_login_column, 'add_last_login_column'] );
             add_filter(
                 'manage_users_custom_column',
@@ -673,39 +679,28 @@ class Admin_Site_Enhancements {
         }
         // Disable REST API
         if ( array_key_exists( 'disable_rest_api', $options ) && $options['disable_rest_api'] ) {
-            if ( !function_exists( 'is_user_logged_in' ) ) {
-                require_once ABSPATH . 'wp-includes/pluggable.php';
-            }
-            $allow_rest_api_access = false;
-            if ( !is_user_logged_in() ) {
-                $allow_rest_api_access = false;
+            if ( version_compare( get_bloginfo( 'version' ), '4.7', '>=' ) ) {
+                $disable_rest_api = new ASENHA\Classes\Disable_REST_API();
+                add_filter( 'rest_authentication_errors', [$disable_rest_api, 'disable_rest_api'] );
             } else {
-                $allow_rest_api_access = true;
+                // REST API 1.x
+                add_filter( 'json_enabled', '__return_false' );
+                add_filter( 'json_jsonp_enabled', '__return_false' );
+                // REST API 2.x
+                add_filter( 'rest_enabled', '__return_false' );
+                add_filter( 'rest_jsonp_enabled', '__return_false' );
             }
-            if ( !$allow_rest_api_access ) {
-                if ( version_compare( get_bloginfo( 'version' ), '4.7', '>=' ) ) {
-                    $disable_rest_api = new ASENHA\Classes\Disable_REST_API();
-                    add_filter( 'rest_authentication_errors', [$disable_rest_api, 'disable_rest_api'] );
-                } else {
-                    // REST API 1.x
-                    add_filter( 'json_enabled', '__return_false' );
-                    add_filter( 'json_jsonp_enabled', '__return_false' );
-                    // REST API 2.x
-                    add_filter( 'rest_enabled', '__return_false' );
-                    add_filter( 'rest_jsonp_enabled', '__return_false' );
-                }
-                remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
-                // Disable REST API links in HTML <head>
-                remove_action(
-                    'template_redirect',
-                    'rest_output_link_header',
-                    11,
-                    0
-                );
-                // Disable REST API link in HTTP headers
-                remove_action( 'xmlrpc_rsd_apis', 'rest_output_rsd' );
-                // Remove REST API URL from the WP RSD endpoint.
-            }
+            remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+            // Disable REST API links in HTML <head>
+            remove_action(
+                'template_redirect',
+                'rest_output_link_header',
+                11,
+                0
+            );
+            // Disable REST API link in HTTP headers
+            remove_action( 'xmlrpc_rsd_apis', 'rest_output_rsd' );
+            // Remove REST API URL from the WP RSD endpoint.
         }
         // Disable Feeds
         if ( array_key_exists( 'disable_feeds', $options ) && $options['disable_feeds'] ) {

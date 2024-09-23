@@ -9,6 +9,16 @@ use Imagick;
  * @since 6.9.5
  */
 class Image_Upload_Control {
+    public $png_is_transparent;
+
+    /**
+     * Constructor
+     * @since 7.4.3
+     */
+    function __construct() {
+        $this->png_is_transparent = false;
+    }
+
     /**
      * Handler for image uploads. Convert and resize images.
      *
@@ -24,7 +34,6 @@ class Image_Upload_Control {
             'image/webp'
         );
         if ( in_array( $upload['type'], $applicable_mime_types ) ) {
-            global $png_has_transparency;
             // Exlude from conversion and resizing images with filenames ending with '-nr', e.g. birds-nr.png
             if ( false !== strpos( $upload['file'], '-nr.' ) ) {
                 return $upload;
@@ -75,7 +84,6 @@ class Image_Upload_Control {
      * @since 4.3.0
      */
     public function maybe_convert_image( $file_extension, $upload ) {
-        global $png_has_transparency;
         $image_object = null;
         // Get image object from uploaded BMP/PNG
         if ( 'bmp' === $file_extension ) {
@@ -93,7 +101,7 @@ class Image_Upload_Control {
         }
         if ( 'png' === $file_extension ) {
             // Detect alpha/transparency in PNG
-            $png_has_transparency = false;
+            $this->png_is_transparent = false;
             if ( is_file( $upload['file'] ) ) {
                 // We assume GD library is present, so 'imagecreatefrompng' function is available
                 // Generate image object from PNG for potential conversion to JPG later.
@@ -110,7 +118,7 @@ class Image_Upload_Control {
                             // a pixel with alpha/transparency has been found
                             // alpha value range from 0 (completely opaque) to 127 (fully transparent).
                             // Ref: https://www.php.net/manual/en/function.imagecolorallocatealpha.php
-                            $png_has_transparency = true;
+                            $this->png_is_transparent = true;
                             break 2;
                             // Break both 'for' loops
                         }
@@ -118,7 +126,7 @@ class Image_Upload_Control {
                 }
             }
             // Do not convert PNG with alpha/transparency
-            if ( $png_has_transparency ) {
+            if ( $this->png_is_transparent ) {
                 return $upload;
             }
         }
@@ -158,7 +166,7 @@ class Image_Upload_Control {
     ) {
         if ( 'png' == $file_extension ) {
             $image_object = imagecreatefrompng( $file );
-            if ( $png_has_transparency ) {
+            if ( $this->png_is_transparent ) {
                 imagepalettetotruecolor( $image_object );
             }
         }
