@@ -570,6 +570,10 @@ class Settings_Sanitization {
             $options['disable_lazy_load'] = false;
         }
         $options['disable_lazy_load'] = ( 'on' == $options['disable_lazy_load'] ? true : false );
+        if ( !isset( $options['disable_plugin_theme_editor'] ) ) {
+            $options['disable_plugin_theme_editor'] = false;
+        }
+        $options['disable_plugin_theme_editor'] = ( 'on' == $options['disable_plugin_theme_editor'] ? true : false );
         // =================================================================
         // SECURITY
         // =================================================================

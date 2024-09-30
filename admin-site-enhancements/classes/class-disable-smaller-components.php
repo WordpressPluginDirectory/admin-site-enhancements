@@ -167,4 +167,37 @@ class Disable_Smaller_Components {
         return $attr;
     }
     
+    /**
+     * Disable plugin and theme editor
+     * 
+     * @since 7.4.5
+     */
+    public function disable_plugin_theme_editor() {
+        $wp_config = new WP_Config_Transformer;
+
+        $wp_config_options = array(
+            'add'       => true, // Add the config if missing.
+            'raw'       => true, // Display value in raw format without quotes.
+            'normalize' => false, // Normalize config output using WP Coding Standards.
+        );
+
+        $update_success = $wp_config->update( 'constant', 'DISALLOW_FILE_EDIT', 'true', $wp_config_options );
+    }
+
+    /**
+     * Disable plugin and theme editor
+     * 
+     * @since 7.4.5
+     */
+    public function enable_plugin_theme_editor() {
+        $wp_config = new WP_Config_Transformer;
+
+        $wp_config_options = array(
+            'add'       => true, // Add the config if missing.
+            'raw'       => true, // Display value in raw format without quotes.
+            'normalize' => false, // Normalize config output using WP Coding Standards.
+        );
+
+        $update_success = $wp_config->update( 'constant', 'DISALLOW_FILE_EDIT', 'false', $wp_config_options );
+    }    
 }

@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.6.2  
-Stable tag: 7.4.4  
+Stable tag: 7.4.5  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -186,27 +186,19 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **74 _point_ releases** (e.g. 1.1.0 ) and **115 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **74 _point_ releases** (e.g. 1.1.0 ) and **116 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
-### 7.4.4 (2024.09.23) - ASE Free and Pro
+### 7.4.5 (2024.09.30) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Optimization >> Image Upload Control**:
-  * ASE Free and Pro: improved handling of PNG with transparency
-  * ASE Pro: fix for WebP conversion for certain type of PNG with transparency. Props to Aleš S. for reporting the issue.
-  
-* **[IMPROVED in Pro] Admin Interface >> Admin Columns Manager**: add an option to set custom formatting for number and date-time columns. This is applicable to default columns and custom field columns, including those by ASE, ACF, Meta Box.
+* **[IMPROVED in Free and Pro] Disable Components >> Disable Smaller Components**: added an option to disable plugin and theme editor. Props to Michael S. and [@pressthemes1](https://wordpress.org/support/users/pressthemes1/) for [suggesting this](https://wordpress.org/support/topic/disable-plugin-theme-editor/).
 
-* **[FIXED in Free and Pro] Log In | Log Out >> Last Login Column**: fix login time not being properly logged. Props to [@pcamoz](https://wordpress.org/support/users/pcamoz/) for [reporting the issue](https://wordpress.org/support/topic/log-last-login-for-users/).
+* **[FIXED in Pro] Content Management >> Media Categories**: fix filter bar getting too tall. Now will be the same height as the category action bar.
 
-* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fix PHP warning. Props to Simon K. for reporting the issue.
-
-* **[FIXED in Pro] Content Management >> Media Categories**: fix CSS issue causing the search box position to shift leftward. Props to Mike D. for reporting the issue.
-
-* **[TRANSLATION in Free and Pro]** Added partial translation for Romanian and Chinese (Taiwan). ASE is now translated into 24 languages:
+* **[TRANSLATION in Free and Pro]** Added partial translation for Albanian and Chinese (Taiwan). ASE is now being translated into 25 languages:
   * **Added new/improved translation** for:
     * Free: Updated Arabic, German, Korean and Vietnamese. Added Serbian (partial) and Chinese-Taiwan (partial).
     * Pro: Updated Vietnamese. Added Arabic (complete).
@@ -235,6 +227,8 @@ Each **_point release_** usually corresponds with the addition of one new module
   * **Arabic**: ASE Free (completed) | ASE Pro (completed). Props to [Mohammed J.](https://profiles.wordpress.org/ih4xz/), Yaser M., et al.
   * **Romanian**: ASE Free (completed) | ASE Pro (partial). Props to [Dan C.](https://profiles.wordpress.org/dancaragea/), [@ravishi](https://profiles.wordpress.org/ravishi/) et al.
   * **Serbian**: ASE Free (partial). Props to [Igor E.](https://wordpress.org/support/users/igorel/).
+  * **Albanian**: ASE Free (partial). Props to [@algertpateqi](https://profiles.wordpress.org/algertpateqi/).
+  * **Chinese (Taiwan)**: ASE Free (partial). Props to [Hedula](https://profiles.wordpress.org/hedula/).
 
 
 [**See the full changelog >>**](https://www.wpase.com/documentation/changelog/)
