@@ -25,6 +25,7 @@ class Settings_Sections_Fields {
             ASENHA_SLUG
         );
         $common_methods = new Common_Methods();
+        $wp_config = new WP_Config_Transformer();
         // Register main setttings
         // Instantiate object for sanitization of settings fields values
         $sanitization = new Settings_Sanitization();
@@ -2235,6 +2236,17 @@ class Settings_Sections_Fields {
         );
         $field_id = 'disable_plugin_theme_editor';
         $field_slug = 'disable-plugin-theme-editor';
+        $is_wpconfig_writeable = $wp_config->wpconfig_file( 'writeability' );
+        $disallow_file_edit_exists = $wp_config->exists( 'constant', 'DISALLOW_FILE_EDIT' );
+        if ( $is_wpconfig_writeable ) {
+            $field_label = __( 'Disable the <strong>plugin and theme editor</strong>.', 'admin-site-enhancements' );
+        } else {
+            if ( $disallow_file_edit_exists ) {
+                $field_label = __( 'Disable the <strong>plugin and theme editor</strong>. <span class="warning-text">Note that wp-config.php in this site is not writeable and <code>DISALLOW_FILE_EDIT</code> constant is already defined there. You either need to make it writeable to make this setting functional, or, you need to manually change the value of <code>DISALLOW_FILE_EDIT</code> there.</span>', 'admin-site-enhancements' );
+            } else {
+                $field_label = __( 'Disable the <strong>plugin and theme editor</strong>.', 'admin-site-enhancements' );
+            }
+        }
         add_settings_field(
             $field_id,
             '',
@@ -2246,7 +2258,7 @@ class Settings_Sections_Fields {
                 'option_name' => ASENHA_SLUG_U,
                 'field_id'    => $field_id,
                 'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
-                'field_label' => __( 'Disable the <strong>plugin and theme editor</strong>.', 'admin-site-enhancements' ),
+                'field_label' => $field_label,
                 'class'       => 'asenha-checkbox asenha-hide-th disable-components ' . $field_slug,
             )
         );

@@ -3,6 +3,7 @@
     --ase-accent-hover: #135e96;
     --ase-accent-faded: #e8f0f7;
     --ase-accent-black: #111111;
+    --ase-accent-warning: #d63638;
     --ase-accent-grey-darker: #333333;
     --ase-accent-grey-dark: #666666;
     --ase-accent-grey-light: #999999;
@@ -1712,6 +1713,10 @@ li[id^="separator"] .menu-item-title {
 
 .force-hide {
     display: none !important;
+}
+
+.warning-text {
+    color: var(--ase-accent-warning);
 }
 
 

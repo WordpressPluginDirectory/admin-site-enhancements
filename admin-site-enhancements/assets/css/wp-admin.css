@@ -36,6 +36,10 @@
 	height: auto !important;
 }
 
+.toplevel_page_wpide #adminmenuwrap {
+	height: calc(100vh - var(--wpide-admin-bar-height)) !important;
+} /* Fix for when in WPIDE plugin's menu / admin page */
+
 .current.menu-top.hidden,
 .wp-has-current-submenu.hidden {
 	display: list-item;

@@ -116,7 +116,7 @@ function asenha_add_settings_page() {
     ?>
 			<div class="asenha-upgrade-nudge" style="display: none;">
 				<div class="asenha-upgrade-nudge__message"><?php 
-    echo esc_html__( 'The Pro version of ASE is here! Lifetime Deal (LTD) available.', 'admin-site-enhancements' );
+    echo esc_html__( 'Lifetime Deal (LTD) is available for the Pro version of ASE.', 'admin-site-enhancements' );
     ?></div>
 				<a href="https://www.wpase.com/upgrade-ndg" class="button asenha-upgrade-nudge__button" target="_blank"><?php 
     echo esc_html__( 'Find Out More', 'admin-site-enhancements' );

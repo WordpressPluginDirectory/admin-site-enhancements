@@ -132,14 +132,14 @@ class Admin_Menu_Organizer {
             } else {
                 $posts_default_title_plural = $post_object->labels->name;
             }
-        }
-        $posts_default_title_singular = $post_object->labels->singular_name;
-        $posts_custom_title = $this->get_posts_custom_title();
-        foreach ( $labels as $key => $label ) {
-            if ( null === $label ) {
-                continue;
+            $posts_default_title_singular = $post_object->labels->singular_name;
+            $posts_custom_title = $this->get_posts_custom_title();
+            foreach ( $labels as $key => $label ) {
+                if ( null === $label ) {
+                    continue;
+                }
+                $labels->{$key} = str_replace( [$posts_default_title_plural, $posts_default_title_singular], $posts_custom_title, $label );
             }
-            $labels->{$key} = str_replace( [$posts_default_title_plural, $posts_default_title_singular], $posts_custom_title, $label );
         }
         return $labels;
     }

@@ -15,6 +15,7 @@ class Maintenance_Mode {
      */
     public function maintenance_mode_redirect( $wp ) {
         $options = get_option( ASENHA_SLUG_U, array() );
+        $common_methods = new Common_Methods();
         // Let's make a bypass key that is unique to each site
         $hashed_site_url = wp_hash_password( site_url() );
         $allow_frontend_access = $this->is_user_allowed_frontend_access();

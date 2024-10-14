@@ -103,25 +103,38 @@ class Image_Upload_Control {
             // Detect alpha/transparency in PNG
             $this->png_is_transparent = false;
             if ( is_file( $upload['file'] ) ) {
-                // We assume GD library is present, so 'imagecreatefrompng' function is available
-                // Generate image object from PNG for potential conversion to JPG later.
-                $image_object = imagecreatefrompng( $upload['file'] );
-                // Get image dimension
-                list( $width, $height ) = getimagesize( $upload['file'] );
-                // Run through pixels until transparent pixel is found
-                for ($x = 0; $x < $width; $x++) {
-                    for ($y = 0; $y < $height; $y++) {
-                        $pixel_color_index = imagecolorat( $image_object, $x, $y );
-                        $pixel_rgba = imagecolorsforindex( $image_object, $pixel_color_index );
-                        // array of red, green, blue and alpha values
-                        if ( $pixel_rgba['alpha'] > 0 ) {
-                            // a pixel with alpha/transparency has been found
-                            // alpha value range from 0 (completely opaque) to 127 (fully transparent).
-                            // Ref: https://www.php.net/manual/en/function.imagecolorallocatealpha.php
-                            $this->png_is_transparent = true;
-                            break 2;
-                            // Break both 'for' loops
+                if ( function_exists( 'imagecreatefrompng' ) ) {
+                    // GD library is present, so 'imagecreatefrompng' function is available
+                    // Generate image object from PNG for potential conversion to JPG later.
+                    $image_object = imagecreatefrompng( $upload['file'] );
+                    // Get image dimension
+                    list( $width, $height ) = getimagesize( $upload['file'] );
+                    // Run through pixels until transparent pixel is found
+                    for ($x = 0; $x < $width; $x++) {
+                        for ($y = 0; $y < $height; $y++) {
+                            $pixel_color_index = imagecolorat( $image_object, $x, $y );
+                            $pixel_rgba = imagecolorsforindex( $image_object, $pixel_color_index );
+                            // array of red, green, blue and alpha values
+                            if ( $pixel_rgba['alpha'] > 0 ) {
+                                // a pixel with alpha/transparency has been found
+                                // alpha value range from 0 (completely opaque) to 127 (fully transparent).
+                                // Ref: https://www.php.net/manual/en/function.imagecolorallocatealpha.php
+                                $this->png_is_transparent = true;
+                                break 2;
+                                // Break both 'for' loops
+                            }
                         }
+                    }
+                } else {
+                    if ( class_exists( 'Imagick' ) ) {
+                        $imagick = new Imagick();
+                        $imagick->readImage( $upload['file'] );
+                        // Ref: https://stackoverflow.com/a/52295997
+                        // Ref: https://www.php.net/manual/en/imagick.getimagechannelrange.php
+                        // If the channel is defined, and has any transparent areas across any frame, then maxima will always be greater then minima.
+                        // If the channel is NOT defined, then minima will be Inf placeholder, and maxima will be -Inf placeholder, so the above check will still work.
+                        $alpha_range = $imagick->getImageChannelRange( Imagick::CHANNEL_ALPHA );
+                        $this->png_is_transparent = $alpha_range['minima'] < $alpha_range['maxima'];
                     }
                 }
             }
@@ -130,25 +143,49 @@ class Image_Upload_Control {
                 return $upload;
             }
         }
-        // When conversion from BMP/PNG to JPG is successful. Last parameter is JPG quality (0-100).
-        if ( is_object( $image_object ) ) {
+        // Let's convert BMP and non-transparent PNG into JPG
+        if ( is_object( $image_object ) || class_exists( 'Imagick' ) ) {
             $wp_uploads = wp_upload_dir();
             $old_filename = wp_basename( $upload['file'] );
             // Assign new, unique file name for the converted image
             // $new_filename    = wp_basename( str_ireplace( '.' . $file_extension, '.jpg', $old_filename ) );
             $new_filename = str_ireplace( '.' . $file_extension, '.jpg', $old_filename );
             $new_filename = wp_unique_filename( dirname( $upload['file'] ), $new_filename );
+            // original image is always deleted in ASE Free
+            $keep_original_image = false;
+            $converted_to_jpg = false;
+        }
+        if ( is_object( $image_object ) ) {
+            // When image object creation is successful
+            // When conversion from BMP/PNG to JPG is successful using GD. Last parameter is JPG quality (0-100).
             if ( imagejpeg( $image_object, $wp_uploads['path'] . '/' . $new_filename, 90 ) ) {
-                // original image is always deleted in ASE Free
-                $keep_original_image = false;
-                if ( !$keep_original_image ) {
-                    unlink( $upload['file'] );
-                }
-                // Add converted JPG info into $upload
-                $upload['file'] = $wp_uploads['path'] . '/' . $new_filename;
-                $upload['url'] = $wp_uploads['url'] . '/' . $new_filename;
-                $upload['type'] = 'image/jpeg';
+                $converted_to_jpg = true;
             }
+        } else {
+            // When image object creation with imagecreatefrombmp(), bmp_to_image_object() or imagecreatefrompng() is not successful, we use Imagick to convert from BMP and non-transparent PNG to JPG.
+            if ( class_exists( 'Imagick' ) ) {
+                $imagick = new Imagick();
+                $imagick->readImage( $upload['file'] );
+                $imagick->setImageCompressionQuality( 90 );
+                $imagick->setImageFormat( 'jpg' );
+                // $imagick->setFormat( 'jpg' );
+                if ( $imagick->writeImage( $wp_uploads['path'] . '/' . $new_filename ) ) {
+                    $converted_to_jpg = true;
+                }
+                // Clear the Imagick object
+                $imagick->clear();
+                $imagick->destroy();
+            }
+        }
+        if ( $converted_to_jpg ) {
+            // Delete original BMP / PNG
+            if ( !$keep_original_image ) {
+                unlink( $upload['file'] );
+            }
+            // Add converted JPG info into $upload
+            $upload['file'] = $wp_uploads['path'] . '/' . $new_filename;
+            $upload['url'] = $wp_uploads['url'] . '/' . $new_filename;
+            $upload['type'] = 'image/jpeg';
         }
         return $upload;
     }
