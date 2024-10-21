@@ -856,6 +856,20 @@ function asenha_dequeue_scritps() {
         wp_dequeue_script( 'self' );
         // iThemes Security Pro / Solid Security Pro
         wp_dequeue_script( 'itsec-core-admin-notices' );
+        // WPML
+        wp_dequeue_script( 'wpml-ate-jobs-sync-ui' );
+        wp_dequeue_script( 'wpml-purify' );
+        wp_dequeue_script( 'sitepress-scripts' );
+        wp_dequeue_script( 'sitepress' );
+        wp_dequeue_script( 'wpml-dismiss-notice' );
+        wp_dequeue_script( 'wpml-tm-scripts' );
+        wp_dequeue_script( 'otgs-installer-components-save-setting' );
+        wp_dequeue_script( 'installer-dismiss-nag' );
+        wp_dequeue_script( 'install-recommended_plugin' );
+        wp_dequeue_script( 'icl-admin-notifier' );
+        wp_dequeue_script( 'otgsPopoverTooltip' );
+        // WPML String Translation
+        wp_dequeue_script( 'wpml-theme-plugin-localization-scan' );
     }
 }
 

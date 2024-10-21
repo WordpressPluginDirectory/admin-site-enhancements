@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.6.2  
-Stable tag: 7.4.7  
+Stable tag: 7.4.8  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -79,6 +79,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
   * **Display Active Plugins First**: Display active / activated plugins at the top of the Installed Plugins list.
   * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Preserve Taxonomy Hierarchy**: Preserve the visual hierarchy of taxonomy terms checklist in the classic editor.
   * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Enable Dashboard Columns Settings**: Enable manual settings of dashboard columns layout in Screen Options. You can choose between 1 to 4 columns.
+  * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Add User Role Slug(s) to Admin Body Classes**: Useful for when you need to modify the admin area only for certain user role(s).
   
 * **Custom Admin Footer Text**: Customize the text you see on the footer of wp-admin pages. [ASE Pro](https://www.wpase.com/rdme-to-web) enables media upload / insertion.
 
@@ -186,45 +187,34 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **74 _point_ releases** (e.g. 1.1.0 ) and **118 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **74 _point_ releases** (e.g. 1.1.0 ) and **119 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
-### 7.4.7 (2024.10.14) - ASE Free and Pro
+### 7.4.8 (2024.10.21) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Admin Interface >> Admin Menu Organizer**: 
-  * [ASE Free] Fix PHP warning. Props to [@mkautsarjuhari](https://wordpress.org/support/users/mkautsarjuhari/) for [reporting this].
-  * [ASE Pro] Specifically for the Dashboard menu item, the always hide for "all roles" radio choice will no longer be available. This prevents the scenario where all site admins are blocked from accessing the Dashboard page, creating potential confusion that the admin/site is broken. Props to A. Remut for prompting this improvement. 
+* **[IMPROVED in Pro] Admin Interface >> Various Admin UI Enhancements**: added a module to add user role slug(s) to admin &lt;body&gt; classes. Useful for when you need to modify the admin area only for certain user roles. Props to Henry R. for prompting this improvement.
 
-* **[IMPROVED and FIXED in Free and Pro] Disable Components >> Disable Smaller Components >> Disable Plugin and Theme Editor**: 
-  * Improve code logic to minimize the need to update wp-config.php.
-  * Fix PHP warning. Props to Geert L. and @pressthemes1 for reporting the issue.
+* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: added a couple of layout field types to more flexibly organize fields in a field group for data entry. Props to Christian G. for suggesting this improvement.
+  * **Heading field**: useful for grouping together several fields. Props to Christian G. for suggesting this improvement.
+  * **Line break field**: useful for breaking the flow of fields in a custom field group. The next field after the line break, will move to a new line.
 
-* **[IMPROVED and FIXED in Pro] Admin Interface >> Admin Columns Manager**: 
-  * Added **several date time format options**. Props to Henry R. for the suggestion.
-  * Enable **displaying sub-field of ACF group field** in a separate column. Props to Stanisław R. and Aseloka S. for suggesting this feature.
-  * Make sure the default Last Modified and Published columns, as well as the Last Modified column from Enhanced List Tables module respects the date time format chosen. Props to Ivar S. for reporting the issue and facilitating the troubleshooting process.
-  * Fixed deprecation notices in some scenarios.
-  
-* **[IMPROVED in Pro] Log In | Log Out >> Change Login URL**: improved mechanism to prevent failed login on custom login forms, e..g WooCommerce, JetFormBuilder, from redirecting to wp-login.php. Props to Jose K.N. for prompting the improvement.
+* **[FIXED in Free and Pro] Admin Interface >> Hide Admin Notices**: fix an issue where notices are not hidden on [WP All Import](https://wordpress.org/plugins/wp-all-import/) admin page. Props to [@tomislo](https://wordpress.org/support/users/tomislo/) for [reporting the issue](https://wordpress.org/support/topic/hide-admin-notices-2/).
 
-* **[IMPROVED in Pro] Log In | Log Out >> Login Page Customizer**: you can now use external image URL for logo image and background image. Props to Nadja V.M. for prompting this improvement.
+* **[FIXED in Free and Pro] Disable Components >> Disable Gutenberg**: fix a layout issue on the classic editor UI due to a bug in Safari 18. Props to [@pressthemes1](https://wordpress.org/support/users/pressthemes1/) and Gabriel A. for reporting this.
 
-* **[IMPROVED in Pro] Utilities >> Maintenance Mode**: you can now use an external image URL for the background image. Props to Nadja V.M. for prompting this improvement.
-* **[IMPROVED in Pro] Utilities >> Search Engine Visibility Status**: improve code logic to only perform checks when in wp-admin. Props to Uli L. for prompting the improvement.
+* **[FIXED in Free and Pro] Disable Components >> Disable Smaller Components >> Disable plugin and theme editor**: fix PHP warninng. Props to [@pressthemes1](https://wordpress.org/support/users/pressthemes1/) and [@dsnger](https://wordpress.org/support/users/dsnger/) for [reporting the issue](https://wordpress.org/support/topic/undefined-array-key-disallow_file_edit/).
 
-* **[FIXED in Pro] Utilities >> Email Delivery**: fixed sorting issue with the email log, where the latest log entry are not displayed right away, and pagination is not showing entries in a sequential manner. Props to Nadja V.M. for reporting the issue.
+* **[FIXED in Pree and Pro] ASE Settings**: fixed an issue where the settings page has a JS error rendering it unusable when WPML and WMPL String Translation plugins are active. Props to Stijn V. for reporting the issue and facilitating troubleshooting.
 
-* **[FIXED in Pro] Optimizations >> Image Upload Control**: fixed an issue with converting PNG to WebP in a scenario where `imagecreatefrompng()` is not available. Props to Bojan K. for reporting the issue and facilitating the troubleshooting process.
+* **[FIXED in ASE Pro] Content Management >> Custom Content Types >> Custom Field Groups**: fix PHP warning.
 
-* **[FIXED in Pro] Admin Interface >> Enhance List Table**: fixed PHP warning for Last Modified column.
-
-* **[TRANSLATION in Free and Pro]** Added translation for Turkish. ASE is now being translated into 26 languages:
+* **[TRANSLATION in Free and Pro]** Added translation for Persian. ASE is now being translated into 27 languages:
   * **Added new/improved translation** for:
-    * Free: Danish, Italian, Dutch, Polish, Brazilian Portuguese, Ukrainian, Vietnamese, Chinese (Taiwan)
-    * Pro: Hungarian, Brazilian Portuguese, Vietnamese
+    * Free: Updated Spanish, French, Polish, Albanian. Added Persian.
+    * Pro: Updated Slovak.
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.
@@ -253,5 +243,6 @@ Each **_point release_** usually corresponds with the addition of one new module
   * **Serbian**: ASE Free (partial). Props to [Igor E.](https://wordpress.org/support/users/igorel/).
   * **Albanian**: ASE Free (partial). Props to [@algertpateqi](https://profiles.wordpress.org/algertpateqi/).
   * **Chinese (Taiwan)**: ASE Free (partial). Props to [Hedula](https://profiles.wordpress.org/hedula/).
+  * **Persian**: ASE Free (completed). Props to [@saeead](https://profiles.wordpress.org/saeead/) et al.
   
 [**See the full changelog >>**](https://www.wpase.com/documentation/changelog/)

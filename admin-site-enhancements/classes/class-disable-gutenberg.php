@@ -153,4 +153,27 @@ class Disable_Gutenberg {
         }
     }
 
+    /**
+     * Temporary fix for Safari 18 negative horizontal margin on floats.
+     * [TODO] Remove when Safari 18 implements a fix on their end.
+     * 
+     * @link https://wordpress.org/support/topic/safari-18-0-breaking-classic-editor/
+     * @link https://plugins.trac.wordpress.org/changeset/3158976/classic-editor/trunk/classic-editor.php
+     */
+    public function safari_18_fix() {
+        global $current_screen;
+        if ( isset( $current_screen->base ) && 'post' === $current_screen->base ) {
+            $clear = ( is_rtl() ? 'right' : 'left' );
+            ?>
+            <style id="classic-editor-safari-18-temp-fix">
+                _::-webkit-full-page-media, _:future, :root #post-body #postbox-container-2 {
+                    clear: <?php 
+            echo $clear;
+            ?>;
+                }
+            </style>
+            <?php 
+        }
+    }
+
 }

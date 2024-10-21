@@ -553,6 +553,8 @@ class Admin_Site_Enhancements {
                     1
                 );
                 // load earlier than Change Login URL add_action
+                // add_filter( 'logout_redirect', [ $redirect_after_logout, 'apply_custom_logout_redirect' ], PHP_INT_MAX, 3 );
+                // add_filter( 'logout_url', [ $redirect_after_logout, 'add_redirect_to_in_logout_url' ], PHP_INT_MAX, 2 );
             }
         }
         // Enable Custom Admin / Frontend CSS
@@ -627,6 +629,7 @@ class Admin_Site_Enhancements {
                     require_once ASENHA_PATH . 'includes/empty-class-classic-editor.php';
                 }
                 add_action( 'admin_init', [$disable_gutenberg, 'disable_gutenberg_for_post_types_admin'] );
+                add_action( 'admin_print_styles', [$disable_gutenberg, 'safari_18_fix'] );
                 if ( array_key_exists( 'disable_gutenberg_frontend_styles', $options ) && $options['disable_gutenberg_frontend_styles'] ) {
                     add_action( 'wp_enqueue_scripts', [$disable_gutenberg, 'disable_gutenberg_for_post_types_frontend'], 100 );
                 }

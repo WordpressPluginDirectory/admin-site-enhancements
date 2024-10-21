@@ -1721,6 +1721,14 @@ li[id^="separator"] .menu-item-title {
 
 
 
+/* WPML + WPML String Translation */
+/* Scripts from both plugins are dequeued on ASE settings page for causing errors rendering the page unusable */
+/* Let's also hide the admin bar items from both plugins */
+#wp-admin-bar-ate-status-bar,
+#wp-admin-bar-WPML_ALS {
+    display: none;
+}
+
 /* ======================================================= */
 /* MEDIA QUERIES */
 /* ======================================================= */

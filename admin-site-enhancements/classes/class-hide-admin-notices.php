@@ -207,6 +207,18 @@ class Hide_Admin_Notices {
                 #wpbody-content > .wrap > .wf-container-fluid .notice-updated,
                 #wpbody-content > .wrap > .wf-container-fluid .updated:not(.inline),
                 #wpbody-content > .wrap > .wf-container-fluid .update-nag,
+                /* WP All Import */
+                #wpbody-content > .wrap .wpallimport-wrapper .notice:not(#plugin-activated-successfully,.system-notice,.hidden),
+                #wpbody-content > .wrap .wpallimport-wrapper .notice-error,
+                #wpbody-content > .wrap .wpallimport-wrapper .error:not(.hidden),
+                #wpbody-content > .wrap .wpallimport-wrapper .notice-info,
+                #wpbody-content > .wrap .wpallimport-wrapper .notice-information,
+                #wpbody-content > .wrap .wpallimport-wrapper #message,
+                #wpbody-content > .wrap .wpallimport-wrapper .notice-warning:not(.hidden),
+                #wpbody-content > .wrap .wpallimport-wrapper .notice-success:not(#plugin-activated-successfully),
+                #wpbody-content > .wrap .wpallimport-wrapper .notice-updated,
+                #wpbody-content > .wrap .wpallimport-wrapper .updated:not(.inline),
+                #wpbody-content > .wrap .wpallimport-wrapper .update-nag,
                 /* Funnel Builder for WordPress by FunnelKit */
                 #wpbody-content > .bwfan_header > .notice:not(.system-notice,.hidden),
                 #wpbody-content > .bwfan_header > .notice-error,

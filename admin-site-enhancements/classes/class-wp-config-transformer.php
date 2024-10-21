@@ -196,7 +196,11 @@ class WP_Config_Transformer {
 			throw new Exception( esc_html( "Config type '{$type}' does not exist." ) );
 		}
 
-		return $this->wp_configs[ $type ][ $name ]['value'];
+		if ( isset( $this->wp_configs[ $type ][ $name ] ) ) {
+			return $this->wp_configs[ $type ][ $name ]['value'];		
+		} else {
+			return '';
+		}
 	}
 
 	/**
