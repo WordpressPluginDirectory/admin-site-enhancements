@@ -80,13 +80,13 @@ class Admin_Site_Enhancements {
             add_filter(
                 'page_row_actions',
                 [$content_duplication, 'add_duplication_action_link'],
-                10,
+                20,
                 2
             );
             add_filter(
                 'post_row_actions',
                 [$content_duplication, 'add_duplication_action_link'],
-                10,
+                20,
                 2
             );
             add_action( 'admin_bar_menu', [$content_duplication, 'add_admin_bar_duplication_link'], 100 );
@@ -905,6 +905,22 @@ class Admin_Site_Enhancements {
         // Image Upload Control
         if ( array_key_exists( 'image_upload_control', $options ) && $options['image_upload_control'] ) {
             $image_upload_control = new ASENHA\Classes\Image_Upload_Control();
+            // Fix image rotation. Ref: https://plugins.trac.wordpress.org/browser/fix-image-rotation/tags/2.2.2/includes/class-fix-image-rotation.php
+            if ( extension_loaded( 'exif' ) && function_exists( 'exif_read_data' ) ) {
+                add_filter(
+                    'wp_handle_upload_prefilter',
+                    [$image_upload_control, 'prefilter_maybe_fix_image_orientation'],
+                    10,
+                    1
+                );
+                add_filter(
+                    'wp_handle_upload',
+                    [$image_upload_control, 'maybe_fix_image_orientation'],
+                    1,
+                    3
+                );
+            }
+            // Resize and convert happens here
             add_filter( 'wp_handle_upload', [$image_upload_control, 'image_upload_handler'] );
         }
         // Revisions Control

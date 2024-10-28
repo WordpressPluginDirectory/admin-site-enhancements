@@ -19,7 +19,13 @@ function replaceMedia(oldImageMimeType) {
 		// There's a mime type defined. Do nothing.
 	} else {
 		// We're in the grid view of an image. Get the mime type form the file info in DOM.
-		var oldImageMimeTypeFromDom = jQuery('.details .file-type').html();
+		if ( jQuery('.details .file-type').length ) {
+			var oldImageMimeTypeFromDom = jQuery('.details .file-type').html();		
+		}
+		// Sometimes .file-type div is not there, and instead, a second .filename div is used to display file type info
+		else if ( jQuery('.details .filename:nth-child(2)').length ) {
+			var oldImageMimeTypeFromDom = jQuery('.details .filename:nth-child(2)').html();		
+		}
 		// Replace '<strong>File type:</strong>' in any language with empty string
 		oldImageMimeTypeFromDom = oldImageMimeTypeFromDom.replace(/<strong>(.*?)<\/strong>/, '');
 		// Replace one blank spacing with an empty space / no space

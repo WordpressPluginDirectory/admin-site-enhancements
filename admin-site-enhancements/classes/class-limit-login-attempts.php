@@ -347,6 +347,8 @@ class Limit_Login_Attempts {
 
         $ip_address = isset( $asenha_limit_login['ip_address'] ) ? $asenha_limit_login['ip_address'] : '';
         $request_uri = isset( $asenha_limit_login['request_uri'] ) ? $asenha_limit_login['request_uri'] : '';
+        $login_fails_allowed = isset( $asenha_limit_login['login_fails_allowed'] ) ? $asenha_limit_login['login_fails_allowed'] : 3;
+        $login_lockout_maxcount = isset( $asenha_limit_login['login_lockout_maxcount'] ) ? $asenha_limit_login['login_lockout_maxcount'] : 3;
         
         // Check if the IP address has been used in a failed login attempt before, i.e. has it been recorded in the database?
         $sql = $wpdb->prepare( "SELECT * FROM `" . $table_name . "` WHERE `ip_address` = %s", $ip_address );
@@ -368,8 +370,6 @@ class Limit_Login_Attempts {
             $new_lockout_count = 0;
 
         } else { // IP address has been recorded in the database.
-
-            $login_fails_allowed = isset( $asenha_limit_login['login_fails_allowed'] ) ? $asenha_limit_login['login_fails_allowed'] : 3;
 
             $new_fail_count = $result[0]['fail_count'] + 1;
             $new_lockout_count = floor( ( $result[0]['fail_count'] + 1 ) / $login_fails_allowed );
@@ -420,21 +420,21 @@ class Limit_Login_Attempts {
 
         } else {
 
-            // $options = get_option( ASENHA_SLUG_U );
-            // $login_fails_allowed = $options['login_fails_allowed'];
-
             $fail_count = $result[0]['fail_count'];
             $lockout_count = $result[0]['lockout_count'];
             $last_fail_on = $result[0]['unixtime'];
 
-            $where = array( 'ip_address' => $asenha_limit_login['ip_address'] );
+            $where = array( 'ip_address' => $ip_address );
             $where_format = array( '%s' );
 
             // Failed attempts have been recorded and fulfills lockout condition
-            if ( ! empty( $fail_count ) && ( $fail_count % $asenha_limit_login['login_fails_allowed'] == 0 ) ) {
+            if ( ! empty( $fail_count ) 
+                && ( $login_fails_allowed > 0 )
+                && ( $fail_count % $login_fails_allowed == 0 ) 
+            ) {
 
                 // Has reached max / gone beyond number of lockouts allowed?
-                if ( $lockout_count >= $asenha_limit_login['login_lockout_maxcount'] ) {
+                if ( $lockout_count >= $login_lockout_maxcount ) {
                     $asenha_limit_login['extended_lockout'] = true;
                     $lockout_period = $asenha_limit_login['extended_lockout_period'];
                 } else {
@@ -445,13 +445,13 @@ class Limit_Login_Attempts {
                 $asenha_limit_login['lockout_period'] = $lockout_period;
 
                 // User/visitor is still within the lockout period
-                if ( ( time() - $last_fail_on ) <= $asenha_limit_login['lockout_period'] ) {
+                if ( ( time() - $last_fail_on ) <= $lockout_period ) {
 
                     // Do nothing
 
                 } else {
 
-                    if ( $lockout_count < $asenha_limit_login['login_lockout_maxcount'] ) {
+                    if ( $lockout_count < $login_lockout_maxcount ) {
 
                         // Update existing data in the database
                         $wpdb->update(

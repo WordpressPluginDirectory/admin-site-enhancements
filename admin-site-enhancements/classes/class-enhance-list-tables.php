@@ -347,43 +347,43 @@ class Enhance_List_Tables {
         add_filter(
             'page_row_actions',
             array($this, 'add_id_in_action_row'),
-            10,
+            99,
             2
         );
         add_filter(
             'post_row_actions',
             array($this, 'add_id_in_action_row'),
-            10,
+            99,
             2
         );
         add_filter(
             'cat_row_actions',
             array($this, 'add_id_in_action_row'),
-            10,
+            99,
             2
         );
         add_filter(
             'tag_row_actions',
             array($this, 'add_id_in_action_row'),
-            10,
+            99,
             2
         );
         add_filter(
             'media_row_actions',
             array($this, 'add_id_in_action_row'),
-            10,
+            99,
             2
         );
         add_filter(
             'comment_row_actions',
             array($this, 'add_id_in_action_row'),
-            10,
+            99,
             2
         );
         add_filter(
             'user_row_actions',
             array($this, 'add_id_in_action_row'),
-            10,
+            99,
             2
         );
     }

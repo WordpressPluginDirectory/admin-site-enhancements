@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.6.2  
-Stable tag: 7.4.8  
+Stable tag: 7.5.0  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -42,8 +42,8 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### FEATURES & MODULES
 
-**63 modules** in total:  
-**54 free modules** (26 has Pro features) | **9 Pro modules**
+**64 modules** in total:  
+**54 free modules** (26 has Pro features) | **10 Pro modules**
 
 [**See all features >>**](https://www.wpase.com/features/)
 
@@ -57,6 +57,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **Media Replacement**. Easily replace any type of media file with a new one while ensuring no existing links will break. [ASE Pro](https://www.wpase.com/rdme-to-web) allows replacing media from the grid view of media library as well.
 * **SVG Upload**. Allow some or all user roles to upload SVG files, which will then be sanitized to keep things secure.
 * **AVIF Upload**. Enable uploading AVIF files in the Media Library.
+* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Public Preview for Drafts**. Enable public preview for draft posts from some or all public post types.
 * **External Permalinks**. Enable pages, posts and/or custom post types to have permalinks that point to external URLs.
 * **Open All External Links in New Tab**. Force all links to external sites to open in new browser tab via target="\_blank" attribute.
 * **Allow Custom Navigation Menu Items to Open in New Tab**. Allow custom navigation menu items to have links that open in new browser tab via target="\_blank" attribute.
@@ -187,34 +188,34 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **74 _point_ releases** (e.g. 1.1.0 ) and **119 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **75 _point_ releases** (e.g. 1.1.0 ) and **119 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
-### 7.4.8 (2024.10.21) - ASE Free and Pro
+### 7.5.0 (2024.10.28) - ASE Free and Pro
 
-* **[IMPROVED in Pro] Admin Interface >> Various Admin UI Enhancements**: added a module to add user role slug(s) to admin &lt;body&gt; classes. Useful for when you need to modify the admin area only for certain user roles. Props to Henry R. for prompting this improvement.
+* **[ADDED in Pro] Content Management >> Public Preview for Drafts**: Enable public preview for draft posts from some or all public post types. Props to Jan K. for suggesting this.
 
-* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: added a couple of layout field types to more flexibly organize fields in a field group for data entry. Props to Christian G. for suggesting this improvement.
-  * **Heading field**: useful for grouping together several fields. Props to Christian G. for suggesting this improvement.
-  * **Line break field**: useful for breaking the flow of fields in a custom field group. The next field after the line break, will move to a new line.
+* **[IMPROVED in Pro] Content Management >> Terms Order**: will now also allow ordering hierarchical taxonomies of non-public post types. Props to Matthias E. for prompting this change.
 
-* **[FIXED in Free and Pro] Admin Interface >> Hide Admin Notices**: fix an issue where notices are not hidden on [WP All Import](https://wordpress.org/plugins/wp-all-import/) admin page. Props to [@tomislo](https://wordpress.org/support/users/tomislo/) for [reporting the issue](https://wordpress.org/support/topic/hide-admin-notices-2/).
+* **[IMPROVED in Pro] Admin Interface >> Admin Columns Manager**: taxonomy columns are now sortable by default. To apply this change, please visit the Manage Columns page for each post type and then view the posts list table/page. Props to Satoshi F. for suggesting this improvement.
 
-* **[FIXED in Free and Pro] Disable Components >> Disable Gutenberg**: fix a layout issue on the classic editor UI due to a bug in Safari 18. Props to [@pressthemes1](https://wordpress.org/support/users/pressthemes1/) and Gabriel A. for reporting this.
+* **[FIXED in Free and Pro] Security >> Limit Login Attempts**: fix PHP fatal error and warnings in a certain scenario. Props to Oliver S. for reporting it.
 
-* **[FIXED in Free and Pro] Disable Components >> Disable Smaller Components >> Disable plugin and theme editor**: fix PHP warninng. Props to [@pressthemes1](https://wordpress.org/support/users/pressthemes1/) and [@dsnger](https://wordpress.org/support/users/dsnger/) for [reporting the issue](https://wordpress.org/support/topic/undefined-array-key-disallow_file_edit/).
+* **[FIXED in Free and Pro] Admin Interface >> Hide Admin Notices**: fix an issue where notices are not hidden on [WP All Export](https://wordpress.org/plugins/wp-all-export/) admin page. Props to [@tomislo](https://wordpress.org/support/users/tomislo/) for [reporting the issue](https://wordpress.org/support/topic/hide-admin-notices-2/).
 
-* **[FIXED in Pree and Pro] ASE Settings**: fixed an issue where the settings page has a JS error rendering it unusable when WPML and WMPL String Translation plugins are active. Props to Stijn V. for reporting the issue and facilitating troubleshooting.
+* **[FIXED in Free and Pro] Optimizations >> Image Upload Control**: fix an issue where upon upload, image orientation changes, e.g. portrait to landspace. Props to Aleš S. for reporting the issue and facilitating the troubleshooting process.
 
-* **[FIXED in ASE Pro] Content Management >> Custom Content Types >> Custom Field Groups**: fix PHP warning.
+* **[FIXED in Pro] Content Management >> Custom Content Types**: fix an issue where custom REST API base for CPT and custom taxonomies were not working. Props to Gabriel A. for reporting the issue with a clear screencast to illustrate it.
 
-* **[TRANSLATION in Free and Pro]** Added translation for Persian. ASE is now being translated into 27 languages:
+* **[FIXED in Pro] Content Management >> Media Replacement**: fix JS error in the media library grid view preventing media replacement to be initiated in a certain scenario.
+
+* **[TRANSLATION in Free and Pro]** Added translation for Russian (partial). ASE is now being translated into 28 languages:
   * **Added new/improved translation** for:
-    * Free: Updated Spanish, French, Polish, Albanian. Added Persian.
-    * Pro: Updated Slovak.
+    * Free: Updated Arabic, French, Portuguese (Brazil), Albanian, Serbian, Ukrainian. Added Russian (partial).
+    * Pro: Updated Arabic, Hungarian and Portuguese (Brazil)
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.
@@ -244,5 +245,6 @@ Each **_point release_** usually corresponds with the addition of one new module
   * **Albanian**: ASE Free (partial). Props to [@algertpateqi](https://profiles.wordpress.org/algertpateqi/).
   * **Chinese (Taiwan)**: ASE Free (partial). Props to [Hedula](https://profiles.wordpress.org/hedula/).
   * **Persian**: ASE Free (completed). Props to [@saeead](https://profiles.wordpress.org/saeead/) et al.
+  * **Russian**: ASE Free (completed). Props to [@sergey369](https://profiles.wordpress.org/sergey369/), [@pfgr](https://profiles.wordpress.org/pfgr/) et al.
   
 [**See the full changelog >>**](https://www.wpase.com/documentation/changelog/)

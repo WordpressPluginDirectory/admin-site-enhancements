@@ -134,6 +134,7 @@
       $('.enable-svg-upload-for').appendTo('.fields-content-management .enable-svg-upload .asenha-subfields');
       $('.enable-avif-upload').appendTo('.fields-content-management > table > tbody');
       $('.avif-support-status').appendTo('.fields-content-management .enable-avif-upload .asenha-subfields');
+      
       $('.enable-external-permalinks').appendTo('.fields-content-management > table > tbody');
       $('.enable-external-permalinks-for').appendTo('.fields-content-management .enable-external-permalinks .asenha-subfields');
       $('.external-links-new-tab').appendTo('.fields-content-management > table > tbody');
@@ -578,6 +579,7 @@
       
       subfieldsToggler( 'enable_svg_upload', 'enable-svg-upload' );
       subfieldsToggler( 'enable_avif_upload', 'enable-avif-upload' );
+      
       subfieldsToggler( 'enable_external_permalinks', 'enable-external-permalinks' );
       
       subfieldsToggler( 'enhance_list_tables', 'enhance-list-tables' );
