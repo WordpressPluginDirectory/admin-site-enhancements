@@ -74,6 +74,10 @@ class Multiple_User_Roles {
      * @since 4.8.0
      */
     public function save_roles_assignment( $user_id ) {
+        
+        if ( ! isset( $_POST['asenha_multiple_roles_nonce'] ) ) {
+            return;
+        }
 
         if ( ! current_user_can( 'promote_users', get_current_user_id() ) || ! wp_verify_nonce( $_POST['asenha_multiple_roles_nonce'], 'asenha_set_multiple_roles' ) ) {
             return;

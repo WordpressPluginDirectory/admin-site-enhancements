@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.6.2  
-Stable tag: 7.5.0  
+Stable tag: 7.5.1  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -18,7 +18,7 @@ Duplicate post, post order, image resize, email via SMTP, admin menu editor, cus
 
 Admin and Site Enhancements (ASE) helps you to **easily enhance** various admin workflows and site aspects while **replacing multiple plugins** doing it.
 
-**Pro version** with Lifetime Deal (LTD) is available at [www.wpase.com](https://www.wpase.com/rdme-to-web).
+**Pro version** with Lifetime Deal (LTD) is available at [www.wpase.com](https://www.wpase.com/rdme-to-web). **Currently on YEAR END SALE, 20% discount**.
 
 Here's a quick walkthrough of ASE Free at v7.1.5 by Jakson.
 
@@ -143,7 +143,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### ASE Pro
 
-**Lifetime Deal (LTD)** is available at [www.wpase.com](https://www.wpase.com/rdme-to-web).
+**Lifetime Deal (LTD)** is available at [www.wpase.com](https://www.wpase.com/rdme-to-web). **Currently on YEAR END SALE, 20% discount**.
 
 ## Screenshots
 
@@ -188,34 +188,32 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **75 _point_ releases** (e.g. 1.1.0 ) and **119 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **75 _major_ releases** (e.g. 1.1.0 ) and **120 _minor_ releases** (e.g. 4.9.1). 
 
-Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
+Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
-[**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
+[**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
 
-### 7.5.0 (2024.10.28) - ASE Free and Pro
+### 7.5.1 (2024.10.28) - ASE Free and Pro
 
-* **[ADDED in Pro] Content Management >> Public Preview for Drafts**: Enable public preview for draft posts from some or all public post types. Props to Jan K. for suggesting this.
+* **[IMPROVED in Pro] Admin Interface >> Various Admin UI Enhancements**: added an option to add username to the body class. Useful for when you need to modify the admin area only for certain user(s).
 
-* **[IMPROVED in Pro] Content Management >> Terms Order**: will now also allow ordering hierarchical taxonomies of non-public post types. Props to Matthias E. for prompting this change.
+* **[IMPROVED in Pro] Content Management >> Public Preview for Drafts**: added public preview button/link in gutenberg editor.
 
-* **[IMPROVED in Pro] Admin Interface >> Admin Columns Manager**: taxonomy columns are now sortable by default. To apply this change, please visit the Manage Columns page for each post type and then view the posts list table/page. Props to Satoshi F. for suggesting this improvement.
+* **[IMPROVED in Pro] Log In | Log Out >> Login Page Customizer**: added an option to load an external CSS using the full URL of the CSS file. Props to Yann S. for prompting this improvement.
 
-* **[FIXED in Free and Pro] Security >> Limit Login Attempts**: fix PHP fatal error and warnings in a certain scenario. Props to Oliver S. for reporting it.
+* **[IMPROVED in Free and Pro] ASE Settings**: number input fields now has appropriate min / max values. e.g. Revisions Control module's revision limit has a minimum value of 1 and maximum value of 100.
 
-* **[FIXED in Free and Pro] Admin Interface >> Hide Admin Notices**: fix an issue where notices are not hidden on [WP All Export](https://wordpress.org/plugins/wp-all-export/) admin page. Props to [@tomislo](https://wordpress.org/support/users/tomislo/) for [reporting the issue](https://wordpress.org/support/topic/hide-admin-notices-2/).
+* **[FIXED in Free and Pro] Utilities >> Multiple User Roles**: fix PHP warning. Props to Bob G. for reporting the issue.
 
-* **[FIXED in Free and Pro] Optimizations >> Image Upload Control**: fix an issue where upon upload, image orientation changes, e.g. portrait to landspace. Props to Aleš S. for reporting the issue and facilitating the troubleshooting process.
+* **[FIXED in Free and Pro] Admin Interface >> Disable Dashboard Widgets**: fix PHP warning. Props to Richard E. for reporting the issue.
 
-* **[FIXED in Pro] Content Management >> Custom Content Types**: fix an issue where custom REST API base for CPT and custom taxonomies were not working. Props to Gabriel A. for reporting the issue with a clear screencast to illustrate it.
-
-* **[FIXED in Pro] Content Management >> Media Replacement**: fix JS error in the media library grid view preventing media replacement to be initiated in a certain scenario.
+* **[YEAR END SALE]** [**Get 20% discount**](https://www.wpase.com/chnlg-to-web) by the end of the year on new Pro license purchase and upgrades.
 
 * **[TRANSLATION in Free and Pro]** Added translation for Russian (partial). ASE is now being translated into 28 languages:
   * **Added new/improved translation** for:
-    * Free: Updated Arabic, French, Portuguese (Brazil), Albanian, Serbian, Ukrainian. Added Russian (partial).
-    * Pro: Updated Arabic, Hungarian and Portuguese (Brazil)
+    * Free: Updated Spanish, Korean, Norwegian, Dutch, polish, Brazilian Portuguese, Portuguese (Portugal), Russian, Slovak.
+    * Pro: Updated Spanish, Norwegian, Brazilian Portugal, Slovak, Vietnamese.
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.

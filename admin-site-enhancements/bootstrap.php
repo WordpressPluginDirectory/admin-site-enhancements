@@ -58,6 +58,8 @@ class Admin_Site_Enhancements {
         add_action( 'wp_ajax_have_supported', 'asenha_have_supported' );
         // Dismiss upgrade nudge (via AJAX)
         add_action( 'wp_ajax_dismiss_upgrade_nudge', 'asenha_dismiss_upgrade_nudge' );
+        // Dismiss promo nudge (via AJAX)
+        add_action( 'wp_ajax_dismiss_promo_nudge', 'asenha_dismiss_promo_nudge' );
         // Dismiss support nudge (via AJAX)
         add_action( 'wp_ajax_dismiss_support_nudge', 'asenha_dismiss_support_nudge' );
         if ( function_exists( 'bwasenha_fs' ) ) {

@@ -113,18 +113,44 @@ function asenha_add_settings_page() {
 
 		<div class="asenha-body">
 			<?php 
+    $current_month = intval( date( 'n', time() ) );
+    // n is for numeric value of month, 1 to 12
+    if ( $current_month >= 10 ) {
+        $is_yearend_promo_period = true;
+    } else {
+        $is_yearend_promo_period = false;
+    }
     ?>
-			<div class="asenha-upgrade-nudge" style="display: none;">
-				<div class="asenha-upgrade-nudge__message"><?php 
-    echo esc_html__( 'Lifetime Deal (LTD) is available for the Pro version of ASE.', 'admin-site-enhancements' );
-    ?></div>
-				<a href="https://www.wpase.com/upgrade-ndg" class="button asenha-upgrade-nudge__button" target="_blank"><?php 
-    echo esc_html__( 'Find Out More', 'admin-site-enhancements' );
-    ?></a>
-				<a href="#" id="dismiss-upgrade-nudge" class="asenha-upgrade-nudge__dismiss">
-					<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="currentColor" d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24l9.6-9.6l9.6 9.6l2.4-2.4l-9.6-9.6z"/></svg>
-				</a>
-			</div>
+			<?php 
+    if ( $is_yearend_promo_period ) {
+        ?>
+				<!-- <div class="asenha-upgrade-nudge" style="display: none;">
+					<div class="asenha-upgrade-nudge__message"><?php 
+        // echo esc_html__( 'Lifetime Deal (LTD) is available for the Pro version of ASE.', 'admin-site-enhancements' );
+        ?></div>
+					<a href="https://www.wpase.com/upgrade-ndg" class="button asenha-upgrade-nudge__button" target="_blank"><?php 
+        // echo esc_html__( 'Find Out More', 'admin-site-enhancements' );
+        ?></a>
+					<a href="#" id="dismiss-upgrade-nudge" class="asenha-upgrade-nudge__dismiss">
+						<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="currentColor" d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24l9.6-9.6l9.6 9.6l2.4-2.4l-9.6-9.6z"/></svg>
+					</a>
+				</div> -->
+				<div class="asenha-promo-nudge" style="display: none;">
+					<div class="asenha-promo-nudge__message"><?php 
+        echo esc_html__( 'ASE Pro YEAR-END SALE! 20% DISCOUNT. Lifetime Deal (LTD) available.', 'admin-site-enhancements' );
+        ?></div>
+					<a href="https://www.wpase.com/promo-ndg" class="button asenha-promo-nudge__button" target="_blank"><?php 
+        echo esc_html__( 'Get It Now', 'admin-site-enhancements' );
+        ?></a>
+					<a href="#" id="dismiss-promo-nudge" class="asenha-promo-nudge__dismiss">
+						<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="currentColor" d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24l9.6-9.6l9.6 9.6l2.4-2.4l-9.6-9.6z"/></svg>
+					</a>
+				</div>
+				<?php 
+    }
+    ?>
+			<?php 
+    ?>
 			<div class="asenha-support-nudge nudge-show-more is-enabled" style="display: none;">
 				<h3><?php 
     _e( 'Looks like some of these free enhancements have been useful for your site?', 'admin-site-enhancements' );
@@ -315,6 +341,8 @@ function asenha_add_settings_page() {
 			<div id="bottom-upgrade-nudge" class="asenha-upgrade-nudge-bottom" style="display:none;">
 				<div class="asenha-upgrade-nudge-bottom__message"><?php 
     echo __( 'Do more with <a href="https://www.wpase.com/upgrade-ndg-btm" target="_blank">ASE Pro</a>. Lifetime deal (LTD) <a href="https://www.wpase.com/upgrade-ndg-btm-prc" target="_blank">available</a>.', 'admin-site-enhancements' );
+    ?> <?php 
+    echo __( 'Currently on YEAR-END SALE. <a href="https://www.wpase.com/promo-ndg" target="_blank">20% discount</a>.', 'admin-site-enhancements' );
     ?></div>
 			</div>
 			<?php 
@@ -760,21 +788,23 @@ function asenha_admin_scripts(  $hook_suffix  ) {
             }
         }
     }
-    // Pass on ASENHA stats to admin-page.js to determine whether to show support nudge
     $asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
+    $hide_promo_nudge = false;
+    // Pass on ASENHA stats to admin-page.js to determine whether to show support nudge
     $current_date = date( 'Y-m-d', time() );
     $show_support_nudge = false;
-    $hide_upgrade_nudge = false;
     $asenha_stats_localized = array(
         'firstSaveDate'       => '',
         'lastSaveDate'        => '',
         'saveCount'           => 0,
         'hideUpgradeNudge'    => false,
+        'hidePromoNudge'      => false,
         'showSupportNudge'    => false,
         'saveChangesJsonpUrl' => 'https://bowo.io/asenha-save-btn',
     );
     if ( !empty( $asenha_stats ) ) {
         $hide_upgrade_nudge = ( isset( $asenha_stats['upgrade_nudge_dismissed'] ) ? $asenha_stats['upgrade_nudge_dismissed'] : false );
+        $hide_promo_nudge = ( isset( $asenha_stats['promo_nudge_dismissed'] ) ? $asenha_stats['promo_nudge_dismissed'] : false );
         $have_supported = ( isset( $asenha_stats['have_supported'] ) ? $asenha_stats['have_supported'] : false );
         $changes_saved = ( isset( $_GET['settings-updated'] ) && 'true' == sanitize_text_field( $_GET['settings-updated'] ) ? true : false );
         $save_count = ( isset( $asenha_stats['save_count'] ) ? $asenha_stats['save_count'] : 0 );
@@ -827,6 +857,7 @@ function asenha_admin_scripts(  $hook_suffix  ) {
             'lastSaveDate'        => $last_save_date,
             'saveCount'           => $save_count,
             'hideUpgradeNudge'    => $hide_upgrade_nudge,
+            'hidePromoNudge'      => $hide_promo_nudge,
             'showSupportNudge'    => $show_support_nudge,
             'saveChangesJsonpUrl' => 'https://bowo.io/asenha-save-btn',
         );
@@ -1017,8 +1048,34 @@ function asenha_have_supported() {
  */
 function asenha_dismiss_upgrade_nudge() {
     if ( isset( $_REQUEST ) ) {
+        $current_date = date( 'Y-m-d', time() );
         $asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
         $asenha_stats['upgrade_nudge_dismissed'] = true;
+        $asenha_stats['upgrade_nudge_dismissed_date'] = $current_date;
+        $success = update_option( ASENHA_SLUG_U . '_stats', $asenha_stats, false );
+        if ( $success ) {
+            echo json_encode( array(
+                'success' => true,
+            ) );
+        } else {
+            echo json_encode( array(
+                'success' => false,
+            ) );
+        }
+    }
+}
+
+/**
+ * Dismiss promo nudge
+ * 
+ * @since 7.5.1
+ */
+function asenha_dismiss_promo_nudge() {
+    if ( isset( $_REQUEST ) ) {
+        $current_date = date( 'Y-m-d', time() );
+        $asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
+        $asenha_stats['promo_nudge_dismissed'] = true;
+        $asenha_stats['promo_nudge_dismissed_date'] = $current_date;
         $success = update_option( ASENHA_SLUG_U . '_stats', $asenha_stats, false );
         if ( $success ) {
             echo json_encode( array(

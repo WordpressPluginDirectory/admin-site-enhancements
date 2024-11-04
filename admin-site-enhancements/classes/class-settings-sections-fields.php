@@ -1588,6 +1588,8 @@ class Settings_Sections_Fields {
                 'field_suffix'      => '',
                 'field_intro'       => '',
                 'field_placeholder' => '10',
+                'field_min'         => 0,
+                'field_max'         => PHP_INT_MAX,
                 'field_description' => __( 'Default is 10. Larger number insert code closer to &lt;/head&gt;', 'admin-site-enhancements' ),
                 'class'             => 'asenha-number asenha-hide-th narrow custom-code ' . $field_slug,
             )
@@ -1631,6 +1633,8 @@ class Settings_Sections_Fields {
                 'field_suffix'      => '',
                 'field_intro'       => '',
                 'field_placeholder' => '10',
+                'field_min'         => 0,
+                'field_max'         => PHP_INT_MAX,
                 'field_description' => __( 'Default is 10. Smaller number insert code closer to &lt;body&gt;', 'admin-site-enhancements' ),
                 'class'             => 'asenha-number asenha-hide-th narrow custom-code ' . $field_slug,
             )
@@ -1674,6 +1678,8 @@ class Settings_Sections_Fields {
                 'field_suffix'      => '',
                 'field_intro'       => '',
                 'field_placeholder' => '10',
+                'field_min'         => 0,
+                'field_max'         => PHP_INT_MAX,
                 'field_description' => __( 'Default is 10. Larger number insert code closer to &lt;/body&gt;', 'admin-site-enhancements' ),
                 'class'             => 'asenha-number asenha-hide-th narrow custom-code ' . $field_slug,
             )
@@ -2304,6 +2310,8 @@ class Settings_Sections_Fields {
                 'field_suffix'      => __( 'failed login attempts allowed before 15 minutes lockout', 'admin-site-enhancements' ),
                 'field_intro'       => '',
                 'field_placeholder' => '3',
+                'field_min'         => 1,
+                'field_max'         => 10,
                 'field_description' => '',
                 'class'             => 'asenha-text with-prefix-suffix extra-narrow no-margin security ' . $field_slug,
             )
@@ -2326,6 +2334,8 @@ class Settings_Sections_Fields {
                 'field_suffix'      => __( 'lockout(s) will block further login attempts for 24 hours', 'admin-site-enhancements' ),
                 'field_intro'       => '',
                 'field_placeholder' => '3',
+                'field_min'         => 1,
+                'field_max'         => 10,
                 'field_description' => '',
                 'class'             => 'asenha-text with-prefix-suffix extra-narrow no-margin security ' . $field_slug,
             )
@@ -2474,6 +2484,8 @@ class Settings_Sections_Fields {
                 'field_suffix'      => __( 'pixels. <span class="faded">(Default is 1920 pixels)</span>', 'admin-site-enhancements' ),
                 'field_intro'       => '',
                 'field_placeholder' => '1920',
+                'field_min'         => 100,
+                'field_max'         => 3840,
                 'field_description' => '',
                 'class'             => 'asenha-number asenha-hide-th narrow optimizations ' . $field_slug,
             )
@@ -2496,6 +2508,8 @@ class Settings_Sections_Fields {
                 'field_suffix'      => __( 'pixels <span class="faded">(Default is 1920 pixels)</span>', 'admin-site-enhancements' ),
                 'field_intro'       => '',
                 'field_placeholder' => '1920',
+                'field_min'         => 100,
+                'field_max'         => 3840,
                 'class'             => 'asenha-number asenha-hide-th narrow margin-bottom-4 optimizations ' . $field_slug,
             )
         );
@@ -2554,6 +2568,8 @@ class Settings_Sections_Fields {
                 'field_suffix'      => __( 'revisions for:', 'admin-site-enhancements' ),
                 'field_intro'       => '',
                 'field_placeholder' => '10',
+                'field_min'         => 1,
+                'field_max'         => 100,
                 'field_description' => '',
                 'class'             => 'asenha-number asenha-hide-th extra-narrow optimizations ' . $field_slug,
             )
@@ -2915,6 +2931,8 @@ class Settings_Sections_Fields {
                 'field_suffix'      => '',
                 'field_intro'       => '',
                 'field_description' => '',
+                'field_min'         => 1,
+                'field_max'         => 100000,
                 'class'             => 'asenha-text with-prefix-suffix narrow utilities ' . $field_slug,
             )
         );

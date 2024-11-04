@@ -329,6 +329,8 @@ class Settings_Fields_Render {
         $field_suffix = $args['field_suffix'];
         $field_intro = $args['field_intro'];
         $field_placeholder = ( isset( $args['field_placeholder'] ) ? $args['field_placeholder'] : '' );
+        $field_min = ( isset( $args['field_min'] ) ? $args['field_min'] : 1 );
+        $field_max = ( isset( $args['field_max'] ) ? $args['field_max'] : 10 );
         $field_description = ( isset( $args['field_description'] ) ? $args['field_description'] : '' );
         $field_option_value = ( isset( $options[$args['field_id']] ) ? $options[$args['field_id']] : '' );
         if ( !empty( $field_prefix ) && !empty( $field_suffix ) ) {
@@ -344,7 +346,7 @@ class Settings_Fields_Render {
         if ( !empty( $field_intro ) ) {
             echo '<div class="asenha-subfield-number-intro">' . wp_kses_post( $field_intro ) . '</div>';
         }
-        echo '<div>' . wp_kses_post( $field_prefix ) . '<input type="number" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-number' . esc_attr( $field_classname ) . '" name="' . esc_attr( $field_name ) . '" placeholder="' . esc_attr( $field_placeholder ) . '" value="' . esc_attr( $field_option_value ) . '">' . wp_kses_post( $field_suffix ) . '</div>';
+        echo '<div>' . wp_kses_post( $field_prefix ) . '<input type="number" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-number' . esc_attr( $field_classname ) . '" name="' . esc_attr( $field_name ) . '" placeholder="' . esc_attr( $field_placeholder ) . '" step="1" min="' . esc_attr( $field_min ) . '" max="' . esc_attr( $field_max ) . '" value="' . esc_attr( $field_option_value ) . '">' . wp_kses_post( $field_suffix ) . '</div>';
         if ( !empty( $field_description ) ) {
             echo '<div class="asenha-subfield-number-description">' . wp_kses_post( $field_description ) . '</div>';
         }

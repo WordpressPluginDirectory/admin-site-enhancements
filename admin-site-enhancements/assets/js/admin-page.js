@@ -743,11 +743,12 @@
             
       // =============== ASE PRO =================
 
+      // Upgrade nudge to Pro
       if ( asenhaStats.hideUpgradeNudge ) {
          $('.asenha-upgrade-nudge').hide();
          $('#bottom-upgrade-nudge').show();
       } else {
-         $('.asenha-upgrade-nudge').show();         
+         $('.asenha-upgrade-nudge').show();
          $('#bottom-upgrade-nudge').hide();
       }
 
@@ -766,7 +767,33 @@
                console.log(errorThrown);
             }
          });
-      });      
+      });
+      
+      // Promo nudge
+
+      if ( asenhaStats.hidePromoNudge ) {
+         $('.asenha-promo-nudge').hide();
+         $('#bottom-upgrade-nudge').show();
+      } else {
+         $('.asenha-promo-nudge').show();
+         $('#bottom-upgrade-nudge').hide();
+      }
+      
+      $('#dismiss-promo-nudge').click(function(e) {
+         e.preventDefault();
+         $.ajax({
+            url: ajaxurl,
+            data: {
+               'action':'dismiss_promo_nudge'
+            },
+            success:function(data) {
+               $('.asenha-promo-nudge').hide();
+            },
+            error:function(errorThrown) {
+               console.log(errorThrown);
+            }
+         });
+      });
       
       // =============== SPONSORSHIP =================
 

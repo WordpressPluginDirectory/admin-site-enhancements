@@ -10,6 +10,8 @@
     --ase-accent-grey-lighter: #cccccc;
     --ase-accent-grey-lighter2: #ccd0d4;
     --ase-accent-grey-lightest: #fafafa;
+    --ase-accent-yellow-lightest: #fcf9e8;
+    --ase-accent-blue-lightest: #f0f6fc;
     --ase-body-text: #1d2327;
     --ase-link: #2271b1;
     --ase-link-hover: #0a4b78;
@@ -29,6 +31,11 @@
 
 #wpbody-content {
     padding-bottom: 25px;
+}
+
+#screen-meta,
+#screen-meta-links {
+    display: none;
 }
 
 .wrap.asenha {
@@ -92,7 +99,8 @@
 
 /* Upgrade Nudge */
 
-.asenha-upgrade-nudge {
+.asenha-upgrade-nudge,
+.asenha-promo-nudge {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -107,7 +115,12 @@
     line-height: 1.5;
 }
 
-.button.asenha-upgrade-nudge__button {
+.asenha-promo-nudge {
+    background: var(--ase-accent-yellow-lightest);
+}
+
+.button.asenha-upgrade-nudge__button,
+.button.asenha-promo-nudge__button {
     margin-left: 8px;
     color: #fff;
     background: #333333;
@@ -115,27 +128,30 @@
     transition: .25s;
 }
 
-.button.asenha-upgrade-nudge__button:hover {
+.button.asenha-upgrade-nudge__button:hover,
+.button.asenha-promo-nudge__button:hover {
     color: #fff;
     background: var(--ase-accent-black);
     border-color: var(--ase-accent-black);
 }
 
-.asenha-upgrade-nudge__dismiss {
+.asenha-upgrade-nudge__dismiss,
+.asenha-promo-nudge__dismiss {
     position: absolute;
     top: -1px;
     right: -1px;
     color: var(--ase-accent-grey-light);
     transition: .25s;
     padding: 2px 6px 0;
-    border-top: 1px solid var(--ase-accent-grey-darker);
+    border-top: 1px solid var(--ase-accent-grey-lighter);
     border-right: 1px solid var(--ase-accent-grey-darker);
     border-bottom: 1px solid var(--ase-accent-grey-lighter);
     border-left: 1px solid var(--ase-accent-grey-lighter);
-    border-radius: 0 8px 0 8px;
+    border-radius: 0 0 0 8px;
 }
 
-.asenha-upgrade-nudge__dismiss:hover {
+.asenha-upgrade-nudge__dismiss:hover,
+.asenha-promo-nudge__dismiss:hover {
     color: var(--ase-link);
     background: var(--ase-accent-faded);
 }
@@ -146,8 +162,11 @@
     align-items: center;
     text-align: center;
     font-size: 14px;
+    font-weight: 600;
     padding: 8px 20px;
-    background: var(--ase-accent-grey-lightest);
+    /* background: var(--ase-accent-grey-lightest); */
+    /* background: var(--ase-accent-yellow-lightest); */
+    background: var(--ase-accent-blue-lightest); 
     border-top: 1px solid var(--ase-accent-grey-lighter2);
     line-height: 1.5;
 }

@@ -20,7 +20,7 @@ class Disable_Dashboard_Widgets {
 
         // Get list of disabled widgets
         $options = get_option( ASENHA_SLUG_U, array() );
-        $disabled_dashboard_widgets = $options['disabled_dashboard_widgets'];
+        $disabled_dashboard_widgets = isset( $options['disabled_dashboard_widgets'] ) ? $options['disabled_dashboard_widgets'] : array();
 
         // Store default widgets in extra options. This will be referenced from settings field.
         $dashboard_widgets = $this->get_dashboard_widgets();
@@ -30,16 +30,18 @@ class Disable_Dashboard_Widgets {
 
         // Disable widgets
         if ( is_array( $disabled_dashboard_widgets ) || is_object( $disabled_dashboard_widgets ) ) {
-            foreach( $disabled_dashboard_widgets as $disabled_widget_id_context_priority => $is_disabled ) {
-                // e.g. dashboard_activity__normal__core => true/false
-                if ( $is_disabled ) {
-                    $disabled_widget = explode('__', $disabled_widget_id_context_priority);
-                    $widget_id = $disabled_widget[0];
-                    $widget_context = $disabled_widget[1];
-                    $widget_priority = $disabled_widget[2];
-                    // remove_meta_box( $widget_id, get_current_screen()->base, $widget_context );
-                    unset( $wp_meta_boxes['dashboard'][$widget_context][$widget_priority][$widget_id] );
-                }
+            if ( ! empty( $disabled_dashboard_widgets ) ) {
+                foreach( $disabled_dashboard_widgets as $disabled_widget_id_context_priority => $is_disabled ) {
+                    // e.g. dashboard_activity__normal__core => true/false
+                    if ( $is_disabled ) {
+                        $disabled_widget = explode('__', $disabled_widget_id_context_priority);
+                        $widget_id = $disabled_widget[0];
+                        $widget_context = $disabled_widget[1];
+                        $widget_priority = $disabled_widget[2];
+                        // remove_meta_box( $widget_id, get_current_screen()->base, $widget_context );
+                        unset( $wp_meta_boxes['dashboard'][$widget_context][$widget_priority][$widget_id] );
+                    }
+                }                
             }
         }
 

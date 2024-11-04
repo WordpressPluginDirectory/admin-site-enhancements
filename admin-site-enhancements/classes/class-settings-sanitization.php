@@ -272,7 +272,7 @@ class Settings_Sanitization {
             $options['custom_admin_footer_right'] = '';
         }
         $options['custom_admin_footer_right'] = ( !empty( $options['custom_admin_footer_right'] ) ? wp_kses_post( $options['custom_admin_footer_right'] ) : '' );
-        // Various Admin Enhancements
+        // Various Admin UI Enhancements
         if ( !isset( $options['various_admin_ui_enhancements'] ) ) {
             $options['various_admin_ui_enhancements'] = false;
         }
