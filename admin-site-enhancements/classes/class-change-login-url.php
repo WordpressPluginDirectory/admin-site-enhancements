@@ -275,6 +275,11 @@ class Change_Login_URL {
             // Do nothing. This prevents redirection loop.
         } else {
             $should_redirect = true;
+            // Prevent redirection to wp-login.php if the login process is initiated by a custom login form, e.g. WooCommerce, JetFormBuilder
+            // i.e. the POST request will not contain WP login process defaults as follows
+            if ( !isset( $_POST['log'] ) && !isset( $_POST['pwd'] ) && !isset( $_POST['wp-submit'] ) && !isset( $_POST['testcookie'] ) ) {
+                $should_redirect = false;
+            }
             if ( $should_redirect ) {
                 // Append 'failed_login=true' so we can output custom error message above the login form
                 wp_safe_redirect( home_url( 'wp-login.php?' . $custom_login_slug . '&redirect=false&failed_login=true' ) );

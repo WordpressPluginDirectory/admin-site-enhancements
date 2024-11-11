@@ -179,7 +179,14 @@ class Admin_Site_Enhancements {
                 10,
                 4
             );
+            add_filter( 'wp_handle_sideload_prefilter', [$svg_upload, 'sanitize_and_maybe_allow_svg_upload'] );
             add_filter( 'wp_handle_upload_prefilter', [$svg_upload, 'sanitize_and_maybe_allow_svg_upload'] );
+            add_action(
+                'rest_insert_attachment',
+                [$svg_upload, 'sanitize_after_upload'],
+                10,
+                3
+            );
             add_filter(
                 'wp_generate_attachment_metadata',
                 [$svg_upload, 'generate_svg_metadata'],

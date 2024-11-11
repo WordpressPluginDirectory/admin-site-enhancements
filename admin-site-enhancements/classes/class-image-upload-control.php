@@ -260,7 +260,9 @@ class Image_Upload_Control {
      * @return array An array of data for a single file.
      */
     public function prefilter_maybe_fix_image_orientation( $file ) {
-        $suffix = substr( $file['name'], strrpos( $file['name'], '.', -1 ) + 1 );
+        // Get the file extension
+        // $suffix = substr( $file['name'], strrpos( $file['name'], '.', -1 ) + 1 );
+        $suffix = pathinfo( $file['name'], PATHINFO_EXTENSION );
         if ( in_array( strtolower( $suffix ), array('jpg', 'jpeg', 'tiff'), true ) ) {
             $this->fix_image_orientation( $file['tmp_name'] );
         }

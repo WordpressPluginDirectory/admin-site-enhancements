@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.6.2  
-Stable tag: 7.5.1  
+Stable tag: 7.5.2  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -81,6 +81,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
   * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Preserve Taxonomy Hierarchy**: Preserve the visual hierarchy of taxonomy terms checklist in the classic editor.
   * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Enable Dashboard Columns Settings**: Enable manual settings of dashboard columns layout in Screen Options. You can choose between 1 to 4 columns.
   * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Add User Role Slug(s) to Admin Body Classes**: Useful for when you need to modify the admin area only for certain user role(s).
+  * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Add Usermame to Admin Body Classes**: Useful for when you need to modify the admin area only for certain user(s).
   
 * **Custom Admin Footer Text**: Customize the text you see on the footer of wp-admin pages. [ASE Pro](https://www.wpase.com/rdme-to-web) enables media upload / insertion.
 
@@ -184,36 +185,38 @@ You can skip step 1 and 2 if you still have access to your wp-admin dashboard.
 
 ### Does ASE Work With Multisite?
 
-ASE does not officially support multisite. Please use at your own risk. That said, several users have reported that it works fine on their multisite.
+ASE does not officially support multisite. Please use at your own risk. That said, several users have reported that it works fine on their multisite when activated on each sub-site and not through network activation.
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **75 _major_ releases** (e.g. 1.1.0 ) and **120 _minor_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **75 _major_ releases** (e.g. 1.1.0 ) and **121 _minor_ releases** (e.g. 4.9.1). 
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
 
-### 7.5.1 (2024.10.28) - ASE Free and Pro
+### 7.5.2 (2024.11.11) - ASE Free and Pro
 
-* **[IMPROVED in Pro] Admin Interface >> Various Admin UI Enhancements**: added an option to add username to the body class. Useful for when you need to modify the admin area only for certain user(s).
+* **[IMPROVED in Free] Log In | Log Out >> Change Login URL**: failed login on non-default login form, e.g. WooCommerce account login page, will now redirect back to that custom login form / page and no longer redirect to the custom login URL set in ASE. Props to [@vanektomas](https://wordpress.org/support/users/vanektomas/) for [reporting this](https://wordpress.org/support/topic/i-found-a-bug-11/).
 
-* **[IMPROVED in Pro] Content Management >> Public Preview for Drafts**: added public preview button/link in gutenberg editor.
+* **[IMPROVED and FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: 
+  * [IMPROVED] The gallery field type now has an option to **display the gallery in grid mode** using the native [gallery] shortcode. Props to Han L. for suggesting this and providing the code snippet to base it upon.
+  * [FIXED] Display of **WSYIWYG field on the frontend will now properly render paragraph breaks** via get_cf() and also in Oxygen and Breakdance. Props to Gabriel A. and Matija Z. for reporting the issue and facilitating the troubleshooting process.
 
-* **[IMPROVED in Pro] Log In | Log Out >> Login Page Customizer**: added an option to load an external CSS using the full URL of the CSS file. Props to Yann S. for prompting this improvement.
+* **[SECURITY/FIXED in Free and Pro] Content Management >> SVG Upload**: fixed a Stored XSS security issue responsiblly disclosed by Francesco Carlucci via Wordfence. This allowed adding/uploading malicious SVG image via the /media endpoint in the REST API. Sanitization has now been added in that upload route.
 
-* **[IMPROVED in Free and Pro] ASE Settings**: number input fields now has appropriate min / max values. e.g. Revisions Control module's revision limit has a minimum value of 1 and maximum value of 100.
+* **[FIXED in Free and Pro] Admin Interface >> Hide Admin Notices**: fixed an issue where notices are not hidden on WS Form edit screen. Props to Solomon A. for reporting the issue.
 
-* **[FIXED in Free and Pro] Utilities >> Multiple User Roles**: fix PHP warning. Props to Bob G. for reporting the issue.
+* **[FIXED in Free and Pro] Optimizations >> Image Upload Control**: fixed fatal error in a rare scenario. Props to Darren L. for reporting the issue and helping with the troubleshooting process.
 
-* **[FIXED in Free and Pro] Admin Interface >> Disable Dashboard Widgets**: fix PHP warning. Props to Richard E. for reporting the issue.
+* **[FIXED in Pro] Utilities >> Email Delivery**: fixed entries order and sorting issue in the email delivery log. Props to Mathijs V.D.B for reporting the issue.
 
 * **[YEAR END SALE]** [**Get 20% discount**](https://www.wpase.com/chnlg-to-web) by the end of the year on new Pro license purchase and upgrades.
 
-* **[TRANSLATION in Free and Pro]** Added translation for Russian (partial). ASE is now being translated into 28 languages:
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into 28 languages:
   * **Added new/improved translation** for:
-    * Free: Updated Spanish, Korean, Norwegian, Dutch, polish, Brazilian Portuguese, Portuguese (Portugal), Russian, Slovak.
-    * Pro: Updated Spanish, Norwegian, Brazilian Portugal, Slovak, Vietnamese.
+    * Free: updated Spanish, Korean, Norwegian, Dutch, Portuguese (Brazil), Swedish, Ukrainian, Vietnamese.
+    * Pro: updated Portuguese (Brazil), Vietnamese
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.

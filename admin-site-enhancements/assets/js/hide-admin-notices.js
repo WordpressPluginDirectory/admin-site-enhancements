@@ -148,6 +148,18 @@
 			+ '#wpbody-content > .wrap .wpallexport-wrapper .notice-updated,'
 			+ '#wpbody-content > .wrap .wpallexport-wrapper .updated:not(.inline),'
 			+ '#wpbody-content > .wrap .wpallexport-wrapper .update-nag,'
+			// WS Form
+			+ '#wpbody-content > #wsf-layout-editor > #poststuff > .notice:not(.system-notice,.hidden,.wcml-notice),'
+			+ '#wpbody-content > #wsf-layout-editor > #poststuff > .notice-error,'
+			+ '#wpbody-content > #wsf-layout-editor > #poststuff > .error:not(.hidden),'
+			+ '#wpbody-content > #wsf-layout-editor > #poststuff > .notice-info,'
+			+ '#wpbody-content > #wsf-layout-editor > #poststuff > .notice-information,'
+			+ '#wpbody-content > #wsf-layout-editor > #poststuff > #message,'
+			+ '#wpbody-content > #wsf-layout-editor > #poststuff > .notice-warning:not(.hidden),'
+			+ '#wpbody-content > #wsf-layout-editor > #poststuff > .notice-success,'
+			+ '#wpbody-content > #wsf-layout-editor > #poststuff > .notice-updated,'
+			+ '#wpbody-content > #wsf-layout-editor > #poststuff > .updated:not(.inline),'
+			+ '#wpbody-content > #wsf-layout-editor > #poststuff > .update-nag,'
 			// Funnel Builder for WordPress by FunnelKit
 			+ '#wpbody-content > .bwfan_header > .notice:not(.system-notice,.hidden),'
 			+ '#wpbody-content > .bwfan_header > .notice-error,'
