@@ -68,6 +68,9 @@ class Maintenance_Mode {
                 echo esc_html( ASENHA_URL ) . 'assets/css/maintenance.css';
                 ?>" media="all">
                         <meta name="viewport" content="width=device-width">
+                        <?php 
+                wp_site_icon();
+                ?>
                         <style>
                             body {
                                 <?php 
