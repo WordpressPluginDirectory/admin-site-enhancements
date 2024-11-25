@@ -156,15 +156,18 @@ class WP_Config_Transformer {
 		$wp_config_src = file_get_contents( $this->wpconfig_file( 'path' ) );
 
 		if ( ! trim( $wp_config_src ) ) {
-			throw new Exception( 'Config file is empty.' );
+			// throw new Exception( 'Config file is empty.' );
+			return false; // added in v7.5.4, if wp-config is empty, the $name is definitely not there.
 		}
+		
 		// Normalize the newline to prevent an issue coming from OSX.
 		$this->wp_config_src = str_replace( array( "\n\r", "\r" ), "\n", $wp_config_src );
 
 		$this->wp_configs = $this->configs( 'raw' );
 
 		if ( ! isset( $this->wp_configs[ $type ] ) ) {
-			throw new Exception( esc_html( "Config type '{$type}' does not exist." ) );
+			// throw new Exception( esc_html( "Config type '{$type}' does not exist." ) );
+			return false; // added in v7.5.4, if Config type '{$type}' does not exist, the $name is definitely not there.
 		}
 
 		return isset( $this->wp_configs[ $type ][ $name ] );

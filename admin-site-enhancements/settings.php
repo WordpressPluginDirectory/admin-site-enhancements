@@ -794,13 +794,12 @@ function asenha_admin_scripts(  $hook_suffix  ) {
     $current_date = date( 'Y-m-d', time() );
     $show_support_nudge = false;
     $asenha_stats_localized = array(
-        'firstSaveDate'       => '',
-        'lastSaveDate'        => '',
-        'saveCount'           => 0,
-        'hideUpgradeNudge'    => false,
-        'hidePromoNudge'      => false,
-        'showSupportNudge'    => false,
-        'saveChangesJsonpUrl' => 'https://bowo.io/asenha-save-btn',
+        'firstSaveDate'    => '',
+        'lastSaveDate'     => '',
+        'saveCount'        => 0,
+        'hideUpgradeNudge' => false,
+        'hidePromoNudge'   => false,
+        'showSupportNudge' => false,
     );
     if ( !empty( $asenha_stats ) ) {
         $hide_upgrade_nudge = ( isset( $asenha_stats['upgrade_nudge_dismissed'] ) ? $asenha_stats['upgrade_nudge_dismissed'] : false );
@@ -853,13 +852,12 @@ function asenha_admin_scripts(  $hook_suffix  ) {
         $first_save_date = ( isset( $asenha_stats['first_save_date'] ) ? $asenha_stats['first_save_date'] : '' );
         $last_save_date = ( isset( $asenha_stats['last_save_date'] ) ? $asenha_stats['last_save_date'] : '' );
         $asenha_stats_localized = array(
-            'firstSaveDate'       => $first_save_date,
-            'lastSaveDate'        => $last_save_date,
-            'saveCount'           => $save_count,
-            'hideUpgradeNudge'    => $hide_upgrade_nudge,
-            'hidePromoNudge'      => $hide_promo_nudge,
-            'showSupportNudge'    => $show_support_nudge,
-            'saveChangesJsonpUrl' => 'https://bowo.io/asenha-save-btn',
+            'firstSaveDate'    => $first_save_date,
+            'lastSaveDate'     => $last_save_date,
+            'saveCount'        => $save_count,
+            'hideUpgradeNudge' => $hide_upgrade_nudge,
+            'hidePromoNudge'   => $hide_promo_nudge,
+            'showSupportNudge' => $show_support_nudge,
         );
     }
     wp_localize_script( 'asenha-admin-page', 'asenhaStats', $asenha_stats_localized );

@@ -4,8 +4,8 @@ Contributors: qriouslad
 Donate link: https://bowo.io/asenha-sp-rdm  
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
-Tested up to: 6.7  
-Stable tag: 7.5.3  
+Tested up to: 6.7.1  
+Stable tag: 7.5.4  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -189,30 +189,22 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **75 _major_ releases** (e.g. 1.1.0 ) and **122 _minor_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **75 _major_ releases** (e.g. 1.1.0 ) and **123 _minor_ releases** (e.g. 4.9.1). 
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
 
-### 7.5.3 (2024.11.18) - ASE Free and Pro
+### 7.5.4 (2024.11.25) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Utilities >> Maintenance Mode**: make sure the site icon is included in the maintenance page. This should ensure browser tabs also displays the site icon. Props to [@tanasi](https://wordpress.org/support/users/tanasi/) for [reporting](https://wordpress.org/support/topic/favicon-missing-when-plugin-active/#post-18017882) the issue.
+* **[FIXED in Free and Pro] Log In/Out | Register >> Site Identity on Login Page / Login Page Customizer**: fix login logo reverting to default WP logo on WP v6.7 instead of using the site icon. Props to [@kimu](https://wordpress.org/support/users/kimu/), [Greg M.](https://wordpress.org/support/users/gregmount/), Aleš S. and [@havidz](https://wordpress.org/support/users/havidz/) for reporting the issue [here](https://wordpress.org/support/topic/site-identity-on-login-page-does-not-seem-to-work-anymore/) and [here](https://wordpress.org/support/topic/after-update-my-logo-on-login-page-is-lost/).
 
-* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: 
-  * Fixed fatal error in a certain scenario. Props to Francois G. for reporting the issue.
-  * Fixed number of views being duplicated in the Views column of posts listing tables from Independent Analytics plugin. Props to Andreas K. for reporting the issue.
-  
-* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Group**:
-  * **Fixed Oxygen builder integration** issue where the ASE Field selection button is not shown, or it's shown but not all ASE fields were listed upon clicking it.
-  * **Add grid view option for gallery field** in Oxygen builder.
-
-* **[YEAR END SALE]** [**Get 20% discount**](https://www.wpase.com/chnlg-to-web) by the end of the year on new Pro license purchase and upgrades.
+* **[FIXED in Free and Pro] Disable Components >> Disable Smaller Components >> Disable plugin and theme editor**: fix fatal error that occurs in certain scenario. Props to Darren L. for reporting the issue.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into 28 languages:
   * **Added new/improved translation** for:
-    * Free: updated Arabic, Polish, Slovak, Albanian.
-    * Pro: updated Arabic, Hungarian.
+    * Free: Spanish, Albanian, Chinese (Taiwan).
+    * Pro: updated Slovak.
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.

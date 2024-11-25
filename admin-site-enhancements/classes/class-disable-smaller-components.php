@@ -173,6 +173,14 @@ class Disable_Smaller_Components {
      * @since 7.4.5
      */
     public function disable_plugin_theme_editor() {
+        if ( wp_doing_ajax() || wp_doing_cron() ) {
+            return;
+        }
+        
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
         $wp_config = new WP_Config_Transformer;
 
         if ( ! defined( 'DISALLOW_FILE_EDIT' ) ) {
@@ -202,6 +210,14 @@ class Disable_Smaller_Components {
      * @since 7.4.5
      */
     public function enable_plugin_theme_editor() {
+        if ( wp_doing_ajax() || wp_doing_cron() ) {
+            return;
+        }
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
         $wp_config = new WP_Config_Transformer;
 
         if ( ! defined( 'DISALLOW_FILE_EDIT' ) ) {

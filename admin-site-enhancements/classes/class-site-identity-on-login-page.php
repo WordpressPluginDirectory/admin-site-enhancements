@@ -19,7 +19,8 @@ class Site_Identity_On_Login_Page {
         if ( has_site_icon() ) { 
             ?>
             <style type="text/css">
-                    .login h1 a {
+                    .login h1 a,
+                    .login h1.wp-login-logo a {
                             background-image: url('<?php site_icon_url( 180 ); ?>');
                     }
             </style>
