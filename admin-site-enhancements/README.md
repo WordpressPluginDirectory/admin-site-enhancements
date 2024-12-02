@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.7.1  
-Stable tag: 7.5.4  
+Stable tag: 7.6.0  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -42,8 +42,8 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### FEATURES & MODULES
 
-**64 modules** in total:  
-**54 free modules** (26 has Pro features) | **10 Pro modules**
+**65 modules** in total:  
+**55 free modules** (28 has Pro features) | **10 Pro modules**
 
 [**See all features >>**](https://www.wpase.com/features/)
 
@@ -85,13 +85,14 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
   
 * **Custom Admin Footer Text**: Customize the text you see on the footer of wp-admin pages. [ASE Pro](https://www.wpase.com/rdme-to-web) enables media upload / insertion.
 
-### Log In / Log Out
+### Log In/Out & Register
 
 * **Change Login URL**. Make the login URL more memorable and secure by customizing it. [ASE Pro](https://www.wpase.com/rdme-to-web) adds compatibility with login process in WooCommerce pages, i.e. account and checkout, and custom 404 redirect on default login URLs.
 * **Login ID Type**. Restrict login ID to username or email address only.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Login Page Customizer**. Easily customize the design of the login page.
 * **Site Identity on Login Page**. Use the site icon and URL to replace the default WordPress logo with link to wordpress.org on the login page.
 * **Log In/Out Menu**. Enable log in, log out and dynamic log in/out menu item for addition to any menu.
+* **Registration Column**. Show users registration date. [ASE Pro](https://www.wpase.com/rdme-to-web) makes the column sortable.
 * **Last Login Column**. Log when users on the site last logged in and display the date and time in the users list table. [ASE Pro](https://www.wpase.com/rdme-to-web) makes the column sortable.
 * **Redirect After Login / Logout**. Set custom redirect URL for all or some user roles after login / logout. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to set separate redirect URL for each role.
 
@@ -189,17 +190,23 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **75 _major_ releases** (e.g. 1.1.0 ) and **123 _minor_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **76 _major_ releases** (e.g. 1.1.0 ) and **123 _minor_ releases** (e.g. 4.9.1). 
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
 
-### 7.5.4 (2024.11.25) - ASE Free and Pro
+### 7.6.0 (2024.12.02) - ASE Free and Pro
 
-* **[FIXED in Free and Pro] Log In/Out | Register >> Site Identity on Login Page / Login Page Customizer**: fix login logo reverting to default WP logo on WP v6.7 instead of using the site icon. Props to [@kimu](https://wordpress.org/support/users/kimu/), [Greg M.](https://wordpress.org/support/users/gregmount/), Aleš S. and [@havidz](https://wordpress.org/support/users/havidz/) for reporting the issue [here](https://wordpress.org/support/topic/site-identity-on-login-page-does-not-seem-to-work-anymore/) and [here](https://wordpress.org/support/topic/after-update-my-logo-on-login-page-is-lost/).
+* **[ADDED in Free and Pro] Log In/Out | Register >> Registration Date Column**: implement the ability to show registration date column in the users list table. Pro version makes the column sortable. Props to Bas B. for suggesting this feature.
 
-* **[FIXED in Free and Pro] Disable Components >> Disable Smaller Components >> Disable plugin and theme editor**: fix fatal error that occurs in certain scenario. Props to Darren L. for reporting the issue.
+* **[CHANGED in Free and Pro] ASE Settings**: the "Log In | Log Out" category has been renamed to "Log In/Out | Register".
+
+* **[IMPROVED in Free and Pro] Custom Code >> Manage robots.txt**: 
+  * Update robots.txt online validation tools. Now uses websiteplanet.com and seositecheckup.tools. Props to David S. for reporting that one of the previous validators was no longer available.
+  * Make sure robots.txt content being set in ASE is honored in the actual output on certain scenarios
+
+* **[YEAR END SALE]** [**Get 20% discount**](https://www.wpase.com/chnlg-to-web) by the end of the year on new Pro license purchase and upgrades.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into 28 languages:
   * **Added new/improved translation** for:

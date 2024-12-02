@@ -246,7 +246,7 @@ function asenha_add_settings_page() {
     ?></label>
 					    <input id="tab-login-logout" type="radio" name="tabs"><label for="tab-login-logout"><?php 
     echo wp_kses( $icon_login_logout, get_kses_with_svg_ruleset() );
-    echo esc_html__( 'Log In | Log Out', 'admin-site-enhancements' );
+    echo esc_html__( 'Log In/Out | Register', 'admin-site-enhancements' );
     ?></label>
 					    <input id="tab-custom-code" type="radio" name="tabs"><label for="tab-custom-code"><?php 
     echo wp_kses( $icon_custom_code, get_kses_with_svg_ruleset() );

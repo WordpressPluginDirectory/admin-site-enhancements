@@ -1,11 +1,58 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **75 _major_ releases** (e.g. 1.1.0 ) and **123 _minor_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **76 _major_ releases** (e.g. 1.1.0 ) and **123 _minor_ releases** (e.g. 4.9.1). 
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
 
+### 7.6.0 (2024.11.18) - ASE Free and Pro
+
+* **[ADDED in Free and Pro] Log In/Out | Register >> Registration Date Column**: implement the ability to show registration date column in the users list table. Pro version makes the column sortable. Props to Bas B. for suggesting this feature.
+
+* **[CHANGED in Free and Pro] ASE Settings**: the "Log In | Log Out" category has been renamed to "Log In/Out | Register".
+
+* **[IMPROVED in Free and Pro] Custom Code >> Manage robots.txt**: 
+  * Update robots.txt online validation tools. Now uses websiteplanet.com and seositecheckup.tools. Props to David S. for reporting that one of the previous validators was no longer available.
+  * Make sure robots.txt content being set in ASE is honored in the actual output on certain scenarios
+
+* **[YEAR END SALE]** [**Get 20% discount**](https://www.wpase.com/chnlg-to-web) by the end of the year on new Pro license purchase and upgrades.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into 28 languages:
+  * **Added new/improved translation** for:
+    * Free: Spanish, Albanian, Chinese (Taiwan).
+    * Pro: updated Slovak.
+  * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
+  * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
+  * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.
+  * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/), [denisgomesfranco](https://profiles.wordpress.org/denisgomesfranco/), [Denison C.](https://profiles.wordpress.org/denisoncarlos/) and [@ofmarconi](https://profiles.wordpress.org/ofmarconi/).
+  * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/) et al.
+  * **Vietnamese**: ASE Free and Pro (completed). Props to [Hoang N.Q.](https://profiles.wordpress.org/nguyenquanghoang/) et al.
+  * **Italian**: ASE Free and Pro (completed). Props to [Fabio P.](https://profiles.wordpress.org/fabioperri/) et. al.
+  * **Dutch**: ASE Free and Pro (completed). Props to [Toine R](https://profiles.wordpress.org/toineenzo/) and [Peter S.](https://profiles.wordpress.org/psmits1567/) et al.
+  * **Korean**: ASE Free and Pro (completed). Props to [@chazmlab](https://profiles.wordpress.org/chazmlab/) et al.
+  * **German (Formal)**: ASE Free and Pro (completed). Props to [@markussss](https://profiles.wordpress.org/markussss/), Bastian S. et al.
+  * **French**: ASE Free and Pro (completed). Props to [Stéphan G.](https://profiles.wordpress.org/gongonzo/), [@jeanfrancoisdelvin](https://profiles.wordpress.org/jeanfrancoisdelvin/), [@srossignol](https://profiles.wordpress.org/srossignol/), [@lucashw](https://profiles.wordpress.org/lucashw/), [@skippy43](https://profiles.wordpress.org/skippy43/), [@anlip](https://profiles.wordpress.org/anlip/), [@agencefacton](https://profiles.wordpress.org/agencefacton/), [@injsbx](https://profiles.wordpress.org/injsbx/) et al.
+  * **Polish**: ASE Free and Pro (completed). Props to [@kosmity](https://profiles.wordpress.org/kosmity/) and [Dariusz Z.](https://profiles.wordpress.org/dariobros/) et al.
+  * **Norwegian**: ASE Free and Pro (completed). Props to [Alf O.F.](https://profiles.wordpress.org/skoen/) et al.
+  * **Czech**: ASE Free and Pro (completed). Props to Jan S. et al.
+  * **Spanish**: ASE Free and Pro (completed). Props to [@marcorubiol](https://profiles.wordpress.org/marcorubiol/) et al.
+  * **Slovak**: ASE Free and Pro (completed). Props to [Dominik K.](https://profiles.wordpress.org/dominokozmali/) et al.
+  * **Indonesian**: ASE Free and Pro (completed). Props to [@pakacil](https://profiles.wordpress.org/pakacil/), [Wawan S.](https://profiles.wordpress.org/ahmad-rafiansyah/) et al.
+  * **Portuguese (Portugal)**: ASE Free (completed) | ASE Pro (partial). Props to [Ricardo C.](https://profiles.wordpress.org/madebyuh/) et al.
+  * **Ukrainian**: ASE Free (completed) | ASE Pro (partial). Props to [Irina](https://profiles.wordpress.org/irinashl/) et al.
+  * **Urdu**: ASE Free (completed) | ASE Pro (partial). Props to [Ayyaz A.](https://profiles.wordpress.org/ayyazahmad/) et al.
+  * **Swedish**: ASE Free (completed) | ASE Pro (partial). Props to [Robert M.](https://profiles.wordpress.org/robertmichalski/) and [Tor-Bjorn F.](https://profiles.wordpress.org/tobifjellner/).
+  * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/) et al.
+  * **Arabic**: ASE Free (completed) | ASE Pro (completed). Props to [Mohammed J.](https://profiles.wordpress.org/ih4xz/), Yaser M., et al.
+  * **Romanian**: ASE Free (completed) | ASE Pro (partial). Props to [Dan C.](https://profiles.wordpress.org/dancaragea/), [@ravishi](https://profiles.wordpress.org/ravishi/) et al.
+  * **Turkish**: ASE Free (completed). Props to [@saeead](https://wordpress.org/support/users/saeead/), [@serdaroztrk](https://profiles.wordpress.org/serdaroztrk/) et al.
+  * **Serbian**: ASE Free (partial). Props to [Igor E.](https://wordpress.org/support/users/igorel/).
+  * **Albanian**: ASE Free (partial). Props to [@algertpateqi](https://profiles.wordpress.org/algertpateqi/).
+  * **Chinese (Taiwan)**: ASE Free (partial). Props to [Hedula](https://profiles.wordpress.org/hedula/).
+  * **Persian**: ASE Free (completed). Props to [@saeead](https://profiles.wordpress.org/saeead/) et al.
+  * **Russian**: ASE Free (completed). Props to [@sergey369](https://profiles.wordpress.org/sergey369/), [@pfgr](https://profiles.wordpress.org/pfgr/) et al.
+  
 ### 7.5.4 (2024.11.25) - ASE Free and Pro
 
 * **[FIXED in Free and Pro] Log In/Out | Register >> Site Identity on Login Page / Login Page Customizer**: fix login logo reverting to default WP logo on WP v6.7 instead of using the site icon. Props to [@kimu](https://wordpress.org/support/users/kimu/), [Greg M.](https://wordpress.org/support/users/gregmount/), Aleš S. and [@havidz](https://wordpress.org/support/users/havidz/) for reporting the issue [here](https://wordpress.org/support/topic/site-identity-on-login-page-does-not-seem-to-work-anymore/) and [here](https://wordpress.org/support/topic/after-update-my-logo-on-login-page-is-lost/).
@@ -98,7 +145,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 ### 7.5.2 (2024.11.11) - ASE Free and Pro
 
-* **[IMPROVED in Free] Log In | Log Out >> Change Login URL**: failed login on non-default login form, e.g. WooCommerce account login page, will now redirect back to that custom login form / page and no longer redirect to the custom login URL set in ASE. Props to [@vanektomas](https://wordpress.org/support/users/vanektomas/) for [reporting this](https://wordpress.org/support/topic/i-found-a-bug-11/).
+* **[IMPROVED in Free] Log In/Out & Register >> Change Login URL**: failed login on non-default login form, e.g. WooCommerce account login page, will now redirect back to that custom login form / page and no longer redirect to the custom login URL set in ASE. Props to [@vanektomas](https://wordpress.org/support/users/vanektomas/) for [reporting this](https://wordpress.org/support/topic/i-found-a-bug-11/).
 
 * **[IMPROVED and FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: 
   * [IMPROVED] The gallery field type now has an option to **display the gallery in grid mode** using the native [gallery] shortcode. Props to Han L. for suggesting this and providing the code snippet to base it upon.
@@ -155,7 +202,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[IMPROVED in Pro] Content Management >> Public Preview for Drafts**: added public preview button/link in gutenberg editor.
 
-* **[IMPROVED in Pro] Log In | Log Out >> Login Page Customizer**: added an option to load an external CSS using the full URL of the CSS file. Props to Yann S. for prompting this improvement.
+* **[IMPROVED in Pro] Log In/Out & Register >> Login Page Customizer**: added an option to load an external CSS using the full URL of the CSS file. Props to Yann S. for prompting this improvement.
 
 * **[IMPROVED in Free and Pro] ASE Settings**: number input fields now has appropriate min / max values. e.g. Revisions Control module's revision limit has a minimum value of 1 and maximum value of 100.
 
@@ -321,9 +368,9 @@ Each **_major release_** usually corresponds with the addition of one new module
   * Make sure the default Last Modified and Published columns, as well as the Last Modified column from Enhanced List Tables module respects the date time format chosen. Props to Ivar S. for reporting the issue and facilitating the troubleshooting process.
   * Fixed deprecation notices in some scenarios.
   
-* **[IMPROVED in Pro] Log In | Log Out >> Change Login URL**: improved mechanism to prevent failed login on custom login forms, e..g WooCommerce, JetFormBuilder, from redirecting to wp-login.php. Props to Jose K.N. for prompting the improvement.
+* **[IMPROVED in Pro] Log In/Out & Register >> Change Login URL**: improved mechanism to prevent failed login on custom login forms, e..g WooCommerce, JetFormBuilder, from redirecting to wp-login.php. Props to Jose K.N. for prompting the improvement.
 
-* **[IMPROVED in Pro] Log In | Log Out >> Login Page Customizer**: you can now use external image URL for logo image and background image. Props to Nadja V.M. for prompting this improvement.
+* **[IMPROVED in Pro] Log In/Out & Register >> Login Page Customizer**: you can now use external image URL for logo image and background image. Props to Nadja V.M. for prompting this improvement.
 
 * **[IMPROVED in Pro] Utilities >> Maintenance Mode**: you can now use an external image URL for the background image. Props to Nadja V.M. for prompting this improvement.
 * **[IMPROVED in Pro] Utilities >> Search Engine Visibility Status**: improve code logic to only perform checks when in wp-admin. Props to Uli L. for prompting the improvement.
@@ -369,7 +416,7 @@ Each **_major release_** usually corresponds with the addition of one new module
   
 ### 7.4.6 (2024.10.07) - ASE Free and Pro
 
-* **[IMPROVED in PRO] Log In | Log Out >> Change Login URL**: now respects the recently added feature to Redirect After Login module which allows for separate redirection URL for each user role. With this improvement, if a user role is already logged-in, going to the custom login URL will properly redirect to the URL set in Redirect After Login module for that role, no longer redirecting to /wp-admin/ (the Dashboard). An improvement was also implemented to handle the scenario where the user has multiple user roles. Props to Wence W. for reporting the issue and facilitating the troubleshooting.
+* **[IMPROVED in PRO] Log In/Out & Register >> Change Login URL**: now respects the recently added feature to Redirect After Login module which allows for separate redirection URL for each user role. With this improvement, if a user role is already logged-in, going to the custom login URL will properly redirect to the URL set in Redirect After Login module for that role, no longer redirecting to /wp-admin/ (the Dashboard). An improvement was also implemented to handle the scenario where the user has multiple user roles. Props to Wence W. for reporting the issue and facilitating the troubleshooting.
 
 * **[FIXED in PRO] Admin Interface >> Admin Columns Manager**: improved mechanism to detect and categorize custom fields in a post type, ensuring they are handled properly based on their handler (ASE, ACF, Meta Box or plain custom field). Props to Stanislaw R. for reporting the issue and facilitating the troubleshooting process.
 
@@ -457,7 +504,7 @@ Each **_major release_** usually corresponds with the addition of one new module
   
 * **[IMPROVED in Pro] Admin Interface >> Admin Columns Manager**: add an option to set custom formatting for number and date-time columns. This is applicable to default columns and custom field columns, including those by ASE, ACF, Meta Box.
 
-* **[FIXED in Free and Pro] Log In | Log Out >> Last Login Column**: fix login time not being properly logged. Props to [@pcamoz](https://wordpress.org/support/users/pcamoz/) for [reporting the issue](https://wordpress.org/support/topic/log-last-login-for-users/).
+* **[FIXED in Free and Pro] Log In/Out & Register >> Last Login Column**: fix login time not being properly logged. Props to [@pcamoz](https://wordpress.org/support/users/pcamoz/) for [reporting the issue](https://wordpress.org/support/topic/log-last-login-for-users/).
 
 * **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fix PHP warning. Props to Simon K. for reporting the issue.
 
@@ -501,7 +548,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[IMPROVED in Pro] Content Management >> Content Order**: adjacent posts (next and previous posts) are now correctly reflecting the custom order. Props to Antoine L. for suggesting this improvement.
 
-* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: fix an issue where visiting the custom login URL while logged-in returns a 404 Not Found error. Props to Nadja v.M. for reporting the issue.
+* **[FIXED in Free and Pro] Log In/Out & Register >> Change Login URL**: fix an issue where visiting the custom login URL while logged-in returns a 404 Not Found error. Props to Nadja v.M. for reporting the issue.
 
 * **[TRANSLATION in Free and Pro]** ASE is now translated into 22 languages:
   * **Added new/improved translation** for:
@@ -581,9 +628,9 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[ADDED in Free and Pro] Disable Components >> Disable Smaller Components**: added an option to remove generator tag that contains WordPress version number in RSS feed. Props to [Emmanue ATSÉ](https://wordpress.org/support/users/eatse/) for [suggesting this](https://wordpress.org/support/topic/disable-version-number-version-still-present-in-rss-feed/).
 
-* **[IMPROVED in Pro] Log In | Log Out >> Redirect After Login and Logout**: add option to redirect to separate URL for each user role.
+* **[IMPROVED in Pro] Log In/Out & Register >> Redirect After Login and Logout**: add option to redirect to separate URL for each user role.
 
-* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: fix PHP warning as [reported](https://wordpress.org/support/topic/php-warning-undefined-variable-4/#post-17984197) by [@dakotadevelopers](https://wordpress.org/support/users/dakotadevelopers/) and Thibaut V.
+* **[FIXED in Free and Pro] Log In/Out & Register >> Change Login URL**: fix PHP warning as [reported](https://wordpress.org/support/topic/php-warning-undefined-variable-4/#post-17984197) by [@dakotadevelopers](https://wordpress.org/support/users/dakotadevelopers/) and Thibaut V.
 
 * **[FIXED in Free and Pro] Admin Interface >> Hide Admin Notices**: some notices were not properly hidden on Wordfence plugin's dashboard, which is now fixed and will be properly hidden in the notices panel. Props to [@tomislo](https://wordpress.org/support/users/tomislo/) for [reporting the issue](https://wordpress.org/support/topic/hide-admin-notices-2/).
 
@@ -708,7 +755,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[IMPROVED in Free and Pro] Content Management >> Content Order**: will now work with non-public post types as well. Props to Robert G. for prompting this improvement.
 
-* **[IMPROVED in Pro] Log In | Log Out >> Login Page Customizer**: enable use of the site icon as the login page logo. Props to Ron R. for suggesting this improvement.
+* **[IMPROVED in Pro] Log In/Out & Register >> Login Page Customizer**: enable use of the site icon as the login page logo. Props to Ron R. for suggesting this improvement.
 
 * **[CHANGED in Pro] ASE Settings Export**: the "live site URL" field value will be emptied when exporting ASE settings. This will prevent "Reading >> Search engine visibility >> Discourage search engines from indexing this site" from being auto-checked, since the site the settings is being imported into will likely have a different URL than the original live site URL. Props to Val J. for prompting this change.
 
@@ -788,7 +835,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[FIXED in Free and Pro] Admin Interface >> Clean Up Admin Bar**: fixed 'Howdy' no longer being hidden since WP v6.6. Props to [@wesleypeace](https://wordpress.org/support/users/wesleypeace/), [@lookazd](https://wordpress.org/support/users/lookazd/), [@colourstone](https://wordpress.org/support/users/colourstone/), [@verysiberian](https://wordpress.org/support/users/verysiberian/) and Marco M.J. for [reporting the issue](https://wordpress.org/support/topic/hide-howdy-not-working/).
 
-* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: fixed a compatibility issue with User Switching plugin, preventing it to perform user switching. Props to George N. for reporting the issue.
+* **[FIXED in Free and Pro] Log In/Out & Register >> Change Login URL**: fixed a compatibility issue with User Switching plugin, preventing it to perform user switching. Props to George N. for reporting the issue.
 
 * **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fix several PHP warnings. Props to Marco for reporting the issue.
 
@@ -907,7 +954,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[IMPROVED in Pro] Utilities >> Email Delivery >> Email Delivery Log** added a feature to resend emails that failed during delivery attempt. You can also specify a different destination email, e.g. useful when, for example, there's a typo in the original destination email. Props to Mathijs V.D.B. for suggesting the improvement.
 
-* **[IMPROVED in Pro] Log In | Log Out >> Login Page Customizer**: if numeric values are entered in the logo width and height settings, the 'px' unit will be automatically added upon saving changes. This will prevent the logo from showing up in the default 84x84 pixels. Props to Matt B. for prompting the improvement.
+* **[IMPROVED in Pro] Log In/Out & Register >> Login Page Customizer**: if numeric values are entered in the logo width and height settings, the 'px' unit will be automatically added upon saving changes. This will prevent the logo from showing up in the default 84x84 pixels. Props to Matt B. for prompting the improvement.
   
 * **[TRANSLATION in Free and Pro]** Added Arabic translation. ASE is now translated into 19 languages:
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/).
@@ -942,7 +989,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[CHANGED in Free and Pro] ASE Settings**: ASE will explicitlly autoload two of the options it creates in wp_options in anticipation of upcoming [changes in WP v6.6](https://make.wordpress.org/core/2024/06/18/options-api-disabling-autoload-for-large-options/).
 
-* **[IMPROVED in Pro] Log In | Log Out >> Change Login URL**: when failing to login on WooCommerce My Account page, you'll no longer be redirected to the custom login URL, thus revealing it's location, but will remain on the My Account page with an error message shown there. Props to Gustavo F. for reporting the issue in great detail.
+* **[IMPROVED in Pro] Log In/Out & Register >> Change Login URL**: when failing to login on WooCommerce My Account page, you'll no longer be redirected to the custom login URL, thus revealing it's location, but will remain on the My Account page with an error message shown there. Props to Gustavo F. for reporting the issue in great detail.
 
 * **[FIXED in Free and Pro] Admin Interface >> Hide Admin Notices**: fixed briefly flashing notices issue that crept into v7.1.1 release. Props to Justin for noticing and taking the time to open a support ticket to quickly report it.
 
@@ -984,13 +1031,13 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[IMPROVED in Pro] Disable Components >> Disable Gutenberg & Disable Comments**: add an option to "Disable on all post types". Props to PJ for suggesting the improvement.
 
-* **[CHANGED in Pro] Log In | Log Out >> Site Identity on the Login Page**: this module is now disabled in the Pro version as it's features are included in the Login Page Customizer module.
+* **[CHANGED in Pro] Log In/Out & Register >> Site Identity on the Login Page**: this module is now disabled in the Pro version as it's features are included in the Login Page Customizer module.
 
 * **[FIXED / IMPROVED in Pro] Admin Interface >> Admin Menu Organizer**: 
   * fixed a JS error preventing the module to work properly when WP Activity Log plugin is active. Props to @admin_truemarket for reporting the issue.
   * replaced triangle HTML symbol with SVG icon to prevent styling from being affected by emoji script.
   
-* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: trying to open /wp-admin/profile.php while not being logged-in will no longer redirect to the custom login URL. Props to Orlando M. for reporting the issue.
+* **[FIXED in Free and Pro] Log In/Out & Register >> Change Login URL**: trying to open /wp-admin/profile.php while not being logged-in will no longer redirect to the custom login URL. Props to Orlando M. for reporting the issue.
 
 * **[FIXED in Free and Pro] Content Management >> AVIF Upload**: fix broken links in the module description. Props to [@jlop77](https://wordpress.org/support/users/jlop77/) for [reporting](https://wordpress.org/support/topic/%e2%98%a0%ef%b8%8f-is-this-a-security-bug-it-redirects-me-to-a-strange-page/) the issue.
 
@@ -1029,7 +1076,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[IMPROVED in Pro] Utilities >> Email Delivery**: added an option to enable logging of email deliveries. Props to Francois G. and Jonathan L. for suggesting this.
 
-* **[IMPROVED in Pro] Log In | Log Out >> Login Page Customizer**: added an option to hide the "Remember Me" checkbox. Props to Markus R. for the suggestion.
+* **[IMPROVED in Pro] Log In/Out & Register >> Login Page Customizer**: added an option to hide the "Remember Me" checkbox. Props to Markus R. for the suggestion.
 
 * **[FIXED in Free] Utilities >> Maintenance Mode**: fix missing background image/pattern after update to v7.0.3. Props to [@arj968653](https://wordpress.org/support/users/arj968653/) for [reporting this](https://wordpress.org/support/topic/maintenance-mode-background-not-shown/) in detail.
 
@@ -1071,7 +1118,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[IMPROVED in Pro] Utilities >> Password Protection**: automatically applies design elements from the Login Page Customizer module when it's enabled. This includes the login form background and the page background.
 
-* **[IMPROVED in Pro] Log In | Log Out >> Login Page Customizer**: make subfields line up on the same row on the Login Page Background section when 'Custom' is selected. Make two more strings translatable. Props to Hoang N.Q. for pointing them out.
+* **[IMPROVED in Pro] Log In/Out & Register >> Login Page Customizer**: make subfields line up on the same row on the Login Page Background section when 'Custom' is selected. Make two more strings translatable. Props to Hoang N.Q. for pointing them out.
 
 * **[IMPROVED in Free and Pro] Log In | Log Oot >> Change Login URL**: when logged-in, opening default /wp-login.php will now redirect to /wp-admin/ (Dashboard).
 
@@ -1122,11 +1169,11 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[FIXED in Free and Pro] Content Management >> Media Replacement**: fixed a fatal error that happens in a certain scenario during replacement of a WebP image. Props to [@tormodg](https://wordpress.org/support/users/tormodg/) for [reporting the issue](https://wordpress.org/support/topic/trying-to-replace-webp-image-causes-fatal-crash/) with the details of the error.
 
-* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: 
+* **[FIXED in Free and Pro] Log In/Out & Register >> Change Login URL**: 
   * **Comment moderation links** in email notification will now redirect to the login page instead of the `not_found` URL when the user is not already logged-in. Props to Mathijs V.D.B. for reporting the issue. 
   * **The "Login" link** in the password reset flow will now link to the custom login URL. Props to Sebastian A. for reporting the issue.
 
-* **[FIXED in Pro] Log In | Log Out >> Login Page Customizer**: fixed error message's font color in dark mode on the login form background. Props to Stewart R. for reporting the issue. Also fixed text color and spacing issues in other notices / messages.
+* **[FIXED in Pro] Log In/Out & Register >> Login Page Customizer**: fixed error message's font color in dark mode on the login form background. Props to Stewart R. for reporting the issue. Also fixed text color and spacing issues in other notices / messages.
 
 * **[FIXED in Free and Pro] Admin Interface >> Wider Admin Menu**: fixed an issue where on Elementor settings, the header is covered by the admin menu. Props to Stijn for reporting the issue and sharing the CSS fix.
 
@@ -1160,11 +1207,11 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 ### 7.0.1 (2024.05.27) - ASE Pro
 
-* **[FIXED in PRO] Log In | Log Out >> Login Page Customizer**: fixed responsive styling. Props to Stewart R. for reporting the issue. Also removed customization to body tag from the interim login modal window.
+* **[FIXED in PRO] Log In/Out & Register >> Login Page Customizer**: fixed responsive styling. Props to Stewart R. for reporting the issue. Also removed customization to body tag from the interim login modal window.
 
 ### 7.0.0 (2024.05.27) - ASE Free and Pro
 
-* **[NEW in PRO] Log In | Log Out >> Login Page Customizer**: added new module to easily customize the design of the login page. Props to Nami, Max Z., Vijayanand and John S. for suggesting this feature.
+* **[NEW in PRO] Log In/Out & Register >> Login Page Customizer**: added new module to easily customize the design of the login page. Props to Nami, Max Z., Vijayanand and John S. for suggesting this feature.
 
 * **[IMPROVED in Pro] Content Management >> Content Order**: media library items can now be custom ordered. Props to Ric M. for suggesting the improvement amd sharing their use case. Note: the custom order can only be previewed in the list view of the media library, and not in the grid view.
 
@@ -1201,7 +1248,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 ### 6.9.13.2 (2024.05.27) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Log In | Log Out >> Change Login URL**: add trailing slash suffix in the custom login URL input field, and make sure if a trailing slash is added in the input, it will be stripped. Props to Wence W. for reporting the issue with the trailing slash that prompted this improvement.
+* **[IMPROVED in Free and Pro] Log In/Out & Register >> Change Login URL**: add trailing slash suffix in the custom login URL input field, and make sure if a trailing slash is added in the input, it will be stripped. Props to Wence W. for reporting the issue with the trailing slash that prompted this improvement.
 
 * **[FIXED in Pro] Utilities >> Display System Summary**: fixed fatal error when trying to get the total size of the wp-content folder in certain scenarios. Props to Marcellus J. for reporting the issue and facilitating the troubleshooting process.
 
@@ -1213,7 +1260,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 ### 6.9.13 (2024.05.20) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Log In | Log Out >> Change Login URL**: will now respect the Redirect After Login settings when a logged-in user is trying to open the custom login URL, i.e. will no longer redirect to the Dashboard /wp-admin/ and instead to the custom redirect URL for the user role. Props to Jacob O. for suggesting this improvement.
+* **[IMPROVED in Free and Pro] Log In/Out & Register >> Change Login URL**: will now respect the Redirect After Login settings when a logged-in user is trying to open the custom login URL, i.e. will no longer redirect to the Dashboard /wp-admin/ and instead to the custom redirect URL for the user role. Props to Jacob O. for suggesting this improvement.
 
 * **[IMPROVED in Pro] Admin Interface >> Admin Menu Organizer**: implemented the option to add new separators. Props to Claudio P., Gabriel A. and Brandon Z. for suggesting this feature. Also implemented the option to hide submenu items. Props to Bengt R., Dana S., Steven Y., Andreas A. and Bill J. for suggesting this feature.
 
@@ -1249,7 +1296,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[IMPROVED in Pro] Admin Interface >> Admin Menu Organizer**: the 'Contact' menu item from Contact Form 7 can now be always hidden. Props to Wence W. for reporting the issue.
 
-* **[IMPROVED in Free and Pro] Log In | Log Out >> Last Login Column**: Date time format now uses the one set in Settings >> General. In ASE Pro, the last login column is now sortable.
+* **[IMPROVED in Free and Pro] Log In/Out & Register >> Last Login Column**: Date time format now uses the one set in Settings >> General. In ASE Pro, the last login column is now sortable.
 
 * **[IMPROVED in Pro] Utilities >> Display System Summary**: added info on database, site, wp-content, plugins, themes and upload folders sizes. Props to [@unrealnfs](https://wordpress.org/support/users/unrealnfs/) for [suggesting this](https://wordpress.org/support/topic/request-dashboard-widget-plugin-my-simple-space/).
 
@@ -1411,9 +1458,9 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 ### 6.9.6 (2024.04.01) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Log In | Log Out >> Redirect After Login & Logout**: make it possible to redirect to the homepage by leaving the redirection slug input blank. Props to [@mateuszkalamarz](https://wordpress.org/support/users/mateuszkalamarz/) for [reporting the issue](https://wordpress.org/support/topic/redirect-after-login-doesnt-allow-front-page/) and prompting the improvement.
+* **[IMPROVED in Free and Pro] Log In/Out & Register >> Redirect After Login & Logout**: make it possible to redirect to the homepage by leaving the redirection slug input blank. Props to [@mateuszkalamarz](https://wordpress.org/support/users/mateuszkalamarz/) for [reporting the issue](https://wordpress.org/support/topic/redirect-after-login-doesnt-allow-front-page/) and prompting the improvement.
 
-* **[IMPROVED in Free and Pro] Log In | Log Out >> Change Login URL**: properly redirect /wp-login (without .php) to the /not_found/ URL. It was showing the login form on some scenarios. Props to Artur M. for reporting this and help with troubleshooting.
+* **[IMPROVED in Free and Pro] Log In/Out & Register >> Change Login URL**: properly redirect /wp-login (without .php) to the /not_found/ URL. It was showing the login form on some scenarios. Props to Artur M. for reporting this and help with troubleshooting.
 
 * **[IMPROVED in Pro] Content Management >> Content Order**: it's now possible to enable custom ordering for post types that are not hierarchical and don't support page attributes, e.g. posts and WooCommerce products. Props to Kay L., Eirini Z. and Hampus E. for suggesting this improvement.
 
@@ -1473,7 +1520,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fixed an issue in some scenarios, of not being able to enter any value in the snippet description's TinyMCE Visual editor. Props to Michael S. for reporting the issue.
 
-* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: fixed an issue where on some circumstances, after a successful login, redirection to the default / custom 404 page instead of the admin dashboard occurs. Props to Ignazio D.M. for reporting the issue.
+* **[FIXED in Free and Pro] Log In/Out & Register >> Change Login URL**: fixed an issue where on some circumstances, after a successful login, redirection to the default / custom 404 page instead of the admin dashboard occurs. Props to Ignazio D.M. for reporting the issue.
 
 * **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: fixed an issue with Elementor integration where Loop Grid widget is not showing the correct set of CPT content. Props to Thomas B. for reporting the issue in great detail (problematic URLs and annotated screenshots) and facilitating the troubleshooting process.
 
@@ -1517,7 +1564,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**: snippet description editor now has the Visual-Text tabs. Useful for cleaning up description from unwanted code, e.g. CSS classes, weird formatting, etc, when the description is copy-pasted from elsewhere. Props to Michael S. for suggesting this.
 
-* **[IMPROVED in Free and Pro] Log In | Log Out >> Change Login URL**: will now correctly output an error message on failed login: "Error: Invalid username/email or incorrect password.". This is a custom message that does not give away valuable info to potential hackers. e.g. does not indicate that the username is correct but password is wrong. Props to Sven K. for reporting the issue.
+* **[IMPROVED in Free and Pro] Log In/Out & Register >> Change Login URL**: will now correctly output an error message on failed login: "Error: Invalid username/email or incorrect password.". This is a custom message that does not give away valuable info to potential hackers. e.g. does not indicate that the username is correct but password is wrong. Props to Sven K. for reporting the issue.
 
 * **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fixed missing "Snippet Categories" sub-menu item after the last release. Props to Herbert S. for reporting the issue.
 
@@ -1539,7 +1586,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[IMPROVED in Pro] Admin Interface >> Admin Columns Manager**: list table is now responsive, i.e. looks and works nicely on mobile. Props to Pablo R. for reporting the issue when vieweing on mobile.
 
-* **[IMPROVED in Pro] Log In | Log Out >> Change Login URL**: added option to choose which URL to redirect to when visitors try to access default WP login URLs/slugs (/wp-admin/, /admin/, /wp-login.php, /login/). Props to Igor P. for the suggestion.
+* **[IMPROVED in Pro] Log In/Out & Register >> Change Login URL**: added option to choose which URL to redirect to when visitors try to access default WP login URLs/slugs (/wp-admin/, /admin/, /wp-login.php, /login/). Props to Igor P. for the suggestion.
 
 * **[IMPROVED in Pro] Content Management >> Content Duplication**: added option to choose which user role(s) the duplication feature is available for. Props to Igor P. for the suggestion.
 
@@ -1565,7 +1612,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[FIXED in Free and Pro] Content Management >> Media Replacement**: fixed an issue where media replace is not working in non-English wp-admin. Also fixed an issue where the "Drop files to upload" blue overlay is not closing after drag-and-dropping a file in the media replacement modal window. Props to Andi P. for reporting these issues in details and with screencasts and also facilitating troubleshooting further.
 
-* **[FIXED in Free and Pro] Log In | Log Out >> Last Login Column**: fixed PHP warning when logging out of temporary account created with [Temporary Login Without Password](https://wordpress.org/plugins/temporary-login-without-password/) plugin. Props to Alex S. for reporting the issue.
+* **[FIXED in Free and Pro] Log In/Out & Register >> Last Login Column**: fixed PHP warning when logging out of temporary account created with [Temporary Login Without Password](https://wordpress.org/plugins/temporary-login-without-password/) plugin. Props to Alex S. for reporting the issue.
 
 * **[FIXED in Pro] Terms Order**: fixed PHP notice and warning on certain scenarios. Props to Brian N. for reporting the issue with a copy of the error log entry, which helped with troubleshooting.
 
@@ -1614,7 +1661,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[FIXED][Free][Pro] Security >> Limit Login Attempts**: fixed an issue where lockout is not effecive after reaching the limit of failed login attempts and being shown the lockout screen. Reloading the lockout screen would simply show the login form again, even when lockout period is not over yet. This happens only when using default login URL at /wp-login.php. Props to [@dywoo02](https://wordpress.org/support/users/dywoo02/) for [reporting this](https://wordpress.org/support/topic/limit-login-attempts-limit-login-attempts-and-correct-access-data/) and doing a thorough investigative work. That gave a clue and help for looking at the right places in the code to fix the issue.
 
-* **[FIXED][Free][Pro] Log In | Log Out >> Change Login URL**: undo a change in v6.5.1 that was returning the custom login URL for wp_login_url(). This caused common login URLs like /admin, /wp-admin and /login to redirect to the custom login URL, thus making it pointless to have a custom login URL. With this reversion, those common long URLs will redirect to /not_found/ 404 error page. Props to Hayato for reporting this issue after updating to v6.5.1.
+* **[FIXED][Free][Pro] Log In/Out & Register >> Change Login URL**: undo a change in v6.5.1 that was returning the custom login URL for wp_login_url(). This caused common login URLs like /admin, /wp-admin and /login to redirect to the custom login URL, thus making it pointless to have a custom login URL. With this reversion, those common long URLs will redirect to /not_found/ 404 error page. Props to Hayato for reporting this issue after updating to v6.5.1.
 
 * **[FIXED][Pro] Local User Avatar**: fixed PHP warning when opening the block editor and in other scenarios. Props to Rio M. and Brian W. for reporting the issue.
 
@@ -1624,9 +1671,9 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[IMPROVED][Free][Pro] Admin Interface >> Clean Up Admin Bar**: when 'Howdy' is hidden and "Avatar Display" is disabled in Settings >> Discussion, the profile menu will also hide the default user avatar and the profile dropdown will no longer show empty space where the avatar was shown before. Props to Stijn V. for reporting the issue and providing the one-line code fix for it.
 
-* **[IMPROVED][Free][Pro] Log In | Log Out >> Change Login URL**: after resetting password, the "Log in" link in "Your password has been reset. Log in" will now link to the custom login URL. More generally, wp_login_url() will now return the custom login URL. Props to [@timbre-design](https://wordpress.org/support/topic/change-login-url-disables-reset-password-function/) for reporting the issue.
+* **[IMPROVED][Free][Pro] Log In/Out & Register >> Change Login URL**: after resetting password, the "Log in" link in "Your password has been reset. Log in" will now link to the custom login URL. More generally, wp_login_url() will now return the custom login URL. Props to [@timbre-design](https://wordpress.org/support/topic/change-login-url-disables-reset-password-function/) for reporting the issue.
 
-* **[FIXED][Free][Pro] Log In | Log Out >> Change Login URL**: when a user is logged-in and attempt to visit the custom login URL, the user was being logged out and redirected to the login page. Now, the user be redirected to /wp-admin/ and will stay logged-in. Props to [@boah123](https://wordpress.org/support/users/boah123/) for [reporting the issue](https://wordpress.org/support/topic/change-login-url-disables-remember-me/) with detailed steps to reproduce it.
+* **[FIXED][Free][Pro] Log In/Out & Register >> Change Login URL**: when a user is logged-in and attempt to visit the custom login URL, the user was being logged out and redirected to the login page. Now, the user be redirected to /wp-admin/ and will stay logged-in. Props to [@boah123](https://wordpress.org/support/users/boah123/) for [reporting the issue](https://wordpress.org/support/topic/change-login-url-disables-remember-me/) with detailed steps to reproduce it.
 
 * **[FIXED][Pro] Utilities >> Local User Avatar**: fixed fatal error in certain scenario when $user object is not being returned.
 
@@ -1748,7 +1795,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[ADDED][Free][Pro] Utilities >> Email Delivery**: added the option to bypass SSL certificate verification. While this would be insecure if mail is delivered across the internet, it could help in certain local and/or containerized WordPress scenarios. Props to Thijs E. for suggesting this feature and providing the code snippet for it.
 
-* **[IMPROVED][Free][Pro] Log In | Log Out >> Change Login URL**: fixed account registration URL going to the /not_found/ 404 page. Improved overall handling of login, registration and password reset flows. Props to [@tedocweb](https://wordpress.org/support/users/tedocweb/) for [reporting the issue](https://wordpress.org/support/topic/change-login-url-15/) and prompting the improvement.
+* **[IMPROVED][Free][Pro] Log In/Out & Register >> Change Login URL**: fixed account registration URL going to the /not_found/ 404 page. Improved overall handling of login, registration and password reset flows. Props to [@tedocweb](https://wordpress.org/support/users/tedocweb/) for [reporting the issue](https://wordpress.org/support/topic/change-login-url-15/) and prompting the improvement.
 
 * **[FIXED][Free][Pro] Admin Interface >> Wider Admin Menu**: fix for when the admin menu is shown on a block editor screen (non-fullwidth), it would overlap part of the block editor. Props to Adrien R. for reporting the issue and pointing to the CSS fix.
 
@@ -1760,7 +1807,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[IMPROVED][Free][Pro] Content Management >> Content Duplication**: exclude addition of 'Duplicate' link for WooCommerce products as there's already a native 'Duplicate' link from WooCommerce. Props to Claudio P. for reporting the issue.
 
-* **[FIXED][Free][Pro] Log In | Log Out >> Change Login URL**: fixed an issue where custom login URL redirects to 404 when the site has WPML configured to apply the directory pattern for the main site language. Props to Marcellus J. for reporting the issue.
+* **[FIXED][Free][Pro] Log In/Out & Register >> Change Login URL**: fixed an issue where custom login URL redirects to 404 when the site has WPML configured to apply the directory pattern for the main site language. Props to Marcellus J. for reporting the issue.
 
 * **[FIXED][Pro] Optimizations >> Image Upload Control**: fixed an issue where if the PNGs being uploaded are 'paletter' images, the resulting WebP files are blank. Props to Marcellus J. for reporting the issue.
 
@@ -1901,7 +1948,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[FIX][Free][Pro] Security >> Obfuscate Author Slugs**: Fixed PHP warning "Undefined array key SERVER_ADDR" in certain scenarios where server IP is not detectable via that PHP server global. Thanks to Marco M. for reporting.
 
-* **[FIX][Free][Pro] Log In | Log Out >> Change Login URL**: Fix for password-protected pages getting redirected to the /not_found/ 404 page even after entering the correct password. Props to [@vanektomas](https://wordpress.org/support/users/vanektomas/) and [@netzzjd](https://wordpress.org/support/users/netzzjd/) for [reporting this](https://wordpress.org/support/topic/bug-in-change-login-url-if-its-enabled-and-set/).
+* **[FIX][Free][Pro] Log In/Out & Register >> Change Login URL**: Fix for password-protected pages getting redirected to the /not_found/ 404 page even after entering the correct password. Props to [@vanektomas](https://wordpress.org/support/users/vanektomas/) and [@netzzjd](https://wordpress.org/support/users/netzzjd/) for [reporting this](https://wordpress.org/support/topic/bug-in-change-login-url-if-its-enabled-and-set/).
 
 * **[FIX][Free][Pro] Utilities >> Display System Summary**: Fixed PHP fatal error when mysqli_connect() fails to connect to the database. Thanks to Diaz X. and Simon for reporting the issue.
 
@@ -1923,11 +1970,11 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 ### 6.0.5.1 (2023.10.31) - ASE Free and Pro
 
-* **[FIXED][Free][Pro] Log In | Log Out >> Change Login URL**: Fixed an issue where correct login redirects to /not_found/ after latest changes in v6.0.5. Props to Gustavo F. and Ignacio C. for reporting the issue.
+* **[FIXED][Free][Pro] Log In/Out & Register >> Change Login URL**: Fixed an issue where correct login redirects to /not_found/ after latest changes in v6.0.5. Props to Gustavo F. and Ignacio C. for reporting the issue.
 
 ### 6.0.5 (2023.10.30) - ASE Free and Pro
 
-* **[IMPROVED][Free][Pro] Log In | Log Out >> Change Login URL**: Redirection of /wp-login.php and /wp-admin/ to the 404 /not_found/ URL works more reliably now. Props to Gustavo F. for reporting the issue where those URLs were not properly redirecting to /not_found/ on his sites and ongoing help with troubleshooting it.
+* **[IMPROVED][Free][Pro] Log In/Out & Register >> Change Login URL**: Redirection of /wp-login.php and /wp-admin/ to the 404 /not_found/ URL works more reliably now. Props to Gustavo F. for reporting the issue where those URLs were not properly redirecting to /not_found/ on his sites and ongoing help with troubleshooting it.
 
 * **[FIXED][Pro] Admin Interface >> Admin Menu Organizer**: Missing submenu items should now be shown in the admin menu, as well as ASE Pro settings page's sortables. i.e. the module should more reliably show submenu items now. Props to Bruce Z for reporting this for an ACF Pro CPT menu item which had missing submenu items on his site.
 
@@ -1962,7 +2009,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 ### 6.0.0 (2023.10.11)
 
-* **[ADDED] Log In | Log Out >> Site Identity on Login Page**: Use the site icon and URL to replace the default WordPress logo with link to wordpress.org on the login page. Props to [@cooper08](https://wordpress.org/support/users/cooper08/) and [@julians3](https://wordpress.org/support/users/julians3/) for [suggesting this](https://wordpress.org/support/topic/change-login-wp-logo/) along with the code snippet.
+* **[ADDED] Log In/Out & Register >> Site Identity on Login Page**: Use the site icon and URL to replace the default WordPress logo with link to wordpress.org on the login page. Props to [@cooper08](https://wordpress.org/support/users/cooper08/) and [@julians3](https://wordpress.org/support/users/julians3/) for [suggesting this](https://wordpress.org/support/topic/change-login-wp-logo/) along with the code snippet.
 
 * **[Pro] The Pro version of ASE is here. Lifetime Deal (LTD) is available.** Find out more at [wpase.com](https://www.wpase.com/chnlg-to-web).
 
@@ -1982,7 +2029,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[IMPROVED] Admin Interface >> Wider Admin Menu**: Now works when wp-admin is in Right-to-Left (RTL) languages. Thanks to [@mehdimoradi7172](https://wordpress.org/support/users/mehdimoradi7172/) for [reporting the issue](https://wordpress.org/support/topic/wider-admin-menu-rtl-issue/).
 
-* **[IMPROVED] Log In | Log Out >> Change Login URL**: Default lost password URL no longer accessible directly and must now include custom login slug. Props to [@banijadev](https://wordpress.org/support/users/banijadev/) for discovering the issue and [reporting it](https://wordpress.org/support/topic/add-support-hidden-lost-password-path/).
+* **[IMPROVED] Log In/Out & Register >> Change Login URL**: Default lost password URL no longer accessible directly and must now include custom login slug. Props to [@banijadev](https://wordpress.org/support/users/banijadev/) for discovering the issue and [reporting it](https://wordpress.org/support/topic/add-support-hidden-lost-password-path/).
 
 * **[IMPROVED] Content Management >> Media Replacement**: media-replace-frontend.css no longer loads for site visitors. Props to [@cvladan](https://wordpress.org/support/users/cvladan/) for discovering the issue and [reporting it](https://wordpress.org/support/topic/dont-load-media-replace-frontend-css-on-frontend/).
 
@@ -2087,7 +2134,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 ### 5.2.9 (2023.06.27)
 
-* **[FIXED] Log In | Log Out >> Redirect After Login** will now correctly redirect to an internal wp-admin page, e.g. wp-admin/edit.php?post_type=page (View All Pages). Props to [@tomhung](https://wordpress.org/support/users/tomhung/) for [reporting it](https://wordpress.org/support/topic/redirect-after-login-wont-redirect-to-internal-page/).
+* **[FIXED] Log In/Out & Register >> Redirect After Login** will now correctly redirect to an internal wp-admin page, e.g. wp-admin/edit.php?post_type=page (View All Pages). Props to [@tomhung](https://wordpress.org/support/users/tomhung/) for [reporting it](https://wordpress.org/support/topic/redirect-after-login-wont-redirect-to-internal-page/).
 
 ### 5.2.8 (2023.06.26)
 
@@ -2096,7 +2143,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 ### 5.2.7 (2023.06.26)
 
 * **[FIXED] Custom Code**: Possible fix for CodeMirror (code editor) JS error caused by jQuery not being explicitly set as a dependency. When this happens, ASE's admin page is rendered blank / useless. Props to [@sarah-haruel](https://wordpress.org/support/users/sarah-haruel/) for [reporting it](https://wordpress.org/support/topic/admin-and-site-enhancements-ase-disabled-when-slideshow-se-activated/).
-* **[IMPROVED] Log In | Log Out >> Change Login URL**: Improve module description to avoid confusion with renaming the entire /wp-admin/ as opposed to renaming just the login URL. Props to [Maz Ziebell](https://wordpress.org/support/users/max-ziebell/) for the suggestion.
+* **[IMPROVED] Log In/Out & Register >> Change Login URL**: Improve module description to avoid confusion with renaming the entire /wp-admin/ as opposed to renaming just the login URL. Props to [Maz Ziebell](https://wordpress.org/support/users/max-ziebell/) for the suggestion.
 * **[FIXED] Disable Components >> Disable Gutenberg**: Fixed PHP warning when saving a CPT post where gutenberg has been disabled. Props to [@gregmount](https://wordpress.org/support/users/gregmount/) for [reporting it](https://wordpress.org/support/topic/disable-gutenberg-throws-php-warning/).
 * **[ADDED] A dismissible Sponsorship / Rating / Feedback nudge/notice** has been added to ASE's admin page (only), which will appear after every 10 consecutive clicks of the "Save changes" button. This is a way to try and gain additional support for ASE's ongoing development and maintenance. I hope you don't mind. 🙂
 
@@ -2154,11 +2201,11 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 ### 5.0.2.3 (2023.05.25)
 
-* **[FIXED] Log In | Log Out >> Change Login URL**: URLs that start with the custom login slug no longer redirects to the login page. Props to [@netzzjd](https://profiles.wordpress.org/netzzjd/) for [reporting it](https://wordpress.org/support/topic/change-login-url-redirects/).
+* **[FIXED] Log In/Out & Register >> Change Login URL**: URLs that start with the custom login slug no longer redirects to the login page. Props to [@netzzjd](https://profiles.wordpress.org/netzzjd/) for [reporting it](https://wordpress.org/support/topic/change-login-url-redirects/).
 
 ### 5.0.2.2 (2023.05.24)
 
-* **[FIXED] Log In | Log Out >> Change Login URL**: URLs for lost password flow, i.e. password reset flow, are now accessible when this module is enabled. It will no longer redirect to the not_found (404) page. Props to [@scarlywebs](https://wordpress.org/support/users/scarlywebs/) for [reporting it](https://wordpress.org/support/topic/password-reset-url-link/) and help with testing all the way.
+* **[FIXED] Log In/Out & Register >> Change Login URL**: URLs for lost password flow, i.e. password reset flow, are now accessible when this module is enabled. It will no longer redirect to the not_found (404) page. Props to [@scarlywebs](https://wordpress.org/support/users/scarlywebs/) for [reporting it](https://wordpress.org/support/topic/password-reset-url-link/) and help with testing all the way.
 
 ### 5.0.2 (2023.05.09)
 
@@ -2207,7 +2254,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 ### 4.8.1 (2023.04.03)
 
 * **[FIXED] Admin Interface >> Hide Admin Notices**: now hides notices on some plugins' pages where an extra div exist above the notice divs.
-* **[FIXED] Log In | Log Out >> Change Login URL**: fix an issue where sometimes successful login would redirect to /not_found/ URL.
+* **[FIXED] Log In/Out & Register >> Change Login URL**: fix an issue where sometimes successful login would redirect to /not_found/ URL.
 * **[ENHANCEMENT] Content Management >> Media Replacement**: added browser cache busting via jQuery to ensure the new image is shown on the media/attachment edit page after performing replacement. Elsewhere on wp-admin and on the front end, a hard reload is still needed to flush out browser cache for the old image.
 
 ### 4.8.0 (2023.04.02)
@@ -2312,8 +2359,8 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 ### 3.6.0 (2022.12.22)
 
-* **[CHANGED] Added "Log In | Log Out" and "Custom Code" categories**. Recategorizes relevant features under these new categories.
-* **[ADDED] Log In | Log Out >> Enable Last Login Column**. Log when users on the site last logged in and display the date and time in the users list table.
+* **[CHANGED] Added "Log In/Out & Register" and "Custom Code" categories**. Recategorizes relevant features under these new categories.
+* **[ADDED] Log In/Out & Register >> Enable Last Login Column**. Log when users on the site last logged in and display the date and time in the users list table.
 
 ### 3.5.0 (2022.12.19)
 

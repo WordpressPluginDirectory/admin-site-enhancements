@@ -1164,7 +1164,7 @@ class Settings_Sections_Fields {
             )
         );
         // =================================================================
-        // LOG IN | LOG OUT
+        // LOG IN/OUT | REGISTER
         // =================================================================
         // Change Login URL
         $field_id = 'change_login_url';
@@ -1314,7 +1314,7 @@ class Settings_Sections_Fields {
                 'class'                  => 'asenha-toggle login-logout ' . $field_slug,
             )
         );
-        // Enable Last Login Column
+        // Last Login Column
         $field_id = 'enable_last_login_column';
         $field_slug = 'enable-last-login-column';
         add_settings_field(
@@ -1330,6 +1330,27 @@ class Settings_Sections_Fields {
                 'field_slug'             => $field_slug,
                 'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_description'      => __( 'Log when users on the site last logged in and display the date and time in the users list table.', 'admin-site-enhancements' ),
+                'field_options_wrapper'  => true,
+                'field_options_moreless' => true,
+                'class'                  => 'asenha-toggle login-logout ' . $field_slug,
+            )
+        );
+        // Registration Date Column
+        $field_id = 'registration_date_column';
+        $field_slug = 'registration-date-column';
+        add_settings_field(
+            $field_id,
+            __( 'Registration Date Column', 'admin-site-enhancements' ),
+            // Field title
+            [$render_field, 'render_checkbox_toggle'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'            => ASENHA_SLUG_U,
+                'field_id'               => $field_id,
+                'field_slug'             => $field_slug,
+                'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_description'      => __( 'Display the registration date and time in the users list table.', 'admin-site-enhancements' ),
                 'field_options_wrapper'  => true,
                 'field_options_moreless' => true,
                 'class'                  => 'asenha-toggle login-logout ' . $field_slug,
@@ -1857,7 +1878,7 @@ class Settings_Sections_Fields {
                 'field_type'        => 'textarea',
                 'field_rows'        => 20,
                 'field_intro'       => '',
-                'field_description' => __( 'Validate with:', 'admin-site-enhancements' ) . ' <a href="https://en.ryte.com/free-tools/robots-txt/?refresh=1&url=' . $robots_txt_url_urlencoded . '&useragent=Googlebot&submit=Evaluate" target="_blank">ryte.com</a> | <a href="https://serp.tools/tools/robots-txt" target="_blank">serp.tools</a><div class="vspacer"></div>',
+                'field_description' => __( 'Validate with:', 'admin-site-enhancements' ) . ' <a href="https://www.websiteplanet.com/webtools/robots-txt/?url=' . $robots_txt_url_urlencoded . '" target="_blank">websiteplanet.com</a> | <a href="https://seositecheckup.com/tools/robotstxt-test" target="_blank">seositecheckup.tools</a><div class="vspacer"></div>',
                 'class'             => 'asenha-textarea asenha-hide-th syntax-highlighted custom-code ' . $field_slug,
             )
         );

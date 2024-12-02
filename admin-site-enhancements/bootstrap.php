@@ -520,7 +520,7 @@ class Admin_Site_Enhancements {
             add_filter( 'wp_setup_nav_menu_item', [$login_logout_menu, 'set_login_logout_menu_item_dynamic_url'] );
             add_filter( 'wp_nav_menu_objects', [$login_logout_menu, 'maybe_remove_login_or_logout_menu_item'] );
         }
-        // Enable Last Login Column
+        // Last Login Column
         if ( array_key_exists( 'enable_last_login_column', $options ) && $options['enable_last_login_column'] ) {
             $last_login_column = new ASENHA\Classes\Last_Login_Column();
             add_action(
@@ -538,6 +538,17 @@ class Admin_Site_Enhancements {
                 3
             );
             add_action( 'admin_print_styles-users.php', [$last_login_column, 'add_column_style'] );
+        }
+        // Registration Date Column
+        if ( array_key_exists( 'registration_date_column', $options ) && $options['registration_date_column'] ) {
+            $registration_date_column = new ASENHA\Classes\Registration_Date_Column();
+            add_filter( 'manage_users_columns', [$registration_date_column, 'add_registration_date_column'] );
+            add_filter(
+                'manage_users_custom_column',
+                [$registration_date_column, 'display_registration_date'],
+                10,
+                3
+            );
         }
         // Redirect After Login
         if ( array_key_exists( 'redirect_after_login', $options ) && $options['redirect_after_login'] ) {
@@ -623,7 +634,7 @@ class Admin_Site_Enhancements {
             add_filter(
                 'robots_txt',
                 [$manage_robots_txt, 'maybe_show_custom_robots_txt_content'],
-                10,
+                PHP_INT_MAX,
                 2
             );
         }

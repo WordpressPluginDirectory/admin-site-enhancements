@@ -288,7 +288,7 @@ class Settings_Sanitization {
         }
         $options['display_active_plugins_first'] = ( 'on' == $options['display_active_plugins_first'] ? true : false );
         // =================================================================
-        // LOG IN | LOG OUT
+        // LOG IN/OUT | REGISTER
         // =================================================================
         // Change Login URL
         if ( !isset( $options['change_login_url'] ) ) {
@@ -362,11 +362,16 @@ class Settings_Sanitization {
                 $options['redirect_after_logout_for'][$role_slug] = ( 'on' == $options['redirect_after_logout_for'][$role_slug] ? true : false );
             }
         }
-        // Enable Last Login Column
+        // Last Login Column
         if ( !isset( $options['enable_last_login_column'] ) ) {
             $options['enable_last_login_column'] = false;
         }
         $options['enable_last_login_column'] = ( 'on' == $options['enable_last_login_column'] ? true : false );
+        // Registration Date Column
+        if ( !isset( $options['registration_date_column'] ) ) {
+            $options['registration_date_column'] = false;
+        }
+        $options['registration_date_column'] = ( 'on' == $options['registration_date_column'] ? true : false );
         // Enable Custom Admin CSS
         if ( !isset( $options['enable_custom_admin_css'] ) ) {
             $options['enable_custom_admin_css'] = false;

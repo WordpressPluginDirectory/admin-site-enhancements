@@ -188,6 +188,7 @@
       $('.site-identity-on-login').appendTo('.fields-login-logout > table > tbody');
       $('.enable-login-logout-menu').appendTo('.fields-login-logout > table > tbody');
       $('.enable-last-login-column').appendTo('.fields-login-logout > table > tbody');
+      $('.registration-date-column').appendTo('.fields-login-logout > table > tbody');
       $('.redirect-after-login').appendTo('.fields-login-logout > table > tbody');
       
       $('.redirect-after-login-to-slug').appendTo('.fields-login-logout .redirect-after-login .asenha-subfields');
