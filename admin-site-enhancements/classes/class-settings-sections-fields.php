@@ -2530,7 +2530,7 @@ class Settings_Sections_Fields {
                 'field_intro'       => '',
                 'field_placeholder' => '1920',
                 'field_min'         => 100,
-                'field_max'         => 3840,
+                'field_max'         => 10000,
                 'class'             => 'asenha-number asenha-hide-th narrow margin-bottom-4 optimizations ' . $field_slug,
             )
         );

@@ -150,7 +150,7 @@ class Change_Login_URL {
     public function customize_lost_password_url( $lostpassword_url ) {
         $options = get_option( ASENHA_SLUG_U );
         $custom_login_slug = $options['custom_login_slug'];
-        // return home_url( '/wp-login.php?manage&action=lostpassword' );
+        // return home_url( '/wp-login.php?backend&action=lostpassword' );
         return $lostpassword_url . '&' . $custom_login_slug;
     }
 
@@ -162,7 +162,7 @@ class Change_Login_URL {
     public function customize_register_url( $registration_url ) {
         $options = get_option( ASENHA_SLUG_U );
         $custom_login_slug = $options['custom_login_slug'];
-        // return home_url( '/wp-login.php?manage&action=lostpassword' );
+        // return home_url( '/wp-login.php?backend&action=lostpassword' );
         return $registration_url . '&' . $custom_login_slug;
     }
 
@@ -183,16 +183,28 @@ class Change_Login_URL {
         }
         $options = get_option( ASENHA_SLUG_U );
         $custom_login_slug = $options['custom_login_slug'];
-        // e.g. manage
+        // e.g. backend
         $url_input = sanitize_text_field( $_SERVER['REQUEST_URI'] );
         // e.g. /wp-admin/index.php?page=page-slug
         $url_input_parts = explode( '/', $url_input );
         $redirect_slug = 'not_found';
         // When logging-in
-        if ( isset( $_POST['log'] ) && isset( $_POST['pwd'] ) || isset( $_POST['post_password'] ) ) {
-            // Do nothing. i.e. do not redirect to /not_found/ as this contains a login POST request
-            // upon successful login, redirection to logged-in view of /wp-admin/ happens.
-            // Without this condition, login attempt will redirect to /not_found/
+        if ( isset( $_POST['log'] ) && !empty( $_POST['log'] ) && isset( $_POST['pwd'] ) && !empty( $_POST['pwd'] ) || isset( $_POST['post_password'] ) && !empty( $_POST['post_password'] ) ) {
+            if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
+                $http_referrer = sanitize_url( $_SERVER['HTTP_REFERER'] );
+            } else {
+                $http_referrer = '';
+            }
+            if ( ! empty( $http_referrer ) && false === strpos( $http_referrer, get_site_url() ) ) {
+                //     // The referer URL does not contain the custom login slug, this is an attempt to login from a URL / method that is not the custom login page URL. Let's redirect that.
+                //     // Redirect to /not_found/
+                wp_safe_redirect( home_url( $redirect_slug . '/' ), 302 );
+                exit;
+            } else {
+                // Do nothing. i.e. do not redirect to /not_found/ as this contains a login POST request
+                // upon successful login, redirection to logged-in view of /wp-admin/ happens.
+                // Without this condition, login attempt will redirect to /not_found/
+            }
         } elseif ( is_user_logged_in() ) {
             // Do nothing user is already logged-in
             // Redirect to /wp-admin/ (Dashboard) when accessing /wp-login.php without any $_POST data
