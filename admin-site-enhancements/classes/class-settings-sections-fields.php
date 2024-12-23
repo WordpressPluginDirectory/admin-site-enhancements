@@ -470,6 +470,23 @@ class Settings_Sections_Fields {
                 'class'       => 'asenha-checkbox asenha-hide-th admin-interface ' . $field_slug,
             )
         );
+        $field_id = 'hide_ab_site_menu';
+        $field_slug = 'hide-ab-site-menu';
+        add_settings_field(
+            $field_id,
+            '',
+            // Field title
+            [$render_field, 'render_checkbox_plain'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name' => ASENHA_SLUG_U,
+                'field_id'    => $field_id,
+                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_label' => __( 'Remove home icon and site name', 'admin-site-enhancements' ),
+                'class'       => 'asenha-checkbox asenha-hide-th admin-interface ' . $field_slug,
+            )
+        );
         $field_id = 'hide_ab_customize_menu';
         $field_slug = 'hide-ab-customize-menu';
         add_settings_field(

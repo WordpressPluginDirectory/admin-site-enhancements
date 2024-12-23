@@ -392,6 +392,38 @@ class View_Admin_As_Role {
     }
     
     /**
+     * When changing a user's role via their profile edit screen, maybe we sbould remove the user's username from a list of usernames that can switch back to the administrator role. This addresses a vulnerability in a rare scenario disclosed by Pathstack.
+     * 
+     * @since 7.6.3
+     */
+    public function maybe_prevent_switchback_to_administrator( $user_id ) {        
+        $viewing_admin_as = get_user_meta( $user_id, '_asenha_viewing_admin_as', true );
+
+        if ( 'administrator' != $viewing_admin_as ) {
+            $user = get_user_by( 'id', $user_id );
+            $current_user_username = $user->user_login;
+
+            // Remove current user's username from stored usernames. 
+            // Once removed, that user won't be able to switch back to the administrator role from the ?reset-for=username URL
+            $options = get_option( ASENHA_SLUG_U, array() );
+            $usernames = $options['viewing_admin_as_role_are'];
+
+            foreach ( $usernames as $key => $username ) {
+                if ( $current_user_username == $username ) {
+                    unset( $usernames[$key] );
+                }
+            }
+
+            $options['viewing_admin_as_role_are'] = $usernames;
+            update_option( ASENHA_SLUG_U, $options, true );
+
+            // Delete user meta related to View Admin As Role module
+            delete_user_meta( $user_id, '_asenha_viewing_admin_as' );
+            delete_user_meta( $user_id, '_asenha_view_admin_as_original_roles' );            
+        }
+    }
+    
+    /**
      * Add floating button to reset the view/account back to the administrator
      * 
      * @since 6.1.3

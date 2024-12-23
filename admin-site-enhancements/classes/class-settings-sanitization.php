@@ -118,6 +118,10 @@ class Settings_Sanitization {
             $options['hide_ab_wp_logo_menu'] = false;
         }
         $options['hide_ab_wp_logo_menu'] = ( 'on' == $options['hide_ab_wp_logo_menu'] ? true : false );
+        if ( !isset( $options['hide_ab_site_menu'] ) ) {
+            $options['hide_ab_site_menu'] = false;
+        }
+        $options['hide_ab_site_menu'] = ( 'on' == $options['hide_ab_site_menu'] ? true : false );
         if ( !isset( $options['hide_ab_customize_menu'] ) ) {
             $options['hide_ab_customize_menu'] = false;
         }

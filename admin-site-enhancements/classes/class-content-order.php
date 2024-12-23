@@ -30,7 +30,7 @@ class Content_Order {
                                 // Page title
                                 __( 'Order', 'admin-site-enhancements' ),
                                 // Menu title
-                                'edit_pages',
+                                'edit_others_posts',
                                 // Capability required
                                 'custom-order-posts',
                                 // Menu and page slug
@@ -44,7 +44,7 @@ class Content_Order {
                                 // Page title
                                 __( 'Order', 'admin-site-enhancements' ),
                                 // Menu title
-                                'edit_pages',
+                                'edit_others_posts',
                                 // Capability required
                                 'custom-order-' . $post_type_slug,
                                 // Menu and page slug
@@ -108,25 +108,23 @@ class Content_Order {
         <?php 
         // Get posts
         $args = array(
-            'post_type'      => $post_type_slug,
-            'posts_per_page' => -1,
-            'orderby'        => 'menu_order title',
-            'order'          => 'ASC',
-            'post_status'    => $post_status,
+            'post_type'   => $post_type_slug,
+            'numberposts' => -1,
+            'orderby'     => 'menu_order title',
+            'order'       => 'ASC',
+            'post_status' => $post_status,
         );
         // Add the following to non-attachment post types
         if ( 'attachment' != $post_type_slug && is_post_type_hierarchical( $post_type_slug ) ) {
             // In hierarchical post types, only return non-child posts as we currently only sort parent posts
             $args['post_parent'] = 0;
         }
-        $query = new WP_Query($args);
-        if ( $query->have_posts() ) {
+        $posts = get_posts( $args );
+        if ( !empty( $posts ) ) {
             ?>
             <ul id="item-list">
-                <?php 
-            while ( $query->have_posts() ) {
-                $query->the_post();
-                $post = get_post( get_the_ID() );
+            <?php 
+            foreach ( $posts as $post ) {
                 $this->custom_order_single_item_output( $post );
             }
             ?>
@@ -143,7 +141,6 @@ class Content_Order {
         ?>
         </div> <!-- End of div.wrap -->
         <?php 
-        wp_reset_postdata();
     }
 
     /**
@@ -291,7 +288,7 @@ class Content_Order {
     public function save_custom_content_order() {
         global $wpdb;
         // Check user capabilities
-        if ( !current_user_can( 'edit_pages' ) ) {
+        if ( !current_user_can( 'edit_others_posts' ) ) {
             wp_send_json( 'Something went wrong.' );
         }
         // Verify nonce

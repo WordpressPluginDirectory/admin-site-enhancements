@@ -656,6 +656,7 @@ function asenha_admin_scripts(  $hook_suffix  ) {
             'mediaFrameTitle'      => __( 'Select an Image', 'admin-site-enhancements' ),
             'mediaFrameButtonText' => __( 'Use Selected Image', 'admin-site-enhancements' ),
             'resetMenuNonce'       => wp_create_nonce( 'reset-menu-nonce' ),
+            'sendTestEmailNonce'   => wp_create_nonce( 'send-test-email-nonce_' . get_current_user_id() ),
             'expandText'           => __( 'Expand', 'admin-site-enhancements' ),
             'collapseText'         => __( 'Collapse', 'admin-site-enhancements' ),
             'dataTable'            => array(
@@ -899,6 +900,8 @@ function asenha_dequeue_scritps() {
         wp_dequeue_script( 'otgsPopoverTooltip' );
         // WPML String Translation
         wp_dequeue_script( 'wpml-theme-plugin-localization-scan' );
+        // Asset Cleanup
+        wp_dequeue_script( 'wpassetcleanup-script' );
     }
 }
 

@@ -1003,6 +1003,7 @@ class Admin_Site_Enhancements {
             add_action( 'admin_bar_menu', [$view_admin_as_role, 'view_admin_as_admin_bar_menu'], 8 );
             // Priority 8 so it is next to username section
             add_action( 'init', [$view_admin_as_role, 'role_switcher_to_view_admin_as'] );
+            add_action( 'profile_update', [$view_admin_as_role, 'maybe_prevent_switchback_to_administrator'], 20 );
             // add_action( 'wp_die_handler', [ $view_admin_as_role, 'custom_error_page_on_switch_failure' ] );
             add_action( 'admin_footer', [$view_admin_as_role, 'add_floating_reset_button'] );
         }

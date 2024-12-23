@@ -59,18 +59,25 @@
                url: ajaxurl,
                data: {
                   'action':'send_test_email',
-                  'email_to': emailTo
+                  'email_to': emailTo,
+                  'nonce': adminPageVars.sendTestEmailNonce
                },
                success:function(data) {
                   var data = data.slice(0,-1); // remove strange trailing zero in string returned by AJAX call
                   var response = JSON.parse(data);
-
                   if ( response.status == 'success' ) {
                      setTimeout( function() {
                         $('.sending-test-email').hide();
-                        $('.test-email-result').show();
+                        // $('.test-email-result').show();
                         $('#test-email-success').show();
                      }, 1500);
+                  }
+                  if ( response.status == 'failed' ) {
+                     setTimeout( function() {
+                        $('.sending-test-email').hide();
+                        // $('.test-email-result').show();
+                        $('#test-email-failed').show();
+                     }, 1500);                     
                   }
                },
                error:function(errorThrown) {
@@ -134,6 +141,7 @@
       // Place fields into "Admin Interface" tab
       $('.hide-modify-elements').appendTo('.fields-admin-interface > table > tbody');
       $('.hide-ab-wp-logo-menu').appendTo('.fields-admin-interface .hide-modify-elements .asenha-subfields');
+      $('.hide-ab-site-menu').appendTo('.fields-admin-interface .hide-modify-elements .asenha-subfields');
       $('.hide-ab-customize-menu').appendTo('.fields-admin-interface .hide-modify-elements .asenha-subfields');
       $('.hide-ab-updates-menu').appendTo('.fields-admin-interface .hide-modify-elements .asenha-subfields');
       $('.hide-ab-comments-menu').appendTo('.fields-admin-interface .hide-modify-elements .asenha-subfields');
@@ -288,6 +296,7 @@
       $('.smtp-host').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');
       $('.smtp-port').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');
       $('.smtp-security').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');
+      
       $('.smtp-username').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');
       $('.smtp-password').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');
       $('.smtp-bypass-ssl-verification').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');

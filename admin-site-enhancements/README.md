@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.7.1  
-Stable tag: 7.6.1.1  
+Stable tag: 7.6.3  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -130,7 +130,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### Utilities
 
-* **Email Delivery**. Set custom sender name and email. Optionally use external SMTP service to ensure notification and transactional emails from your site are being delivered to inboxes. [ASE Pro](https://www.wpase.com/rdme-to-web) adds the option to specify a custom reply-to name and email, Bcc address(es) and the option to log email delivery.
+* **Email Delivery**. Set custom sender name and email. Optionally use external SMTP service to ensure notification and transactional emails from your site are being delivered to inboxes. [ASE Pro](https://www.wpase.com/rdme-to-web) adds the option to specify a custom reply-to name and email, Bcc address(es), disable authentication and the option to log email delivery.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Local User Avatar**. Enable usage of any image from WordPress Media Library as user avatars.
 * **Multiple User Roles**. Enable assignment of multiple roles during user account creation and editing.
 * **Image Sizes Panel**. Display a panel showing and linking to all available sizes when viewing an image in the media library. [ASE Pro](https://www.wpase.com/rdme-to-web) adds a convenient button to copy the image URL on click.
@@ -190,33 +190,41 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **76 _major_ releases** (e.g. 1.1.0 ) and **125 _minor_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **76 _major_ releases** (e.g. 1.1.0 ) and **128 _minor_ releases** (e.g. 4.9.1). 
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
 
-### 7.6.1.1 (2024.12.09) - ASE Free and Pro
+### 7.6.3 (2024.12.16) - ASE Free and Pro
 
-* **[FIXED in Free and Pro] Log In/Out | Register >> Change Login URL**: fixed a bug introduced in v7.6.1 that caused non-default login forms, e.g. WooCommerce account login, to redirect to `/not_found/` URL.
+* **[SECURITY FIX in Free and Pro]**:
+  * **Utilities >> Email Delivery**: fix Broken Access Control vulnerability related to the process of sending a test email. Props to Rafie Muhammad (Patchstack) for the responsible disclosure.
+  * **Utilities >> View Admin as Role**: fix Privilege Escalation vulnerability that happens on a rare scenario. Props to Rafie Muhammad (Patchstack) for the responsible disclosure.
 
-### 7.6.1 (2024.12.09) - ASE Free and Pro
+* **[IMPROVED in Free and Pro] Admin Interface >> Clean Up Admin Bar**: add an option to remove the home icon and site name. Props to Max Z. for prompting this improvement.
 
-* **[IMPROVED in Free and Pro] Log In/Out | Register >> Change Login URL**: improved code to account for login attempts done via a POST request not originating from the custom login URL/page. Props to ken0429ng for reporting the issue and facilitating the troubleshooting process.
+* **[IMPROVED and FIXED in Fre and Pro] Utilities >> Email Delivery**: 
+  * Free: fix an issue where failed delivery during a send test just continues to show the spinning "Sending test email..." message. It should now properly update to "Oops, something went wrong" message. 
+  * Pro: fix an issue where failed delivery were not properly logged as such in the email log in certain scenarios.
+  * Pro: add an option to disable authentication which is needed in some scenarios, e.g. delivery via Google Workspace's without 2FA and using the `smtp-relay.gmail.com` host without credentials. Props to @boomerangz for suggesting this improvement.
 
-* **[CHANGED in Free and Pro] Optimizations >> Image Upload Control**: changed the max height value from 3,840 pixels to 10,000 pixels to account for use cases where tall screenshots of a page is being uploaded. Props to [@jessejfisher](https://wordpress.org/support/users/jessejfisher/) for [reporting this](https://wordpress.org/support/topic/saving-validation-issue/).
+* **[FIXED in Free and Pro] Content Management >> Media Replacement**: fix an issue where replacing non-image attachments, e.g. MP4 videos, might cause display issue on the attachment edit screen or when editing/viewing posts using displaying that attachment. Props to [@alriksson](https://wordpress.org/support/users/alriksson/) for [reporting the issue](https://wordpress.org/support/topic/media-replacement-query-string/).
 
-* **[FIXED in Pro] Content Mangement >> Custom Content Types >> Options Pages**: fixed an issue where a custom field in a newly created custom field group for an options page can not be displayed in Bricks and Elementor. They were shown in the custom field selection menu, but the value was not displayed on the preview and frontend. Props to Aleš S. and Ian W. for reporting the issue and facilitating the troubleshooting process.
+* **[FIXED in Pro] Admin Interface >> Admin Logo**: fix misformatted CSS for styling the admin bar logo. Props to @nassukesso for reporting this.
+  
+* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fix an issue where the left-most, default checkbox column is displayed wider than it should when Simple Custom Post Order plugin is active. Props to Valentin J. for reporting the issue and collaborating with a thorough investigation on their part as well.
 
-* **[FIXED in Pro] Utilities >> Display System Summary**: fixed fatal error that occurs when the file path is too long. Props to Maziar E.S. for reporting the issue in details with the error log entry and the WordPress environment details.
-
-* **[FIXED in Pro] Content Mangement >> Custom Content Types >> Custom Field Group**: `get_cf()` will now use GMT/UTC timezone when outputting a date field to avoid issues where the output has a one-day difference for sites configured to use certain timezones, e.g. an American timezone. Props to Jonathan J. for reporting the issue and providing screenshots as well as the WordPress environment info to help with the troubleshooting.
+* **[FIXED in Pro] Content Management >> Content Order**: 
+  * fix an issue where querying and displaying the posts on the ordering page produces a fatal error in some scenarios. Props to Valentin J. for reporting the issue with great detail (error log entry + screenshot), which helped with the troubleshooting process.
+  * exclude CPTs from WordPres core, ASE, WooCommerce, Breakdance, Bricks and Elementor from the list of non-hierarchical CPTs to enable content ordering for.
 
 * **[YEAR END SALE]** [**Get 20% discount**](https://www.wpase.com/chnlg-to-web) by the end of the year on new Pro license purchase and upgrades.
 
-* **[TRANSLATION in Free and Pro]** Added Spanish (Chile) and completed Chinese (Taiwan) for ASE Free. ASE is now being translated into 29 languages:
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into 29 languages:
   * **Added new/improved translation** for:
-    * Free: added Spanish (Chile), updated Spanish (Spain), Norwegian, Dutch, Polish, Portuguese (Brazil), Serbian, Swedish, Vietnamese, Chinese (Taiwan)
+    * Free: updated Hungarian, Indonesian, Chinese (Taiwan)
+    * Pro: updated Norwegian
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.

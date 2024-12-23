@@ -265,8 +265,11 @@ class Media_Replacement {
     public function append_cache_busting_param_to_image_srcset( $sources, $size_array, $image_src, $image_meta, $attachment_id ) {
         $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
         $recently_replaced_media = isset( $options_extra['recently_replaced_media'] ) ? $options_extra['recently_replaced_media'] : array();
+        $attachment_mime_type = get_post_mime_type( $attachment_id );
 
-        if ( in_array( $attachment_id, $recently_replaced_media ) ) {
+        if ( in_array( $attachment_id, $recently_replaced_media ) 
+            && false !== strpos( $attachment_mime_type, 'image' )
+        ) {
             foreach ( $sources as $size => $source ) {
                 $source['url'] .= ( false === strpos($source['url'], '?' ) ? '?' : '&' ) . 't=' . time();
                 $sources[$size] = $source;
@@ -283,8 +286,12 @@ class Media_Replacement {
     public function append_cache_busting_param_to_attachment_image_src( $image, $attachment_id ) {
         $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
         $recently_replaced_media = isset( $options_extra['recently_replaced_media'] ) ? $options_extra['recently_replaced_media'] : array();
+        $attachment_mime_type = get_post_mime_type( $attachment_id );
 
-        if ( ! empty( $image[0] ) && in_array( $attachment_id, $recently_replaced_media ) ) {
+        if ( ! empty( $image[0] ) 
+            && in_array( $attachment_id, $recently_replaced_media ) 
+            && false !== strpos( $attachment_mime_type, 'image' )
+        ) {
             $image[0] .= ( false === strpos($image[0], '?') ? '?' : '&' ) . 't=' . time();
         }
 
@@ -299,8 +306,11 @@ class Media_Replacement {
     public function append_cache_busting_param_to_attachment_for_js( $response, $attachment ) {
         $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
         $recently_replaced_media = isset( $options_extra['recently_replaced_media'] ) ? $options_extra['recently_replaced_media'] : array();
+        $attachment_mime_type = get_post_mime_type( $attachment->ID );
 
-        if ( in_array( $attachment->ID, $recently_replaced_media ) ) {
+        if ( in_array( $attachment->ID, $recently_replaced_media ) 
+            && false !== strpos( $attachment_mime_type, 'image' )        
+        ) {
             if ( false !== strpos( $response['url'], '?' ) ) {
                 $response['url'] .= ( false === strpos( $response['url'], '?' ) ? '?' : '&' ) . 't=' . time();
             }
@@ -322,8 +332,11 @@ class Media_Replacement {
     public function append_cache_busting_param_to_attachment_url( $url, $attachment_id ) {
         $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
         $recently_replaced_media = isset( $options_extra['recently_replaced_media'] ) ? $options_extra['recently_replaced_media'] : array();
+        $attachment_mime_type = get_post_mime_type( $attachment_id );
 
-        if ( in_array( $attachment_id, $recently_replaced_media ) ) {
+        if ( in_array( $attachment_id, $recently_replaced_media ) 
+            && false !== strpos( $attachment_mime_type, 'image' )
+        ) {
             // if ( false !== strpos( $url, '?' ) ) {
                 $url .= ( false === strpos( $url, '?' ) ? '?' : '&' ) . 't=' . time();
             // }

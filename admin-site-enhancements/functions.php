@@ -85,6 +85,22 @@ function get_kses_with_style_src_svg_ruleset() {
         'script' => array(
             'src' => true,
         ),
+        'iframe' => array(
+            'title'           => true,
+            'name'            => true,
+            'wdith'           => true,
+            'height'          => true,
+            'src'             => true,
+            'srcdoc'          => true,
+            'align'           => true,
+            'frameborder'     => true,
+            'scrolling'       => true,
+            'allow'           => true,
+            'referrerpolicy'  => true,
+            'allowfullscreen' => true,
+            'loading'         => true,
+            'sandbox'         => true,
+        ),
         'svg'    => array(
             'class'           => true,
             'aria-hidden'     => true,
