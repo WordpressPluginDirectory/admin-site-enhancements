@@ -194,12 +194,15 @@ class Admin_Site_Enhancements {
                 3
             );
             add_filter( 'wp_calculate_image_srcset', [$svg_upload, 'disable_svg_srcset'] );
-            add_filter(
-                'wp_calculate_image_sizes',
-                [$svg_upload, 'remove_svg_responsive_image_attr'],
-                10,
-                3
-            );
+            if ( !in_array( 'auto-sizes/auto-sizes.php', get_option( 'active_plugins', array() ) ) ) {
+                // Only add this filter when https://wordpress.org/plugins/auto-sizes/ is not active to prevent PHP deprecation notice
+                add_filter(
+                    'wp_calculate_image_sizes',
+                    [$svg_upload, 'remove_svg_responsive_image_attr'],
+                    10,
+                    3
+                );
+            }
             add_action( 'wp_ajax_svg_get_attachment_url', [$svg_upload, 'get_svg_attachment_url'] );
             add_filter( 'wp_prepare_attachment_for_js', [$svg_upload, 'get_svg_url_in_media_library'] );
         }

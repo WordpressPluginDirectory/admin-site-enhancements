@@ -325,7 +325,7 @@ class View_Admin_As_Role {
             $reset_for_username = sanitize_text_field( $_REQUEST['reset-for'] );
             
             $options = get_option( ASENHA_SLUG_U, array() );
-            $usernames = $options['viewing_admin_as_role_are'];
+            $usernames = isset( $options['viewing_admin_as_role_are'] ) ? $options['viewing_admin_as_role_are'] : array();
             
             if ( ! empty( $reset_for_username ) ) {
                 

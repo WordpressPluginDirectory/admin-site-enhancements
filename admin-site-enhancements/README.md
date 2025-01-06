@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.7.1  
-Stable tag: 7.6.3  
+Stable tag: 7.6.5  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -18,7 +18,7 @@ Duplicate post, post order, image resize, email via SMTP, admin menu editor, cus
 
 Admin and Site Enhancements (ASE) helps you to **easily enhance** various admin workflows and site aspects while **replacing multiple plugins** doing it.
 
-**Pro version** with Lifetime Deal (LTD) is available at [www.wpase.com](https://www.wpase.com/rdme-to-web). **Currently on YEAR END SALE, 20% discount**.
+**Pro version** with Lifetime Deal (LTD) is available at [www.wpase.com](https://www.wpase.com/rdme-to-web).
 
 Here's a quick walkthrough of ASE Free at v7.1.5 by Jakson.
 
@@ -49,7 +49,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### Content Management
 
-* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Custom Content Types**. Conveniently register and edit custom post types (CPT), custom taxonomies, custom field groups and options pages that integrates with Bricks, Breakdance, Oxygen and Elementor. This is an alternative for ACF Pro, Meta Box, Toolset, Pods or JetEngine.
+* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Custom Content Types**. Conveniently register and edit custom post types (CPT), custom taxonomies, custom field groups and options pages that integrates with Bricks, Breakdance, Oxygen and Elementor, and also compatible with Gutenberg and various block themes and plugins. This is an alternative for ACF Pro, Meta Box, Toolset, Pods or JetEngine.
 * **Content Duplication**. One-click duplication of pages, posts and CPTs. [ASE Pro](https://www.wpase.com/rdme-to-web) enables duplication only for certain user roles and post types, and adds location option for duplication link.
 * **Content Order**. Enable custom ordering of various post types that are hierarchical or support page attributes, in wp-admin. [ASE Pro](https://www.wpase.com/rdme-to-web) enables ordering of post types that are non-hierarchical and does not support page attributes, including media / attachments. It also enable toggling taxonomy terms and / or excerpt on the ordering page and applying the custom order on the frontend including for adjacent posts navigation.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Terms Order**. Enable custom ordering of terms from various taxonomies in wp-admin and on the frontend.
@@ -98,7 +98,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### Custom Code
 
-* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Code Snippets Manager**. Conveniently add and manage CSS / SCSS, JS, HTML and PHP code snippets to modify your site's content, design, behaviour and functionalities
+* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Code Snippets Manager**. Conveniently add and manage CSS / SCSS, JS, HTML and PHP code snippets to modify your site's content, design, behaviour and functionalities.
 * **Custom Admin CSS**.
 * **Custom Frontend CSS**.
 * **Insert &lt;head&gt;, &lt;body&gt; and &lt;footer&gt; Code**. Easily insert &lt;meta&gt;, &lt;link&gt;, &lt;script&gt; and &lt;style&gt; tags for tracking, analytics, etc.
@@ -145,7 +145,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### ASE Pro
 
-**Lifetime Deal (LTD)** is available at [www.wpase.com](https://www.wpase.com/rdme-to-web). **Currently on YEAR END SALE, 20% discount**.
+**Lifetime Deal (LTD)** is available at [www.wpase.com](https://www.wpase.com/rdme-to-web).
 
 ## Screenshots
 
@@ -190,41 +190,32 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **76 _major_ releases** (e.g. 1.1.0 ) and **128 _minor_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **76 _major_ releases** (e.g. 1.1.0 ) and **130 _minor_ releases** (e.g. 4.9.1). 
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
-[**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
+[**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 7.6.3 (2024.12.16) - ASE Free and Pro
+### 7.6.5 (2025.01.06) - ASE Free and Pro
 
-* **[SECURITY FIX in Free and Pro]**:
-  * **Utilities >> Email Delivery**: fix Broken Access Control vulnerability related to the process of sending a test email. Props to Rafie Muhammad (Patchstack) for the responsible disclosure.
-  * **Utilities >> View Admin as Role**: fix Privilege Escalation vulnerability that happens on a rare scenario. Props to Rafie Muhammad (Patchstack) for the responsible disclosure.
+* **[CHANGED in Pro] ASE Settings >> Import | Export** is now **available on all Pro plans** (SOLO, TEAM, AGENCY).
 
-* **[IMPROVED in Free and Pro] Admin Interface >> Clean Up Admin Bar**: add an option to remove the home icon and site name. Props to Max Z. for prompting this improvement.
+* **[FIXED in Free and Pro] Utilities >> View Admin as Role**: fixed PHP warning that occurs in a certain scnenario.
 
-* **[IMPROVED and FIXED in Fre and Pro] Utilities >> Email Delivery**: 
-  * Free: fix an issue where failed delivery during a send test just continues to show the spinning "Sending test email..." message. It should now properly update to "Oops, something went wrong" message. 
-  * Pro: fix an issue where failed delivery were not properly logged as such in the email log in certain scenarios.
-  * Pro: add an option to disable authentication which is needed in some scenarios, e.g. delivery via Google Workspace's without 2FA and using the `smtp-relay.gmail.com` host without credentials. Props to @boomerangz for suggesting this improvement.
-
-* **[FIXED in Free and Pro] Content Management >> Media Replacement**: fix an issue where replacing non-image attachments, e.g. MP4 videos, might cause display issue on the attachment edit screen or when editing/viewing posts using displaying that attachment. Props to [@alriksson](https://wordpress.org/support/users/alriksson/) for [reporting the issue](https://wordpress.org/support/topic/media-replacement-query-string/).
-
-* **[FIXED in Pro] Admin Interface >> Admin Logo**: fix misformatted CSS for styling the admin bar logo. Props to @nassukesso for reporting this.
+* **[FIXED and IMPROVED in Pro] Custom Code >> Code Snippets Manager**: 
+  * add option to **execute PHP snippets on page load (always) or on demand (manually)**. Props to Theo v.d.S. for the prompting this improvement.
+  * add option to **execute PHP snippets everywhere, only in the admin or only on the frontend**. Props to Gergo F. for prompting this improvement.
+  * add option to **execute PHP snippets via shortcode**. Also add the shortcode in the snippets list's "Options" column.
+  * **fixed PHP warning** introduced in v7.6.4. Props to Yoshihiro T., Mark K. and jman for reporting the issue with the relevant error/debug log entries.
   
-* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fix an issue where the left-most, default checkbox column is displayed wider than it should when Simple Custom Post Order plugin is active. Props to Valentin J. for reporting the issue and collaborating with a thorough investigation on their part as well.
+* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fix an issue where if ACF select and radio fields are set to return an array, the admin columns for them are not showing any value. Props to A. Remut for reporting the issue.
 
-* **[FIXED in Pro] Content Management >> Content Order**: 
-  * fix an issue where querying and displaying the posts on the ordering page produces a fatal error in some scenarios. Props to Valentin J. for reporting the issue with great detail (error log entry + screenshot), which helped with the troubleshooting process.
-  * exclude CPTs from WordPres core, ASE, WooCommerce, Breakdance, Bricks and Elementor from the list of non-hierarchical CPTs to enable content ordering for.
-
-* **[YEAR END SALE]** [**Get 20% discount**](https://www.wpase.com/chnlg-to-web) by the end of the year on new Pro license purchase and upgrades.
+* **[FIXED in Pro] Content Management >> Media Categories**: fixed a fatal error that occurs in a certain scenario when opening the "Appearances >> Menus" page. Props to Ivar S. for reporting the issue along with the debug/error log entries and facilitating the troubleshooting process.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into 29 languages:
   * **Added new/improved translation** for:
-    * Free: updated Hungarian, Indonesian, Chinese (Taiwan)
-    * Pro: updated Norwegian
+    * Free: updated Portuguese (Brazil), Portuguese (Portugal), Russian, Ukrainian.
+    * Pro: updated Polish, Portuguese (Brazil), Vietnamese
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.

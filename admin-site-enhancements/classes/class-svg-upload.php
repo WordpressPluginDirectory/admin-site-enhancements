@@ -231,7 +231,7 @@ class SVG_Upload {
      * @link https://gist.github.com/ericvalois/5b1e161c127632a1ace7d65ce1363e69
      * @since 7.3.0
      */
-    public function remove_svg_responsive_image_attr( string $sizes, array $size, $image_src = null ) {
+    public function remove_svg_responsive_image_attr( string $sizes, $size, $image_src = null ) {
         $explode = explode( '.', $image_src );
         $extension = end( $explode );
         

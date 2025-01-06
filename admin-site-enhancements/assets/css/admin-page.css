@@ -956,6 +956,10 @@ a.asenha-support-nudge-dismiss:hover,
     display: block;
 }
 
+.smtp-email-delivery .asenha-subfield-radio-button-wrapper {
+    margin-top: 6px;
+}
+
 .asenha-subfield-description {
     display: block;
 }

@@ -736,6 +736,9 @@ function asenha_admin_scripts(  $hook_suffix  ) {
             wp_enqueue_style( 'asenha-image-sizes-panel', ASENHA_URL . 'assets/css/image-sizes-panel.css' );
         }
     }
+    // Code Snippets Manager
+    if ( 'post' == $current_screen->base && 'asenha_code_snippet' == $current_screen->id || 'edit' == $current_screen->base && 'edit-asenha_code_snippet' == $current_screen->id ) {
+    }
     // Content Management >> Hide Admin Notices
     if ( array_key_exists( 'hide_admin_notices', $options ) && $options['hide_admin_notices'] ) {
         $hide_for_nonadmins = ( isset( $options['hide_admin_notices_for_nonadmins'] ) ? $options['hide_admin_notices_for_nonadmins'] : false );
