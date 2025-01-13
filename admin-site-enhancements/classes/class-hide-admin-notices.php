@@ -243,6 +243,18 @@ class Hide_Admin_Notices {
                 #wpbody-content > #wsf-layout-editor > #poststuff > .notice-updated,
                 #wpbody-content > #wsf-layout-editor > #poststuff > .updated:not(.inline),
                 #wpbody-content > #wsf-layout-editor > #poststuff > .update-nag,
+                /* Pods */
+                #wpbody-content .pods-submittable-fields > .notice:not(#plugin-activated-successfully,.system-notice,.hidden),
+                #wpbody-content .pods-submittable-fields > .notice-error,
+                #wpbody-content .pods-submittable-fields > .error:not(.hidden),
+                #wpbody-content .pods-submittable-fields > .notice-info,
+                #wpbody-content .pods-submittable-fields > .notice-information,
+                #wpbody-content .pods-submittable-fields > #message,
+                #wpbody-content .pods-submittable-fields > .notice-warning:not(.hidden),
+                #wpbody-content .pods-submittable-fields > .notice-success:not(#plugin-activated-successfully),
+                #wpbody-content .pods-submittable-fields > .notice-updated,
+                #wpbody-content .pods-submittable-fields > .updated:not(.inline),
+                #wpbody-content .pods-submittable-fields > .update-nag,
                 /* Funnel Builder for WordPress by FunnelKit */
                 #wpbody-content > .bwfan_header > .notice:not(.system-notice,.hidden),
                 #wpbody-content > .bwfan_header > .notice-error,

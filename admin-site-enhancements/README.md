@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.7.1  
-Stable tag: 7.6.5  
+Stable tag: 7.6.6  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -190,32 +190,36 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **76 _major_ releases** (e.g. 1.1.0 ) and **130 _minor_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **76 _major_ releases** (e.g. 1.1.0 ) and **131 _minor_ releases** (e.g. 4.9.1). 
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 7.6.5 (2025.01.06) - ASE Free and Pro
+### 7.6.6 (2025.01.13) - ASE Free and Pro
 
-* **[CHANGED in Pro] ASE Settings >> Import | Export** is now **available on all Pro plans** (SOLO, TEAM, AGENCY).
+* **[IMPROVED in Pro] Admin Interface >> Admin Logo**: 
+  * add option to show the **admin menu logo in the backend** and show the **admin bar logo in the frontend**. Props to Max Z. for suggesting this.
+  * add option to link the admin bar logo to the dashboard when it is shown on the frontend. Props to Max Z. for suggesting this.
 
-* **[FIXED in Free and Pro] Utilities >> View Admin as Role**: fixed PHP warning that occurs in a certain scnenario.
+* **[IMPROVED and FIXED in Pro] Custom Code >> Code Snippets Manager**: 
+  * add option to **execute PHP snippet via a secure URL**.
+  * add option to **set the load / execution priority / order** for all snippet types.
+  * improved reliability of mechanism to record error when creating / updating PHP snippets
+  * fixed fatal error when creating non-PHP snippet in a certain scenario
 
-* **[FIXED and IMPROVED in Pro] Custom Code >> Code Snippets Manager**: 
-  * add option to **execute PHP snippets on page load (always) or on demand (manually)**. Props to Theo v.d.S. for the prompting this improvement.
-  * add option to **execute PHP snippets everywhere, only in the admin or only on the frontend**. Props to Gergo F. for prompting this improvement.
-  * add option to **execute PHP snippets via shortcode**. Also add the shortcode in the snippets list's "Options" column.
-  * **fixed PHP warning** introduced in v7.6.4. Props to Yoshihiro T., Mark K. and jman for reporting the issue with the relevant error/debug log entries.
-  
-* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fix an issue where if ACF select and radio fields are set to return an array, the admin columns for them are not showing any value. Props to A. Remut for reporting the issue.
+* **[IMPROVED in Pro] Admin Interface >> Various Admin UI Enhancements**: add an option to open all admin page links in new tab. Useful for people who prefer this workflow by default, instead of pressing the Ctrl or Command button while clicking on a link. Props to Rick A. for suggesting this improvement.
 
-* **[FIXED in Pro] Content Management >> Media Categories**: fixed a fatal error that occurs in a certain scenario when opening the "Appearances >> Menus" page. Props to Ivar S. for reporting the issue along with the debug/error log entries and facilitating the troubleshooting process.
+* **[FIXED in Free and Pro] Admin Interface >> Hide Admin Notices**: fixed notices being displayed on Pods plugin's admin screen.
+
+* **[FIXED in Pro] Utilities >> Display System Summary**: fix fatal error in a certain scenario when trying to load the dashboard widget. This has to do with a symlinked directory present in the WP root folder that links to a destination not defined in open_basedir. Props to Rado R. for reporting the issue in details and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] ASE Settings >> Export | Import**: fixed a bug where export was not working as expected. Props to David R. for reporting the issue.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into 29 languages:
   * **Added new/improved translation** for:
-    * Free: updated Portuguese (Brazil), Portuguese (Portugal), Russian, Ukrainian.
-    * Pro: updated Polish, Portuguese (Brazil), Vietnamese
+    * Free: updated Norwegian, Portuguese (Brazil), Albanian
+    * Pro: updated Czech, Spanish (Spain), French, Hungarian, Norwegian, Dutch, Polish, Portuguese (Brazil), Vietnamese
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.
