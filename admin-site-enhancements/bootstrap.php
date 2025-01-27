@@ -269,6 +269,9 @@ class Admin_Site_Enhancements {
         if ( array_key_exists( 'external_links_new_tab', $options ) && $options['external_links_new_tab'] ) {
             $open_external_links_in_new_tab = new ASENHA\Classes\Open_External_Links_In_New_Tab();
             add_filter( 'the_content', [$open_external_links_in_new_tab, 'add_target_and_rel_atts_to_content_links'] );
+            if ( in_array( 'elementor/elementor.php', get_option( 'active_plugins', array() ) ) ) {
+                add_filter( 'elementor/frontend/the_content', [$open_external_links_in_new_tab, 'add_target_and_rel_atts_to_content_links'] );
+            }
         }
         // Allow Custom Menu Links to Open in New Tab
         if ( array_key_exists( 'custom_nav_menu_items_new_tab', $options ) && $options['custom_nav_menu_items_new_tab'] ) {
@@ -1037,6 +1040,7 @@ class Admin_Site_Enhancements {
         }
         // Display System Summary
         if ( array_key_exists( 'display_system_summary', $options ) && $options['display_system_summary'] ) {
+            // require_once ASENHA_PATH . 'includes/premium/display-system-summary/ignore-directories.php';
             $display_system_summary = new ASENHA\Classes\Display_System_Summary();
             add_action( 'rightnow_end', [$display_system_summary, 'display_system_summary'] );
         }

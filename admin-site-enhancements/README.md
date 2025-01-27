@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.7.1  
-Stable tag: 7.6.6  
+Stable tag: 7.6.8  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -190,36 +190,33 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **76 _major_ releases** (e.g. 1.1.0 ) and **131 _minor_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **76 _major_ releases** (e.g. 1.1.0 ) and **134 _minor_ releases** (e.g. 4.9.1). 
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 7.6.6 (2025.01.13) - ASE Free and Pro
+### 7.6.8 (2025.01.27) - ASE Free and Pro
 
-* **[IMPROVED in Pro] Admin Interface >> Admin Logo**: 
-  * add option to show the **admin menu logo in the backend** and show the **admin bar logo in the frontend**. Props to Max Z. for suggesting this.
-  * add option to link the admin bar logo to the dashboard when it is shown on the frontend. Props to Max Z. for suggesting this.
+* **[IMPROVED in Pro] Email Delivery >> Email Log**: make sure info on attachments in email delivery is properly logged, and also displayed when viewing the details of entries in the email log.
 
-* **[IMPROVED and FIXED in Pro] Custom Code >> Code Snippets Manager**: 
-  * add option to **execute PHP snippet via a secure URL**.
-  * add option to **set the load / execution priority / order** for all snippet types.
-  * improved reliability of mechanism to record error when creating / updating PHP snippets
-  * fixed fatal error when creating non-PHP snippet in a certain scenario
+* **[FIXED in Free and Pro] Optimizations >> Image Upload Control**: fix PHP warning/error that occurs in a certain scenario. Props to [DJABHipHop](https://wordpress.org/support/users/pressthemes1/) for [reporting this](https://wordpress.org/support/topic/undefined-variable-converted_to_jpgplugin-admin-and-site-enhancements-ase/) with the error log entry.
 
-* **[IMPROVED in Pro] Admin Interface >> Various Admin UI Enhancements**: add an option to open all admin page links in new tab. Useful for people who prefer this workflow by default, instead of pressing the Ctrl or Command button while clicking on a link. Props to Rick A. for suggesting this improvement.
+* **[FIXED in Free and Pro] Admin Interface >> Various Admin UI Enhancements >> Display Active Plugins First**: fix PHP warnings in PHP 8.3. Props to Bjorn S. for reporting this.
 
-* **[FIXED in Free and Pro] Admin Interface >> Hide Admin Notices**: fixed notices being displayed on Pods plugin's admin screen.
+* **[FIXED in Free and Pro] Security >> Email Address Obfuscator**: fix an issue where the obfuscated email address where there are hyphens in the domain name, will show a word in the domain name being reversed when viewed in iOS Safari browser. Props to Thorsten S. for reporting the issue.
 
-* **[FIXED in Pro] Utilities >> Display System Summary**: fix fatal error in a certain scenario when trying to load the dashboard widget. This has to do with a symlinked directory present in the WP root folder that links to a destination not defined in open_basedir. Props to Rado R. for reporting the issue in details and facilitating the troubleshooting process.
-
-* **[FIXED in Pro] ASE Settings >> Export | Import**: fixed a bug where export was not working as expected. Props to David R. for reporting the issue.
+* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: 
+  * **fix layout issue** on frontend conditional's select2 input when a second select2 CSS is loaded by another plugin.
+  * **fix for missing Code Snippets menu** in a certain scenario (roots.io Trellis setup). Props to Tim P. for reporting the issue in detail and facilitating the troubleshooting process.
+  * **fix for "Single page/post/CPT" conditional** not properly loading the searchable list and allowing for selection of post(s). Props to Kilian H. for reporting the issue.
+  
+* **[FIXED in Pro] Pro version activation** when the free version is still active will now correctly show a message with a link back to the plugins page on a sub-folder WP install. Props to Florian G. for reporting the issue, where the link was missing the /sub-folder/ in the link.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into 29 languages:
   * **Added new/improved translation** for:
-    * Free: updated Norwegian, Portuguese (Brazil), Albanian
-    * Pro: updated Czech, Spanish (Spain), French, Hungarian, Norwegian, Dutch, Polish, Portuguese (Brazil), Vietnamese
+    * Free: updated French, Hungarian, Albanian, Swedish, Vietnamese, Chinese (Taiwan)
+    * Pro: updated Polish, Portuguese (Brazil), Vietnamese
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.

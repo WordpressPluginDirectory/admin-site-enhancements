@@ -524,4 +524,21 @@ class Common_Methods {
         return $logo_image;
     }
 
+    /**
+     * Get current URL, without query parameters and without trailing slash
+     * e.g. https://www.site.com/some-page
+     *
+     * @return string
+     */
+    public function get_current_url() {
+        $output = '';
+        $url = (( is_ssl() ? 'https://' : 'http://' )) . sanitize_text_field( $_SERVER['HTTP_HOST'] ) . sanitize_text_field( $_SERVER['REQUEST_URI'] );
+        $url_parts = explode( '?', $url, 2 );
+        // limit to max of 2 elements with last element containing the rest of the string
+        if ( isset( $url_parts[0] ) ) {
+            $output = trim( $url_parts[0], '/' );
+        }
+        return ( $output ? urldecode( $output ) : '/' );
+    }
+
 }

@@ -171,6 +171,7 @@ class Image_Upload_Control {
             }
         }
         // Let's convert BMP and non-transparent PNG into JPG
+        $converted_to_jpg = false;
         if ( is_object( $image_object ) || class_exists( 'Imagick' ) ) {
             $wp_uploads = wp_upload_dir();
             $old_filename = wp_basename( $upload['file'] );

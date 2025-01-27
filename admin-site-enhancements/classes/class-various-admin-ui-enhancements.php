@@ -34,6 +34,7 @@ class Various_Admin_Ui_Enhancements {
      */
     public function plugins_order_callback( $a, $b ) {
         global $wp_list_table;
+        $items = $wp_list_table->items;
         $a_active = is_plugin_active( $a );
         $b_active = is_plugin_active( $b );
         if ( $a_active && !$b_active ) {
@@ -41,7 +42,9 @@ class Various_Admin_Ui_Enhancements {
         } elseif ( !$a_active && $b_active ) {
             return 1;
         } else {
-            return @strcasecmp( $wp_list_table->items[$a]['Name'], $wp_list_table->items[$b]['Name'] );
+            if ( isset( $items[$a] ) && isset( $items[$b] ) ) {
+                return strcasecmp( $items[$a]['Name'], $items[$b]['Name'] );
+            }
         }
     }
 

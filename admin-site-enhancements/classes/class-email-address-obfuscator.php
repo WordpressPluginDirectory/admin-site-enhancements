@@ -28,7 +28,7 @@ class Email_Address_Obfuscator {
         }
         // Reverse email address characters if not in Firefox, which has bug related to unicode-bidi CSS property
         $http_user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ? sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] ) : 'generic' );
-        if ( false !== stripos( $http_user_agent, 'firefox' ) ) {
+        if ( false !== stripos( $http_user_agent, 'firefox' ) || false !== stripos( $http_user_agent, 'iphone' ) ) {
             // Do nothing. Do not reverse characters.
             $email_reversed = $email;
             $email_rev_parts = explode( '@', $email_reversed );
