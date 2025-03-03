@@ -43,6 +43,7 @@ class Admin_Site_Enhancements {
         add_action( 'all_admin_notices', 'asenha_suppress_generic_notices', 5 );
         // Enqueue admin scripts and styles
         add_action( 'admin_enqueue_scripts', 'asenha_admin_scripts' );
+        add_action( 'admin_head', 'asenha_admin_menu_organizer_css' );
         // Enqueue public scripts and styles
         add_action( 'wp_enqueue_scripts', 'asenha_public_scripts' );
         // Dequeue scripts that prevents settings page from working
@@ -98,6 +99,9 @@ class Admin_Site_Enhancements {
             if ( array_key_exists( 'content_order_for', $options ) && !empty( $options['content_order_for'] ) || array_key_exists( 'content_order_for_other_post_types', $options ) && !empty( $options['content_order_for_other_post_types'] ) ) {
                 $content_order = new ASENHA\Classes\Content_Order();
                 add_action( 'admin_menu', [$content_order, 'add_content_order_submenu'] );
+                add_action( 'admin_init', [$content_order, 'maybe_perform_menu_link_redirects'] );
+                add_action( 'admin_footer', [$content_order, 'add_additional_elements'] );
+                add_filter( 'admin_enqueue_scripts', [$content_order, 'add_list_tables_scripts'] );
                 add_action( 'wp_ajax_save_custom_order', [$content_order, 'save_custom_content_order'] );
                 add_filter( 'pre_get_posts', [$content_order, 'orderby_menu_order'], PHP_INT_MAX );
                 // TODO: https://developer.wordpress.org/reference/hooks/ajax_query_attachments_args/ (for grid view of media library)
@@ -923,7 +927,11 @@ class Admin_Site_Enhancements {
             $disable_xml_rpc = new ASENHA\Classes\Disable_XML_RPC();
             add_filter( 'xmlrpc_enabled', '__return_false' );
             add_action( 'wp', [$disable_xml_rpc, 'remove_xmlrpc_link'], 11 );
+            add_filter( 'xmlrpc_methods', [$disable_xml_rpc, 'remove_xmlrpc_methods'] );
             add_filter( 'wp_xmlrpc_server_class', [$disable_xml_rpc, 'maybe_disable_xmlrpc'] );
+            // Hide xmlrpc.php in HTTP response headers
+            add_filter( 'wp_headers', [$disable_xml_rpc, 'hide_xmlrpc_in_http_response_headers'] );
+            add_filter( 'pings_open', '__return_false', PHP_INT_MAX );
         }
         // =================================================================
         // OPTIMIZATIONS

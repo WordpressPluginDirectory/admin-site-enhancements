@@ -70,8 +70,14 @@ class Settings_Fields_Render {
                 break;
         }
         $field_option_value = ( isset( $options[$args['field_id']] ) ? $options[$args['field_id']] : $default_value );
-        echo '<input type="checkbox" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox" name="' . esc_attr( $field_name ) . '" ' . checked( $field_option_value, true, false ) . '>';
-        echo '<label for="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox-label">' . wp_kses_post( $field_label ) . '</label>';
+        $display_none_on_load = ( isset( $args['display_none_on_load'] ) ? $args['display_none_on_load'] : false );
+        if ( $display_none_on_load ) {
+            $inline_style = 'display:none;';
+        } else {
+            $inline_style = '';
+        }
+        echo '<input type="checkbox" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox" style="' . esc_attr( $inline_style ) . '" name="' . esc_attr( $field_name ) . '" ' . checked( $field_option_value, true, false ) . '>';
+        echo '<label for="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox-label" style="' . esc_attr( $inline_style ) . '">' . wp_kses_post( $field_label ) . '</label>';
     }
 
     /**
@@ -175,11 +181,14 @@ class Settings_Fields_Render {
             $options = get_option( ASENHA_SLUG_U, array() );
         }
         $field_id = $args['field_id'];
+        $field_slug = str_replace( '_', '-', $field_id );
         $field_name = $args['field_name'];
         $field_width_classname = ( isset( $args['field_width_classname'] ) ? $args['field_width_classname'] : '' );
         $field_type = $args['field_type'];
         $field_prefix = $args['field_prefix'];
         $field_suffix = $args['field_suffix'];
+        $field_is_read_only = ( isset( $args['read_only'] ) ? $args['read_only'] : false );
+        $field_is_read_only_output = ( $field_is_read_only ? ' readonly="readonly"' : '' );
         $field_placeholder = ( isset( $args['field_placeholder'] ) ? $args['field_placeholder'] : '' );
         $field_description = $args['field_description'];
         if ( isset( $options[$field_id] ) ) {
@@ -190,11 +199,23 @@ class Settings_Fields_Render {
                     // Legacy support for when base64 encoding was used prior to v7.3.1
                     $field_option_value = base64_decode( $options[$field_id] );
                 }
+            } elseif ( 'login_page_logo_image_width' == $field_id || 'login_page_logo_image_height' == $field_id ) {
+                if ( isset( $options[$field_id] ) ) {
+                    if ( is_numeric( $options[$field_id] ) ) {
+                        $field_option_value = $options[$field_id];
+                    } else {
+                        $field_option_value = str_replace( 'px', '', $options[$field_id] );
+                    }
+                }
             } else {
                 $field_option_value = $options[$field_id];
             }
         } else {
-            $field_option_value = '';
+            if ( 'altcha_secret_key' == $field_id ) {
+                $field_option_value = '';
+            } else {
+                $field_option_value = '';
+            }
         }
         if ( !empty( $field_prefix ) && !empty( $field_suffix ) ) {
             $field_classname = ' with-prefix with-suffix';
@@ -208,7 +229,7 @@ class Settings_Fields_Render {
         if ( !empty( $field_width_classname ) ) {
             $field_classname .= ' ' . $field_width_classname;
         }
-        echo wp_kses_post( $field_prefix ) . '<input type="text" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-text' . esc_attr( $field_classname ) . '" name="' . esc_attr( $field_name ) . '" placeholder="' . esc_attr( $field_placeholder ) . '" value="' . esc_attr( $field_option_value ) . '">' . wp_kses_post( $field_suffix );
+        echo wp_kses_post( $field_prefix ) . '<input type="text" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-text' . esc_attr( $field_classname ) . '" name="' . esc_attr( $field_name ) . '" placeholder="' . esc_attr( $field_placeholder ) . '" value="' . esc_attr( $field_option_value ) . '"' . esc_html( $field_is_read_only_output ) . '>' . wp_kses_post( $field_suffix );
         echo '<label for="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox-label">' . esc_html( $field_description ) . '</label>';
     }
 
@@ -264,7 +285,7 @@ class Settings_Fields_Render {
      */
     function render_description_subfield( $args ) {
         $field_description = $args['field_description'];
-        echo '<div class="asenha-subfield-description">' . wp_kses( $field_description, get_kses_with_custom_html_ruleset() ) . '</div>';
+        echo '<div class="asenha-subfield-description">' . wp_kses( $field_description, get_kses_with_style_src_svg_ruleset() ) . '</div>';
     }
 
     /**
@@ -389,8 +410,9 @@ class Settings_Fields_Render {
         } else {
             $field_classname = '';
         }
-        if ( $args['display_none_on_load'] ) {
-            $inline_style = ' style="display:none;"';
+        $display_none_on_load = ( isset( $args['display_none_on_load'] ) ? $args['display_none_on_load'] : false );
+        if ( $display_none_on_load ) {
+            $inline_style = 'display:none;';
         } else {
             $inline_style = '';
         }
@@ -398,7 +420,7 @@ class Settings_Fields_Render {
         if ( !empty( $field_intro ) ) {
             echo '<div class="asenha-subfield-select-intro">' . wp_kses_post( $field_intro ) . '</div>';
         }
-        echo '<div' . esc_attr( $inline_style ) . ' class="asenha-subfield-select-inner">' . wp_kses_post( $field_prefix );
+        echo '<div style="' . esc_attr( $inline_style ) . '" class="asenha-subfield-select-inner">' . wp_kses_post( $field_prefix );
         echo '<select name="' . esc_attr( $field_name ) . '" class="asenha-subfield-select' . esc_attr( $field_classname ) . '">';
         foreach ( $field_select_options as $label => $value ) {
             echo '<option value="' . esc_attr( $value ) . '" ' . selected( $value, $field_option_value, false ) . '>' . esc_html( $label ) . '</option>';
@@ -587,6 +609,33 @@ class Settings_Fields_Render {
         echo esc_attr( $common_methods->sanitize_hex_color( $field_default_value ) );
         ?>" class="color-picker"/>
 		</div>
+		<?php 
+    }
+
+    /**
+     * Render text field as sub-field of a toggle/switcher checkbox
+     *
+     * @since 1.4.0
+     */
+    function render_content_toggler( $args ) {
+        $field_id = $args['field_id'];
+        $field_slug = $args['field_slug'];
+        $field_slug = str_replace( '_', '-', $field_id );
+        $show_text = ( isset( $args['show_text'] ) ? $args['show_text'] : '' );
+        $hide_text = ( isset( $args['hide_text'] ) ? $args['hide_text'] : '' );
+        $content_selector = ( isset( $args['content_selector'] ) ? $args['content_selector'] : '' );
+        ?>
+		<div class="subfield-content-toggler <?php 
+        echo esc_attr( $field_slug );
+        ?>"><a href="#" data-show-text="<?php 
+        echo esc_attr( $show_text );
+        ?>" data-hide-text="<?php 
+        echo esc_attr( $hide_text );
+        ?>" data-target-selector="<?php 
+        echo esc_attr( $content_selector );
+        ?>" class="asenha-content-toggler" data-expanded="no"><?php 
+        echo esc_html( $show_text );
+        ?> <span>▼</span></a></div>
 		<?php 
     }
 

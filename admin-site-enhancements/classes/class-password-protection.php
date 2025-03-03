@@ -91,6 +91,8 @@ class Password_Protection {
      * @since 4.1.0
      */
     public function maybe_show_login_form() {
+        $options = get_option( ASENHA_SLUG_U, array() );
+        $stored_password = $options['password_protection_password'];
         // When user is logged-in as in an administrator
         if ( is_user_logged_in() ) {
             if ( current_user_can( 'manage_options' ) ) {
@@ -100,8 +102,8 @@ class Password_Protection {
         }
         // When site visitor has entered correct password, get the auth cookie
         $auth_cookie = ( isset( $_COOKIE['asenha_password_protection'] ) ? $_COOKIE['asenha_password_protection'] : '' );
-        // Compared against random string set in maybe_process_login()
-        if ( wp_check_password( 'MOeldTVhGnL18VfbDtXM7znSYXIUQn3z', $auth_cookie ) ) {
+        // Compared $auth_cookie against hashed string set in maybe_process_login()
+        if ( true === wp_check_password( $_SERVER['HTTP_HOST'] . '__' . $stored_password, $auth_cookie ) ) {
             return;
             // Do not load login form or perform redirection to the login form
         }
@@ -111,7 +113,7 @@ class Password_Protection {
             load_template( $password_protected_login_page_template );
             exit;
         } else {
-            // Redirect to login form
+            // Redirect from current URL to login form
             $current_url = (( is_ssl() ? 'https://' : 'http://' )) . sanitize_text_field( $_SERVER['HTTP_HOST'] ) . sanitize_text_field( $_SERVER['REQUEST_URI'] );
             $args = array(
                 'protected-page' => 'view',
@@ -133,7 +135,7 @@ class Password_Protection {
         global $password_protected_errors;
         $password_protected_errors = new WP_Error();
         if ( isset( $_REQUEST['protected_page_pwd'] ) ) {
-            $password_input = $_REQUEST['protected_page_pwd'];
+            $password_input = sanitize_text_field( $_REQUEST['protected_page_pwd'] );
             $options = get_option( ASENHA_SLUG_U, array() );
             $stored_password = $options['password_protection_password'];
             if ( !empty( $password_input ) ) {
@@ -143,8 +145,7 @@ class Password_Protection {
                     // $expiration = time() + DAY_IN_SECONDS; // in 24 hours
                     $expiration = 0;
                     // by the end of browsing session
-                    $hashed_cookie_value = wp_hash_password( 'MOeldTVhGnL18VfbDtXM7znSYXIUQn3z' );
-                    // random string
+                    $hashed_cookie_value = wp_hash_password( $_SERVER['HTTP_HOST'] . '__' . $stored_password );
                     setcookie(
                         'asenha_password_protection',
                         $hashed_cookie_value,
@@ -155,7 +156,7 @@ class Password_Protection {
                         true
                     );
                     // Redirect
-                    $redirect_to_url = ( isset( $_REQUEST['source'] ) ? $_REQUEST['source'] : '' );
+                    $redirect_to_url = ( isset( $_REQUEST['source'] ) ? sanitize_url( $_REQUEST['source'] ) : '' );
                     wp_safe_redirect( $redirect_to_url );
                     exit;
                 } else {

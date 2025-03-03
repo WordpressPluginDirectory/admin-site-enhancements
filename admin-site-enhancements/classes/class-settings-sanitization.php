@@ -599,6 +599,10 @@ class Settings_Sanitization {
             $options['login_lockout_maxcount'] = 3;
         }
         $options['login_lockout_maxcount'] = ( !empty( $options['login_lockout_maxcount'] ) ? sanitize_text_field( $options['login_lockout_maxcount'] ) : 3 );
+        if ( !isset( $options['limit_login_attempts_header_override'] ) ) {
+            $options['limit_login_attempts_header_override'] = '';
+        }
+        $options['limit_login_attempts_header_override'] = ( !empty( $options['limit_login_attempts_header_override'] ) ? sanitize_text_field( $options['limit_login_attempts_header_override'] ) : '' );
         if ( !isset( $options['login_attempts_log_table'] ) ) {
             $options['login_attempts_log_table'] = '';
         }

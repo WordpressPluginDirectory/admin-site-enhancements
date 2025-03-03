@@ -81,6 +81,14 @@ function get_kses_with_style_src_ruleset() {
 function get_kses_with_style_src_svg_ruleset() {
     $kses_defaults = wp_kses_allowed_html( 'post' );
     $style_script_svg_args = array(
+        'input'  => array(
+            'type'  => true,
+            'id'    => true,
+            'class' => true,
+            'name'  => true,
+            'value' => true,
+            'style' => true,
+        ),
         'style'  => true,
         'script' => array(
             'src' => true,

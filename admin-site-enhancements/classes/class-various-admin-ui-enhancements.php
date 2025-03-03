@@ -22,7 +22,9 @@ class Various_Admin_Ui_Enhancements {
             'recently_activated',
             'mustuse'
         ), true ) ) {
-            uksort( $wp_list_table->items, array($this, 'plugins_order_callback') );
+            if ( is_array( $wp_list_table->items ) ) {
+                uksort( $wp_list_table->items, array($this, 'plugins_order_callback') );
+            }
         }
     }
 

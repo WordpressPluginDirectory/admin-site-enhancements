@@ -92,7 +92,55 @@
          } else {
             alert( 'Please enter destination email address first.' );
          }
+      });
 
+      // Form Builder >> Send test email
+      $('#form-builder-send-test-email').click(function(e) {
+         e.preventDefault();
+         var emailTo = $('#form-builder-test-email-to').val();
+         var emailTemplate = $('.form-builder-email-template select').val();
+         if ( emailTo ) {
+            $('#form-builder-ajax-result').show();
+            $('.form-builder-sending-test-email').show();
+            $('.test-email-result').hide();
+            $('#form-builder-test-email-success').hide();
+            $('#form-builder-test-email-failed').hide();
+            $.ajax({
+               type: 'POST',
+               url: ajaxurl,
+               data: {
+                  action: 'formbuilder_test_email_template',
+                  email_template: emailTemplate,
+                  test_email: emailTo,
+                  nonce: adminPageVars.formBuilderSendTestEmailNonce
+               },
+               success:function(data) {
+                  var response = JSON.parse(data);
+                  if ( response.success ) {
+                     setTimeout( function() {
+                        $('.form-builder-sending-test-email').hide();
+                        $('#form-builder-test-email-success').show();
+                     }, 1500);
+                  }
+                  if ( ! response.success ) {
+                     setTimeout( function() {
+                        $('.form-builder-sending-test-email').hide();
+                        $('#form-builder-test-email-failed').show();
+                     }, 1500);                     
+                  }
+               },
+               error:function(errorThrown) {
+                  console.log(errorThrown);
+                  setTimeout( function() {
+                     $('.sending-test-email').hide();
+                     $('.test-email-result').show();
+                     $('#test-email-failed').show();
+                  }, 1500);
+               }
+            });
+         } else {
+            alert( 'Please enter destination email address first.' );
+         }
       });
 
       // Initialize data tables
@@ -261,7 +309,10 @@
       $('.login-fails-allowed').appendTo('.fields-security .limit-login-attempts .asenha-subfields');
       $('.login-lockout-maxcount').appendTo('.fields-security .limit-login-attempts .asenha-subfields');
       
+      $('.limit-login-attempts-header-override').appendTo('.fields-security .limit-login-attempts .asenha-subfields');
+      $('.limit-login-attempts-header-override-description').appendTo('.fields-security .limit-login-attempts .asenha-subfields');
       $('.login-attempts-log-table').appendTo('.fields-security .limit-login-attempts .asenha-subfields');
+      
       $('.obfuscate-author-slugs').appendTo('.fields-security > table > tbody');
       $('.obfuscate-email-address').appendTo('.fields-security > table > tbody');
       $('.obfuscate-email-address-description').appendTo('.fields-security .obfuscate-email-address .asenha-subfields');
@@ -610,6 +661,7 @@
       
       subfieldsToggler( 'disable_smaller_components', 'disable-smaller-components' );
       subfieldsToggler( 'limit_login_attempts', 'limit-login-attempts' );
+      
       subfieldsToggler( 'obfuscate_email_address', 'obfuscate-email-address' );
       subfieldsToggler( 'image_upload_control', 'image-upload-control' );
       subfieldsToggler( 'enable_revisions_control', 'enable-revisions-control' );
@@ -698,9 +750,29 @@
 
       
       
+      // Content Toggler
+      $('.asenha-body').on('click', '.asenha-content-toggler', function(e) {
+         e.preventDefault();
+         var targetSelector = $(this).data('target-selector');
+         var showText = $(this).data('show-text');
+         var hideText = $(this).data('hide-text');
+         var expanded = $(this).attr('data-expanded');
+         // $(targetSelector).toggle();
+         if (expanded == 'no') {
+            $(targetSelector).slideDown(200);
+            $(this).html(hideText + ' <span>▲</span>');
+            $(this).attr('data-expanded','yes');
+         } else {
+            $(targetSelector).slideUp(200);
+            $(this).html(showText + ' <span>▼</span>');
+            $(this).attr('data-expanded','no');
+         }
+      });
+      
       // Media frame handler for image selection / upload fields
       // Reference: https://plugins.trac.wordpress.org/browser/bm-custom-login/trunk/bm-custom-login.php
       function media_frame_init( selector, button_selector ) {
+         // media_frame_init( '#login-page-logo-image', '#login-page-logo-image-button' );
          var theSelector = $(selector);
          var button = $(button_selector);
 
@@ -734,6 +806,24 @@
                   var url = attachment.attributes.url;
                   url = url.replace( adminPageVars.wpcontentUrl, '' );
                   theSelector.val(url);
+
+                  if ( '#login-page-logo-image' == selector ) {
+                     var attachmentId = $('.login-page-logo-image-attachment-id input');
+                     var originalWidthInput = $('.login-page-logo-image-width-original input');
+                     var originalHeightInput = $('.login-page-logo-image-height-original input');
+                     var widthInput = $('.login-page-logo-image-width input');
+                     var heightInput = $('.login-page-logo-image-height input');
+                     attachmentId.val(attachment.attributes.id);
+                     originalWidthInput.val(attachment.attributes.width);
+                     originalHeightInput.val(attachment.attributes.height);
+                     widthInput.val(attachment.attributes.width);
+                     heightInput.val(attachment.attributes.height);                     
+                  }
+
+                  if ( '#form-builder-email-header-image' == selector ) {
+                     var attachmentId = $('.form-builder-email-header-image-attachment-id input');
+                     attachmentId.val(attachment.attributes.id);
+                  }
                });
             };
 
@@ -742,6 +832,55 @@
             wp.media.frames.frame.open();
          });
       }
+
+      // =============== Image Ratio Calculator / Preservation for Login Page Customizer >> Logo Image =================
+
+      // Code modified from: https://codepen.io/tobiasdev/pen/XNjxdZ by Tobias Bogliolo
+
+      var initialWidth, initialHeight, newWidth, newHeight, aspectRatio;
+
+      //Get new values:
+      function getValues(){
+         initialWidth = $(".login-page-logo-image-width-original input").val();
+         initialHeight = $(".login-page-logo-image-height-original input").val();
+         newWidth = $(".login-page-logo-image-width input").val();
+         newHeight = $(".login-page-logo-image-height input").val();
+      };
+
+      //Aspect ratio:
+      function getAspectRatio(){
+         // Formula: "Aspect Ratio = Width / Height".
+         return aspectRatio = initialWidth/initialHeight;
+      };
+
+      //Get new height:
+      $(".login-page-logo-image-width input").on("change keyup", function(){
+         // Refresh data.
+         getValues();
+         getAspectRatio();
+         // New height = new width / (original width / original height).
+         newHeight = Math.round(newWidth/aspectRatio);
+         // Output:
+         $(".login-page-logo-image-height input").val(newHeight);
+      });
+
+      //Get new width:
+      $(".login-page-logo-image-height input").on("change keyup", function(){
+         // Refresh data.
+         getValues();
+         getAspectRatio();
+         // New width = (original width / original height) * new height.
+         newWidth = Math.round(newHeight*aspectRatio);
+         // Output:
+         $(".login-page-logo-image-width input").val(newWidth);
+      });
+
+      //Reset:
+      $(".login-page-logo-image-width-original input, .login-page-logo-image-height-original input").on("change keyup", function(){
+         // Output:
+         $(".login-page-logo-image-width input").val("");
+         $(".login-page-logo-image-height input").val("");
+      });
             
       // =============== ASE PRO =================
 

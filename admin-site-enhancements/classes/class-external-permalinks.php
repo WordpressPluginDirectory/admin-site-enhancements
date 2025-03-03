@@ -91,10 +91,17 @@ class External_Permalinks {
      */
     public function use_external_permalink_for_pages( $permalink, $post_id ) {
 
-        $external_permalink = get_post_meta( $post_id, '_links_to', true );
+        $request_uri = sanitize_text_field( $_SERVER['REQUEST_URI'] ); // e.g. /wp-admin/index.php?page=page-slug
 
-        if ( ! empty( $external_permalink ) ) {
-            $permalink = $external_permalink;
+        if ( false === strpos( $request_uri, 'mfn-live-builder' ) ) {
+            // When not in BeTheme template builder, that has the 'action=mfn-live-builder' parameter in the URL
+            
+            $external_permalink = get_post_meta( $post_id, '_links_to', true );
+
+            if ( ! empty( $external_permalink ) ) {
+                $permalink = $external_permalink;
+            }
+
         }
 
         return $permalink;
@@ -108,17 +115,24 @@ class External_Permalinks {
      */
     public function use_external_permalink_for_posts( $permalink, $post ) {
 
-        $external_permalink = get_post_meta( $post->ID, '_links_to', true );
+        $request_uri = sanitize_text_field( $_SERVER['REQUEST_URI'] ); // e.g. /wp-admin/index.php?page=page-slug
 
-        if ( ! empty( $external_permalink ) ) {
-            $permalink = $external_permalink;
+        if ( false === strpos( $request_uri, 'mfn-live-builder' ) ) {
+            // When not in BeTheme template builder, that has the 'action=mfn-live-builder' parameter in the URL
 
-            if ( ! is_admin() ) { 
-                $permalink = $permalink . '#new_tab';
+            $external_permalink = get_post_meta( $post->ID, '_links_to', true );
+
+            if ( ! empty( $external_permalink ) ) {
+                $permalink = $external_permalink;
+
+                if ( ! is_admin() ) { 
+                    $permalink = $permalink . '#new_tab';
+                }
             }
+
         }
 
-        return $permalink;
+        return $permalink;            
 
     }
 
@@ -129,13 +143,13 @@ class External_Permalinks {
      */
     public function redirect_to_external_permalink() {
 
-        global $post;
-
         // If not on/loading the single page/post URL, do nothing
         if ( ! is_singular() ) {
             return;
         }
 
+        global $post;
+        
         $external_permalink = get_post_meta( $post->ID, '_links_to', true );
 
         if ( ! empty( $external_permalink ) ) {

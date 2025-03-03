@@ -41,4 +41,9 @@ if ( ! is_rtl() ) {
 	<?php echo esc_html( $position ); ?>: <?php echo esc_html( $custom_width ); ?>;	
 }
 
+/* ASE Form Builder */
+.fb-header-nav {
+    width: calc(100% - <?php echo esc_html( esc_html( $custom_width ) ); ?>) !important;
+}
+
 </style>

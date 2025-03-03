@@ -18,6 +18,7 @@ class Email_Address_Obfuscator {
         $atts = shortcode_atts( array(
             'email'   => '',
             'subject' => '',
+            'text'    => '',
             'display' => 'newline',
             'link'    => 'no',
             'class'   => '',
@@ -34,10 +35,20 @@ class Email_Address_Obfuscator {
             $email_rev_parts = explode( '@', $email_reversed );
             $email_rev_parts = array($email_rev_parts[0], $email_rev_parts[1]);
             $css_bidi_styles = '';
+            $direction_styles = 'direction:rtl;';
         } else {
             $email_reversed = strrev( $email );
             $email_rev_parts = explode( '@', $email_reversed );
             $css_bidi_styles = 'unicode-bidi:bidi-override;';
+            $direction_styles = 'direction:rtl;';
+        }
+        if ( !empty( $atts['text'] ) ) {
+            $text = esc_html( $atts['text'] );
+            $css_bidi_styles = '';
+            $direction_styles = '';
+        } else {
+            $random_number = dechex( rand( 1000000, 9999999 ) );
+            $text = esc_html( $email_rev_parts[0] ) . '<span style="display:none;">obfsctd-' . esc_html( $random_number ) . '</span>&#64;' . esc_html( $email_rev_parts[1] );
         }
         $display = $atts['display'];
         if ( 'newline' == $display ) {
@@ -51,7 +62,7 @@ class Email_Address_Obfuscator {
         }
         $link = $atts['link'];
         $class = $atts['class'];
-        return '<span style="' . esc_attr( $display_css ) . esc_attr( $css_bidi_styles ) . ';direction:rtl;" class="' . esc_attr( $class ) . '">' . esc_html( $email_rev_parts[0] ) . '<span style="display:none;">obfsctd</span>&#64;' . esc_html( $email_rev_parts[1] ) . '</span>';
+        return '<span style="' . esc_attr( $display_css ) . esc_attr( $css_bidi_styles ) . esc_attr( $direction_styles ) . '" class="' . esc_attr( $class ) . '">' . $text . '</span>';
     }
 
     /**

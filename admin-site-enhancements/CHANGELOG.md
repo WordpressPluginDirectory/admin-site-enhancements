@@ -1,10 +1,289 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **76 _major_ releases** (e.g. 1.1.0 ) and **134 _minor_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **137 _minor_ releases** (e.g. 4.9.1), for a **total of 214 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+
+### 7.8.0 (2025.03.03) - ASE Free and Pro
+
+* **[ADDED in Pro] Utilities >> Form Builder**: Enable the creation of various types of forms on the frontend to collect information from site visitors or users or members. This module should be stable enough but please perform some tests before using it on production sites or mission critical tasks. If you find any bugs / issues, please open a support ticket for it.
+
+* **[IMPROVED in Free and Pro] Security >> Limit Login Attempts**: improved mechanism to validate IP addresses. Props to Ivan C.d.A. and [@denisgomesfranco](https://wordpress.org/support/topic/seemingly-weird-behavior-with-limit-login-attempts/) for prompting this improvement.
+
+* **[FIXED in Free and Pro] Log In/Out | Register >> Login ID Type**: when login ID type is set to "email address only", logging in with an email address that contains an uppercase does not work. This is fixed now. Props to Martin H. for noticing the issue and reporting it.
+
+* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fix a fatal error in a certain scenario when displaying the default Date column. Props to Alberto P. for reporting the issue with the error stack trace.
+
+* **[FIXED in Pro] Content Management >> Content Order**: fix PHP warning that occurs in a certain scenario. Props to Dominik K., Simon S., Benjamin O., Sander d.V. for reporting the issue along with the relevant error/debug log entry.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into 31 languages:
+  * **Added new/improved translation** for:
+    * Free: Updated Spanish, Portuguese (Brazil), Polish and Norwegian
+    * Pro: Updated Polish, Portuguese (Brazil), Romanian
+  * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
+  * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
+  * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.
+  * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/), [denisgomesfranco](https://profiles.wordpress.org/denisgomesfranco/), [Denison C.](https://profiles.wordpress.org/denisoncarlos/) and [@ofmarconi](https://profiles.wordpress.org/ofmarconi/).
+  * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/) et al.
+  * **Vietnamese**: ASE Free and Pro (completed). Props to [Hoang N.Q.](https://profiles.wordpress.org/nguyenquanghoang/) et al.
+  * **Italian**: ASE Free and Pro (completed). Props to [Fabio P.](https://profiles.wordpress.org/fabioperri/) et. al.
+  * **Dutch**: ASE Free and Pro (completed). Props to [Toine R](https://profiles.wordpress.org/toineenzo/) and [Peter S.](https://profiles.wordpress.org/psmits1567/) et al.
+  * **Korean**: ASE Free and Pro (completed). Props to [@chazmlab](https://profiles.wordpress.org/chazmlab/) et al.
+  * **German (Formal)**: ASE Free and Pro (completed). Props to [@markussss](https://profiles.wordpress.org/markussss/), Bastian S. et al.
+  * **French**: ASE Free and Pro (completed). Props to [Stéphan G.](https://profiles.wordpress.org/gongonzo/), [@jeanfrancoisdelvin](https://profiles.wordpress.org/jeanfrancoisdelvin/), [@srossignol](https://profiles.wordpress.org/srossignol/), [@lucashw](https://profiles.wordpress.org/lucashw/), [@skippy43](https://profiles.wordpress.org/skippy43/), [@anlip](https://profiles.wordpress.org/anlip/), [@agencefacton](https://profiles.wordpress.org/agencefacton/), [@injsbx](https://profiles.wordpress.org/injsbx/) et al.
+  * **Polish**: ASE Free and Pro (completed). Props to [@kosmity](https://profiles.wordpress.org/kosmity/) and [Dariusz Z.](https://profiles.wordpress.org/dariobros/) et al.
+  * **Norwegian**: ASE Free and Pro (completed). Props to [Alf O.F.](https://profiles.wordpress.org/skoen/) et al.
+  * **Czech**: ASE Free and Pro (completed). Props to Jan S. et al.
+  * **Spanish**: ASE Free and Pro (completed). Props to [@marcorubiol](https://profiles.wordpress.org/marcorubiol/) et al.
+  * **Slovak**: ASE Free and Pro (completed). Props to [Dominik K.](https://profiles.wordpress.org/dominokozmali/) et al.
+  * **Indonesian**: ASE Free and Pro (completed). Props to [@pakacil](https://profiles.wordpress.org/pakacil/), [Wawan S.](https://profiles.wordpress.org/ahmad-rafiansyah/) et al.
+  * **Portuguese (Portugal)**: ASE Free (completed) | ASE Pro (partial). Props to [Ricardo C.](https://profiles.wordpress.org/madebyuh/) et al.
+  * **Ukrainian**: ASE Free (completed) | ASE Pro (partial). Props to [Irina](https://profiles.wordpress.org/irinashl/) et al.
+  * **Urdu**: ASE Free (completed) | ASE Pro (partial). Props to [Ayyaz A.](https://profiles.wordpress.org/ayyazahmad/) et al.
+  * **Swedish**: ASE Free (completed) | ASE Pro (partial). Props to [Robert M.](https://profiles.wordpress.org/robertmichalski/) and [Tor-Bjorn F.](https://profiles.wordpress.org/tobifjellner/).
+  * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/) et al.
+  * **Arabic**: ASE Free (completed) | ASE Pro (completed). Props to [Mohammed J.](https://profiles.wordpress.org/ih4xz/), Yaser M., et al.
+  * **Romanian**: ASE Free (completed) | ASE Pro (partial). Props to [Dan C.](https://profiles.wordpress.org/dancaragea/), [@ravishi](https://profiles.wordpress.org/ravishi/) and [@catalinx777](https://profiles.wordpress.org/catalinx777/).
+  * **Turkish**: ASE Free (completed). Props to [@saeead](https://wordpress.org/support/users/saeead/), [@serdaroztrk](https://profiles.wordpress.org/serdaroztrk/) et al.
+  * **Chinese (Taiwan)**: ASE Free (completed). Props to [@gordon168](https://profiles.wordpress.org/gordon168/) and [Hedula](https://profiles.wordpress.org/hedula/).
+  * **Spanish (Chile)**: ASE Free (completed). Props to [@srgio](https://profiles.wordpress.org/srgio/).
+  * **Serbian**: ASE Free (partial). Props to [Igor E.](https://wordpress.org/support/users/igorel/) and [@plug-n-play](https://profiles.wordpress.org/plug-n-play/).
+  * **Albanian**: ASE Free (partial). Props to [@algertpateqi](https://profiles.wordpress.org/algertpateqi/).
+  * **Persian**: ASE Free (completed). Props to [@saeead](https://profiles.wordpress.org/saeead/) et al.
+  * **Russian**: ASE Free (completed). Props to [@sergey369](https://profiles.wordpress.org/sergey369/), [@pfgr](https://profiles.wordpress.org/pfgr/) et al.
+  * **Bosnian**: ASE Free (completed). Props to [@plug-n-play](https://profiles.wordpress.org/plug-n-play/) et al.
+  * **Croatian**: ASE Free (completed). Props to [@plug-n-play](https://profiles.wordpress.org/plug-n-play/).
+
+### 7.7.0 (2025.02.24) - ASE Free and Pro
+
+* **[ADDED in Pro] Security >> CAPTCHA Protection**: add CAPTCHA protection to WordPress default login, password reset, registration and comment forms and WooCommerce login, password reset and registration forms. Support [ALTCHA](https://altcha.org/) self-hosted version (GDPR-compliant, open source, free), Google reCaptcha v2 and v3, and Cloudflare Turnstile.
+
+* **[IMPROVED in Free and Pro] Admin Interface >> Hide Admin Notices**: fix for notices still showing on Hash Form form builder screen.
+
+* **[IMPROVED in Pro] Utilities >> Maintenance Mode**: added an option to exclude certain URLs from the maintenance mode. This could be useful if you have a custom login page created outside of ASE. Props to Miriam M. and Julian S. for prompting this improvement.
+
+* **[IMPROVED amd FOXED in Pro] Admin Interface >> Admin Columns Manager**: 
+  * **improved mechanism to load original column title** when an applicable column is set as such.
+  * **fixed a conflict with PublishPress Revisions** plugin causing fatal error when viewing the revisions queue page. Props to Adam for reporting the issue with a screenshot and the error stack trace, which helped in quickly resolving the issue.
+  
+* **[IMPROVED in Pro] Log In/Out | Register >> Login Page Customizer**:
+  * Changed logo image options to site icon, media library (image) or external (image) URL. Should work with your existing settings.
+  * Added automatic image dimension detection and image ratio preserver when using media library image. Props to Max Z. for prompting this improvement.
+  * Added links to external tools to get image dimension and calculate smaller dimension when using external image URL.
+
+* **[IMPROVED in Pro] Optimizations >> Image Upload Control**: add an option to set the JPG quality during conversion/upload of BMP, PNG and JPG files. Props to John D. for prompting this improvement.
+
+* **[FIXED in Free and Pro] Security >> Limit Login Attempts**: fix IPv6 addresses not being properly detected. Props to Mathijs v.d.B. and Jon B. for reporting the issue.
+
+* **[FIXED in Pro] Content Management >> Content Order**: fixed an issue where adjacent posts navigation (Previous / Next) is not being displayed when the Content Order module is enabled for post types that does not include the post type where such navigation is added to. Props to Glenn W. for reporting the issue in detail and facilitated the troubleshooting process.
+
+* **[FIXED in Pro] Admin Interface >> Admin Logo**: fix admin bar logo link not linking to the homepage as it should when viewed in the backend / wp-admin. Props to Max Z. for reporting the issue.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into 29 languages:
+  * **Added new/improved translation** for:
+    * Free: update Norwegian, Polish, Dutch, Portuguese (Brazil), Chinese (Taiwan), Indonesian
+    * Pro: update Indonesian, Hungarian, Polish
+  * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
+  * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
+  * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.
+  * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/), [denisgomesfranco](https://profiles.wordpress.org/denisgomesfranco/), [Denison C.](https://profiles.wordpress.org/denisoncarlos/) and [@ofmarconi](https://profiles.wordpress.org/ofmarconi/).
+  * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/) et al.
+  * **Vietnamese**: ASE Free and Pro (completed). Props to [Hoang N.Q.](https://profiles.wordpress.org/nguyenquanghoang/) et al.
+  * **Italian**: ASE Free and Pro (completed). Props to [Fabio P.](https://profiles.wordpress.org/fabioperri/) et. al.
+  * **Dutch**: ASE Free and Pro (completed). Props to [Toine R](https://profiles.wordpress.org/toineenzo/) and [Peter S.](https://profiles.wordpress.org/psmits1567/) et al.
+  * **Korean**: ASE Free and Pro (completed). Props to [@chazmlab](https://profiles.wordpress.org/chazmlab/) et al.
+  * **German (Formal)**: ASE Free and Pro (completed). Props to [@markussss](https://profiles.wordpress.org/markussss/), Bastian S. et al.
+  * **French**: ASE Free and Pro (completed). Props to [Stéphan G.](https://profiles.wordpress.org/gongonzo/), [@jeanfrancoisdelvin](https://profiles.wordpress.org/jeanfrancoisdelvin/), [@srossignol](https://profiles.wordpress.org/srossignol/), [@lucashw](https://profiles.wordpress.org/lucashw/), [@skippy43](https://profiles.wordpress.org/skippy43/), [@anlip](https://profiles.wordpress.org/anlip/), [@agencefacton](https://profiles.wordpress.org/agencefacton/), [@injsbx](https://profiles.wordpress.org/injsbx/) et al.
+  * **Polish**: ASE Free and Pro (completed). Props to [@kosmity](https://profiles.wordpress.org/kosmity/) and [Dariusz Z.](https://profiles.wordpress.org/dariobros/) et al.
+  * **Norwegian**: ASE Free and Pro (completed). Props to [Alf O.F.](https://profiles.wordpress.org/skoen/) et al.
+  * **Czech**: ASE Free and Pro (completed). Props to Jan S. et al.
+  * **Spanish**: ASE Free and Pro (completed). Props to [@marcorubiol](https://profiles.wordpress.org/marcorubiol/) et al.
+  * **Slovak**: ASE Free and Pro (completed). Props to [Dominik K.](https://profiles.wordpress.org/dominokozmali/) et al.
+  * **Indonesian**: ASE Free and Pro (completed). Props to [@pakacil](https://profiles.wordpress.org/pakacil/), [Wawan S.](https://profiles.wordpress.org/ahmad-rafiansyah/) et al.
+  * **Portuguese (Portugal)**: ASE Free (completed) | ASE Pro (partial). Props to [Ricardo C.](https://profiles.wordpress.org/madebyuh/) et al.
+  * **Ukrainian**: ASE Free (completed) | ASE Pro (partial). Props to [Irina](https://profiles.wordpress.org/irinashl/) et al.
+  * **Urdu**: ASE Free (completed) | ASE Pro (partial). Props to [Ayyaz A.](https://profiles.wordpress.org/ayyazahmad/) et al.
+  * **Swedish**: ASE Free (completed) | ASE Pro (partial). Props to [Robert M.](https://profiles.wordpress.org/robertmichalski/) and [Tor-Bjorn F.](https://profiles.wordpress.org/tobifjellner/).
+  * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/) et al.
+  * **Arabic**: ASE Free (completed) | ASE Pro (completed). Props to [Mohammed J.](https://profiles.wordpress.org/ih4xz/), Yaser M., et al.
+  * **Romanian**: ASE Free (completed) | ASE Pro (partial). Props to [Dan C.](https://profiles.wordpress.org/dancaragea/), [@ravishi](https://profiles.wordpress.org/ravishi/) and [@catalinx777](https://profiles.wordpress.org/catalinx777/).
+  * **Turkish**: ASE Free (completed). Props to [@saeead](https://wordpress.org/support/users/saeead/), [@serdaroztrk](https://profiles.wordpress.org/serdaroztrk/) et al.
+  * **Chinese (Taiwan)**: ASE Free (completed). Props to [@gordon168](https://profiles.wordpress.org/gordon168/) and [Hedula](https://profiles.wordpress.org/hedula/).
+  * **Spanish (Chile)**: ASE Free (completed). Props to [@srgio](https://profiles.wordpress.org/srgio/).
+  * **Serbian**: ASE Free (partial). Props to [Igor E.](https://wordpress.org/support/users/igorel/) and [@plug-n-play](https://profiles.wordpress.org/plug-n-play/).
+  * **Albanian**: ASE Free (partial). Props to [@algertpateqi](https://profiles.wordpress.org/algertpateqi/).
+  * **Persian**: ASE Free (completed). Props to [@saeead](https://profiles.wordpress.org/saeead/) et al.
+  * **Russian**: ASE Free (completed). Props to [@sergey369](https://profiles.wordpress.org/sergey369/), [@pfgr](https://profiles.wordpress.org/pfgr/) et al.
+
+### 7.6.11 (2025.02.17) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Admin Interface >> Hide Admin Notices**: the notices counter in the admin bar will now be updated as you clear notices from inside the notices drawer. There will be a slight delay, about 2 seconds, to compensate for the various ways different plugins clear their notices and how long that might take. Props to Elmira T. for prompting this improvement.
+
+* **[IMPROVED and FIXED in Pro] Admin Interface >> Admin Columns Manager**: 
+  * add an option to **use a column as the default sort (ascending / descending)**, so that when visiting the View All Posts/Pages/CPT posts, the list table will be sorted accordingly. Props to Justin B., Matt B., Lynette C. and Patrick K. for prompting this improvement. Your patience is also appreciated.
+  * add an option to **disable horizontal scrolling**, which might be useful in certain scnearios where another plugin is not expecting the `.wp-list-table` to be wrapped in a `div`. Props to Klemen T. for reporting a related issue that prompted this improvement.
+  * enable **custom date time format for the default 'Date' column**. Props to Julian W. for prompting this improvement.
+  * fixed **WPML's language column not showing the correct language flag** when switching language in the admin bar. Props to S. H. for reporting the issue in detail and facilitating the troubleshooting process.
+
+* **[FIXED in Free and Pro] Admin Interface >> Various Admin UI Enhancements >> Display Active Plugins First**: fix a PHP error in a certain scenario. Props to betaplus for reporting the issue along with the error call stack, which helps with troubleshooting.
+
+* **[FIXED in Free and Pro] Disable Components >> Disable Gutenberg**: fix for frontend block styles / CSS files not being properly disabled. Props to Stijn V. for reporting the issue and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Utilities >> Email Delivery**: fix an issue that may cause fatal error in some scenario when trying to log email deliveries. Props to Martin H. for reporting the issue in details (with an error stack trace).
+
+* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fix an issue where in Gravity Forms main dashboard, menu item(s) that are set to always be hidden for all user roles are not being properly hidden. Props to Robert D. for reporting the issue in detail and facilitating the troubleshooting process.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into 29 languages:
+  * **Added new/improved translation** for:
+    * Free: update Norwegian, Polish, Dutch, Portuguese (Brazil), Chinese (Taiwan), Indonesian
+    * Pro: update Indonesian, Hungarian, Polish
+  * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
+  * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
+  * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.
+  * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/), [denisgomesfranco](https://profiles.wordpress.org/denisgomesfranco/), [Denison C.](https://profiles.wordpress.org/denisoncarlos/) and [@ofmarconi](https://profiles.wordpress.org/ofmarconi/).
+  * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/) et al.
+  * **Vietnamese**: ASE Free and Pro (completed). Props to [Hoang N.Q.](https://profiles.wordpress.org/nguyenquanghoang/) et al.
+  * **Italian**: ASE Free and Pro (completed). Props to [Fabio P.](https://profiles.wordpress.org/fabioperri/) et. al.
+  * **Dutch**: ASE Free and Pro (completed). Props to [Toine R](https://profiles.wordpress.org/toineenzo/) and [Peter S.](https://profiles.wordpress.org/psmits1567/) et al.
+  * **Korean**: ASE Free and Pro (completed). Props to [@chazmlab](https://profiles.wordpress.org/chazmlab/) et al.
+  * **German (Formal)**: ASE Free and Pro (completed). Props to [@markussss](https://profiles.wordpress.org/markussss/), Bastian S. et al.
+  * **French**: ASE Free and Pro (completed). Props to [Stéphan G.](https://profiles.wordpress.org/gongonzo/), [@jeanfrancoisdelvin](https://profiles.wordpress.org/jeanfrancoisdelvin/), [@srossignol](https://profiles.wordpress.org/srossignol/), [@lucashw](https://profiles.wordpress.org/lucashw/), [@skippy43](https://profiles.wordpress.org/skippy43/), [@anlip](https://profiles.wordpress.org/anlip/), [@agencefacton](https://profiles.wordpress.org/agencefacton/), [@injsbx](https://profiles.wordpress.org/injsbx/) et al.
+  * **Polish**: ASE Free and Pro (completed). Props to [@kosmity](https://profiles.wordpress.org/kosmity/) and [Dariusz Z.](https://profiles.wordpress.org/dariobros/) et al.
+  * **Norwegian**: ASE Free and Pro (completed). Props to [Alf O.F.](https://profiles.wordpress.org/skoen/) et al.
+  * **Czech**: ASE Free and Pro (completed). Props to Jan S. et al.
+  * **Spanish**: ASE Free and Pro (completed). Props to [@marcorubiol](https://profiles.wordpress.org/marcorubiol/) et al.
+  * **Slovak**: ASE Free and Pro (completed). Props to [Dominik K.](https://profiles.wordpress.org/dominokozmali/) et al.
+  * **Indonesian**: ASE Free and Pro (completed). Props to [@pakacil](https://profiles.wordpress.org/pakacil/), [Wawan S.](https://profiles.wordpress.org/ahmad-rafiansyah/) et al.
+  * **Portuguese (Portugal)**: ASE Free (completed) | ASE Pro (partial). Props to [Ricardo C.](https://profiles.wordpress.org/madebyuh/) et al.
+  * **Ukrainian**: ASE Free (completed) | ASE Pro (partial). Props to [Irina](https://profiles.wordpress.org/irinashl/) et al.
+  * **Urdu**: ASE Free (completed) | ASE Pro (partial). Props to [Ayyaz A.](https://profiles.wordpress.org/ayyazahmad/) et al.
+  * **Swedish**: ASE Free (completed) | ASE Pro (partial). Props to [Robert M.](https://profiles.wordpress.org/robertmichalski/) and [Tor-Bjorn F.](https://profiles.wordpress.org/tobifjellner/).
+  * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/) et al.
+  * **Arabic**: ASE Free (completed) | ASE Pro (completed). Props to [Mohammed J.](https://profiles.wordpress.org/ih4xz/), Yaser M., et al.
+  * **Romanian**: ASE Free (completed) | ASE Pro (partial). Props to [Dan C.](https://profiles.wordpress.org/dancaragea/), [@ravishi](https://profiles.wordpress.org/ravishi/) et al.
+  * **Turkish**: ASE Free (completed). Props to [@saeead](https://wordpress.org/support/users/saeead/), [@serdaroztrk](https://profiles.wordpress.org/serdaroztrk/) et al.
+  * **Chinese (Taiwan)**: ASE Free (completed). Props to [@gordon168](https://profiles.wordpress.org/gordon168/) and [Hedula](https://profiles.wordpress.org/hedula/).
+  * **Spanish (Chile)**: ASE Free (completed). Props to [@srgio](https://profiles.wordpress.org/srgio/).
+  * **Serbian**: ASE Free (partial). Props to [Igor E.](https://wordpress.org/support/users/igorel/).
+  * **Albanian**: ASE Free (partial). Props to [@algertpateqi](https://profiles.wordpress.org/algertpateqi/).
+  * **Persian**: ASE Free (completed). Props to [@saeead](https://profiles.wordpress.org/saeead/) et al.
+  * **Russian**: ASE Free (completed). Props to [@sergey369](https://profiles.wordpress.org/sergey369/), [@pfgr](https://profiles.wordpress.org/pfgr/) et al.
+
+### 7.6.10 (2025.02.10) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Content Management >> Content Order**: 
+  * **when WPML plugin is active**, the content ordering page will now only show posts from the chosen language. Props to Stijn V. for prompting this improvement.
+  * **added 'Order' button in posts list tables** of post types where Content Order module is enabled for. Useful for when the 'Order' submenu can not be added to the parent menu that contains the link to the post type list table, e.g. LearnDash courses.
+
+* **[IMPROVED in Pro] Security >> Email Address Obfuscator**: added a 'text' parameter to the obfuscator shortcode that allows for showing a custom text instead of the human-readable email address. This, combined with the 'link' and 'class' parameter, allows for showing the obfuscated and linked email address as, for example, a "Contact Us" button. Props to Antoine L. for suggesting this improvement.
+
+* **[IMPROVED in Pro] Admin Interface >> Admin Columns Manager**: improv rendering of the post list table when this module is enabled. Props to Jake K. for prompting this improvement.
+
+* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fix styling issues when select2 JS and CSS files are also loaded by LearnDash and Hash Form plugins on the snippet creation and editing screens.
+
+* **[SECURITY FIX in Free and Pro]:
+  * **Security >> Limit Login Attempts**: fix Bypass via IP Spoofing vulnerability as responsibly disclosed by Bob, a security researcher for WPScan and Jetpack.
+  * **Utilities >> Password Protection**: fix Password Protection Bypass vulnerability as responsibly disclosed by Bob, a security researcher for WPScan and Jetpack.  
+
+* **[CHANGED in Free] Security >> Limit Login Attempts**: IP detection from a preferred header, e.g. `HTTP_X_FORWARDED_FOR`, is now also available in the free version of ASE.
+
+* **[FIXED in Free and Pro] Content Management >> External Permalinks**: fixed a compatibility issue that causes BeTheme template builder failing to load on singular template of post types that has External Permalinks enabled for. Props to PJ for reporting the issue and facilitating the troubleshooting process.
+
+* **[CHANGED in Pro] Admin Interface >> Admin Logo**: Admin bar logo link will no longer open in new browser tab by default. Props to Henry R. for suggesting this change.
+
+* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fix an issue where in a particular scenario, code snippets are not being properly stored as files to load/execute from. Props to Jhay B. for reporting the issue and facilitating the troubleshooting.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into 29 languages:
+  * **Added new/improved translation** for:
+    * Free: update Norwegian, French, Polish, Dutch, Portuguese (Brazil), Persian
+    * Pro: update Polish, Vietnamese, Portuguese (Brazil)
+  * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
+  * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
+  * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.
+  * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/), [denisgomesfranco](https://profiles.wordpress.org/denisgomesfranco/), [Denison C.](https://profiles.wordpress.org/denisoncarlos/) and [@ofmarconi](https://profiles.wordpress.org/ofmarconi/).
+  * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/) et al.
+  * **Vietnamese**: ASE Free and Pro (completed). Props to [Hoang N.Q.](https://profiles.wordpress.org/nguyenquanghoang/) et al.
+  * **Italian**: ASE Free and Pro (completed). Props to [Fabio P.](https://profiles.wordpress.org/fabioperri/) et. al.
+  * **Dutch**: ASE Free and Pro (completed). Props to [Toine R](https://profiles.wordpress.org/toineenzo/) and [Peter S.](https://profiles.wordpress.org/psmits1567/) et al.
+  * **Korean**: ASE Free and Pro (completed). Props to [@chazmlab](https://profiles.wordpress.org/chazmlab/) et al.
+  * **German (Formal)**: ASE Free and Pro (completed). Props to [@markussss](https://profiles.wordpress.org/markussss/), Bastian S. et al.
+  * **French**: ASE Free and Pro (completed). Props to [Stéphan G.](https://profiles.wordpress.org/gongonzo/), [@jeanfrancoisdelvin](https://profiles.wordpress.org/jeanfrancoisdelvin/), [@srossignol](https://profiles.wordpress.org/srossignol/), [@lucashw](https://profiles.wordpress.org/lucashw/), [@skippy43](https://profiles.wordpress.org/skippy43/), [@anlip](https://profiles.wordpress.org/anlip/), [@agencefacton](https://profiles.wordpress.org/agencefacton/), [@injsbx](https://profiles.wordpress.org/injsbx/) et al.
+  * **Polish**: ASE Free and Pro (completed). Props to [@kosmity](https://profiles.wordpress.org/kosmity/) and [Dariusz Z.](https://profiles.wordpress.org/dariobros/) et al.
+  * **Norwegian**: ASE Free and Pro (completed). Props to [Alf O.F.](https://profiles.wordpress.org/skoen/) et al.
+  * **Czech**: ASE Free and Pro (completed). Props to Jan S. et al.
+  * **Spanish**: ASE Free and Pro (completed). Props to [@marcorubiol](https://profiles.wordpress.org/marcorubiol/) et al.
+  * **Slovak**: ASE Free and Pro (completed). Props to [Dominik K.](https://profiles.wordpress.org/dominokozmali/) et al.
+  * **Indonesian**: ASE Free and Pro (completed). Props to [@pakacil](https://profiles.wordpress.org/pakacil/), [Wawan S.](https://profiles.wordpress.org/ahmad-rafiansyah/) et al.
+  * **Portuguese (Portugal)**: ASE Free (completed) | ASE Pro (partial). Props to [Ricardo C.](https://profiles.wordpress.org/madebyuh/) et al.
+  * **Ukrainian**: ASE Free (completed) | ASE Pro (partial). Props to [Irina](https://profiles.wordpress.org/irinashl/) et al.
+  * **Urdu**: ASE Free (completed) | ASE Pro (partial). Props to [Ayyaz A.](https://profiles.wordpress.org/ayyazahmad/) et al.
+  * **Swedish**: ASE Free (completed) | ASE Pro (partial). Props to [Robert M.](https://profiles.wordpress.org/robertmichalski/) and [Tor-Bjorn F.](https://profiles.wordpress.org/tobifjellner/).
+  * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/) et al.
+  * **Arabic**: ASE Free (completed) | ASE Pro (completed). Props to [Mohammed J.](https://profiles.wordpress.org/ih4xz/), Yaser M., et al.
+  * **Romanian**: ASE Free (completed) | ASE Pro (partial). Props to [Dan C.](https://profiles.wordpress.org/dancaragea/), [@ravishi](https://profiles.wordpress.org/ravishi/) et al.
+  * **Turkish**: ASE Free (completed). Props to [@saeead](https://wordpress.org/support/users/saeead/), [@serdaroztrk](https://profiles.wordpress.org/serdaroztrk/) et al.
+  * **Chinese (Taiwan)**: ASE Free (completed). Props to [@gordon168](https://profiles.wordpress.org/gordon168/) and [Hedula](https://profiles.wordpress.org/hedula/).
+  * **Spanish (Chile)**: ASE Free (completed). Props to [@srgio](https://profiles.wordpress.org/srgio/).
+  * **Serbian**: ASE Free (partial). Props to [Igor E.](https://wordpress.org/support/users/igorel/).
+  * **Albanian**: ASE Free (partial). Props to [@algertpateqi](https://profiles.wordpress.org/algertpateqi/).
+  * **Persian**: ASE Free (completed). Props to [@saeead](https://profiles.wordpress.org/saeead/) et al.
+  * **Russian**: ASE Free (completed). Props to [@sergey369](https://profiles.wordpress.org/sergey369/), [@pfgr](https://profiles.wordpress.org/pfgr/) et al.
+
+### 7.6.9 (2025.02.03) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Security >> Disable XML-RPC**: added additional things being disabled related to XML-RPC, namely, the 'X-Pingback' header in HTTP response headers, closing pings and pre-emptively remove several XML-RPC methods. Props to David M. for prompting this improvement.
+
+* **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**: added the missing Pages as part of selection in the "Single Page/Post/CPT" conditional for loading CSS/JS/HTML snippets on the frontend. Props to Killian H. for reporting the issue.
+
+* **[FIXED in Free and Pro] Utilities >> View Admin as Role**: fix PHP fatal error in a certain scenario. Props to Dale R. for reporting the issue in detail along with the error log entry.
+
+* **[FIXED in Free and Pro] Content Management >> Media Replacement**: 
+  - added mechanism to prevent browser cache busting URL parameter being added twice when performing replacements.
+  - fix an issue where in the grid view, media replacement is not working properly in Firefox / Zen browsers. Props to Justin for reporting the issue in detail and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fix date column showing 1 day difference with frontend displayed date. Props to Jonathan J. for reporting the issue and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fix an issue where submenu item's Hide / Options is not toggling the sub-options when clicked. Props to Christian for reporting the issue and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Content Management >> Content Order**: fix an issue with LearnDash where enabling content ordering for Courses will not add the 'Order' submenu item. Props to Bas B. for reporting the issue and facilitating the troubleshooting process.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into 29 languages:
+  * **Added new/improved translation** for:
+    * Free: update Norwegian, Dutch, Polish, Portuguese (Brazil) and Slovak
+    * Pro: updated Slovak
+  * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
+  * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
+  * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.
+  * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/), [denisgomesfranco](https://profiles.wordpress.org/denisgomesfranco/), [Denison C.](https://profiles.wordpress.org/denisoncarlos/) and [@ofmarconi](https://profiles.wordpress.org/ofmarconi/).
+  * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/) et al.
+  * **Vietnamese**: ASE Free and Pro (completed). Props to [Hoang N.Q.](https://profiles.wordpress.org/nguyenquanghoang/) et al.
+  * **Italian**: ASE Free and Pro (completed). Props to [Fabio P.](https://profiles.wordpress.org/fabioperri/) et. al.
+  * **Dutch**: ASE Free and Pro (completed). Props to [Toine R](https://profiles.wordpress.org/toineenzo/) and [Peter S.](https://profiles.wordpress.org/psmits1567/) et al.
+  * **Korean**: ASE Free and Pro (completed). Props to [@chazmlab](https://profiles.wordpress.org/chazmlab/) et al.
+  * **German (Formal)**: ASE Free and Pro (completed). Props to [@markussss](https://profiles.wordpress.org/markussss/), Bastian S. et al.
+  * **French**: ASE Free and Pro (completed). Props to [Stéphan G.](https://profiles.wordpress.org/gongonzo/), [@jeanfrancoisdelvin](https://profiles.wordpress.org/jeanfrancoisdelvin/), [@srossignol](https://profiles.wordpress.org/srossignol/), [@lucashw](https://profiles.wordpress.org/lucashw/), [@skippy43](https://profiles.wordpress.org/skippy43/), [@anlip](https://profiles.wordpress.org/anlip/), [@agencefacton](https://profiles.wordpress.org/agencefacton/), [@injsbx](https://profiles.wordpress.org/injsbx/) et al.
+  * **Polish**: ASE Free and Pro (completed). Props to [@kosmity](https://profiles.wordpress.org/kosmity/) and [Dariusz Z.](https://profiles.wordpress.org/dariobros/) et al.
+  * **Norwegian**: ASE Free and Pro (completed). Props to [Alf O.F.](https://profiles.wordpress.org/skoen/) et al.
+  * **Czech**: ASE Free and Pro (completed). Props to Jan S. et al.
+  * **Spanish**: ASE Free and Pro (completed). Props to [@marcorubiol](https://profiles.wordpress.org/marcorubiol/) et al.
+  * **Slovak**: ASE Free and Pro (completed). Props to [Dominik K.](https://profiles.wordpress.org/dominokozmali/) et al.
+  * **Indonesian**: ASE Free and Pro (completed). Props to [@pakacil](https://profiles.wordpress.org/pakacil/), [Wawan S.](https://profiles.wordpress.org/ahmad-rafiansyah/) et al.
+  * **Portuguese (Portugal)**: ASE Free (completed) | ASE Pro (partial). Props to [Ricardo C.](https://profiles.wordpress.org/madebyuh/) et al.
+  * **Ukrainian**: ASE Free (completed) | ASE Pro (partial). Props to [Irina](https://profiles.wordpress.org/irinashl/) et al.
+  * **Urdu**: ASE Free (completed) | ASE Pro (partial). Props to [Ayyaz A.](https://profiles.wordpress.org/ayyazahmad/) et al.
+  * **Swedish**: ASE Free (completed) | ASE Pro (partial). Props to [Robert M.](https://profiles.wordpress.org/robertmichalski/) and [Tor-Bjorn F.](https://profiles.wordpress.org/tobifjellner/).
+  * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/) et al.
+  * **Arabic**: ASE Free (completed) | ASE Pro (completed). Props to [Mohammed J.](https://profiles.wordpress.org/ih4xz/), Yaser M., et al.
+  * **Romanian**: ASE Free (completed) | ASE Pro (partial). Props to [Dan C.](https://profiles.wordpress.org/dancaragea/), [@ravishi](https://profiles.wordpress.org/ravishi/) et al.
+  * **Turkish**: ASE Free (completed). Props to [@saeead](https://wordpress.org/support/users/saeead/), [@serdaroztrk](https://profiles.wordpress.org/serdaroztrk/) et al.
+  * **Chinese (Taiwan)**: ASE Free (completed). Props to [@gordon168](https://profiles.wordpress.org/gordon168/) and [Hedula](https://profiles.wordpress.org/hedula/).
+  * **Spanish (Chile)**: ASE Free (completed). Props to [@srgio](https://profiles.wordpress.org/srgio/).
+  * **Serbian**: ASE Free (partial). Props to [Igor E.](https://wordpress.org/support/users/igorel/).
+  * **Albanian**: ASE Free (partial). Props to [@algertpateqi](https://profiles.wordpress.org/algertpateqi/).
+  * **Persian**: ASE Free (completed). Props to [@saeead](https://profiles.wordpress.org/saeead/) et al.
+  * **Russian**: ASE Free (completed). Props to [@sergey369](https://profiles.wordpress.org/sergey369/), [@pfgr](https://profiles.wordpress.org/pfgr/) et al.
 
 ### 7.6.8 (2025.01.27) - ASE Free and Pro
 

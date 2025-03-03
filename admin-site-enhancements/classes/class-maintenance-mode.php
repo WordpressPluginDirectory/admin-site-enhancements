@@ -18,9 +18,12 @@ class Maintenance_Mode {
         $common_methods = new Common_Methods();
         // Let's make a bypass key that is unique to each site
         $hashed_site_url = wp_hash_password( site_url() );
+        $excluded_from_maintenance_mode = false;
         $allow_frontend_access = $this->is_user_allowed_frontend_access();
         if ( isset( $_GET['bypass'] ) && $hashed_site_url == sanitize_text_field( $_GET['bypass'] ) ) {
             // Do nothing. We want to load the page normally, which is needed when using an existing page as a maintenance page
+        } elseif ( $excluded_from_maintenance_mode ) {
+            // Do nothing. This page is excluded from the maintentance mode.
         } elseif ( !is_admin() && !is_login() && !$allow_frontend_access ) {
             $maintenance_page_type = 'custom';
             // ======== Customizable maintenance page ========

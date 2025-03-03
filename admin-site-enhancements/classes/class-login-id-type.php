@@ -52,7 +52,7 @@ class Login_ID_Type {
      * @since 6.8.0
      */
     public function authenticate_email( $user, $username ) {
-        if ( null !== $user && ! is_wp_error( $user ) && $user->user_email !== $username ) {
+        if ( null !== $user && ! is_wp_error( $user ) && strtolower( $user->user_email ) !== strtolower( $username ) ) {
             $user = new WP_Error( 'invalid_username', __( '<strong>Error:</strong> Invalid email or incorrect password.', 'admin-site-enhancements' ) );
         }
         return $user;

@@ -147,8 +147,9 @@ class Disable_Gutenberg {
                     // theme.json
                     wp_dequeue_style( 'classic-theme-styles' );
                     // classic theme
+                    wp_deregister_style( 'wp-block-library' );
                 }
-                wp_deregister_style( 'wp-block-library' );
+                // wp_deregister_style( 'wp-block-library' );
             }
         }
     }

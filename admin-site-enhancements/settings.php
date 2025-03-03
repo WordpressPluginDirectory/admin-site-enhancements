@@ -238,36 +238,44 @@ function asenha_add_settings_page() {
     ?>
 					    <input id="tab-content-management" type="radio" name="tabs" checked><label for="tab-content-management"><?php 
     echo wp_kses( $icon_content_management, get_kses_with_svg_ruleset() );
+    ?><span><?php 
     echo esc_html__( 'Content Management', 'admin-site-enhancements' );
-    ?></label>
+    ?></span></label>
 					    <input id="tab-admin-interface" type="radio" name="tabs"><label for="tab-admin-interface"><?php 
     echo wp_kses( $icon_admin_interface, get_kses_with_svg_ruleset() );
+    ?><span><?php 
     echo esc_html__( 'Admin Interface', 'admin-site-enhancements' );
-    ?></label>
+    ?></span></label>
 					    <input id="tab-login-logout" type="radio" name="tabs"><label for="tab-login-logout"><?php 
     echo wp_kses( $icon_login_logout, get_kses_with_svg_ruleset() );
+    ?><span><?php 
     echo esc_html__( 'Log In/Out | Register', 'admin-site-enhancements' );
-    ?></label>
+    ?></span></label>
 					    <input id="tab-custom-code" type="radio" name="tabs"><label for="tab-custom-code"><?php 
     echo wp_kses( $icon_custom_code, get_kses_with_svg_ruleset() );
+    ?><span><?php 
     echo esc_html__( 'Custom Code', 'admin-site-enhancements' );
-    ?></label>
+    ?></span></label>
 					    <input id="tab-disable-components" type="radio" name="tabs"><label for="tab-disable-components"><?php 
     echo wp_kses( $icon_disable_components, get_kses_with_svg_ruleset() );
+    ?><span><?php 
     echo esc_html__( 'Disable Components', 'admin-site-enhancements' );
-    ?></label>
+    ?></span></label>
 					    <input id="tab-security" type="radio" name="tabs"><label for="tab-security"><?php 
     echo wp_kses( $icon_security, get_kses_with_svg_ruleset() );
+    ?><span><?php 
     echo esc_html__( 'Security', 'admin-site-enhancements' );
-    ?></label>
+    ?></span></label>
 					    <input id="tab-optimizations" type="radio" name="tabs"><label for="tab-optimizations"><?php 
     echo wp_kses( $icon_optimizations, get_kses_with_svg_ruleset() );
+    ?><span><?php 
     echo esc_html__( 'Optimizations', 'admin-site-enhancements' );
-    ?></label>
+    ?></span></label>
 					    <input id="tab-utilities" type="radio" name="tabs"><label for="tab-utilities"><?php 
     echo wp_kses( $icon_utilities, get_kses_with_svg_ruleset() );
+    ?><span><?php 
     echo esc_html__( 'Utilities', 'admin-site-enhancements' );
-    ?></label>
+    ?></span></label>
 					</div>
 					<div class="asenha-tab-contents">
 					    <section class="asenha-fields fields-content-management"> 
@@ -342,7 +350,9 @@ function asenha_add_settings_page() {
 				<div class="asenha-upgrade-nudge-bottom__message"><?php 
     echo __( 'Do more with <a href="https://www.wpase.com/upgrade-ndg-btm" target="_blank">ASE Pro</a>. Lifetime deal (LTD) <a href="https://www.wpase.com/upgrade-ndg-btm-prc" target="_blank">available</a>.', 'admin-site-enhancements' );
     ?> <?php 
-    echo __( 'Currently on YEAR-END SALE. <a href="https://www.wpase.com/promo-ndg" target="_blank">20% discount</a>.', 'admin-site-enhancements' );
+    if ( $is_yearend_promo_period ) {
+        echo __( 'Currently on YEAR-END SALE. <a href="https://www.wpase.com/promo-ndg" target="_blank">20% discount</a>.', 'admin-site-enhancements' );
+    }
     ?></div>
 			</div>
 			<?php 
@@ -651,15 +661,16 @@ function asenha_admin_scripts(  $hook_suffix  ) {
             false
         );
         wp_localize_script( 'asenha-admin-page', 'adminPageVars', array(
-            'siteUrl'              => get_site_url(),
-            'wpcontentUrl'         => content_url(),
-            'mediaFrameTitle'      => __( 'Select an Image', 'admin-site-enhancements' ),
-            'mediaFrameButtonText' => __( 'Use Selected Image', 'admin-site-enhancements' ),
-            'resetMenuNonce'       => wp_create_nonce( 'reset-menu-nonce' ),
-            'sendTestEmailNonce'   => wp_create_nonce( 'send-test-email-nonce_' . get_current_user_id() ),
-            'expandText'           => __( 'Expand', 'admin-site-enhancements' ),
-            'collapseText'         => __( 'Collapse', 'admin-site-enhancements' ),
-            'dataTable'            => array(
+            'siteUrl'                       => get_site_url(),
+            'wpcontentUrl'                  => content_url(),
+            'mediaFrameTitle'               => __( 'Select an Image', 'admin-site-enhancements' ),
+            'mediaFrameButtonText'          => __( 'Use Selected Image', 'admin-site-enhancements' ),
+            'resetMenuNonce'                => wp_create_nonce( 'reset-menu-nonce' ),
+            'sendTestEmailNonce'            => wp_create_nonce( 'send-test-email-nonce_' . get_current_user_id() ),
+            'formBuilderSendTestEmailNonce' => wp_create_nonce( 'formbuilder_ajax' ),
+            'expandText'                    => __( 'Expand', 'admin-site-enhancements' ),
+            'collapseText'                  => __( 'Collapse', 'admin-site-enhancements' ),
+            'dataTable'                     => array(
                 'emptyTable'   => __( 'No data available in table', 'admin-site-enhancements' ),
                 'info'         => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'admin-site-enhancements' ),
                 'infoEmpty'    => __( 'Showing 0 to 0 of 0 entries', 'admin-site-enhancements' ),
@@ -865,6 +876,46 @@ function asenha_admin_scripts(  $hook_suffix  ) {
         );
     }
     wp_localize_script( 'asenha-admin-page', 'asenhaStats', $asenha_stats_localized );
+}
+
+/**
+ * Inline CSS for Admin Menu Organizer in all wp-admin pages. Previously loaded externally as part of wp-admin.css file
+ * 
+ * @since 7.6.11
+ */
+function asenha_admin_menu_organizer_css() {
+    ?>
+	<style type="text/css">
+	/* Admin Interface >> Admin Menu Organizer */
+	#adminmenuwrap {
+		height: auto !important;
+	}
+
+	.toplevel_page_wpide #adminmenuwrap {
+		height: calc(100vh - var(--wpide-admin-bar-height)) !important;
+	} /* Fix for when in WPIDE plugin's menu / admin page */
+
+	.current.menu-top.hidden,
+	.wp-has-current-submenu.hidden {
+		display: list-item;
+	}
+
+	#adminmenu a.menu-top.hidden,
+	ul#adminmenu a.wp-has-current-submenu.hidden {
+		display: block;
+	}
+
+	/*! <fs_premium_only> */
+	.always-hidden {
+		display: none !important;
+	}
+
+	#adminmenu .wp-submenu a.hidden {
+		display: none;
+	}
+	/*! </fs_premium_only> */
+	</style>
+	<?php 
 }
 
 /**

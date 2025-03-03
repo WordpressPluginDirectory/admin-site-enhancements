@@ -14,7 +14,7 @@
 
 // Open media modal on clicking Select New Media File button. 
 // This is set with onclick="replaceMedia('mime/type')" on the button HTML
-function replaceMedia(oldImageMimeType) {
+function replaceMedia(originalAttachmentId,oldImageMimeType) {
 	if ( oldImageMimeType ) {
 		// There's a mime type defined. Do nothing.
 	} else {
@@ -81,15 +81,15 @@ function replaceMedia(oldImageMimeType) {
 		
 		if ( oldImageMimeType == newImageMimeType ) {
 
-			// Send the attachment id to our hidden input
-			jQuery('#new-attachment-id').val(attachment.id);
+			// Send the attachment id of the replacement / new image to our hidden input
+			jQuery('#new-attachment-id-'+originalAttachmentId).val(attachment.id);
 
-			if (jQuery("#new-attachment-id").closest('.media-modal').length) {
+			if (jQuery('#new-attachment-id-'+originalAttachmentId).closest('.media-modal').length) {
 			    
 			} else {
 				// For media library list view
 				// "Perform Replacement" button has been clicked. Submit the edit form, which includes 'new-attachment-id'
-				jQuery("#new-attachment-id").closest("form").submit();
+				jQuery('#new-attachment-id-'+originalAttachmentId).closest("form").submit();
 				jQuery(mediaFrame.close());
 			}			
 		}

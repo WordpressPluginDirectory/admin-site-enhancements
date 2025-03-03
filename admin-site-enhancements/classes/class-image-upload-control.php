@@ -89,16 +89,17 @@ class Image_Upload_Control {
                     $options = get_option( ASENHA_SLUG_U, array() );
                     $max_width = $options['image_max_width'];
                     $max_height = $options['image_max_height'];
+                    $convert_to_jpg_quality = 82;
                     // Check upload image's dimension and only resize if larger than the defined max dimension
                     if ( isset( $image_size['width'] ) && $image_size['width'] > $max_width || isset( $image_size['height'] ) && $image_size['height'] > $max_height ) {
                         $wp_image_editor->resize( $max_width, $max_height, false );
                         // false is for no cropping
-                        if ( 'image/jpg' === $upload['type'] || 'image/jpeg' === $upload['type'] ) {
-                            $wp_image_editor->set_quality( 90 );
-                            // default is 82
-                        }
-                        $wp_image_editor->save( $upload['file'] );
                     }
+                    // Save
+                    if ( 'image/jpg' === $upload['type'] || 'image/jpeg' === $upload['type'] ) {
+                        $wp_image_editor->set_quality( $convert_to_jpg_quality );
+                    }
+                    $wp_image_editor->save( $upload['file'] );
                 }
             }
         }

@@ -406,16 +406,18 @@ class View_Admin_As_Role {
             // Remove current user's username from stored usernames. 
             // Once removed, that user won't be able to switch back to the administrator role from the ?reset-for=username URL
             $options = get_option( ASENHA_SLUG_U, array() );
-            $usernames = $options['viewing_admin_as_role_are'];
+            $usernames = isset( $options['viewing_admin_as_role_are'] ) ? $options['viewing_admin_as_role_are'] : array();
 
-            foreach ( $usernames as $key => $username ) {
-                if ( $current_user_username == $username ) {
-                    unset( $usernames[$key] );
-                }
+            if ( ! empty( $usernames ) ) {
+                foreach ( $usernames as $key => $username ) {
+                    if ( $current_user_username == $username ) {
+                        unset( $usernames[$key] );
+                    }
+                }                
+
+                $options['viewing_admin_as_role_are'] = $usernames;
+                update_option( ASENHA_SLUG_U, $options, true );
             }
-
-            $options['viewing_admin_as_role_are'] = $usernames;
-            update_option( ASENHA_SLUG_U, $options, true );
 
             // Delete user meta related to View Admin As Role module
             delete_user_meta( $user_id, '_asenha_viewing_admin_as' );

@@ -19,131 +19,64 @@ class Common_Methods {
      * @since 2.5.0
      */
     public function get_user_ip_address( $return_type = 'ip', $for_which_module = 'limit-login-attempts' ) {
-        // Check for shared internet/ISP IP
-        if ( !empty( $_SERVER['HTTP_CLIENT_IP'] ) && $this->is_ip_valid( $_SERVER['HTTP_CLIENT_IP'] ) ) {
-            switch ( $return_type ) {
-                case 'ip':
-                    return sanitize_text_field( $_SERVER['HTTP_CLIENT_IP'] );
-                    break;
-                case 'header':
-                    return 'HTTP_CLIENT_IP';
-                    break;
-            }
+        $options = get_option( ASENHA_SLUG_U, array() );
+        $ip_address_header = '';
+        switch ( $for_which_module ) {
+            case 'limit-login-attempts':
+                $ip_address_header = ( isset( $options['limit_login_attempts_header_override'] ) ? trim( $options['limit_login_attempts_header_override'] ) : '' );
+                break;
+            case 'password-protection':
+                $ip_address_header = ( isset( $options['password_protection_header_override'] ) ? trim( $options['password_protection_header_override'] ) : '' );
+                break;
         }
-        // Check if Cloudflare is used as a proxy
-        // Ref: https://developers.cloudflare.com/fundamentals/reference/http-request-headers/#x-forwarded-for
-        if ( !empty( $_SERVER['CF_CONNECTING_IP'] ) && $this->is_ip_valid( $_SERVER['CF_CONNECTING_IP'] ) ) {
-            switch ( $return_type ) {
-                case 'ip':
-                    return sanitize_text_field( $_SERVER['CF_CONNECTING_IP'] );
-                    break;
-                case 'header':
-                    return 'CF_CONNECTING_IP';
-                    break;
-            }
-        }
-        if ( !empty( $_SERVER['HTTP_CF_CONNECTING_IP'] ) && $this->is_ip_valid( $_SERVER['HTTP_CF_CONNECTING_IP'] ) ) {
-            switch ( $return_type ) {
-                case 'ip':
-                    return sanitize_text_field( $_SERVER['HTTP_CF_CONNECTING_IP'] );
-                    break;
-                case 'header':
-                    return 'HTTP_CF_CONNECTING_IP';
-                    break;
-            }
-        }
-        if ( !empty( $_SERVER['TRUE_CLIENT_IP'] ) && $this->is_ip_valid( $_SERVER['TRUE_CLIENT_IP'] ) ) {
-            switch ( $return_type ) {
-                case 'ip':
-                    return sanitize_text_field( $_SERVER['TRUE_CLIENT_IP'] );
-                    break;
-                case 'header':
-                    return 'TRUE_CLIENT_IP';
-                    break;
-            }
-        }
-        if ( !empty( $_SERVER['HTTP_TRUE_CLIENT_IP'] ) && $this->is_ip_valid( $_SERVER['HTTP_TRUE_CLIENT_IP'] ) ) {
-            switch ( $return_type ) {
-                case 'ip':
-                    return sanitize_text_field( $_SERVER['HTTP_TRUE_CLIENT_IP'] );
-                    break;
-                case 'header':
-                    return 'HTTP_TRUE_CLIENT_IP';
-                    break;
-            }
-        }
-        // Check for IPs passing through proxies
-        if ( !empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+        // Attempt to get IP address with the preferred header
+        if ( !empty( $ip_address_header ) && isset( $_SERVER[$ip_address_header] ) ) {
             // Check if multiple IP addresses exist in var
-            $ip_list = explode( ',', $_SERVER['HTTP_X_FORWARDED_FOR'] );
+            $ip_list = explode( ',', $_SERVER[$ip_address_header] );
             if ( is_array( $ip_list ) && count( $ip_list ) > 1 ) {
                 foreach ( $ip_list as $ip ) {
-                    if ( $this->is_ip_valid( trim( $ip ) ) ) {
-                        switch ( $return_type ) {
-                            case 'ip':
+                    switch ( $return_type ) {
+                        case 'ip':
+                            if ( $this->is_ip_valid( trim( $ip ) ) ) {
                                 return sanitize_text_field( trim( $ip ) );
-                                break;
-                            case 'header':
-                                return 'HTTP_X_FORWARDED_FOR (multiple IPs)';
-                                break;
-                        }
+                            } else {
+                                return '0.0.0.0';
+                                // placeholder IP address
+                            }
+                            break;
+                        case 'header':
+                            return $ip_address_header . ' (multiple IP addresses)';
+                            break;
                     }
                 }
             } else {
                 switch ( $return_type ) {
                     case 'ip':
-                        return sanitize_text_field( $_SERVER['HTTP_X_FORWARDED_FOR'] );
+                        if ( $this->is_ip_valid( trim( $_SERVER[$ip_address_header] ) ) ) {
+                            return sanitize_text_field( $_SERVER[$ip_address_header] );
+                        } else {
+                            return '0.0.0.0';
+                            // placeholder IP address
+                        }
                         break;
                     case 'header':
-                        return 'HTTP_X_FORWARDED_FOR';
+                        return $ip_address_header;
                         break;
                 }
             }
         }
-        if ( !empty( $_SERVER['HTTP_X_FORWARDED'] ) && $this->is_ip_valid( $_SERVER['HTTP_X_FORWARDED'] ) ) {
-            switch ( $return_type ) {
-                case 'ip':
-                    return sanitize_text_field( $_SERVER['HTTP_X_FORWARDED'] );
-                    break;
-                case 'header':
-                    return 'HTTP_X_FORWARDED';
-                    break;
-            }
-        }
-        if ( !empty( $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'] ) && $this->is_ip_valid( $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'] ) ) {
-            switch ( $return_type ) {
-                case 'ip':
-                    return sanitize_text_field( $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'] );
-                    break;
-                case 'header':
-                    return 'HTTP_X_CLUSTER_CLIENT_IP';
-                    break;
-            }
-        }
-        if ( !empty( $_SERVER['HTTP_FORWARDED_FOR'] ) && $this->is_ip_valid( $_SERVER['HTTP_FORWARDED_FOR'] ) ) {
-            switch ( $return_type ) {
-                case 'ip':
-                    return sanitize_text_field( $_SERVER['HTTP_FORWARDED_FOR'] );
-                    break;
-                case 'header':
-                    return 'HTTP_FORWARDED_FOR';
-                    break;
-            }
-        }
-        if ( !empty( $_SERVER['HTTP_FORWARDED'] ) && $this->is_ip_valid( $_SERVER['HTTP_FORWARDED'] ) ) {
-            switch ( $return_type ) {
-                case 'ip':
-                    return sanitize_text_field( $_SERVER['HTTP_FORWARDED'] );
-                    break;
-                case 'header':
-                    return 'HTTP_FORWARDED';
-                    break;
-            }
-        }
-        // Return unreliable IP address since all else failed
+        // The following request headers can be modified by user or attacker when sending a request, so, will bypass an already blocked IP
+        // 'HTTP_CLIENT_IP', 'CF_CONNECTING_IP', 'HTTP_CF_CONNECTING_IP', 'HTTP_CF_CONNECTING_IP', 'TRUE_CLIENT_IP', 'HTTP_TRUE_CLIENT_IP', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED'
+        // Reported as security vulnerability in ASE <= v7.6.7.1 -- Limit Login Attempt Bypass via IP Spoofing
+        // Return unreliable but unspoofable IP address coming from the $_SERVER global as the default / fallback
         switch ( $return_type ) {
             case 'ip':
-                return sanitize_text_field( $_SERVER['REMOTE_ADDR'] );
+                if ( $this->is_ip_valid( trim( $_SERVER['REMOTE_ADDR'] ) ) ) {
+                    return sanitize_text_field( $_SERVER['REMOTE_ADDR'] );
+                } else {
+                    return '0.0.0.0';
+                    // placeholder IP address
+                }
                 break;
             case 'header':
                 return 'REMOTE_ADDR';
@@ -163,9 +96,13 @@ class Common_Methods {
             return false;
         }
         // Ref: https://www.php.net/manual/en/filter.filters.validate.php
-        if ( false == filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) ) {
+        // Ref: https://www.php.net/manual/en/filter.constants.php#constant.filter-validate-ip
+        // No need to specify which IP type to filter/check, e.g. filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 )
+        // This should check for both IPv4 and IPv6 addresses
+        if ( false === filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) && false === filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 ) ) {
             return false;
-        } else {
+        }
+        if ( false !== filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) || false !== filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 ) ) {
             return true;
         }
     }
@@ -370,8 +307,8 @@ class Common_Methods {
                 'fill'            => true,
                 'fill-rule'       => true,
                 'stroke'          => true,
-                'stroke-linejoin' => true,
                 'stroke-width'    => true,
+                'stroke-linejoin' => true,
                 'stroke-linecap'  => true,
             ),
             'title'  => array(
@@ -381,22 +318,31 @@ class Common_Methods {
                 'd'               => true,
                 'fill'            => true,
                 'stroke'          => true,
-                'stroke-linejoin' => true,
                 'stroke-width'    => true,
+                'stroke-linejoin' => true,
                 'stroke-linecap'  => true,
             ),
             'rect'   => array(
-                'width'  => true,
-                'height' => true,
-                'x'      => true,
-                'y'      => true,
-                'rx'     => true,
-                'ry'     => true,
+                'width'           => true,
+                'height'          => true,
+                'x'               => true,
+                'y'               => true,
+                'rx'              => true,
+                'ry'              => true,
+                'fill'            => true,
+                'stroke'          => true,
+                'stroke-width'    => true,
+                'stroke-linejoin' => true,
+                'stroke-linecap'  => true,
             ),
             'circle' => array(
-                'cx' => true,
-                'cy' => true,
-                'r'  => true,
+                'cx'              => true,
+                'cy'              => true,
+                'r'               => true,
+                'stroke'          => true,
+                'stroke-width'    => true,
+                'stroke-linejoin' => true,
+                'stroke-linecap'  => true,
             ),
         );
         $kses_with_extras = array_merge( $kses_defaults, $svg_args );
@@ -539,6 +485,26 @@ class Common_Methods {
             $output = trim( $url_parts[0], '/' );
         }
         return ( $output ? urldecode( $output ) : '/' );
+    }
+
+    /**
+     * Get array of elements with value of true
+     * 
+     * @since 7.6.10
+     */
+    public function get_array_of_keys_with_true_value( $array_with_true_false_values ) {
+        $array_of_keys_with_true_value = array();
+        if ( is_array( $array_with_true_false_values ) && count( $array_with_true_false_values ) > 0 ) {
+            foreach ( $array_with_true_false_values as $key => $value ) {
+                if ( $value ) {
+                    $array_of_keys_with_true_value[] = $key;
+                }
+            }
+            return $array_of_keys_with_true_value;
+        } else {
+            return array();
+            // default, empty array
+        }
     }
 
 }

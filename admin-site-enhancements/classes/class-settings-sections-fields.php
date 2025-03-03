@@ -2378,6 +2378,41 @@ class Settings_Sections_Fields {
                 'class'             => 'asenha-text with-prefix-suffix extra-narrow no-margin security ' . $field_slug,
             )
         );
+        $field_id = 'limit_login_attempts_header_override';
+        $field_slug = 'limit-login-attempts-header-override';
+        add_settings_field(
+            $field_id,
+            __( '<span class="field-sublabel sublabel-wide">Detect IP address from the following header first:</span>', 'admin-site-enhancements' ),
+            // Field title
+            [$render_field, 'render_text_subfield'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'       => ASENHA_SLUG_U,
+                'field_id'          => $field_id,
+                'field_name'        => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_type'        => '',
+                'field_prefix'      => '',
+                'field_suffix'      => '',
+                'field_description' => '',
+                'class'             => 'asenha-text with-prefix-suffix full-width flex-column security ' . $field_slug,
+            )
+        );
+        $field_id = 'limit_login_attempts_header_override_description';
+        $field_slug = 'limit-login-attempts-header-override-description';
+        add_settings_field(
+            $field_id,
+            '',
+            // Field title
+            [$render_field, 'render_description_subfield'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'       => ASENHA_SLUG_U,
+                'field_description' => __( 'For example, if your site is behind a trusted proxy, it\'s a good idea to use the <code>HTTP_X_FORWARDED_FOR</code> header. Leave empty to use the default detection method.' ),
+                'class'             => 'asenha-description security ' . $field_slug,
+            )
+        );
         $field_id = 'login_attempts_log_table';
         $field_slug = 'login-attempts-log-table';
         add_settings_field(

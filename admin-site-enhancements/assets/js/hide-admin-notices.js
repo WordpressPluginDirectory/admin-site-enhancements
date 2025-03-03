@@ -2,6 +2,7 @@
    'use strict';
 
    $(document).ready( function() {
+   	var noticesCount;
 
 		// Move admin notices at an interval after document is ready and WP core moves the position of notices under the page heading.
 	   	// https://plugins.trac.wordpress.org/browser/hide-admin-notices/tags/1.2.2/assets/js/hide-admin-notices.js
@@ -17,7 +18,7 @@
 				clearInterval(interval);
 
 		   		// Count hidden notices and append into admin bar counter
-		   		var noticesCount = $('.asenha-admin-notices-drawer > div').length;
+		   		noticesCount = $('.asenha-admin-notices-drawer > div').length;
 
 		   		if ( noticesCount > 0 ) {
 		   			$('.asenha-admin-notices-menu').show(); // show admin bar menu
@@ -30,7 +31,7 @@
 
 				return;
 			}
-
+			
 			// Plugins that outputs notices. For testing.
 			// Ajax Press - https://wordpress.org/plugins/ajax-press/
 			// Atlas Search - https://wordpress.org/plugins/atlas-search/
@@ -205,6 +206,8 @@
 			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .notice-updated,'
 			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .updated:not(.inline),'
 			+ '#wpbody-content > .wrap.gblocks-dashboard-wrap .update-nag,'
+			// WPML
+			+ '#wpbody-content > .otgs-notice,'
 			// WooCommerce Stock Sync
 			+ '#wpbody-content > .wrap > .ssgs-influencer-banner,'
 			+ '#wpbody-content > .wrap > .ssgs-upgrade-banner,'
@@ -215,28 +218,38 @@
 
 		}, 250);
 
-   		// Set up the side drawer that holds the hidden admin notices: https://stephanwagner.me/jBox
+		// Set up the side drawer that holds the hidden admin notices: https://stephanwagner.me/jBox
 
-   		var noticesModal = new jBox('Modal', {
-   			attach: '.asenha-admin-notices-menu',
-   			trigger: 'click', // or 'mouseenter'
-   			// content: 'Test'
-   			content: $('.asenha-admin-notices-drawer'),
-   			width: 1118, // pixels
-   			closeButton: 'box',
-   			addClass: 'admin-notices-modal',
-   			overlayClass: 'admin-notices-modal-overlay',
-   			target: '#wpwrap', // where to anchor the modal
-   			position: {
-   				x: 'right',
-   				y: 'top'
-   			},
-   			// fade: 1000,
-   			animation: {
-   				open: 'slide:bottom',
-   				close: 'slide:bottom'
-   			}
-   		});
+		var noticesModal = new jBox('Modal', {
+			attach: '.asenha-admin-notices-menu',
+			trigger: 'click', // or 'mouseenter'
+			// content: 'Test'
+			content: $('.asenha-admin-notices-drawer'),
+			width: 1118, // pixels
+			closeButton: 'box',
+			addClass: 'admin-notices-modal',
+			overlayClass: 'admin-notices-modal-overlay',
+			target: '#wpwrap', // where to anchor the modal
+			position: {
+				x: 'right',
+				y: 'top'
+			},
+			// fade: 1000,
+			animation: {
+				open: 'slide:bottom',
+				close: 'slide:bottom'
+			}
+		});
+
+		$(document).on('click', '.asenha-admin-notices-drawer', function() {
+			setTimeout(
+			  function() 
+			  {
+			    // Let's wait 200ms before we proceed. Give enough time for a notice div to be cleared from the DOM before recounting the notices
+	   		noticesCount = $('.asenha-admin-notices-drawer > div').length;
+	   		$('.asenha-admin-notices-counter').html(noticesCount); // insert count
+			  }, 2000);
+		});
 
    });
 
