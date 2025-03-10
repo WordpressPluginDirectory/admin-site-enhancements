@@ -1,10 +1,79 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **137 _minor_ releases** (e.g. 4.9.1), for a **total of 214 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **138 _minor_ releases** (e.g. 4.9.1), for a **total of 216 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+
+### 7.8.1 (2025.03.03) - ASE Free and Pro
+
+* **[IMPROVED in Pro] Security >> CAPTCHA Protection**: when CAPTCHA Protection is enabled on WooCommerce login form, also enable on the login form in WooCommerce checkout page. Ensure that after successful login, the customer/user is redirected back to the checkout page. This will override the settings added to the Redirect After Login module. Props to @betaplus for prompting this improvement.
+
+* **[IMPROVED in Free and Pro] Disable Components >> Disable REST API**: 
+  * ASE Pro: **CAPTCHA Protection >> ALTCHA widget** now works properly when Disable REST API is turned on. Props to Ivan C.d.A. for reporting the issue.
+  * ASE Free and Pro: **Contact Form 7** now works properlywhen Disable REST API is turned on. Props to Ivan C.d.A. for reporting the issue.
+  * ASE Pro: **Added an option to exclude certain routes** from being disabled.
+  
+* **[IMPROVED in Pro] Log In/Out | Register >> Login Page Customizer**: 
+  * Added a link to the [haikei app](https://haikei.app/generators/) when choosing 'Pattern' as the login page background. This is where you can **generate your own pattern** with a color scheme that match the branding of the site you are working on. Props to Wence W. for prompting this improvement.
+  * **The link to the privacy policy page** will now have the same color as registration and password reset links. Props to Wence W. for prompting this improvement.
+  * **Added an option to choose login button color**. Button hover color and button text color will automatically adjust to the chosen color. You can always customize in detail with the Custom CSS option. Props to Wence W. for prompting this improvement.
+  
+* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fix PHP warning in a certain scenario. Props to Dave C. for reporting the issue in detail and even suggesting the code fix as well, which has been tested and implemented.
+
+* **[FIXED in Pro] Content Management >> Content Order**: fix an issue where custom order is not being applied on taxonomy term archive page using the (WP) core Query Loop block. Props to Greg F. for reporting the issue in detail and working together to find a fix for it. Much appreciated!
+
+* **[FIXED and IMPROVED in Pro] Utilities >> Form Builder**:
+  * Add a Plain (no header image) email template. Props to Mathijs v.d.B. for suggesting this.
+  * Made default field input background color white
+  * Email notifications and auto-responder: ensure field tags work, i.e. properly replaced with the corresponding field value on email delivery. This also fixes the issue where auto-responder were not being delivered properly.
+  * Dropdown field: fixed builder preview for dropdown field becoming empty when adding a new option
+  * Address field: change zip subfield to be of the type text (previously it was number) to accomodate for various types of zip codes around the world
+  * Website / URL field: improve URL validation method
+  * Upload field: modification to frontend styles
+  * Choice field presets: update to options for the Importance preset for better clarity / less ambiguity
+  * Matrix of Uniform Dropdown field: fix an issue where the first option is not being shown in the dropddown.
+  * Choice and Matrix fields: the options are now immediately draggable upon adding the field.
+  * Textarea field: line breaks are now preserved in email notification and entry preview
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [31 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: updated Vietnamese, Spanish, Portuguese (Brazil), Polish, Norwegian, German, Dutch, Chinese (Taiwan)
+    * ASE Pro: added Turkish (partial). Updated Czech, Vietnamese, Romanian, Portuguese (Brazil).
+  * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
+  * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
+  * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.
+  * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/), [denisgomesfranco](https://profiles.wordpress.org/denisgomesfranco/), [Denison C.](https://profiles.wordpress.org/denisoncarlos/) and [@ofmarconi](https://profiles.wordpress.org/ofmarconi/).
+  * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/) et al.
+  * **Vietnamese**: ASE Free and Pro (completed). Props to [Hoang N.Q.](https://profiles.wordpress.org/nguyenquanghoang/) et al.
+  * **Italian**: ASE Free and Pro (completed). Props to [Fabio P.](https://profiles.wordpress.org/fabioperri/) et. al.
+  * **Dutch**: ASE Free and Pro (completed). Props to [Toine R](https://profiles.wordpress.org/toineenzo/) and [Peter S.](https://profiles.wordpress.org/psmits1567/) et al.
+  * **Korean**: ASE Free and Pro (completed). Props to [@chazmlab](https://profiles.wordpress.org/chazmlab/) et al.
+  * **German (Formal)**: ASE Free and Pro (completed). Props to [@markussss](https://profiles.wordpress.org/markussss/), Bastian S. et al.
+  * **French**: ASE Free and Pro (completed). Props to [Stéphan G.](https://profiles.wordpress.org/gongonzo/), [@jeanfrancoisdelvin](https://profiles.wordpress.org/jeanfrancoisdelvin/), [@srossignol](https://profiles.wordpress.org/srossignol/), [@lucashw](https://profiles.wordpress.org/lucashw/), [@skippy43](https://profiles.wordpress.org/skippy43/), [@anlip](https://profiles.wordpress.org/anlip/), [@agencefacton](https://profiles.wordpress.org/agencefacton/), [@injsbx](https://profiles.wordpress.org/injsbx/) et al.
+  * **Polish**: ASE Free and Pro (completed). Props to [@kosmity](https://profiles.wordpress.org/kosmity/) and [Dariusz Z.](https://profiles.wordpress.org/dariobros/) et al.
+  * **Norwegian**: ASE Free and Pro (completed). Props to [Alf O.F.](https://profiles.wordpress.org/skoen/) et al.
+  * **Czech**: ASE Free and Pro (completed). Props to Jan S. et al.
+  * **Spanish**: ASE Free and Pro (completed). Props to [@marcorubiol](https://profiles.wordpress.org/marcorubiol/) et al.
+  * **Slovak**: ASE Free and Pro (completed). Props to [Dominik K.](https://profiles.wordpress.org/dominokozmali/) et al.
+  * **Indonesian**: ASE Free and Pro (completed). Props to [@pakacil](https://profiles.wordpress.org/pakacil/), [Wawan S.](https://profiles.wordpress.org/ahmad-rafiansyah/) et al.
+  * **Portuguese (Portugal)**: ASE Free (completed) | ASE Pro (partial). Props to [Ricardo C.](https://profiles.wordpress.org/madebyuh/) et al.
+  * **Ukrainian**: ASE Free (completed) | ASE Pro (partial). Props to [Irina](https://profiles.wordpress.org/irinashl/) et al.
+  * **Urdu**: ASE Free (completed) | ASE Pro (partial). Props to [Ayyaz A.](https://profiles.wordpress.org/ayyazahmad/) et al.
+  * **Swedish**: ASE Free (completed) | ASE Pro (partial). Props to [Robert M.](https://profiles.wordpress.org/robertmichalski/) and [Tor-Bjorn F.](https://profiles.wordpress.org/tobifjellner/).
+  * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/) et al.
+  * **Arabic**: ASE Free (completed) | ASE Pro (completed). Props to [Mohammed J.](https://profiles.wordpress.org/ih4xz/), Yaser M., et al.
+  * **Romanian**: ASE Free (completed) | ASE Pro (partial). Props to [Dan C.](https://profiles.wordpress.org/dancaragea/), [@ravishi](https://profiles.wordpress.org/ravishi/) and [@catalinx777](https://profiles.wordpress.org/catalinx777/).
+  * **Turkish**: ASE Free (completed). Props to [@saeead](https://wordpress.org/support/users/saeead/), [@serdaroztrk](https://profiles.wordpress.org/serdaroztrk/) et al.
+  * **Chinese (Taiwan)**: ASE Free (completed). Props to [@gordon168](https://profiles.wordpress.org/gordon168/) and [Hedula](https://profiles.wordpress.org/hedula/).
+  * **Spanish (Chile)**: ASE Free (completed). Props to [@srgio](https://profiles.wordpress.org/srgio/).
+  * **Serbian**: ASE Free (partial). Props to [Igor E.](https://wordpress.org/support/users/igorel/) and [@plug-n-play](https://profiles.wordpress.org/plug-n-play/).
+  * **Albanian**: ASE Free (partial). Props to [@algertpateqi](https://profiles.wordpress.org/algertpateqi/).
+  * **Persian**: ASE Free (completed). Props to [@saeead](https://profiles.wordpress.org/saeead/) et al.
+  * **Russian**: ASE Free (completed). Props to [@sergey369](https://profiles.wordpress.org/sergey369/), [@pfgr](https://profiles.wordpress.org/pfgr/) et al.
+  * **Bosnian**: ASE Free (completed). Props to [@plug-n-play](https://profiles.wordpress.org/plug-n-play/) et al.
+  * **Croatian**: ASE Free (completed). Props to [@plug-n-play](https://profiles.wordpress.org/plug-n-play/).
 
 ### 7.8.0 (2025.03.03) - ASE Free and Pro
 
@@ -16,7 +85,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fix a fatal error in a certain scenario when displaying the default Date column. Props to Alberto P. for reporting the issue with the error stack trace.
 
-* **[FIXED in Pro] Content Management >> Content Order**: fix PHP warning that occurs in a certain scenario. Props to Dominik K., Simon S., Benjamin O., Sander d.V. for reporting the issue along with the relevant error/debug log entry.
+* **[FIXED in Pro] Content Management >> Content Order**: fix PHP warning that occurs in a certain scenario. Props to Dominik K., Simon S., Benjamin O., Sander d.V., betaplus, William L., @mmjaeger and Rick H.,  for reporting the issue along with the relevant error/debug log entry.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into 31 languages:
   * **Added new/improved translation** for:

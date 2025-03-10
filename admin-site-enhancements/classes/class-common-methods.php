@@ -416,6 +416,36 @@ class Common_Methods {
     }
 
     /**
+     * Increases or decreases the brightness of a color by a percentage of the current brightness.
+     *
+     * @param   string  $hex        Supported formats: `#FFF`, `#FFFFFF`, `FFF`, `FFFFFF`
+     * @param   float   $adjustment_percentage  A number between -1 and 1. E.g. 0.3 = 30% lighter; -0.4 = 40% darker.
+     *
+     * @return  string
+     *
+     * @link 	https://stackoverflow.com/a/54393956
+     * @author  maliayas
+     */
+    function adjust_bnrightness( $hex, $adjustment_percentage ) {
+        $hex = ltrim( $hex, '#' );
+        if ( strlen( $hex ) == 3 ) {
+            $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+        }
+        $hex = array_map( 'hexdec', str_split( $hex, 2 ) );
+        foreach ( $hex as &$color ) {
+            $adjustableLimit = ( $adjustment_percentage < 0 ? $color : 255 - $color );
+            $adjustAmount = ceil( $adjustableLimit * $adjustment_percentage );
+            $color = str_pad(
+                dechex( $color + $adjustAmount ),
+                2,
+                '0',
+                STR_PAD_LEFT
+            );
+        }
+        return '#' . implode( $hex );
+    }
+
+    /**
      * Detect if a color is light or dark
      * 
      * @link https://stackoverflow.com/a/12228730

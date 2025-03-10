@@ -14,10 +14,17 @@ class Disable_REST_API {
      *
      * @since 2.9.0
      */
-    public function disable_rest_api() {
+    public function disable_rest_api( $errors ) {
         $allow_rest_api_access = false;
         if ( !is_user_logged_in() ) {
-            $allow_rest_api_access = false;
+            // Get the REST API route being requested,e.g. wp/v2/posts | altcha/v1/challenge (without preceding slash /)
+            // Ref: https://developer.wordpress.org/reference/hooks/rest_authentication_errors/#comment-6463
+            $route = ltrim( $GLOBALS['wp']->query_vars['rest_route'], '/' );
+            if ( false !== strpos( $route, 'altcha/v1' ) || false !== strpos( $route, 'contact-form-7/v1' ) ) {
+                $allow_rest_api_access = true;
+            } else {
+                $allow_rest_api_access = false;
+            }
         } else {
             $allow_rest_api_access = true;
         }
