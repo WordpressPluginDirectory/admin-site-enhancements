@@ -1,11 +1,84 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **138 _minor_ releases** (e.g. 4.9.1), for a **total of 216 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **139 _minor_ releases** (e.g. 4.9.1), for a **total of 218 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
+### 7.8.2 (2025.03.03) - ASE Free and Pro
+
+* **[ADDED in Free and Pro] Disable Components >> Disable Smaller Components**: added an option to disable the Application Passwords feature in WordPress. Props to [DJABHipHop](https://wordpress.org/support/users/pressthemes1/) for [suggesting this](https://wordpress.org/support/topic/add-options-to-disable-wp_is_application_passwords_available/).
+
+* **[IMPROVED in Pro] Optimizations >> Image Upload Control**: add an option to disable generation of intermediate sizes. Props to Wilbert S., [@visedfaq](https://wordpress.org/support/topic/feature-suggestion-remove-image-sizes/), [@bradhazel](https://wordpress.org/support/topic/feature-request-i-have-two/), Stijn V., Jake H. and [@luislu](https://wordpress.org/support/topic/add-function-to-disable-thumbnail-size/) for suggesting this feature.
+
+* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: 
+  * **Added a new field type: time**. This has been integrated with Oxygen (classic), Bricks, Breakdance and Elementor. [Documentation](https://www.wpase.com/documentation/custom-field-types/) has also been updated. Props to Jim R. and Rlaf L. for prompting this imprvement.
+  * **Improved color field**. Color picker now supports transparency, which outputs the color in RGBA format, e.g. rgba(108, 19, 135, 0.9). Non-transparent color will be in HEX format, e.g. #333333.
+  * **Improved UI for relationship field**. Posts are now categorized under the post type label, and the post type label preppended on the selected posts. This is especially useful if you have multiple post types enabled. Props to @yankiara for suggesting this improvement.
+  * **Improved UI for term field**. Terms are now categorized under the taxonomy label, and the taxonomy label preppended on the selected terms.
+  * **Improved UI for user field**. Will now include display name and email address. This makes it easier to search / filter users.
+
+* **[CHANGED and IMPROVED in Pro] Admin Interface >> Admin Columns Manager**: 
+  * **Added rendering of column values for the new time field in ASE** custom field groups.
+  * Added "!important" for the "overflow-y:hidden" attribute for the #list-table-wrapper div, to **better guarantee horizontal scrolling will work** when other CSS rules try to override this attribute.
+
+* **[FIXED and IMPROVED in Pro] Utilities >> Form Builder**:
+  * **Added option to not save form submissions** in the database. This may be useful for scenarios where privacy is of a concern. Props to Marcellus J. for suggesting this.
+  * **Added option to set which field of each form to use for previewing entries** on the Entries listing page. This should make the Entries page more useful.
+  * **Added #page_url tag as possible default value of hidden field** which will be replaced by the permalink of the page where the form is being displayed on. This is useful for when you need to track where form submission is coming from. Props to Ralf L. for suggesting this improvement.
+  * **Fixed an issue where Screen Options panel is gone** from all admin pages when Form Builder is enabled. Props to Susanne R. for reporting the issue.
+  
+* **[FIXED in Pro] Security >> CAPTCHA Protection**: fixed PHP warning related to displaying CAPTCHA widgets on the comment form as reported by @betaplus.
+
+* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fixed a PHP fatal error when clicking on Yootheme menu icon, which uncommonly, links to an AJAX call URL. Props to Àlex M. for reporting the error with the complete error stack trace and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Content Management >> Content Order**: fixed a PHP error that breaks AJAX-filtering using JetSmartFilters. Props to Stijn V. for reporting the issue and facilitating the troubleshooting process.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [31 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: updated Ukrainian, Spanish (Spain), Spanish (Chile), Portuguese (Brazil), Polish, Norwegian, Dutch
+    * ASE Pro: updated Arabic, Norwegian, Hungarian, Polish, Romanian, Portuguese (Brazil). Polish, Portuguese (Brazil) and Romanian are 100% translated. Special kudos to [Jarosław K.]((https://profiles.wordpress.org/kosmity/)), [Valdemir M.](https://profiles.wordpress.org/valdemirmaran/) and [Catalin T.](https://profiles.wordpress.org/catalinx777/) for the huge work of translating the new Form Builder module!
+  * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
+  * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
+  * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.
+  * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Valdemir M.](https://profiles.wordpress.org/valdemirmaran/), [Dennis F.](https://profiles.wordpress.org/dnn/), [denisgomesfranco](https://profiles.wordpress.org/denisgomesfranco/), [Denison C.](https://profiles.wordpress.org/denisoncarlos/) and [@ofmarconi](https://profiles.wordpress.org/ofmarconi/).
+  * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/) et al.
+  * **Vietnamese**: ASE Free and Pro (completed). Props to [Hoang N.Q.](https://profiles.wordpress.org/nguyenquanghoang/) et al.
+  * **Italian**: ASE Free and Pro (completed). Props to [Fabio P.](https://profiles.wordpress.org/fabioperri/) et. al.
+  * **Dutch**: ASE Free and Pro (completed). Props to [Toine R](https://profiles.wordpress.org/toineenzo/) and [Peter S.](https://profiles.wordpress.org/psmits1567/) et al.
+  * **Korean**: ASE Free and Pro (completed). Props to [@chazmlab](https://profiles.wordpress.org/chazmlab/) et al.
+  * **German (Formal)**: ASE Free and Pro (completed). Props to [@markussss](https://profiles.wordpress.org/markussss/), Bastian S. et al.
+  * **French**: ASE Free and Pro (completed). Props to [Stéphan G.](https://profiles.wordpress.org/gongonzo/), [@jeanfrancoisdelvin](https://profiles.wordpress.org/jeanfrancoisdelvin/), [@srossignol](https://profiles.wordpress.org/srossignol/), [@lucashw](https://profiles.wordpress.org/lucashw/), [@skippy43](https://profiles.wordpress.org/skippy43/), [@anlip](https://profiles.wordpress.org/anlip/), [@agencefacton](https://profiles.wordpress.org/agencefacton/), [@injsbx](https://profiles.wordpress.org/injsbx/) et al.
+  * **Polish**: ASE Free and Pro (completed). Props to [@kosmity](https://profiles.wordpress.org/kosmity/) and [Dariusz Z.](https://profiles.wordpress.org/dariobros/) et al.
+  * **Norwegian**: ASE Free and Pro (completed). Props to [Alf O.F.](https://profiles.wordpress.org/skoen/) et al.
+  * **Czech**: ASE Free and Pro (completed). Props to Jan S. et al.
+  * **Spanish**: ASE Free and Pro (completed). Props to [@marcorubiol](https://profiles.wordpress.org/marcorubiol/) et al.
+  * **Slovak**: ASE Free and Pro (completed). Props to [Dominik K.](https://profiles.wordpress.org/dominokozmali/) et al.
+  * **Indonesian**: ASE Free and Pro (completed). Props to [@pakacil](https://profiles.wordpress.org/pakacil/), [Wawan S.](https://profiles.wordpress.org/ahmad-rafiansyah/) et al.
+  * **Portuguese (Portugal)**: ASE Free (completed) | ASE Pro (partial). Props to [Ricardo C.](https://profiles.wordpress.org/madebyuh/) et al.
+  * **Ukrainian**: ASE Free (completed) | ASE Pro (partial). Props to [Irina](https://profiles.wordpress.org/irinashl/) et al.
+  * **Urdu**: ASE Free (completed) | ASE Pro (partial). Props to [Ayyaz A.](https://profiles.wordpress.org/ayyazahmad/) et al.
+  * **Swedish**: ASE Free (completed) | ASE Pro (partial). Props to [Robert M.](https://profiles.wordpress.org/robertmichalski/) and [Tor-Bjorn F.](https://profiles.wordpress.org/tobifjellner/).
+  * **Danish**: ASE Free (completed) | ASE Pro (partial). Props to [Morten E.L.](https://profiles.wordpress.org/ellegaarddk/), [Helgi P.](https://profiles.wordpress.org/helgipetersen/) and [Kurt M.A.](https://profiles.wordpress.org/moskjaer/) et al.
+  * **Arabic**: ASE Free (completed) | ASE Pro (completed). Props to [Mohammed J.](https://profiles.wordpress.org/ih4xz/), Yaser M., et al.
+  * **Romanian**: ASE Free (completed) | ASE Pro (partial). Props to [Dan C.](https://profiles.wordpress.org/dancaragea/), [@ravishi](https://profiles.wordpress.org/ravishi/) and [@catalinx777](https://profiles.wordpress.org/catalinx777/).
+  * **Turkish**: ASE Free (completed). Props to [@saeead](https://wordpress.org/support/users/saeead/), [@serdaroztrk](https://profiles.wordpress.org/serdaroztrk/) et al.
+  * **Chinese (Taiwan)**: ASE Free (completed). Props to [@gordon168](https://profiles.wordpress.org/gordon168/) and [Hedula](https://profiles.wordpress.org/hedula/).
+  * **Spanish (Chile)**: ASE Free (completed). Props to [@srgio](https://profiles.wordpress.org/srgio/).
+  * **Serbian**: ASE Free (partial). Props to [Igor E.](https://wordpress.org/support/users/igorel/) and [@plug-n-play](https://profiles.wordpress.org/plug-n-play/).
+  * **Albanian**: ASE Free (partial). Props to [@algertpateqi](https://profiles.wordpress.org/algertpateqi/).
+  * **Persian**: ASE Free (completed). Props to [@saeead](https://profiles.wordpress.org/saeead/) et al.
+  * **Russian**: ASE Free (completed). Props to [@sergey369](https://profiles.wordpress.org/sergey369/), [@pfgr](https://profiles.wordpress.org/pfgr/) et al.
+  * **Bosnian**: ASE Free (completed). Props to [@plug-n-play](https://profiles.wordpress.org/plug-n-play/) et al.
+  * **Croatian**: ASE Free (completed). Props to [@plug-n-play](https://profiles.wordpress.org/plug-n-play/).
+
+### 7.8.1.1 (2025.03.10) - ASE Pro
+
+* **[FIXED in Pro] Content Management >> Content Order**: 
+  * fixed a bug introduced in v7.8.1 where all post types on the frontend are ordered by menu_order when the "Use custom order on frontend query..." checkbox are checked, disregarding the post types selection in the module settings. Props to Mitchel v.E. for reporting the issue.
+  * fixed PHP warning related to applying custom ordering on frontend next/previous post navigation. Props to Richard B. for reporting the error with the complete error log entry.
+  
 ### 7.8.1 (2025.03.03) - ASE Free and Pro
 
 * **[IMPROVED in Pro] Security >> CAPTCHA Protection**: when CAPTCHA Protection is enabled on WooCommerce login form, also enable on the login form in WooCommerce checkout page. Ensure that after successful login, the customer/user is redirected back to the checkout page. This will override the settings added to the Redirect After Login module. Props to @betaplus for prompting this improvement.

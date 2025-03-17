@@ -302,6 +302,7 @@
       $('.disable-jquery-migrate').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');
       $('.disable-block-widgets').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');
       $('.disable-lazy-load').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');
+      $('.disable-application-passwords').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');
       $('.disable-plugin-theme-editor').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');
 
       // Place fields into "Security" tab
@@ -325,6 +326,7 @@
       $('.image-max-height').appendTo('.fields-optimizations .image-upload-control .asenha-subfields');
       
       $('.image-upload-control-description').appendTo('.fields-optimizations .image-upload-control .asenha-subfields');
+      
       $('.enable-revisions-control').appendTo('.fields-optimizations > table > tbody');
       $('.revisions-max-number').appendTo('.fields-optimizations .enable-revisions-control .asenha-subfields');
       $('.enable-revisions-control-for').appendTo('.fields-optimizations .enable-revisions-control .asenha-subfields');

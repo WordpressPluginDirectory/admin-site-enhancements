@@ -528,7 +528,9 @@ class Content_Order {
      */
     public function orderby_menu_order( $query ) {
         global $pagenow, $typenow;
+        $query_post_type = $query->get( 'post_type' );
         $options = get_option( ASENHA_SLUG_U, array() );
+        // Hierarchical post types that should be custom ordered
         $content_order_for = ( isset( $options['content_order_for'] ) ? $options['content_order_for'] : array() );
         $content_order_enabled_post_types = array();
         if ( is_array( $content_order_for ) && count( $content_order_for ) > 0 ) {
@@ -539,15 +541,13 @@ class Content_Order {
             }
         }
         $should_be_custom_sorted = false;
-        if ( in_array( $typenow, $content_order_enabled_post_types ) ) {
-            $should_be_custom_sorted = true;
-        }
+        // All post types that should be custom ordered
+        $content_order_post_types = $content_order_enabled_post_types;
         // Use custom order in wp-admin listing pages/tables for enabled post types
         if ( is_admin() && ('edit.php' == $pagenow || 'upload.php' == $pagenow) && !isset( $_GET['orderby'] ) ) {
-            if ( $should_be_custom_sorted ) {
+            if ( in_array( $typenow, $content_order_post_types ) ) {
                 $query->set( 'orderby', 'menu_order title' );
                 $query->set( 'order', 'ASC' );
-                // vi( $query, '', 'for ' . $pagenow );
             }
         }
     }

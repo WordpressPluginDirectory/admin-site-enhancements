@@ -2278,6 +2278,23 @@ class Settings_Sections_Fields {
                 'class'       => 'asenha-checkbox asenha-hide-th disable-components ' . $field_slug,
             )
         );
+        $field_id = 'disable_application_passwords';
+        $field_slug = 'disable-application-passwords';
+        add_settings_field(
+            $field_id,
+            '',
+            // Field title
+            [$render_field, 'render_checkbox_plain'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name' => ASENHA_SLUG_U,
+                'field_id'    => $field_id,
+                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_label' => __( 'Disable <strong>application passwords</strong> that was added since WordPress v5.6.', 'admin-site-enhancements' ),
+                'class'       => 'asenha-checkbox asenha-hide-th disable-components ' . $field_slug,
+            )
+        );
         $field_id = 'disable_plugin_theme_editor';
         $field_slug = 'disable-plugin-theme-editor';
         $is_wpconfig_writeable = $wp_config->wpconfig_file( 'writeability' );
@@ -2553,7 +2570,7 @@ class Settings_Sections_Fields {
                 'field_id'          => $field_id,
                 'field_name'        => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_type'        => 'with-prefix-suffix',
-                'field_prefix'      => __( 'Max width:', 'admin-site-enhancements' ),
+                'field_prefix'      => '<span class="subfield-prefix">' . __( 'Max width:', 'admin-site-enhancements' ) . '</span>',
                 'field_suffix'      => __( 'pixels. <span class="faded">(Default is 1920 pixels)</span>', 'admin-site-enhancements' ),
                 'field_intro'       => '',
                 'field_placeholder' => '1920',
@@ -2577,7 +2594,7 @@ class Settings_Sections_Fields {
                 'field_id'          => $field_id,
                 'field_name'        => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_type'        => 'with-prefix-suffix',
-                'field_prefix'      => __( 'Max height:', 'admin-site-enhancements' ),
+                'field_prefix'      => '<span class="subfield-prefix">' . __( 'Max height:', 'admin-site-enhancements' ) . '</span>',
                 'field_suffix'      => __( 'pixels <span class="faded">(Default is 1920 pixels)</span>', 'admin-site-enhancements' ),
                 'field_intro'       => '',
                 'field_placeholder' => '1920',
@@ -2602,6 +2619,80 @@ class Settings_Sections_Fields {
                 'class'             => 'asenha-description top-border optimizations ' . $field_slug,
             )
         );
+        $field_id = 'heading_for_disabled_image_sizes';
+        $field_slug = 'heading-for-disabled-image-sizes';
+        add_settings_field(
+            $field_id,
+            '',
+            // Field title
+            [$render_field, 'render_subfields_heading'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'subfields_heading' => __( 'Disable generation of the following intermediate sizes:', 'admin-site-enhancements' ),
+                'class'             => 'asenha-heading top-border optimizations ' . $field_slug,
+            )
+        );
+        $field_id = 'disabled_image_sizes';
+        $field_slug = 'disabled-image-sizes';
+        $default_sizes = array(
+            'thumb',
+            'thumbnail',
+            'post-thumbnail',
+            'medium',
+            'medium_large',
+            'large',
+            '1536x1536',
+            '2048x2048',
+            '-scaled',
+            'full'
+        );
+        $registered_image_subsizes = wp_get_registered_image_subsizes();
+        foreach ( $registered_image_subsizes as $image_subsize_slug => $image_subsize_info ) {
+            // $image_subsize element:
+            // 'thumbnail' => array(
+            // 	width 	=> 150,
+            // 	height 	=> 150,
+            // 	crop 	=> true,
+            // )
+            if ( in_array( $image_subsize_slug, $default_sizes ) ) {
+                $size_type = 'default';
+            } else {
+                $size_type = 'additional';
+            }
+            if ( is_bool( $image_subsize_info['crop'] ) ) {
+                $crop = ( $image_subsize_info['crop'] ? __( 'crop', 'admin-site-enhancements' ) : __( 'no crop', 'admin-site-enhancements' ) );
+                $crop_position = '';
+            } elseif ( is_array( $image_subsize_info['crop'] ) ) {
+                $crop = __( 'crop', 'admin-site-enhancements' );
+                $crop_position = 'x-' . $image_subsize_info['crop'][0] . ' ' . 'y-' . $image_subsize_info['crop'][1];
+            }
+            if ( 'crop' == $crop ) {
+                if ( !empty( $crop_position ) ) {
+                    $crop_info = $crop . ' | ' . $crop_position;
+                } else {
+                    $crop_info = $crop;
+                }
+            } else {
+                $crop_info = $crop;
+            }
+            add_settings_field(
+                $field_id . '_' . $image_subsize_slug,
+                '',
+                // Field title
+                [$render_field, 'render_checkbox_subfield'],
+                ASENHA_SLUG,
+                'main-section',
+                array(
+                    'option_name'     => ASENHA_SLUG_U,
+                    'parent_field_id' => $field_id,
+                    'field_id'        => $image_subsize_slug,
+                    'field_name'      => ASENHA_SLUG_U . '[' . $field_id . '][' . $image_subsize_slug . ']',
+                    'field_label'     => $image_subsize_slug . ' <span class="faded">(' . $size_type . ' | ' . $image_subsize_info['width'] . 'x' . $image_subsize_info['height'] . ' | ' . $crop_info . ')</span>',
+                    'class'           => 'asenha-checkbox asenha-hide-th optimizations ' . $field_slug . ' ' . $image_subsize_slug,
+                )
+            );
+        }
         // Enable Revisions Control
         $field_id = 'enable_revisions_control';
         $field_slug = 'enable-revisions-control';

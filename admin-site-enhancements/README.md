@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.7.2  
-Stable tag: 7.8.1  
+Stable tag: 7.8.2  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -42,8 +42,8 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### FEATURES & MODULES
 
-**66 modules** in total:  
-**55 free modules** (28 has Pro features) | **11 Pro modules**
+**67 modules** in total:  
+**55 free modules** (28 has Pro features) | **12 Pro modules**
 
 [**See all features >>**](https://www.wpase.com/features/)
 
@@ -113,7 +113,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **Disable REST API**. Disable REST API access for non-authenticated users and remove URL traces from &lt;head&gt;, HTTP headers and WP RSD endpoint. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to enable access only for some, authenticated user roles, e.g. administrators, and also a way to exclude certain API routes from being disabled.
 * **Disable Feeds**. Disable all RSS, Atom and RDF feeds.
 * **Disable All Updates**. Completely disable core, theme and plugin updates and auto-updates. Will also disable update checks, notices and emails.
-* **Disable Smaller Components**. Prevent smaller components from running or loading. Those are generator &lt;meta&gt; tag, version number, Windows Live Writer (WLW) manifest &lt;link&gt; tag, Really Simple Discovery (RSD) &lt;link&gt; tag, WordPress shortlink &lt;link&gt; tag in &lt;head&gt;, and also dashicons CSS and JS files, emoji support, jQuery Migrate, block-based widgets settings screen, native lazy load of images and plugin / theme editor.
+* **Disable Smaller Components**. Prevent smaller components from running or loading. Those are generator &lt;meta&gt; tag, version number, Windows Live Writer (WLW) manifest &lt;link&gt; tag, Really Simple Discovery (RSD) &lt;link&gt; tag, WordPress shortlink &lt;link&gt; tag in &lt;head&gt;, and also dashicons CSS and JS files, emoji support, jQuery Migrate, block-based widgets settings screen, native lazy load of images, application passwords and plugin / theme editor.
 
 ### Security
 
@@ -132,7 +132,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 ### Utilities
 
 * **Email Delivery**. Set custom sender name and email. Optionally use external SMTP service to ensure notification and transactional emails from your site are being delivered to inboxes. [ASE Pro](https://www.wpase.com/rdme-to-web) adds the option to specify a custom reply-to name and email, Bcc address(es), disable authentication and the option to log email delivery.
-* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Form Builder**. Enable the drag-and-drop creation of various types of forms (contact, feedback, booking, application, proposal, admission, support, survey, etc.) on the frontend to collect information from site visitors or users or members. 33 field types are available, including Net Promoter Score (NPS), Likert, Matrix of Uniform and Variable Dropdowns and CAPTCHA fields. Support custom form styles, multi-columns layout, email notification, auto responder and conditional logic to show / hide fields.
+* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Form Builder**. Enable the drag-and-drop creation of various types of forms (contact, feedback, booking, application, proposal, admission, support, survey, etc.) on the frontend to collect information from site visitors or users or members. 33 field types are available, including Net Promoter Score (NPS), Likert, Matrix of Uniform and Variable Dropdowns and CAPTCHA fields. Support custom form styles, multi-columns layout, email notification and auto responder.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Local User Avatar**. Enable usage of any image from WordPress Media Library as user avatars.
 * **Multiple User Roles**. Enable assignment of multiple roles during user account creation and editing.
 * **Image Sizes Panel**. Display a panel showing and linking to all available sizes when viewing an image in the media library. [ASE Pro](https://www.wpase.com/rdme-to-web) adds a convenient button to copy the image URL on click.
@@ -196,51 +196,49 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **138 _minor_ releases** (e.g. 4.9.1), for a **total of 216 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **139 _minor_ releases** (e.g. 4.9.1), for a **total of 218 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 7.8.1 (2025.03.03) - ASE Free and Pro
+### 7.8.2 (2025.03.17) - ASE Free and Pro
 
-* **[IMPROVED in Pro] Security >> CAPTCHA Protection**: when CAPTCHA Protection is enabled on WooCommerce login form, also enable on the login form in WooCommerce checkout page. Ensure that after successful login, the customer/user is redirected back to the checkout page. This will override the settings added to the Redirect After Login module. Props to @betaplus for prompting this improvement.
+* **[ADDED in Free and Pro] Disable Components >> Disable Smaller Components**: added an option to disable the Application Passwords feature in WordPress. Props to [DJABHipHop](https://wordpress.org/support/users/pressthemes1/) for [suggesting this](https://wordpress.org/support/topic/add-options-to-disable-wp_is_application_passwords_available/).
 
-* **[IMPROVED in Free and Pro] Disable Components >> Disable REST API**: 
-  * ASE Pro: **CAPTCHA Protection >> ALTCHA widget** now works properly when Disable REST API is turned on. Props to Ivan C.d.A. for reporting the issue.
-  * ASE Free and Pro: **Contact Form 7** now works properlywhen Disable REST API is turned on. Props to Ivan C.d.A. for reporting the issue.
-  * ASE Pro: **Added an option to exclude certain routes** from being disabled.
-  
-* **[IMPROVED in Pro] Log In/Out | Register >> Login Page Customizer**: 
-  * Added a link to the [haikei app](https://haikei.app/generators/) when choosing 'Pattern' as the login page background. This is where you can **generate your own pattern** with a color scheme that match the branding of the site you are working on. Props to Wence W. for prompting this improvement.
-  * **The link to the privacy policy page** will now have the same color as registration and password reset links. Props to Wence W. for prompting this improvement.
-  * **Added an option to choose login button color**. Button hover color and button text color will automatically adjust to the chosen color. You can always customize in detail with the Custom CSS option. Props to Wence W. for prompting this improvement.
-  
-* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fix PHP warning in a certain scenario. Props to Dave C. for reporting the issue in detail and even suggesting the code fix as well, which has been tested and implemented.
+* **[IMPROVED in Pro] Optimizations >> Image Upload Control**: add an option to disable generation of intermediate sizes. Props to Wilbert S., [@visedfaq](https://wordpress.org/support/topic/feature-suggestion-remove-image-sizes/), [@bradhazel](https://wordpress.org/support/topic/feature-request-i-have-two/), Stijn V., Jake H. and [@luislu](https://wordpress.org/support/topic/add-function-to-disable-thumbnail-size/) for suggesting this feature.
 
-* **[FIXED in Pro] Content Management >> Content Order**: fix an issue where custom order is not being applied on taxonomy term archive page using the (WP) core Query Loop block. Props to Greg F. for reporting the issue in detail and working together to find a fix for it. Much appreciated!
+* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: 
+  * **Added a new field type: time**. This has been integrated with Oxygen (classic), Bricks, Breakdance and Elementor. [Documentation](https://www.wpase.com/documentation/custom-field-types/) has also been updated. Props to Jim R. and Rlaf L. for prompting this imprvement.
+  * **Improved color field**. Color picker now supports transparency, which outputs the color in RGBA format, e.g. rgba(108, 19, 135, 0.9). Non-transparent color will be in HEX format, e.g. #333333.
+  * **Improved UI for relationship field**. Posts are now categorized under the post type label, and the post type label preppended on the selected posts. This is especially useful if you have multiple post types enabled. Props to @yankiara for suggesting this improvement.
+  * **Improved UI for term field**. Terms are now categorized under the taxonomy label, and the taxonomy label preppended on the selected terms.
+  * **Improved UI for user field**. Will now include display name and email address. This makes it easier to search / filter users.
+
+* **[CHANGED and IMPROVED in Pro] Admin Interface >> Admin Columns Manager**: 
+  * **Added rendering of column values for the new time field in ASE** custom field groups.
+  * Added "!important" for the "overflow-y:hidden" attribute for the #list-table-wrapper div, to **better guarantee horizontal scrolling will work** when other CSS rules try to override this attribute.
 
 * **[FIXED and IMPROVED in Pro] Utilities >> Form Builder**:
-  * Add a Plain (no header image) email template. Props to Mathijs v.d.B. for suggesting this.
-  * Made default field input background color white
-  * Email notifications and auto-responder: ensure field tags work, i.e. properly replaced with the corresponding field value on email delivery. This also fixes the issue where auto-responder were not being delivered properly.
-  * Dropdown field: fixed builder preview for dropdown field becoming empty when adding a new option
-  * Address field: change zip subfield to be of the type text (previously it was number) to accomodate for various types of zip codes around the world
-  * Website / URL field: improve URL validation method
-  * Upload field: modification to frontend styles
-  * Choice field presets: update to options for the Importance preset for better clarity / less ambiguity
-  * Matrix of Uniform Dropdown field: fix an issue where the first option is not being shown in the dropddown.
-  * Choice and Matrix fields: the options are now immediately draggable upon adding the field.
-  * Textarea field: line breaks are now preserved in email notification and entry preview
+  * **Added option to not save form submissions** in the database. This may be useful for scenarios where privacy is of a concern. Props to Marcellus J. for suggesting this.
+  * **Added option to set which field of each form to use for previewing entries** on the Entries listing page. This should make the Entries page more useful.
+  * **Added #page_url tag as possible default value of hidden field** which will be replaced by the permalink of the page where the form is being displayed on. This is useful for when you need to track where form submission is coming from. Props to Ralf L. for suggesting this improvement.
+  * **Fixed an issue where Screen Options panel is gone** from all admin pages when Form Builder is enabled. Props to Susanne R. for reporting the issue.
+  
+* **[FIXED in Pro] Security >> CAPTCHA Protection**: fixed PHP warning related to displaying CAPTCHA widgets on the comment form as reported by @betaplus.
+
+* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fixed a PHP fatal error when clicking on Yootheme menu icon, which uncommonly, links to an AJAX call URL. Props to Àlex M. for reporting the error with the complete error stack trace and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Content Management >> Content Order**: fixed a PHP error that breaks AJAX-filtering using JetSmartFilters. Props to Stijn V. for reporting the issue and facilitating the troubleshooting process.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [31 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: updated Vietnamese, Spanish, Portuguese (Brazil), Polish, Norwegian, German, Dutch, Chinese (Taiwan)
-    * ASE Pro: added Turkish (partial). Updated Czech, Vietnamese, Romanian, Portuguese (Brazil).
+    * ASE Free: updated Ukrainian, Spanish (Spain), Spanish (Chile), Portuguese (Brazil), Polish, Norwegian, Dutch
+    * ASE Pro: updated Arabic, Norwegian, Hungarian, Polish, Romanian, Portuguese (Brazil). Polish, Portuguese (Brazil) and Romanian are 100% translated. Special kudos to [Jarosław K.]((https://profiles.wordpress.org/kosmity/)), [Valdemir M.](https://profiles.wordpress.org/valdemirmaran/) and [Catalin T.](https://profiles.wordpress.org/catalinx777/) for the huge work of translating the new Form Builder module!
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.
-  * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Dennis F.](https://profiles.wordpress.org/dnn/), [denisgomesfranco](https://profiles.wordpress.org/denisgomesfranco/), [Denison C.](https://profiles.wordpress.org/denisoncarlos/) and [@ofmarconi](https://profiles.wordpress.org/ofmarconi/).
+  * **Portuguese (Brazil)**: ASE Free and ASE Pro (completed). Props to [Valdemir M.](https://profiles.wordpress.org/valdemirmaran/), [Dennis F.](https://profiles.wordpress.org/dnn/), [denisgomesfranco](https://profiles.wordpress.org/denisgomesfranco/), [Denison C.](https://profiles.wordpress.org/denisoncarlos/) and [@ofmarconi](https://profiles.wordpress.org/ofmarconi/).
   * **Hungarian**: ASE Free and Pro (completed). Props to [R. József G.](https://profiles.wordpress.org/radicsjg/) et al.
   * **Vietnamese**: ASE Free and Pro (completed). Props to [Hoang N.Q.](https://profiles.wordpress.org/nguyenquanghoang/) et al.
   * **Italian**: ASE Free and Pro (completed). Props to [Fabio P.](https://profiles.wordpress.org/fabioperri/) et. al.

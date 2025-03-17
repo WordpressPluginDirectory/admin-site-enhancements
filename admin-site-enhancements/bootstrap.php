@@ -864,6 +864,9 @@ class Admin_Site_Enhancements {
                 add_filter( 'wp_lazy_loading_enabled', '__return_false' );
                 add_filter( 'wp_get_attachment_image_attributes', [$disable_smaller_components, 'eager_load_featured_images'] );
             }
+            if ( array_key_exists( 'disable_application_passwords', $options ) && $options['disable_application_passwords'] ) {
+                add_filter( 'wp_is_application_passwords_available', '__return_false' );
+            }
             if ( array_key_exists( 'disable_plugin_theme_editor', $options ) ) {
                 if ( $options['disable_plugin_theme_editor'] ) {
                     add_action( 'admin_init', [$disable_smaller_components, 'disable_plugin_theme_editor'], PHP_INT_MAX );
@@ -956,6 +959,14 @@ class Admin_Site_Enhancements {
             }
             // Resize and convert happens here
             add_filter( 'wp_handle_upload', [$image_upload_control, 'image_upload_handler'] );
+            if ( array_key_exists( 'disabled_image_sizes', $options ) && isset( $options['disabled_image_sizes'] ) ) {
+                add_filter(
+                    'intermediate_image_sizes_advanced',
+                    [$image_upload_control, 'disable_intermediate_image_sizes__premium_only'],
+                    10,
+                    2
+                );
+            }
         }
         // Revisions Control
         if ( array_key_exists( 'enable_revisions_control', $options ) && $options['enable_revisions_control'] ) {

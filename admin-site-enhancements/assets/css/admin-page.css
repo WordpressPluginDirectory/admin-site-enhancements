@@ -1071,6 +1071,11 @@ a.asenha-support-nudge-dismiss:hover,
     color: #3c434a;
 }
 
+.subfield-prefix {
+    font-weight: 600;
+    color: #3c434a;    
+}
+
 .form-table .asenha-toggle .asenha-text.th-normal th:not(.datatable-th) {
     font-weight: normal;
 }
