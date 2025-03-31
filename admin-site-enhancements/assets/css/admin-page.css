@@ -975,7 +975,8 @@ a.asenha-support-nudge-dismiss:hover,
     display: block;
 }
 
-.asenha-subfield-description.media-subfield {
+.asenha-subfield-description.media-subfield,
+.login-attempts-log-table .asenha-subfield-description {
     margin-top: 8px;
 }
 

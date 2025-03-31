@@ -256,18 +256,22 @@ class Admin_Menu_Organizer {
         // indexed array of role slugs
         foreach ( $current_user_roles as $current_user_role ) {
             $current_user_role_capabilities = get_role( $current_user_role )->capabilities;
-            $current_user_role_capabilities = array_keys( $current_user_role_capabilities );
-            // indexed array
-            $current_user_role_capabilities = implode( ",", $current_user_role_capabilities );
-            $current_user_capabilities .= $current_user_role_capabilities;
+            if ( is_array( $current_user_role_capabilities ) ) {
+                $current_user_role_capabilities = array_keys( $current_user_role_capabilities );
+                // indexed array
+                $current_user_role_capabilities = implode( ",", $current_user_role_capabilities );
+                $current_user_capabilities .= $current_user_role_capabilities;
+            }
         }
-        $current_user_capabilities = array_unique( explode( ",", $current_user_capabilities ) );
         // Maybe show "Show All/Less" toggle
         $show_toggle_menu = false;
-        foreach ( $user_capabilities_to_show_menu_toggle_for as $user_capability_to_show_menu_toggle_for ) {
-            if ( in_array( $user_capability_to_show_menu_toggle_for, $current_user_capabilities ) ) {
-                $show_toggle_menu = true;
-                break;
+        if ( !empty( $current_user_capabilities ) ) {
+            $current_user_capabilities = array_unique( explode( ",", $current_user_capabilities ) );
+            foreach ( $user_capabilities_to_show_menu_toggle_for as $user_capability_to_show_menu_toggle_for ) {
+                if ( in_array( $user_capability_to_show_menu_toggle_for, $current_user_capabilities ) ) {
+                    $show_toggle_menu = true;
+                    break;
+                }
             }
         }
         if ( (!empty( $menu_hidden_by_toggle ) || !empty( $submenu_hidden_by_toggle )) && $show_toggle_menu ) {

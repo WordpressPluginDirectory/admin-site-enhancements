@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.7.2  
-Stable tag: 7.8.2  
+Stable tag: 7.8.4  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -49,7 +49,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### Content Management
 
-* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Custom Content Types**. Conveniently register and edit custom post types (CPT), custom taxonomies, custom field groups and options pages that integrates with Bricks, Breakdance, Oxygen and Elementor, and also compatible with Gutenberg and various block themes and plugins. This is an alternative for ACF Pro, Meta Box, Toolset, Pods or JetEngine.
+* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Custom Content Types**. Conveniently register and edit custom post types (CPT), custom taxonomies, custom field groups and options pages that integrates with Bricks, Breakdance, Oxygen and Elementor, and also compatible with Gutenberg and various block themes and plugins. You can also easily create a frontend posting form. This is an alternative for ACF Pro, Meta Box, Toolset, Pods or JetEngine.
 * **Content Duplication**. One-click duplication of pages, posts and CPTs. [ASE Pro](https://www.wpase.com/rdme-to-web) enables duplication only for certain user roles and post types, and adds location option for duplication link.
 * **Content Order**. Enable custom ordering of various post types that are hierarchical or support page attributes, in wp-admin. [ASE Pro](https://www.wpase.com/rdme-to-web) enables ordering of post types that are non-hierarchical and does not support page attributes, including media / attachments. It also enable toggling taxonomy terms and / or excerpt on the ordering page and applying the custom order on the frontend including for adjacent posts navigation.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Terms Order**. Enable custom ordering of terms from various taxonomies in wp-admin and on the frontend.
@@ -196,45 +196,37 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **139 _minor_ releases** (e.g. 4.9.1), for a **total of 218 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **141 _minor_ releases** (e.g. 4.9.1), for a **total of 219 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 7.8.2 (2025.03.17) - ASE Free and Pro
+### 7.8.4 (2025.03.31) - ASE Free and Pro
 
-* **[ADDED in Free and Pro] Disable Components >> Disable Smaller Components**: added an option to disable the Application Passwords feature in WordPress. Props to [DJABHipHop](https://wordpress.org/support/users/pressthemes1/) for [suggesting this](https://wordpress.org/support/topic/add-options-to-disable-wp_is_application_passwords_available/).
+* **[IMPROVED and FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: 
+  * **Added [post_cf_form] shortcode to display frontend submission form** that can create a new post or edit an existing post along with the associated custom fields. [Documentation](https://www.wpase.com/documentation/custom-field-types/#functions-shortcodes) has been added. Please test and open a support ticket if you find any issue / bug.
+  * **Added `insert_post_cf()` function to create a new post and set custom field values**. [Documentation](https://www.wpase.com/documentation/custom-field-types/#functions-shortcodes) has been added.
+  * **Enable updating repeater field value with `update_cf()`**. [Documentation](https://www.wpase.com/documentation/custom-field-types/#functions-shortcodes) has been added.
+  * **Improved `update_cf()` function to accommodate more data formats** for various field types, including ability to use externally hosted files/images for the file and gallery fields. More info in the [documentation](https://www.wpase.com/documentation/custom-field-types/#functions-shortcodes). As of this v7.8.4, this function can be considered stable enough for production sites. That said, please open a support ticket if you discover any issues / bugs.
+  * **Added Output Format option for Date, Time, Radio, Select and Checkbox fields**. This can be overridden by manually setting an output format in `get_cf()`, `the_cf()` or the `[cf]` shortcode.
+  * **`get_cf()` in 'default' output mode** will now properly return the frontend display format set in the settings for Date, Time, Radio, Select and Checkbox fields, including when these fields are sub-fields of a repeater field. Props to Ingo R. for prompting this improvement.
+  * **Added mininum height to WYSIWYG field** to fix the occasional rendering issue where a click was needed to trigger the field to be at it's proper height.
 
-* **[IMPROVED in Pro] Optimizations >> Image Upload Control**: add an option to disable generation of intermediate sizes. Props to Wilbert S., [@visedfaq](https://wordpress.org/support/topic/feature-suggestion-remove-image-sizes/), [@bradhazel](https://wordpress.org/support/topic/feature-request-i-have-two/), Stijn V., Jake H. and [@luislu](https://wordpress.org/support/topic/add-function-to-disable-thumbnail-size/) for suggesting this feature.
+* **[IMPROVED in Pro] Utilities >> Form Builder**:
+  * **Removed "Hide label" and "Required" checkboxex from Hidden fields** as they are not relevant for this field type.
+  * **Removed superfluous < character and improve layout of description in the Default Value option**.
 
-* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: 
-  * **Added a new field type: time**. This has been integrated with Oxygen (classic), Bricks, Breakdance and Elementor. [Documentation](https://www.wpase.com/documentation/custom-field-types/) has also been updated. Props to Jim R. and Rlaf L. for prompting this imprvement.
-  * **Improved color field**. Color picker now supports transparency, which outputs the color in RGBA format, e.g. rgba(108, 19, 135, 0.9). Non-transparent color will be in HEX format, e.g. #333333.
-  * **Improved UI for relationship field**. Posts are now categorized under the post type label, and the post type label preppended on the selected posts. This is especially useful if you have multiple post types enabled. Props to @yankiara for suggesting this improvement.
-  * **Improved UI for term field**. Terms are now categorized under the taxonomy label, and the taxonomy label preppended on the selected terms.
-  * **Improved UI for user field**. Will now include display name and email address. This makes it easier to search / filter users.
+* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fixed PHP warning that occurs in a certain scenario.
 
-* **[CHANGED and IMPROVED in Pro] Admin Interface >> Admin Columns Manager**: 
-  * **Added rendering of column values for the new time field in ASE** custom field groups.
-  * Added "!important" for the "overflow-y:hidden" attribute for the #list-table-wrapper div, to **better guarantee horizontal scrolling will work** when other CSS rules try to override this attribute.
+* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fixed PHP warning that occurs in a certain scenario.
 
-* **[FIXED and IMPROVED in Pro] Utilities >> Form Builder**:
-  * **Added option to not save form submissions** in the database. This may be useful for scenarios where privacy is of a concern. Props to Marcellus J. for suggesting this.
-  * **Added option to set which field of each form to use for previewing entries** on the Entries listing page. This should make the Entries page more useful.
-  * **Added #page_url tag as possible default value of hidden field** which will be replaced by the permalink of the page where the form is being displayed on. This is useful for when you need to track where form submission is coming from. Props to Ralf L. for suggesting this improvement.
-  * **Fixed an issue where Screen Options panel is gone** from all admin pages when Form Builder is enabled. Props to Susanne R. for reporting the issue.
-  
-* **[FIXED in Pro] Security >> CAPTCHA Protection**: fixed PHP warning related to displaying CAPTCHA widgets on the comment form as reported by @betaplus.
-
-* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fixed a PHP fatal error when clicking on Yootheme menu icon, which uncommonly, links to an AJAX call URL. Props to Àlex M. for reporting the error with the complete error stack trace and facilitating the troubleshooting process.
-
-* **[FIXED in Pro] Content Management >> Content Order**: fixed a PHP error that breaks AJAX-filtering using JetSmartFilters. Props to Stijn V. for reporting the issue and facilitating the troubleshooting process.
+* **[FIXED in Pro] Content Management >> Media Categories**: fixed layout of the filter bar items in media frame/popup in certain scenario, so they are aligned horizontally and not vertically.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [31 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: updated Ukrainian, Spanish (Spain), Spanish (Chile), Portuguese (Brazil), Polish, Norwegian, Dutch
-    * ASE Pro: updated Arabic, Norwegian, Hungarian, Polish, Romanian, Portuguese (Brazil). Polish, Portuguese (Brazil) and Romanian are 100% translated. Special kudos to [Jarosław K.]((https://profiles.wordpress.org/kosmity/)), [Valdemir M.](https://profiles.wordpress.org/valdemirmaran/) and [Catalin T.](https://profiles.wordpress.org/catalinx777/) for the huge work of translating the new Form Builder module!
+    * ASE Free: updated Spanish, Portuguese (Brazil), Dutch, Chinese (Taiwan)
+    * ASE Pro: Hungarian, Polish
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.

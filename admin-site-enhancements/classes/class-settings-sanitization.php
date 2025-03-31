@@ -611,6 +611,10 @@ class Settings_Sanitization {
             $options['login_attempts_log_table'] = '';
         }
         $options['login_attempts_log_table'] = '';
+        if ( !isset( $options['limit_login_attempts'] ) ) {
+            $options['failed_login_attempts_log_schedule_cleanup_by_amount'] = false;
+        }
+        $options['failed_login_attempts_log_schedule_cleanup_by_amount'] = ( 'on' == $options['limit_login_attempts'] ? true : false );
         // Obfuscate Author Slugs
         if ( !isset( $options['obfuscate_author_slugs'] ) ) {
             $options['obfuscate_author_slugs'] = false;

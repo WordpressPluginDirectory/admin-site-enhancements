@@ -175,5 +175,5 @@ function get_kses_with_custom_html_ruleset() {
         ),
     );
     return array_merge( $kses_defaults, $custom_html_args );
-    // Example usage: wp_kses( $the_html, get_kses_with_style_src_ruleset() );
+    // Example usage: wp_kses( $the_html, get_kses_with_custom_html_ruleset() );
 }

@@ -64,13 +64,17 @@ class Content_Duplication {
                         );
                     }
                 }
+                $excluded_post_meta_keys = array();
                 // Copy over the post meta
                 $original_post_metas = get_post_meta( $original_post_id );
                 // all meta keys and the corresponding values
                 if ( !empty( $original_post_metas ) ) {
                     foreach ( $original_post_metas as $meta_key => $meta_values ) {
-                        foreach ( $meta_values as $meta_value ) {
-                            update_post_meta( $new_post_id, $meta_key, wp_slash( maybe_unserialize( $meta_value ) ) );
+                        if ( !in_array( $meta_key, $excluded_post_meta_keys ) ) {
+                            // Only copy over post meta that are not ASE custom fields. We will handle that later.
+                            foreach ( $meta_values as $meta_value ) {
+                                update_post_meta( $new_post_id, $meta_key, wp_slash( maybe_unserialize( $meta_value ) ) );
+                            }
                         }
                     }
                 }

@@ -1097,6 +1097,7 @@ class Settings_Fields_Render {
 			</tbody>
 		</table>
 		<?php 
+        echo '<div class="asenha-subfield-description">' . esc_html( $field_description ) . '</div>';
         echo '<input type="hidden" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-datatable" name="' . esc_attr( $field_name ) . '" value="' . esc_attr( $field_option_value ) . '">';
     }
 

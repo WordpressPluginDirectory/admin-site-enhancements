@@ -899,6 +899,11 @@ class Admin_Site_Enhancements {
             add_action( 'wp_login_failed', [$limit_login_attempts, 'log_failed_login'], 5 );
             // Higher priority than one in Change Login URL
             add_action( 'wp_login', [$limit_login_attempts, 'clear_failed_login_log'] );
+            // Log table clean up
+            add_action( 'added_option', [$limit_login_attempts, 'trigger_clear_or_schedule_log_clean_up_by_amount'] );
+            add_action( 'updated_option', [$limit_login_attempts, 'trigger_clear_or_schedule_log_clean_up_by_amount'] );
+            add_action( 'plugins_loaded', [$limit_login_attempts, 'clear_or_schedule_log_clean_up_by_amount'] );
+            add_action( 'asenha_failed_login_attempts_log_cleanup_by_amount', [$limit_login_attempts, 'perform_failed_login_attempts_log_clean_up_by_amount'] );
         }
         // Obfuscate Author Slugs
         if ( array_key_exists( 'obfuscate_author_slugs', $options ) && $options['obfuscate_author_slugs'] ) {
