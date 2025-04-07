@@ -786,32 +786,17 @@ class Settings_Sections_Fields {
             ASENHA_SLUG,
             'main-section',
             array(
-                'option_name'            => ASENHA_SLUG_U,
                 'field_id'               => $field_id,
                 'field_slug'             => $field_slug,
                 'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
-                'field_description'      => __( 'Customize the order of the admin menu and optionally change menu item title or hide some items.', 'admin-site-enhancements' ),
-                'field_options_wrapper'  => true,
-                'field_options_moreless' => true,
+                'field_description'      => __( 'Customize the order of the admin menu and optionally change menu item title or hide some items.', 'admin-site-enhancements' ) . ' ' . sprintf( 
+                    /* translators: %s is URL to the Admin Menu Organizer settings page */
+                    __( 'Once enabled, you can find the <a href="%s">Admin Menu</a> item under the Settings menu.', 'admin-site-enhancements' ),
+                    admin_url( 'options-general.php?page=admin-menu-organizer' )
+                 ),
+                'field_options_wrapper'  => false,
+                'field_options_moreless' => false,
                 'class'                  => 'asenha-toggle admin-interface ' . $field_slug,
-            )
-        );
-        $field_id = 'custom_menu_order';
-        $field_slug = 'custom-menu-order';
-        add_settings_field(
-            $field_id,
-            '',
-            // Field title
-            [$render_field, 'render_sortable_menu'],
-            ASENHA_SLUG,
-            'main-section',
-            array(
-                'option_name'       => ASENHA_SLUG_U,
-                'field_id'          => $field_id,
-                'field_name'        => ASENHA_SLUG_U . '[' . $field_id . ']',
-                'field_type'        => 'sortable-menu',
-                'field_description' => '',
-                'class'             => 'asenha-sortable asenha-hide-th admin-interface ' . $field_slug,
             )
         );
         // Show Custom Taxonomy Filters

@@ -209,7 +209,6 @@
       $('.wider-admin-menu').appendTo('.fields-admin-interface > table > tbody');
       $('.admin-menu-width').appendTo('.fields-admin-interface .wider-admin-menu .asenha-subfields');
       $('.customize-admin-menu').appendTo('.fields-admin-interface > table > tbody');
-      $('.custom-menu-order').appendTo('.fields-admin-interface .customize-admin-menu .asenha-subfields');
       
       $('.show-custom-taxonomy-filters').appendTo('.fields-admin-interface > table > tbody');
       
@@ -746,8 +745,6 @@
       
       
          subfieldsToggler( 'maintenance_mode', 'maintenance-mode' );
-      
-
       
 
       

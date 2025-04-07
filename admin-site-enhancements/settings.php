@@ -20,6 +20,18 @@ if ( !isset( $options_extra['cfgroup_next_field_id'] ) ) {
     $options_extra['cfgroup_next_field_id'] = 1;
     update_option( ASENHA_SLUG_U . '_extra', $options_extra, true );
 }
+// Move Admin Menu Organizer options storage to extra table since v7.8.5
+if ( !isset( $options_extra['admin_menu'] ) ) {
+    $options = get_option( ASENHA_SLUG_U, array() );
+    $options_extra['admin_menu']['custom_menu_order'] = ( isset( $options['custom_menu_order'] ) ? $options['custom_menu_order'] : '' );
+    unset($options['custom_menu_order']);
+    $options_extra['admin_menu']['custom_menu_titles'] = ( isset( $options['custom_menu_titles'] ) ? $options['custom_menu_titles'] : '' );
+    unset($options['custom_menu_titles']);
+    $options_extra['admin_menu']['custom_menu_hidden'] = ( isset( $options['custom_menu_hidden'] ) ? trim( $options['custom_menu_hidden'], ',' ) : '' );
+    unset($options['custom_menu_hidden']);
+    update_option( ASENHA_SLUG_U . '_extra', $options_extra, true );
+    update_option( ASENHA_SLUG_U, $options, true );
+}
 /**
  * Register admin menu
  *
@@ -470,82 +482,6 @@ function asenha_admin_scripts(  $hook_suffix  ) {
             ASENHA_VERSION,
             false
         );
-        // jQuery UI Sortables. In use, e.g. for Admin Interface >> Admin Menu Organizer
-        // Re-register and re-enqueue jQuery UI Core and plugins required for sortable, draggable and droppable when ordering menu items
-        wp_deregister_script( 'jquery-ui-core' );
-        wp_register_script(
-            'jquery-ui-core',
-            get_site_url() . '/wp-includes/js/jquery/ui/core.min.js',
-            array('jquery'),
-            ASENHA_VERSION,
-            false
-        );
-        wp_enqueue_script( 'jquery-ui-core' );
-        if ( version_compare( $wp_version, '5.6.0', '>=' ) ) {
-            wp_deregister_script( 'jquery-ui-mouse' );
-            wp_register_script(
-                'jquery-ui-mouse',
-                get_site_url() . '/wp-includes/js/jquery/ui/mouse.min.js',
-                array('jquery-ui-core'),
-                ASENHA_VERSION,
-                false
-            );
-            wp_enqueue_script( 'jquery-ui-mouse' );
-        } else {
-            wp_deregister_script( 'jquery-ui-widget' );
-            wp_register_script(
-                'jquery-ui-widget',
-                get_site_url() . '/wp-includes/js/jquery/ui/widget.min.js',
-                array('jquery'),
-                ASENHA_VERSION,
-                false
-            );
-            wp_enqueue_script( 'jquery-ui-widget' );
-            wp_deregister_script( 'jquery-ui-mouse' );
-            wp_register_script(
-                'jquery-ui-mouse',
-                get_site_url() . '/wp-includes/js/jquery/ui/mouse.min.js',
-                array('jquery-ui-core', 'jquery-ui-widget'),
-                ASENHA_VERSION,
-                false
-            );
-            wp_enqueue_script( 'jquery-ui-mouse' );
-        }
-        wp_deregister_script( 'jquery-ui-sortable' );
-        wp_register_script(
-            'jquery-ui-sortable',
-            get_site_url() . '/wp-includes/js/jquery/ui/sortable.min.js',
-            array('jquery-ui-mouse'),
-            ASENHA_VERSION,
-            false
-        );
-        wp_enqueue_script( 'jquery-ui-sortable' );
-        wp_deregister_script( 'jquery-ui-draggable' );
-        wp_register_script(
-            'jquery-ui-draggable',
-            get_site_url() . '/wp-includes/js/jquery/ui/draggable.min.js',
-            array('jquery-ui-mouse'),
-            ASENHA_VERSION,
-            false
-        );
-        wp_enqueue_script( 'jquery-ui-draggable' );
-        wp_deregister_script( 'jquery-ui-droppable' );
-        wp_register_script(
-            'jquery-ui-droppable',
-            get_site_url() . '/wp-includes/js/jquery/ui/droppable.min.js',
-            array('jquery-ui-draggable'),
-            ASENHA_VERSION,
-            false
-        );
-        wp_enqueue_script( 'jquery-ui-droppable' );
-        // Script to set behaviour and actions of the sortable menu
-        wp_enqueue_script(
-            'asenha-custom-admin-menu',
-            ASENHA_URL . 'assets/js/custom-admin-menu.js',
-            array('jquery-ui-draggable'),
-            ASENHA_VERSION,
-            false
-        );
         // First, we unload the CodeMirror libraries included in WP core
         wp_deregister_script( 'wp-codemirror' );
         wp_deregister_script( 'code-editor' );
@@ -651,7 +587,6 @@ function asenha_admin_scripts(  $hook_suffix  ) {
                 'asenha-codemirror-css-mode',
                 'asenha-codemirror-markdown-mode',
                 'asenha-datatables',
-                'asenha-custom-admin-menu',
                 'wp-color-picker',
                 'wp-mediaelement',
                 'wp-tinymce-root',
@@ -725,6 +660,101 @@ function asenha_admin_scripts(  $hook_suffix  ) {
             'performReplacementText' => __( 'Perform Replacement', 'admin-site-enhancements' ),
         );
         wp_localize_script( 'asenha-media-replace', 'mediaReplace', $media_replace );
+    }
+    // Admin Interface >> Admin Menu Organizer
+    if ( 'settings_page_admin-menu-organizer' == $current_screen->base ) {
+        // Re-register and re-enqueue jQuery UI Core and plugins required for sortable, draggable and droppable when ordering menu items
+        wp_deregister_script( 'jquery-ui-core' );
+        wp_register_script(
+            'jquery-ui-core',
+            get_site_url() . '/wp-includes/js/jquery/ui/core.min.js',
+            array('jquery'),
+            ASENHA_VERSION,
+            false
+        );
+        wp_enqueue_script( 'jquery-ui-core' );
+        if ( version_compare( $wp_version, '5.6.0', '>=' ) ) {
+            wp_deregister_script( 'jquery-ui-mouse' );
+            wp_register_script(
+                'jquery-ui-mouse',
+                get_site_url() . '/wp-includes/js/jquery/ui/mouse.min.js',
+                array('jquery-ui-core'),
+                ASENHA_VERSION,
+                false
+            );
+            wp_enqueue_script( 'jquery-ui-mouse' );
+        } else {
+            wp_deregister_script( 'jquery-ui-widget' );
+            wp_register_script(
+                'jquery-ui-widget',
+                get_site_url() . '/wp-includes/js/jquery/ui/widget.min.js',
+                array('jquery'),
+                ASENHA_VERSION,
+                false
+            );
+            wp_enqueue_script( 'jquery-ui-widget' );
+            wp_deregister_script( 'jquery-ui-mouse' );
+            wp_register_script(
+                'jquery-ui-mouse',
+                get_site_url() . '/wp-includes/js/jquery/ui/mouse.min.js',
+                array('jquery-ui-core', 'jquery-ui-widget'),
+                ASENHA_VERSION,
+                false
+            );
+            wp_enqueue_script( 'jquery-ui-mouse' );
+        }
+        wp_deregister_script( 'jquery-ui-sortable' );
+        wp_register_script(
+            'jquery-ui-sortable',
+            get_site_url() . '/wp-includes/js/jquery/ui/sortable.min.js',
+            array('jquery-ui-mouse'),
+            ASENHA_VERSION,
+            false
+        );
+        wp_enqueue_script( 'jquery-ui-sortable' );
+        wp_deregister_script( 'jquery-ui-draggable' );
+        wp_register_script(
+            'jquery-ui-draggable',
+            get_site_url() . '/wp-includes/js/jquery/ui/draggable.min.js',
+            array('jquery-ui-mouse'),
+            ASENHA_VERSION,
+            false
+        );
+        wp_enqueue_script( 'jquery-ui-draggable' );
+        wp_deregister_script( 'jquery-ui-droppable' );
+        wp_register_script(
+            'jquery-ui-droppable',
+            get_site_url() . '/wp-includes/js/jquery/ui/droppable.min.js',
+            array('jquery-ui-draggable'),
+            ASENHA_VERSION,
+            false
+        );
+        wp_enqueue_script( 'jquery-ui-droppable' );
+        // Script to set behaviour and actions of the sortable menu
+        wp_enqueue_script(
+            'asenha-custom-admin-menu',
+            ASENHA_URL . 'assets/js/custom-admin-menu.js',
+            array('jquery-ui-draggable'),
+            ASENHA_VERSION,
+            false
+        );
+        wp_enqueue_style(
+            'asenha-admin-menu-organizer',
+            ASENHA_URL . 'assets/css/admin-menu-organizer.css',
+            array(),
+            ASENHA_VERSION
+        );
+        wp_enqueue_script(
+            'asenha-admin-menu-organizer',
+            ASENHA_URL . 'assets/js/admin-menu-organizer.js',
+            array('asenha-custom-admin-menu'),
+            ASENHA_VERSION,
+            false
+        );
+        wp_localize_script( 'asenha-admin-menu-organizer', 'amoPageVars', array(
+            'saveMenuNonce'  => wp_create_nonce( 'save-menu-nonce' ),
+            'resetMenuNonce' => wp_create_nonce( 'reset-menu-nonce' ),
+        ) );
     }
     // Utilities >> Email Delivery Log
     if ( 'tools_page_email-delivery-log' == $hook_suffix ) {

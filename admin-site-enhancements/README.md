@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.7.2  
-Stable tag: 7.8.4  
+Stable tag: 7.8.5  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -196,37 +196,34 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **141 _minor_ releases** (e.g. 4.9.1), for a **total of 219 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **142 _minor_ releases** (e.g. 4.9.1), for a **total of 220 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 7.8.4 (2025.03.31) - ASE Free and Pro
+### 7.8.5 (2025.04.07) - ASE Free and Pro
 
-* **[IMPROVED and FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: 
-  * **Added [post_cf_form] shortcode to display frontend submission form** that can create a new post or edit an existing post along with the associated custom fields. [Documentation](https://www.wpase.com/documentation/custom-field-types/#functions-shortcodes) has been added. Please test and open a support ticket if you find any issue / bug.
-  * **Added `insert_post_cf()` function to create a new post and set custom field values**. [Documentation](https://www.wpase.com/documentation/custom-field-types/#functions-shortcodes) has been added.
-  * **Enable updating repeater field value with `update_cf()`**. [Documentation](https://www.wpase.com/documentation/custom-field-types/#functions-shortcodes) has been added.
-  * **Improved `update_cf()` function to accommodate more data formats** for various field types, including ability to use externally hosted files/images for the file and gallery fields. More info in the [documentation](https://www.wpase.com/documentation/custom-field-types/#functions-shortcodes). As of this v7.8.4, this function can be considered stable enough for production sites. That said, please open a support ticket if you discover any issues / bugs.
-  * **Added Output Format option for Date, Time, Radio, Select and Checkbox fields**. This can be overridden by manually setting an output format in `get_cf()`, `the_cf()` or the `[cf]` shortcode.
-  * **`get_cf()` in 'default' output mode** will now properly return the frontend display format set in the settings for Date, Time, Radio, Select and Checkbox fields, including when these fields are sub-fields of a repeater field. Props to Ingo R. for prompting this improvement.
-  * **Added mininum height to WYSIWYG field** to fix the occasional rendering issue where a click was needed to trigger the field to be at it's proper height.
+* **[IMPROVED in Pro] Security >> CAPTCHA Protection**: add an Advanced Options section for ALTCHA where you can set custom text for the different steps in the verification process. This can be useful if you need to quickly translate the default text. Props to @betaplus, Linda H. and Marcellus J. for prompting this improvement.
 
-* **[IMPROVED in Pro] Utilities >> Form Builder**:
-  * **Removed "Hide label" and "Required" checkboxex from Hidden fields** as they are not relevant for this field type.
-  * **Removed superfluous < character and improve layout of description in the Default Value option**.
+* **[IMPROVED and FIXED in Pro] Utilities >> Form Builder**: 
+  * **Added an option to hide the form after successful submission**. This can be configured under form Settings >> Confirmation >> Confirmation Type >> Success Message. Props to Ignazio D.M. for prompting this improvement.
+  * **Fixed layout issues on style template editor**. Fixed style editor not being full-width and the Publish button being contained in wide white box.
 
-* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fixed PHP warning that occurs in a certain scenario.
+* **[IMPROVED in Free and Pro] Log In/Out & Register >> Change Login URL**: added handling for an issue when Gravity Forms is active and someone tries to open a URL that contains the `gf_page` parameter, e.g. to preview a form, while not being logged-in, it would then redirect to the custom login URL. That will now be prevented and the user will be redirected to the homepage instead. Props to Coan Z. for reporting this.
+  
+* **[CHANGED in Free and Pro] Admin Interface >> Admin Menu Organizer**: moved the admin menu settings to a separate Admin Menu page/item under Settings. This will help prevent an issue where saving changes to ASE settings failed as [reported by @BooMeranGz](https://wordpress.org/support/topic/apache-mod_security-waf-problems/). This also improves the usability of the menu organizer for sites with lots of menu items, especially when drag-and-dropping menu item to reposition it.
 
-* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fixed PHP warning that occurs in a certain scenario.
+* **[FIXED in Pro] Log In/Out & Register >> Last Login Column**: fixed conflict with WPGridBuilder causing user filtering to not work properly in WPGridBuilder. Props to Stuart McK. for reporting the issue and facilitating the troubleshooting process.
 
-* **[FIXED in Pro] Content Management >> Media Categories**: fixed layout of the filter bar items in media frame/popup in certain scenario, so they are aligned horizontally and not vertically.
+* **[FIXED in Pro] Content Managmenent >> Media Categories**: 
+  * fixed an issue where a PHP notice, "Function \_load_textdomain_just_in_time was called incorrectly", was being triggerred in a certain scenario. Props to Wilbert S. for reporting the issue and facilitating the troubleshooting process.
+  * fixed a fatal error that occurs in a certain scenario when Breakdance is active and a logged-in user is trying to view the frontend. Props to Darren L. for reporting it and facilitating the troubleshooting process.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [31 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: updated Spanish, Portuguese (Brazil), Dutch, Chinese (Taiwan)
-    * ASE Pro: Hungarian, Polish
+    * ASE Free: updated Vietnamese, Ukrainian, Spansih (Spain), Portuguese (Brazil), Polish, Indonesian, Hungarian, German, Dutch
+    * ASE Pro: updated Vietnamese. Special kudos to [Hoang Hxn](https://profiles.wordpress.org/nguyenquanghoang/) for the huge work of translating the new Form Builder module!
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.

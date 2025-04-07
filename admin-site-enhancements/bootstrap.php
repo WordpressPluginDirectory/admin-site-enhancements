@@ -344,17 +344,20 @@ class Admin_Site_Enhancements {
         }
         // Admin Menu Organizer
         if ( array_key_exists( 'customize_admin_menu', $options ) && $options['customize_admin_menu'] ) {
+            $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
+            $admin_menu_options = ( isset( $options_extra['admin_menu'] ) ? $options_extra['admin_menu'] : array() );
             $admin_menu_organizer = new ASENHA\Classes\Admin_Menu_Organizer();
+            add_action( 'admin_menu', [$admin_menu_organizer, 'add_menu_item'] );
             // add_action( 'wp_ajax_save_custom_menu_order', [ $admin_menu_organizer, 'save_custom_menu_order' ] );
             // add_action( 'wp_ajax_save_hidden_menu_items', [ $admin_menu_organizer, 'save_hidden_menu_items' ] );
-            if ( array_key_exists( 'custom_menu_order', $options ) ) {
+            if ( array_key_exists( 'custom_menu_order', $admin_menu_options ) ) {
                 add_filter( 'custom_menu_order', '__return_true', PHP_INT_MAX );
                 add_filter( 'menu_order', [$admin_menu_organizer, 'render_custom_menu_order'], PHP_INT_MAX );
             }
-            if ( array_key_exists( 'custom_menu_titles', $options ) ) {
+            if ( array_key_exists( 'custom_menu_titles', $admin_menu_options ) ) {
                 add_action( 'admin_menu', [$admin_menu_organizer, 'apply_custom_menu_item_titles'], 9999999995 );
                 // For 'Posts' menu, if the title has been changed, try changing the labels for it everywhere
-                $custom_menu_titles = explode( ',', $options['custom_menu_titles'] );
+                $custom_menu_titles = explode( ',', $admin_menu_options['custom_menu_titles'] );
                 foreach ( $custom_menu_titles as $custom_menu_title ) {
                     if ( false !== strpos( $custom_menu_title, 'menu-posts__' ) ) {
                         $custom_menu_title = explode( '__', $custom_menu_title );
@@ -369,7 +372,7 @@ class Admin_Site_Enhancements {
                     }
                 }
             }
-            if ( array_key_exists( 'custom_menu_hidden', $options ) || array_key_exists( 'custom_menu_always_hidden', $options ) ) {
+            if ( array_key_exists( 'custom_menu_hidden', $admin_menu_options ) || array_key_exists( 'custom_menu_always_hidden', $admin_menu_options ) ) {
                 add_action( 'admin_menu', [$admin_menu_organizer, 'hide_menu_items'], 9999999996 );
                 add_action( 'admin_menu', [$admin_menu_organizer, 'add_hidden_menu_toggle'], 9999999997 );
                 add_action( 'admin_enqueue_scripts', [$admin_menu_organizer, 'enqueue_toggle_hidden_menu_script'] );
@@ -468,6 +471,10 @@ class Admin_Site_Enhancements {
             if ( array_key_exists( 'custom_login_slug', $options ) && !empty( $options['custom_login_slug'] ) ) {
                 $change_login_url = new ASENHA\Classes\Change_Login_URL();
                 add_action( 'init', [$change_login_url, 'redirect_on_custom_login_url'] );
+                if ( in_array( 'gravityforms/gravityforms.php', get_option( 'active_plugins', array() ) ) ) {
+                    // Load earlier than Gravity Forms process_exterior_pages()
+                    add_action( 'wp', [$change_login_url, 'prevent_redirect_to_custom_login_url'], 0 );
+                }
                 add_filter(
                     'login_url',
                     [$change_login_url, 'customize_login_url'],

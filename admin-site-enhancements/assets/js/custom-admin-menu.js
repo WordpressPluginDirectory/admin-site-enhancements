@@ -18,7 +18,7 @@
       let menuOrder = $('#custom-admin-menu').sortable("toArray").toString();
 
       // Set hidden input value for saving in options
-      document.getElementById('admin_site_enhancements[custom_menu_order]').value = menuOrder;
+      document.getElementById('custom_menu_order').value = menuOrder;
 
       // Save custom order into a comma-separated string, triggerred after each drag and drop of menu item
       // https://api.jqueryui.com/sortable/#event-update
@@ -29,7 +29,7 @@
          let menuOrder = $('#custom-admin-menu').sortable("toArray").toString();
 
          // Set hidden input value for saving in options
-         document.getElementById('admin_site_enhancements[custom_menu_order]').value = menuOrder;
+         document.getElementById('custom_menu_order').value = menuOrder;
 
       });
 
@@ -38,8 +38,8 @@
       // ----- Parent Menu Item Hiding -----
 
       // Prepare constant to store IDs of menu items that will be hidden
-      if ( document.getElementById('admin_site_enhancements[custom_menu_hidden]') != null ) {
-         var hiddenMenuItems = document.getElementById('admin_site_enhancements[custom_menu_hidden]').value.split(","); // array
+      if ( document.getElementById('custom_menu_hidden') != null ) {
+         var hiddenMenuItems = document.getElementById('custom_menu_hidden').value.split(","); // array
       } else {
          var hiddenMenuItems = []; // array
       }
@@ -65,14 +65,14 @@
             }
 
             // Set hidden input value
-            document.getElementById('admin_site_enhancements[custom_menu_hidden]').value = hiddenMenuItems;
+            document.getElementById('custom_menu_hidden').value = hiddenMenuItems;
 
          });
 
       });
 
       // Clicking on header save button
-      $('.asenha-save-button').click( function(e) {
+      $('#amo-save-changes').click( function(e) {
 
          e.preventDefault();
 
@@ -93,7 +93,7 @@
          });
 
          // Set hidden input value
-         document.getElementById('admin_site_enhancements[custom_menu_titles]').value = customMenuTitles;
+         document.getElementById('custom_menu_titles').value = customMenuTitles;
 
       });
 

@@ -125,6 +125,25 @@ class Change_Login_URL {
     }
 
     /**
+     * Prevent redirect to custom login URL when Gravity Forms is active, and non-logged-in user opens a page with ?gf_page URL string
+     * 
+     * @since 7.8.5
+     */
+    public function prevent_redirect_to_custom_login_url() {
+        $url_input = sanitize_text_field( $_SERVER['REQUEST_URI'] );
+        // Make sure $url_input ends with /
+        if ( false !== strpos( $url_input, $custom_login_slug ) ) {
+            if ( substr( $url_input, -1 ) != '/' ) {
+                $url_input = $url_input . '/';
+            }
+        }
+        if ( false === strpos( $url_input, '/' . $custom_login_slug . '/' ) && isset( $_GET['gf_page'] ) && !is_user_logged_in() ) {
+            wp_safe_redirect( site_url() );
+            exit;
+        }
+    }
+
+    /**
      * Customize login URL returned when calling wp_login_url(). Add the custom login slug.
      * 
      * @since 5.8.0

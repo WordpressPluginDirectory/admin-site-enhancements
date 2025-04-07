@@ -4,7 +4,7 @@
  * Plugin Name: Admin and Site Enhancements (ASE)
  * Plugin URI:        https://www.wpase.com/plugin-uri
  * Description:       Easily enable enhancements and features that usually require multiple plugins.
- * Version:           7.8.4
+ * Version:           7.8.5
  * Author:            wpase.com
  * Author URI:        https://www.wpase.com/author-uri
  * License:           GPL-2.0+
@@ -18,7 +18,7 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'ASENHA_VERSION', '7.8.4' );
+define( 'ASENHA_VERSION', '7.8.5' );
 define( 'ASENHA_ID', 'asenha' );
 define( 'ASENHA_SLUG', 'admin-site-enhancements' );
 define( 'ASENHA_SLUG_U', 'admin_site_enhancements' );
@@ -103,7 +103,18 @@ function asenha_free_load_textdomain() {
     load_plugin_textdomain( 'admin-site-enhancements', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }
 add_action( 'init', 'asenha_free_load_textdomain' );
-        
+
+// https://make.wordpress.org/core/2024/10/21/i18n-improvements-6-7/
+// Use when tracing which code is triggering the "_load_textdomain_just_in_time Called Incorrectly" notice
+// add_action(
+//     'doing_it_wrong_run',
+//     static function ( $function_name ) {
+//         if ( '_load_textdomain_just_in_time' === $function_name ) {
+//             debug_print_backtrace();
+//         }
+//     }
+// );
+
 // Functions for setting up admin menu, admin page, the settings sections and fields and other fondational stuff
 require_once ASENHA_PATH . 'settings.php';
 

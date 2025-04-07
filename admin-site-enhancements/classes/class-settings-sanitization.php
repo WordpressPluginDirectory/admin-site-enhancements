@@ -198,16 +198,6 @@ class Settings_Sanitization {
             $options['customize_admin_menu'] = false;
         }
         $options['customize_admin_menu'] = ( 'on' == $options['customize_admin_menu'] ? true : false );
-        if ( !isset( $options['custom_menu_order'] ) ) {
-            $options['custom_menu_order'] = '';
-        }
-        // The following fields are added on rendering of custom_menu_order field
-        if ( !isset( $options['custom_menu_titles'] ) ) {
-            $options['custom_menu_titles'] = '';
-        }
-        if ( !isset( $options['custom_menu_hidden'] ) ) {
-            $options['custom_menu_hidden'] = '';
-        }
         // Enhance List Tables
         if ( !isset( $options['enhance_list_tables'] ) ) {
             $options['enhance_list_tables'] = false;

@@ -150,7 +150,8 @@ class Common_Methods {
      */
     public function get_menu_hidden_by_toggle() {
         $menu_hidden_by_toggle = array();
-        $options = get_option( ASENHA_SLUG_U, array() );
+        $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
+        $options = ( isset( $options_extra['admin_menu'] ) ? $options_extra['admin_menu'] : array() );
         if ( array_key_exists( 'custom_menu_hidden', $options ) ) {
             $menu_hidden = $options['custom_menu_hidden'];
             $menu_hidden = explode( ',', $menu_hidden );

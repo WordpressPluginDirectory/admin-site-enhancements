@@ -14,7 +14,7 @@ class Settings_Fields_Render {
      * @since 1.0.0
      */
     function render_checkbox_toggle( $args ) {
-        $option_name = $args['option_name'];
+        $option_name = ( isset( $args['option_name'] ) ? $args['option_name'] : '' );
         if ( !empty( $option_name ) ) {
             $options = get_option( $option_name, array() );
         } else {
@@ -644,10 +644,10 @@ class Settings_Fields_Render {
      *
      * @since 2.0.0
      */
-    function render_sortable_menu( $args ) {
+    function render_sortable_menu() {
         $triangle_right_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 16 16"><path fill="currentColor" d="M14.222 6.687a1.5 1.5 0 0 1 0 2.629l-10 5.499A1.5 1.5 0 0 1 2 13.5V2.502a1.5 1.5 0 0 1 2.223-1.314z"/></svg>';
         ?>
-			<div class="subfield-description"><?php 
+			<div class="module-description"><?php 
         echo esc_html__( 'Drag and drop menu items to the desired position. Optionally change 3rd party plugin/theme\'s menu item titles or hide some items until toggled by clicking "Show All" at the bottom of the admin menu.', 'admin-site-enhancements' );
         ?></div>
 			<?php 
@@ -656,12 +656,8 @@ class Settings_Fields_Render {
 		<?php 
         global $menu, $submenu;
         $common_methods = new Common_Methods();
-        $option_name = $args['option_name'];
-        if ( !empty( $option_name ) ) {
-            $options = get_option( $option_name, array() );
-        } else {
-            $options = get_option( ASENHA_SLUG_U, array() );
-        }
+        $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
+        $options = ( isset( $options_extra['admin_menu'] ) ? $options_extra['admin_menu'] : array() );
         // Set menu items to be excluded from title renaming. These are from WordPress core.
         $renaming_not_allowed = array(
             'menu-dashboard',
@@ -999,14 +995,13 @@ class Settings_Fields_Render {
 		</ul>
 		<?php 
         // Hidden input field to store custom menu order (from options as is, or sortupdate) upon clicking Save Changes.
-        $field_id = $args['field_id'];
-        $field_name = $args['field_name'];
-        $field_option_value = ( isset( $options[$args['field_id']] ) ? $options[$args['field_id']] : '' );
-        echo '<input type="hidden" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-text" name="' . esc_attr( $field_name ) . '" value="' . esc_attr( $field_option_value ) . '">';
-        // Hidden input field to store custom menu titles (from options as is, or custom values entered on each non-WP-default menu items.
-        $this->output_admin_menu_organizer_hidden_field( 'custom_menu_titles' );
+        $field_id = 'custom_menu_order';
+        $field_option_value = ( isset( $options[$field_id] ) ? $options[$field_id] : '' );
+        echo '<input type="hidden" id="' . esc_attr( $field_id ) . '" class="asenha-subfield-text" name="' . esc_attr( $field_id ) . '" value="' . esc_attr( $field_option_value ) . '">';
         // Hidden input field to store hidden menu items (from options as is, or 'Hide' checkbox clicks) upon clicking Save Changes.
         $this->output_admin_menu_organizer_hidden_field( 'custom_menu_hidden' );
+        // Hidden input field to store custom menu titles (from options as is, or custom values entered on each non-WP-default menu items.
+        $this->output_admin_menu_organizer_hidden_field( 'custom_menu_titles' );
     }
 
     /**
@@ -1015,10 +1010,11 @@ class Settings_Fields_Render {
      * @since 6.9.13
      */
     public function output_admin_menu_organizer_hidden_field( $field_id ) {
-        $options = get_option( ASENHA_SLUG_U, array() );
-        $field_name = ASENHA_SLUG_U . '[' . $field_id . ']';
+        $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
+        $options = ( isset( $options_extra['admin_menu'] ) ? $options_extra['admin_menu'] : array() );
+        $field_name = $field_id;
         $field_option_value = ( isset( $options[$field_id] ) ? $options[$field_id] : '' );
-        echo '<input type="hidden" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-text" name="' . esc_attr( $field_name ) . '" value="' . esc_attr( $field_option_value ) . '">';
+        echo '<input type="hidden" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-text" name="' . esc_attr( $field_name ) . '" value="' . esc_attr( stripslashes( $field_option_value ) ) . '">';
     }
 
     /**
