@@ -4,7 +4,7 @@
  * Plugin Name: Admin and Site Enhancements (ASE)
  * Plugin URI:        https://www.wpase.com/plugin-uri
  * Description:       Easily enable enhancements and features that usually require multiple plugins.
- * Version:           7.8.5
+ * Version:           7.8.5.1
  * Author:            wpase.com
  * Author URI:        https://www.wpase.com/author-uri
  * License:           GPL-2.0+
@@ -18,7 +18,7 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'ASENHA_VERSION', '7.8.5' );
+define( 'ASENHA_VERSION', '7.8.5.1' );
 define( 'ASENHA_ID', 'asenha' );
 define( 'ASENHA_SLUG', 'admin-site-enhancements' );
 define( 'ASENHA_SLUG_U', 'admin_site_enhancements' );
@@ -114,7 +114,7 @@ add_action( 'init', 'asenha_free_load_textdomain' );
 //         }
 //     }
 // );
-
+        
 // Functions for setting up admin menu, admin page, the settings sections and fields and other fondational stuff
 require_once ASENHA_PATH . 'settings.php';
 

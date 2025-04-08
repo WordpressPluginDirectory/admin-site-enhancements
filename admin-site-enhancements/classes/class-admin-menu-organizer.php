@@ -374,4 +374,34 @@ class Admin_Menu_Organizer {
         }
     }
 
+    /**
+     * Save admin menu via AJAX
+     * 
+     * @since 6.3.1
+     */
+    public function save_admin_menu() {
+        if ( isset( $_REQUEST ) ) {
+            if ( check_ajax_referer( 'save-menu-nonce', 'nonce', false ) ) {
+                $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
+                $options = ( isset( $options_extra['admin_menu'] ) ? $options_extra['admin_menu'] : array() );
+                $options['custom_menu_order'] = ( isset( $_REQUEST['custom_menu_order'] ) ? $_REQUEST['custom_menu_order'] : $options['custom_menu_order'] );
+                $options['custom_menu_titles'] = ( isset( $_REQUEST['custom_menu_titles'] ) ? $_REQUEST['custom_menu_titles'] : $options['custom_menu_titles'] );
+                $options['custom_menu_hidden'] = ( isset( $_REQUEST['custom_menu_hidden'] ) ? $_REQUEST['custom_menu_hidden'] : $options['custom_menu_hidden'] );
+                $options_extra['admin_menu'] = $options;
+                // vi( $options_extra, '', 'save menu' );
+                $updated = update_option( ASENHA_SLUG_U . '_extra', $options_extra, true );
+                if ( $updated ) {
+                    $response = array(
+                        'status' => 'success',
+                    );
+                } else {
+                    $response = array(
+                        'status' => 'failed',
+                    );
+                }
+                echo json_encode( $response );
+            }
+        }
+    }
+
 }

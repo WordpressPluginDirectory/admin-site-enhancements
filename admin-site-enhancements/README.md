@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.7.2  
-Stable tag: 7.8.5  
+Stable tag: 7.8.5.1  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -196,13 +196,17 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **142 _minor_ releases** (e.g. 4.9.1), for a **total of 220 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **143 _minor_ releases** (e.g. 4.9.1), for a **total of 221 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 7.8.5 (2025.04.07) - ASE Free and Pro
+### 7.8.5.1 (2025.04.08) - ASE Free
+
+* **[FIXED in Free] Admin Interface >> Admin Menu Organizer**: fixed an issue where saving changes in the new Admin Menu Organizer settings page (Settings >> Admin Menu) resulted in a 400 (bad request) HTML error. Props to [@mrmatteastwood](https://wordpress.org/support/users/mrmatteastwood/), [@wikis](https://wordpress.org/support/users/wikis/), [@anamazon](https://wordpress.org/support/users/anamazon/), [@tazmandev](https://wordpress.org/support/users/tazmandev/) and [@overspeed99](https://wordpress.org/support/users/overspeed99/) for swiftly [reporting the issue](https://wordpress.org/support/topic/admin-menu-cant-be-saved/) and sharing details that led to this fix.
+
+### 7.8.5 (2025.04.07) - ASE Free
 
 * **[IMPROVED in Pro] Security >> CAPTCHA Protection**: add an Advanced Options section for ALTCHA where you can set custom text for the different steps in the verification process. This can be useful if you need to quickly translate the default text. Props to @betaplus, Linda H. and Marcellus J. for prompting this improvement.
 

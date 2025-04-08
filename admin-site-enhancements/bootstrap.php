@@ -377,6 +377,7 @@ class Admin_Site_Enhancements {
                 add_action( 'admin_menu', [$admin_menu_organizer, 'add_hidden_menu_toggle'], 9999999997 );
                 add_action( 'admin_enqueue_scripts', [$admin_menu_organizer, 'enqueue_toggle_hidden_menu_script'] );
             }
+            add_action( 'wp_ajax_save_admin_menu', [$admin_menu_organizer, 'save_admin_menu'] );
         }
         // Show Custom Taxonomy Filters
         if ( array_key_exists( 'show_custom_taxonomy_filters', $options ) && $options['show_custom_taxonomy_filters'] ) {
