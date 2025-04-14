@@ -131,6 +131,8 @@ class Change_Login_URL {
      */
     public function prevent_redirect_to_custom_login_url() {
         $url_input = sanitize_text_field( $_SERVER['REQUEST_URI'] );
+        $options = get_option( ASENHA_SLUG_U );
+        $custom_login_slug = $options['custom_login_slug'];
         // Make sure $url_input ends with /
         if ( false !== strpos( $url_input, $custom_login_slug ) ) {
             if ( substr( $url_input, -1 ) != '/' ) {

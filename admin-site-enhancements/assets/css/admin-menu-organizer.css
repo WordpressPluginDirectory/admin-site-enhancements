@@ -1,3 +1,7 @@
+.wrap.admin-menu-organizer {
+    margin: 10px 20px 0;
+}
+
 .admin-menu-organizer-main {
     display: flex;
     gap: 16px;

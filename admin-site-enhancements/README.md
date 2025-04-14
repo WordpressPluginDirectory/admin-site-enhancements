@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.7.2  
-Stable tag: 7.8.5.1  
+Stable tag: 7.8.6  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -196,38 +196,29 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **143 _minor_ releases** (e.g. 4.9.1), for a **total of 221 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **144 _minor_ releases** (e.g. 4.9.1), for a **total of 222 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 7.8.5.1 (2025.04.08) - ASE Free
+### 7.8.6 (2025.04.14) - ASE Free and Pro
 
-* **[FIXED in Free] Admin Interface >> Admin Menu Organizer**: fixed an issue where saving changes in the new Admin Menu Organizer settings page (Settings >> Admin Menu) resulted in a 400 (bad request) HTML error. Props to [@mrmatteastwood](https://wordpress.org/support/users/mrmatteastwood/), [@wikis](https://wordpress.org/support/users/wikis/), [@anamazon](https://wordpress.org/support/users/anamazon/), [@tazmandev](https://wordpress.org/support/users/tazmandev/) and [@overspeed99](https://wordpress.org/support/users/overspeed99/) for swiftly [reporting the issue](https://wordpress.org/support/topic/admin-menu-cant-be-saved/) and sharing details that led to this fix.
+* **[IMPROVED in Free and Pro] Admin Interface >> Enhance List Tables**: the Last Modified column will now use the date and time format set in Settings >> General. Props to @st3phan5 for [suggesting this](https://wordpress.org/support/topic/date-format-for-last-modified/).
 
-### 7.8.5 (2025.04.07) - ASE Free
+* **[IMPROVED and FIXED in Pro] Content Management >> Custom Content Types**: 
+  * **added integration of the repeater field into Elementor Pro**. This is done via the Loop Builder widget and the Loop Item template. [View documentation](https://www.wpase.com/documentation/custom-field-types/#elementor) for more details. Please test and open a support ticket if you see any bugs / issues.
+  * improve the [cf] shortcode for gallery field when using the **grid output so each thumbnail now links to the full size image URL**. Props to Synapse A.I. S.L. for propmting this improvement.
+  * fixed an issue introduced in v7.8.5 where the **WYSIWYG field can not be resized** when editing a post. Props to Stach R. for reporting the issue.
 
-* **[IMPROVED in Pro] Security >> CAPTCHA Protection**: add an Advanced Options section for ALTCHA where you can set custom text for the different steps in the verification process. This can be useful if you need to quickly translate the default text. Props to @betaplus, Linda H. and Marcellus J. for prompting this improvement.
+* **[FIXED in Free and Pro] Log In/Out & Register >> Change Login URL**: fix PHP warning as [reported by @sgiberson](https://wordpress.org/support/topic/undefined-variable-custom_login_slug/).
 
-* **[IMPROVED and FIXED in Pro] Utilities >> Form Builder**: 
-  * **Added an option to hide the form after successful submission**. This can be configured under form Settings >> Confirmation >> Confirmation Type >> Success Message. Props to Ignazio D.M. for prompting this improvement.
-  * **Fixed layout issues on style template editor**. Fixed style editor not being full-width and the Publish button being contained in wide white box.
-
-* **[IMPROVED in Free and Pro] Log In/Out & Register >> Change Login URL**: added handling for an issue when Gravity Forms is active and someone tries to open a URL that contains the `gf_page` parameter, e.g. to preview a form, while not being logged-in, it would then redirect to the custom login URL. That will now be prevented and the user will be redirected to the homepage instead. Props to Coan Z. for reporting this.
-  
-* **[CHANGED in Free and Pro] Admin Interface >> Admin Menu Organizer**: moved the admin menu settings to a separate Admin Menu page/item under Settings. This will help prevent an issue where saving changes to ASE settings failed as [reported by @BooMeranGz](https://wordpress.org/support/topic/apache-mod_security-waf-problems/). This also improves the usability of the menu organizer for sites with lots of menu items, especially when drag-and-dropping menu item to reposition it.
-
-* **[FIXED in Pro] Log In/Out & Register >> Last Login Column**: fixed conflict with WPGridBuilder causing user filtering to not work properly in WPGridBuilder. Props to Stuart McK. for reporting the issue and facilitating the troubleshooting process.
-
-* **[FIXED in Pro] Content Managmenent >> Media Categories**: 
-  * fixed an issue where a PHP notice, "Function \_load_textdomain_just_in_time was called incorrectly", was being triggerred in a certain scenario. Props to Wilbert S. for reporting the issue and facilitating the troubleshooting process.
-  * fixed a fatal error that occurs in a certain scenario when Breakdance is active and a logged-in user is trying to view the frontend. Props to Darren L. for reporting it and facilitating the troubleshooting process.
+* **[FIXED in Pro] Admin Interface >> Clean Up Admin Bar**: fixed PHP deprecation notices. Props to Pierre G. for reporting the issue.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [31 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: updated Vietnamese, Ukrainian, Spansih (Spain), Portuguese (Brazil), Polish, Indonesian, Hungarian, German, Dutch
-    * ASE Pro: updated Vietnamese. Special kudos to [Hoang Hxn](https://profiles.wordpress.org/nguyenquanghoang/) for the huge work of translating the new Form Builder module!
+    * ASE Free: Updated Vietnamese, Spanish (Spain), Portuguese (Brazil), Polish, Norwegian, German, Dutch, Danish.
+    * ASE Pro: Updated Vietnamese, Hungarian.
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **Chinese (China)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.
@@ -239,7 +230,7 @@ Each **_major release_** usually corresponds with the addition of one new module
   * **Korean**: ASE Free and Pro (completed). Props to [@chazmlab](https://profiles.wordpress.org/chazmlab/) et al.
   * **German (Formal)**: ASE Free and Pro (completed). Props to [@markussss](https://profiles.wordpress.org/markussss/), Bastian S. et al.
   * **French**: ASE Free and Pro (completed). Props to [Stéphan G.](https://profiles.wordpress.org/gongonzo/), [@jeanfrancoisdelvin](https://profiles.wordpress.org/jeanfrancoisdelvin/), [@srossignol](https://profiles.wordpress.org/srossignol/), [@lucashw](https://profiles.wordpress.org/lucashw/), [@skippy43](https://profiles.wordpress.org/skippy43/), [@anlip](https://profiles.wordpress.org/anlip/), [@agencefacton](https://profiles.wordpress.org/agencefacton/), [@injsbx](https://profiles.wordpress.org/injsbx/) et al.
-  * **Polish**: ASE Free and Pro (completed). Props to [@kosmity](https://profiles.wordpress.org/kosmity/) and [Dariusz Z.](https://profiles.wordpress.org/dariobros/) et al.
+  * **Polish**: ASE Free and Pro (completed). Props to [Jaroslaw K.](https://profiles.wordpress.org/kosmity/), [Dziubek](https://profiles.wordpress.org/dziubek/) and [Dariusz Z.](https://profiles.wordpress.org/dariobros/) et al.
   * **Norwegian**: ASE Free and Pro (completed). Props to [Alf O.F.](https://profiles.wordpress.org/skoen/) et al.
   * **Czech**: ASE Free and Pro (completed). Props to Jan S. et al.
   * **Spanish**: ASE Free and Pro (completed). Props to [@marcorubiol](https://profiles.wordpress.org/marcorubiol/) et al.
