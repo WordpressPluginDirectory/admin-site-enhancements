@@ -38,7 +38,9 @@ class Admin_Menu_Organizer {
         $render_field = new Settings_Fields_Render();
         ?>
         <div class="wrap admin-menu-organizer">
-            <h1 class="wp-heading-inline">Admin Menu Organizer</h1>
+            <h1 class="wp-heading-inline"><?php 
+        echo __( 'Admin Menu Organizer', 'admin-site-enhancements' );
+        ?></h1>
             <div class="admin-menu-organizer-main">
                 <div class="admin-menu-sortables-wrapper">
                     <?php 
@@ -207,24 +209,29 @@ class Admin_Menu_Organizer {
         $labels =& $wp_post_types['post']->labels;
         $labels->name = $posts_custom_title;
         $labels->singular_name = $posts_custom_title;
+        $labels->all_items = sprintf( 
+            /* translators: %s is post type or taxonomy label */
+            __( 'All %s', 'admin-site-enhancements' ),
+            $posts_custom_title
+         );
         $labels->add_new = __( 'Add New', 'admin-site-enhancements' );
         $labels->add_new_item = __( 'Add New', 'admin-site-enhancements' );
         $labels->edit_item = __( 'Edit', 'admin-site-enhancements' );
         $labels->new_item = $posts_custom_title;
         $labels->view_item = __( 'View', 'admin-site-enhancements' );
         $labels->search_items = sprintf( 
-            /* translators: %s is the post type label */
-            'Search %s',
+            /* translators: %s is post type or taxonomy label */
+            __( 'Search %s', 'admin-site-enhancements' ),
             $posts_custom_title
          );
         $labels->not_found = sprintf( 
             /* translators: %s is the post type label */
-            'No %s found',
+            __( 'No %s found', 'admin-site-enhancements' ),
             strtolower( $posts_custom_title )
          );
         $labels->not_found_in_trash = sprintf( 
             /* translators: %s is the post type label */
-            'No %s found in Trash',
+            __( 'No %s found in Trash', 'admin-site-enhancements' ),
             strtolower( $posts_custom_title )
          );
     }
@@ -239,14 +246,14 @@ class Admin_Menu_Organizer {
         $posts_custom_title = $this->get_posts_custom_title();
         if ( !empty( $posts_custom_title ) ) {
             $submenu['edit.php'][5][0] = sprintf( 
-                /* translators: %s is the post type label */
-                'All %s',
+                /* translators: %s is post type or taxonomy label */
+                __( 'All %s', 'admin-site-enhancements' ),
                 $posts_custom_title
              );
         } else {
             $submenu['edit.php'][5][0] = sprintf( 
-                /* translators: %s is the post type label */
-                'All %s',
+                /* translators: %s is post type or taxonomy label */
+                __( 'All %s', 'admin-site-enhancements' ),
                 $posts_default_title
              );
         }

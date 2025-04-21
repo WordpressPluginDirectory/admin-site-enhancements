@@ -11,7 +11,7 @@ class Show_Custom_Taxonomy_Filters {
     // Excluded taxonomies
     private $inapplicable_taxonomies = array(
         'category',
-        // Posts Categories
+        // Post Categories
         'product_cat',
         // WooCommerce Product Categories
         'asenha_code_snippet_category',

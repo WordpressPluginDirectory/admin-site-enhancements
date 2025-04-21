@@ -64,6 +64,12 @@ function get_kses_with_svg_ruleset() {
 function get_kses_with_style_src_ruleset() {
     $kses_defaults = wp_kses_allowed_html( 'post' );
     $style_script_args = array(
+        'link'   => array(
+            'rel'         => true,
+            'href'        => true,
+            'sizes'       => true,
+            'crossorigin' => true,
+        ),
         'style'  => true,
         'script' => array(
             'src' => true,

@@ -162,12 +162,12 @@ class Password_Protection {
                 } else {
                     // Password is incorrect
                     // Add error message
-                    $password_protected_errors->add( 'incorrect_password', 'Incorrect password.' );
+                    $password_protected_errors->add( 'incorrect_password', __( 'Incorrect password.', 'admin-site-enhancements' ) );
                 }
             } else {
                 // Password input is empty
                 // Add error message
-                $password_protected_errors->add( 'empty_password', 'Password can not be empty.' );
+                $password_protected_errors->add( 'empty_password', __( 'Password can not be empty.', 'admin-site-enhancements' ) );
             }
         }
     }

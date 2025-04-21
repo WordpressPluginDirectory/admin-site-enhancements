@@ -10,6 +10,112 @@ use WC_Admin_Duplicate_Product;
  * @since 6.9.5
  */
 class Content_Duplication {
+    public $inapplicable_post_types = array(
+        'attachment',
+        // public
+        'asenha_code_snippet',
+        // public, ASE
+        'asenha_cpt',
+        // non-public, ASE
+        'asenha_ctax',
+        // non-public, ASE
+        'asenha_cfgroup',
+        // non-public, ASE
+        'asenha_options_page',
+        // non-public, ASE
+        'options_page_config',
+        // non-public, ASE
+        'revision',
+        // non-public
+        'nav_menu_item',
+        // non-public
+        'custom_css',
+        // non-public
+        'customize_changeset',
+        // non-public
+        'oembed_cache',
+        // non-public
+        'user_request',
+        // non-public
+        'wp_block',
+        // non-public
+        'wp_template',
+        // non-public
+        'wp_template_part',
+        // non-public
+        'wp_global_styles',
+        // non-public
+        'wp_navigation',
+        // non-public
+        'wp_font_family',
+        // non-public
+        'wp_font_face',
+        // non-public
+        'patterns_ai_data',
+        // non-public
+        'product_variation',
+        // non-public, WooCommerce
+        'shop_order',
+        // non-public, WooCommerce
+        'shop_order_refund',
+        // non-public, WooCommerce
+        'shop_coupon',
+        // non-public, WooCommerce
+        'shop_order_placehold',
+        // non-public, WooCommerce
+        'elementor_library',
+        // public, Elementor
+        'e-landing-page',
+        // public, Elementor
+        'elementor_snippet',
+        // non-public, Elementor
+        'elementor_font',
+        // non-public, Elementor
+        'elementor_icons',
+        // non-public, Elementor
+        'sfwd-assignment',
+        // public, LearnDash
+        'sfwd-certificates',
+        // public, LearnDash
+        'sfwd-courses',
+        // public, LearnDash
+        'sfwd-lessons',
+        // public, LearnDash
+        'sfwd-quiz',
+        // public, LearnDash
+        'sfwd-essays',
+        // public, LearnDash
+        'sfwd-topic',
+        // public, LearnDash
+        'sfwd-transactions',
+        // public, LearnDash
+        'sfwd-question',
+        // non-public, LearnDash
+        'ld-exam',
+        // non-public, LearnDash
+        'wfacp_checkout',
+        // public, FunnelKit Automation
+        'wffn_oty',
+        // public, FunnelKit Funnel Builder
+        'wffn_optin',
+        // public, FunnelKit Funnel Builder
+        'wffn_landing',
+        // public, FunnelKit Funnel Builder
+        'wffn_ty',
+        // public, FunnelKit Funnel Builder
+        'kadence_form',
+        // non-public, Kadence Blocks
+        'kadence_header',
+        // non-public, Kadence Blocks
+        'kadence_navigation',
+        // non-public, Kadence Blocks
+        'kadence_lottie',
+        // non-public, Kadence Blocks
+        'kadence_vector',
+        // non-public, Kadence Blocks
+        'kb_icon',
+    );
+
     /**
      * Enable duplication of pages, posts and custom posts
      *
@@ -187,6 +293,7 @@ class Content_Duplication {
     public function is_post_type_duplicable( $post_type ) {
         global $asenha_public_post_types;
         $common_methods = new Common_Methods();
+        $inapplicable_post_types = $this->inapplicable_post_types;
         $is_woocommerce_active = $common_methods->is_woocommerce_active();
         $options = get_option( ASENHA_SLUG_U, array() );
         $enable_duplication_on_post_types_type = 'only-on';
@@ -208,7 +315,7 @@ class Content_Duplication {
         } else {
             $post_types_for_enable_duplication = $asenha_public_post_types_slugs;
         }
-        if ( 'only-on' == $enable_duplication_on_post_types_type && in_array( $post_type, $post_types_for_enable_duplication ) || 'except-on' == $enable_duplication_on_post_types_type && !in_array( $post_type, $post_types_for_enable_duplication ) ) {
+        if ( 'only-on' == $enable_duplication_on_post_types_type && in_array( $post_type, $post_types_for_enable_duplication ) && !in_array( $post_type, $inapplicable_post_types ) || 'except-on' == $enable_duplication_on_post_types_type && !in_array( $post_type, $post_types_for_enable_duplication ) && !in_array( $post_type, $inapplicable_post_types ) ) {
             if ( 'product' != $post_type || 'product' == $post_type && !$is_woocommerce_active ) {
                 return true;
             }

@@ -29,6 +29,7 @@ class Settings_Sanitization {
         if ( false === $options_extra ) {
             add_option( ASENHA_SLUG_U . '_extra', array(), true );
         }
+        $common_methods = new Common_Methods();
         // Content Duplication
         if ( !isset( $options['enable_duplication'] ) ) {
             $options['enable_duplication'] = false;
@@ -453,7 +454,7 @@ class Settings_Sanitization {
         if ( !isset( $options['head_code'] ) ) {
             $options['head_code'] = '';
         }
-        $options['head_code'] = ( !empty( $options['head_code'] ) ? $options['head_code'] : '' );
+        $options['head_code'] = ( !empty( $options['head_code'] ) ? $common_methods->sanitize_html_js_css_code( $options['head_code'] ) : '' );
         if ( !isset( $options['body_code_priority'] ) ) {
             $options['body_code_priority'] = 10;
         }
@@ -461,7 +462,7 @@ class Settings_Sanitization {
         if ( !isset( $options['body_code'] ) ) {
             $options['body_code'] = '';
         }
-        $options['body_code'] = ( !empty( $options['body_code'] ) ? $options['body_code'] : '' );
+        $options['body_code'] = ( !empty( $options['body_code'] ) ? $common_methods->sanitize_html_js_css_code( $options['body_code'] ) : '' );
         if ( !isset( $options['footer_code_priority'] ) ) {
             $options['footer_code_priority'] = 10;
         }
@@ -469,7 +470,7 @@ class Settings_Sanitization {
         if ( !isset( $options['footer_code'] ) ) {
             $options['footer_code'] = '';
         }
-        $options['footer_code'] = ( !empty( $options['footer_code'] ) ? $options['footer_code'] : '' );
+        $options['footer_code'] = ( !empty( $options['footer_code'] ) ? $common_methods->sanitize_html_js_css_code( $options['footer_code'] ) : '' );
         // =================================================================
         // DISABLE COMPONENTS
         // =================================================================

@@ -70,6 +70,9 @@ class Maintenance_Mode {
                         <link rel="stylesheet" id="asenha-maintenance" href="<?php 
                 echo esc_html( ASENHA_URL ) . 'assets/css/maintenance.css';
                 ?>" media="all">
+                        <?php 
+                echo wp_kses( $custom_head_code, get_kses_with_style_src_ruleset() );
+                ?>
                         <meta name="viewport" content="width=device-width">
                         <?php 
                 wp_site_icon();

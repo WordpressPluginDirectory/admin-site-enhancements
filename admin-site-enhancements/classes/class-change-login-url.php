@@ -139,7 +139,7 @@ class Change_Login_URL {
                 $url_input = $url_input . '/';
             }
         }
-        if ( false === strpos( $url_input, '/' . $custom_login_slug . '/' ) && isset( $_GET['gf_page'] ) && !is_user_logged_in() ) {
+        if ( false === strpos( $url_input, '/' . $custom_login_slug . '/' ) && isset( $_GET['gf_page'] ) && !is_user_logged_in() && !wp_doing_ajax() ) {
             wp_safe_redirect( site_url() );
             exit;
         }

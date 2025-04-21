@@ -1,6 +1,9 @@
 <?php
 
 global $error, $password_protected_errors, $is_iphone;
+$options = get_option( ASENHA_SLUG_U, array() );
+$password_field_label = __( 'Password', 'admin-site-enhancements' );
+$button_label = __( 'View Content', 'admin-site-enhancements' );
 /**
  * WP Shake JS
  */
@@ -77,12 +80,12 @@ do_action( 'asenha_password_protection_error_messages' );
 echo esc_url( add_query_arg( 'protected-page', 'view', home_url( '/' ) ) );
 ?>" method="post">
 		<label for="protected_page_pwd"><?php 
-echo __( 'Password', 'admin-site-enhancements' );
+echo esc_html( $password_field_label );
 ?></label>
 		<input type="password" name="protected_page_pwd" id="protected_page_pwd" class="input" value="" size="20" />
 		<p class="submit">
 			<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php 
-echo __( 'View Content', 'admin-site-enhancements' );
+echo esc_attr( $button_label );
 ?>" />
 			<input type="hidden" name="protected-page" value="view" />
 			<input type="hidden" name="source" value="<?php 
