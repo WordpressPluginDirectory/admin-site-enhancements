@@ -188,4 +188,26 @@ class Disable_Comments {
         return ASENHA_PATH . 'includes/blank-comment-template.php';
     }
 
+    /**
+     * Check if commenting is disabled for the post type
+     * 
+     * @since 7.8.8
+     */
+    public function is_commenting_disabled_for_post_type( $post_type ) {
+        $options = get_option( ASENHA_SLUG_U, array() );
+        $comment_is_disabled_for_post_type = false;
+        if ( array_key_exists( 'disable_comments', $options ) && $options['disable_comments'] ) {
+            if ( array_key_exists( 'disable_comments_for', $options ) && !empty( $options['disable_comments_for'] ) ) {
+                $disable_comments_for = $options['disable_comments_for'];
+                $common_methods = new Common_Methods();
+                $disable_comments_for = $common_methods->get_array_of_keys_with_true_value( $disable_comments_for );
+                $disable_comments_type = 'only-on';
+                if ( 'only-on' == $disable_comments_type && in_array( $post_type, $disable_comments_for ) || 'except-on' == $disable_comments_type && !in_array( $post_type, $disable_comments_for ) || 'all-post-types' == $disable_comments_type ) {
+                    $comment_is_disabled_for_post_type = true;
+                }
+            }
+        }
+        return $comment_is_disabled_for_post_type;
+    }
+
 }

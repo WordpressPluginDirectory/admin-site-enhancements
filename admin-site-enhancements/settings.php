@@ -59,6 +59,7 @@ function asenha_register_admin_menu() {
  * @since 1.0.0
  */
 function asenha_add_settings_page() {
+    $options = get_option( ASENHA_SLUG_U, array() );
     ?>
 	<div class="wrap asenha">
 
@@ -75,6 +76,9 @@ function asenha_add_settings_page() {
 					<?php 
     ?>
 				</h1>
+				<input id="module-search-input" type="search" placeholder="<?php 
+    echo esc_attr__( 'Search...', 'admin-site-enhancements' );
+    ?>" />
 				<!-- <a href="https://wordpress.org/plugins/admin-site-enhancements/" target="_blank" class="asenha-header-action"><span>&#8505;</span> <?php 
     // esc_html_e( 'Info', 'admin-site-enhancements' );
     ?></a> -->
@@ -248,45 +252,48 @@ function asenha_add_settings_page() {
     // https://icon-sets.iconify.design/iconoir/tools/
     $icon_utilities = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="m10.05 10.607l-7.07 7.07a2 2 0 0 0 0 2.83v0a2 2 0 0 0 2.828 0l7.07-7.072m4.315.365l3.878 3.878a2 2 0 0 1 0 2.828v0a2 2 0 0 1-2.828 0l-6.209-6.208M6.733 5.904L4.61 6.61L2.49 3.075l1.414-1.414L7.44 3.782l-.707 2.122Zm0 0l2.83 2.83"/><path d="M10.05 10.607c-.844-2.153-.679-4.978 1.061-6.718c1.74-1.74 4.95-2.121 6.717-1.06l-3.04 3.04l-.283 3.111l3.111-.282l3.04-3.041c1.062 1.768.68 4.978-1.06 6.717c-1.74 1.74-4.564 1.905-6.717 1.061"/></g></svg>';
     ?>
-					    <input id="tab-content-management" type="radio" name="tabs" checked><label for="tab-content-management"><?php 
+					    <input id="tab-content-management" type="radio" name="tabs" checked><label for="tab-content-management" class="modules-tab"><?php 
     echo wp_kses( $icon_content_management, get_kses_with_svg_ruleset() );
     ?><span><?php 
     echo esc_html__( 'Content Management', 'admin-site-enhancements' );
     ?></span></label>
-					    <input id="tab-admin-interface" type="radio" name="tabs"><label for="tab-admin-interface"><?php 
+					    <input id="tab-admin-interface" type="radio" name="tabs"><label for="tab-admin-interface" class="modules-tab"><?php 
     echo wp_kses( $icon_admin_interface, get_kses_with_svg_ruleset() );
     ?><span><?php 
     echo esc_html__( 'Admin Interface', 'admin-site-enhancements' );
     ?></span></label>
-					    <input id="tab-login-logout" type="radio" name="tabs"><label for="tab-login-logout"><?php 
+					    <input id="tab-login-logout" type="radio" name="tabs"><label for="tab-login-logout" class="modules-tab"><?php 
     echo wp_kses( $icon_login_logout, get_kses_with_svg_ruleset() );
     ?><span><?php 
     echo esc_html__( 'Log In/Out | Register', 'admin-site-enhancements' );
     ?></span></label>
-					    <input id="tab-custom-code" type="radio" name="tabs"><label for="tab-custom-code"><?php 
+					    <input id="tab-custom-code" type="radio" name="tabs"><label for="tab-custom-code" class="modules-tab"><?php 
     echo wp_kses( $icon_custom_code, get_kses_with_svg_ruleset() );
     ?><span><?php 
     echo esc_html__( 'Custom Code', 'admin-site-enhancements' );
     ?></span></label>
-					    <input id="tab-disable-components" type="radio" name="tabs"><label for="tab-disable-components"><?php 
+					    <input id="tab-disable-components" type="radio" name="tabs"><label for="tab-disable-components" class="modules-tab"><?php 
     echo wp_kses( $icon_disable_components, get_kses_with_svg_ruleset() );
     ?><span><?php 
     echo esc_html__( 'Disable Components', 'admin-site-enhancements' );
     ?></span></label>
-					    <input id="tab-security" type="radio" name="tabs"><label for="tab-security"><?php 
+					    <input id="tab-security" type="radio" name="tabs"><label for="tab-security" class="modules-tab"><?php 
     echo wp_kses( $icon_security, get_kses_with_svg_ruleset() );
     ?><span><?php 
     echo esc_html__( 'Security', 'admin-site-enhancements' );
     ?></span></label>
-					    <input id="tab-optimizations" type="radio" name="tabs"><label for="tab-optimizations"><?php 
+					    <input id="tab-optimizations" type="radio" name="tabs"><label for="tab-optimizations" class="modules-tab"><?php 
     echo wp_kses( $icon_optimizations, get_kses_with_svg_ruleset() );
     ?><span><?php 
     echo esc_html__( 'Optimizations', 'admin-site-enhancements' );
     ?></span></label>
-					    <input id="tab-utilities" type="radio" name="tabs"><label for="tab-utilities"><?php 
+					    <input id="tab-utilities" type="radio" name="tabs"><label for="tab-utilities" class="modules-tab"><?php 
     echo wp_kses( $icon_utilities, get_kses_with_svg_ruleset() );
     ?><span><?php 
     echo esc_html__( 'Utilities', 'admin-site-enhancements' );
+    ?></span></label>
+					    <label for="tab-search" class="search-tab" style="display:none;height:52px;"><span><?php 
+    echo esc_html__( 'Search results:', 'admin-site-enhancements' );
     ?></span></label>
 					</div>
 					<div class="asenha-tab-contents">

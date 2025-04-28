@@ -27,6 +27,70 @@
 
       });
 
+      // Search modules
+      var searchInput = $('#module-search-input');
+      
+      $(searchInput).keyup(delay(function (e) {
+         var searchVal = $(this).val();
+         var filterItems = $('[data-search-filter]');
+
+         if ( searchVal != '' ) {
+            setTimeout(function() {
+               $(searchInput).addClass('has-text-input');
+               $('.modules-tab').hide();
+               $('.search-tab').show();
+               $('.asenha-fields.section-visible').addClass('originally-visible');
+               $('.asenha-fields').removeClass('section-visible');
+               $('.asenha-fields').removeClass('section-hidden');
+               $('.asenha-fields').addClass('section-visible-for-search');
+               filterItems.parents('.asenha-toggle').addClass('result-is-hidden');
+               $('[data-search-filter][data-module-info*="' + searchVal.toLowerCase() + '"]').parents('.asenha-toggle').removeClass('result-is-hidden');
+            }, 250 );
+            refreshCodeMirror();
+         } else {
+            setTimeout(function() {
+               searchInput.removeClass('has-text-input');
+               filterItems.parents('.asenha-toggle').removeClass('result-is-hidden');
+               clear_search();
+               refreshCodeMirror();
+            }, 250 );
+         }
+      }, 200));
+
+      // Restore all results when the x button on search input field is clicked. 
+      // The click triggers a 'search' event we're listening to below
+
+      if ( searchInput.length > 0 ) {
+         document.getElementById("module-search-input").addEventListener("search", function(event) {
+            clear_search();
+            refreshCodeMirror();
+         });         
+      }
+      
+      // Ref: https://stackoverflow.com/a/1909508
+      function delay(fn, ms) {
+         let timer = 0
+         return function(...args) {
+            clearTimeout(timer)
+            timer = setTimeout(fn.bind(this, ...args), ms || 0)
+         }
+      }
+            
+      function clear_search() {
+            searchInput.removeClass('has-text-input');
+            $('[data-search-filter]').each( function() {
+               $(this).parents('.asenha-toggle').removeClass('result-is-hidden');
+               $('.modules-tab').show();
+               $('.search-tab').hide();
+               $('.asenha-fields').removeClass('section-visible-for-search');
+               $('.asenha-fields').addClass('section-hidden');
+               // Has no effect. Compensate with CSS .asenha-fields.section-visible.section-hidden { display: block; }
+               // $('.asenha-fields.originally-visible').removeClass('section-hidden'); 
+               $('.asenha-fields.originally-visible').addClass('section-visible');
+               $('.asenha-fields').removeClass('originally-visible');
+            });
+      }
+
       // Show all / less toggler for field options | Modified from https://codepen.io/symonsays/pen/rzgEgY
       $('.asenha-field-with-options.field-show-more > .show-more').click(function(e) {
 
@@ -464,35 +528,8 @@
 
       
 
-      // Show and hide corresponding fields on tab clicks
-
-      $('#tab-content-management + label').click( function() {
-         $('.fields-content-management').show();
-         $('.asenha-fields:not(.fields-content-management)').hide();
-         window.location.hash = 'content-management';
-         Cookies.set('asenha_tab', 'content-management', { expires: 1 }); // expires in 1 day
-      });
-
-      $('#tab-admin-interface + label').click( function() {
-         $('.fields-admin-interface').show();
-         $('.asenha-fields:not(.fields-admin-interface)').hide();
-         window.location.hash = 'admin-interface';
-         Cookies.set('asenha_tab', 'admin-interface', { expires: 1 }); // expires in 1 day
-      });
-
-      $('#tab-login-logout + label').click( function() {
-         $('.fields-login-logout').show();
-         $('.asenha-fields:not(.fields-login-logout)').hide();
-         window.location.hash = 'login-logout';
-         Cookies.set('asenha_tab', 'login-logout', { expires: 1 }); // expires in 1 day
+      function refreshCodeMirror() {
          
-      });
-
-      $('#tab-custom-code + label').click( function() {
-         $('.fields-custom-code').show();
-         $('.asenha-fields:not(.fields-custom-code)').hide();
-         window.location.hash = 'custom-code';
-         Cookies.set('asenha_tab', 'custom-code', { expires: 1 }); // expires in 1 day
          adminCssEditor.refresh(); // Custom Admin CSS >> CodeMirror
          frontendCssEditor.refresh(); // Custom Fronend CSS >> CodeMirror
          adsTxtEditor.refresh(); // Manage ads.txt >> CodeMirror
@@ -501,44 +538,62 @@
          bodyCodeEditor.refresh(); // Insert <head>, <body> and <footer> code >> CodeMirror
          footerCodeEditor.refresh(); // Insert <head>, <body> and <footer> code >> CodeMirror
          robotsTxtEditor.refresh(); // Manage robots.txt >> CodeMirror
+                  
+      }
+
+      // Show and hide corresponding fields on tab clicks
+
+      function tabSwitcher( tabSlug ) {
+         $('.asenha-fields.fields-'+tabSlug).addClass('section-visible');
+         $('.asenha-fields.fields-'+tabSlug).removeClass('section-hidden');
+         $('.asenha-fields:not(.fields-'+tabSlug+')').removeClass('section-visible');
+         $('.asenha-fields:not(.fields-'+tabSlug+')').addClass('section-hidden');
+         window.location.hash = tabSlug;
+         Cookies.set('asenha_tab', tabSlug, { expires: 1 }); // expires in 1 day
+      }
+
+      $('#tab-content-management + label').click( function() {
+         tabSwitcher('content-management');
+      });
+
+      $('#tab-admin-interface + label').click( function() {
+         tabSwitcher('admin-interface');
+      });
+
+      $('#tab-login-logout + label').click( function() {
+         tabSwitcher('login-logout');
+         refreshCodeMirror();
+      });
+
+      $('#tab-custom-code + label').click( function() {
+         tabSwitcher('custom-code');
+         refreshCodeMirror();
       });
 
       $('#tab-disable-components + label').click( function() {
-         $('.fields-disable-components').show();
-         $('.asenha-fields:not(.fields-disable-components)').hide();
-         window.location.hash = 'disable-components';
-         Cookies.set('asenha_tab', 'disable-components', { expires: 1 }); // expires in 1 day
+         tabSwitcher('disable-components');
       });
 
       $('#tab-security + label').click( function() {
-         $('.fields-security').show();
-         $('.asenha-fields:not(.fields-security)').hide();
-         window.location.hash = 'security';
-         Cookies.set('asenha_tab', 'security', { expires: 1 }); // expires in 1 day
+         tabSwitcher('security');
       });
 
       $('#tab-optimizations + label').click( function() {
-         $('.fields-optimizations').show();
-         $('.asenha-fields:not(.fields-optimizations)').hide();
-         window.location.hash = 'optimizations';
-         Cookies.set('asenha_tab', 'optimizations', { expires: 1 }); // expires in 1 day
+         tabSwitcher('optimizations');
       });
 
       $('#tab-utilities + label').click( function() {
-         $('.fields-utilities').show();
-         $('.asenha-fields:not(.fields-utilities)').hide();
-         window.location.hash = 'utilities';
-         Cookies.set('asenha_tab', 'utilities', { expires: 1 }); // expires in 1 day
-         
+         tabSwitcher('utilities');
+         refreshCodeMirror();
       });
 
       // Open tab set in 'asenha_tab' cookie set on saving changes. Defaults to content-management tab when cookie is empty
       var asenhaTabHash = Cookies.get('asenha_tab');
 
       if (typeof asenhaTabHash === 'undefined') {
-         $('#tab-content-management + label').trigger('click');         
+         $('#tab-content-management + label').trigger('click');
       } else {
-         $('#tab-' + asenhaTabHash + ' + label').trigger('click');         
+         $('#tab-' + asenhaTabHash + ' + label').trigger('click');
       }
       
       // Show or hide subfields on document ready and on toggle click

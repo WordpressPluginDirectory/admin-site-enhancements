@@ -66,6 +66,8 @@ class Admin_Site_Enhancements {
         if ( function_exists( 'bwasenha_fs' ) ) {
             bwasenha_fs()->add_filter( 'plugin_icon', 'fs_custom_optin_icon__premium_only' );
         }
+        // Get all ASE options, default to empty array in case it's not been created yet
+        $options = get_option( ASENHA_SLUG_U, array() );
         // Add style="display:[something];" to the safe CSS attributes.
         // Ref: https://github.com/WordPress/wordpress-develop/blob/6.4/src/wp-includes/kses.php#L2329
         // Ref: https://wordpress.stackexchange.com/a/195433
@@ -73,9 +75,6 @@ class Admin_Site_Enhancements {
             $styles[] = 'display';
             return $styles;
         } );
-        // ===== Activate features based on settings =====
-        // Get all WP Enhancements options, default to empty array in case it's not been created yet
-        $options = get_option( ASENHA_SLUG_U, array() );
         // Content Duplication
         if ( array_key_exists( 'enable_duplication', $options ) && $options['enable_duplication'] ) {
             $content_duplication = new ASENHA\Classes\Content_Duplication();

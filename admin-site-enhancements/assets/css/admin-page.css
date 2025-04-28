@@ -426,6 +426,7 @@ a.asenha-support-nudge-dismiss:hover,
 .asenha-footer {
     box-sizing: border-box;
     margin-bottom: 20px;
+    padding: 20px 40px 40px;
     width: 1140px;
     background-color: #fff;
     border: 1px solid #ccd0d4;
@@ -433,10 +434,15 @@ a.asenha-support-nudge-dismiss:hover,
     overflow: hidden;
 }
 
+.asenha-footer h2 {
+    font-size: 1.375em;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
 .footer-section.export-import {
     box-sizing: border-box;
     width: 100%;
-    padding: 40px;
     gap: 40px;
     display: flex;
     justify-content: space-between;
@@ -452,7 +458,7 @@ a.asenha-support-nudge-dismiss:hover,
 }
 
 .settings-box h3 {
-    font-size: 1.25em;
+    font-size: 1.125em;
     line-height: 1.2;
     margin: 0;
 }
@@ -575,6 +581,86 @@ a.asenha-support-nudge-dismiss:hover,
 
 .asenha-toggle {
     /* border-bottom: 1px solid #eee; */
+}
+
+#module-search-input {
+    margin-left: 8px;
+    border-color: #ddd;
+/*    transition: .25s;*/
+}
+
+#module-search-input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #ccc;
+}
+#module-search-input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #ccc;
+    opacity: 1;
+}
+#module-search-input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #ccc;
+    opacity: 1;
+}
+#module-search-input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #ccc;
+}
+#module-search-input::-ms-input-placeholder { /* Microsoft Edge */
+    color: #ccc;
+}
+#module-search-input::placeholder { /* WebKit, Blink, Edge */
+    color: #ccc;
+}
+
+#module-search-input:hover::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #999;
+}
+#module-search-input:hover:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #999;
+    opacity: 1;
+}
+#module-search-input:hover::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #999;
+    opacity: 1;
+}
+#module-search-input:hover:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #999;
+}
+#module-search-input:hover::-ms-input-placeholder { /* Microsoft Edge */
+    color: #999;
+}
+#module-search-input:hover::placeholder { /* WebKit, Blink, Edge */
+    color: #999;
+}
+
+input[type="search"]#module-search-input.has-text-input {
+    background-color: #ffefca;
+}
+
+#module-search-input:hover {
+    border-color: #8c8f94;
+}
+
+.asenha-toggle.result-is-hidden {
+    display: none;
+}
+
+.asenha-fields.section-visible,
+.asenha-fields.section-visible-for-search,
+.asenha-fields.section-visible.section-hidden {
+    display: block;
+}
+
+.asenha-fields.section-visible-for-search {
+    padding: 0 10px;
+}
+.asenha-fields.section-visible-for-search:first-child {
+    padding-top: 10px;
+}
+.asenha-fields.section-visible-for-search:last-child {
+    padding-bottom: 10px;
+}
+
+.asenha-fields.section-hidden {
+    display: none;
 }
 
 .form-table .asenha-toggle th:not(.datatable-th) {

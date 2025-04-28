@@ -21,6 +21,7 @@ class Settings_Fields_Render {
             $options = get_option( ASENHA_SLUG_U, array() );
         }
         $field_name = $args['field_name'];
+        $field_title = ( isset( $args['field_title'] ) ? $args['field_title'] : '' );
         $field_description = $args['field_description'];
         $field_option_value = ( array_key_exists( $args['field_id'], $options ) ? $options[$args['field_id']] : false );
         echo '<input type="checkbox" id="' . esc_attr( $field_name ) . '" class="asenha-field-checkbox" name="' . esc_attr( $field_name ) . '" ' . checked( $field_option_value, true, false ) . '>';
@@ -37,7 +38,7 @@ class Settings_Fields_Render {
                 echo '<div class="asenha-field-options-wrapper">';
             }
         }
-        echo '<div class="asenha-field-description">' . wp_kses_post( $field_description ) . '</div>';
+        echo '<div class="asenha-field-description" data-search-filter data-module-info="' . esc_attr( strtolower( $field_title ) ) . '">' . wp_kses_post( $field_description ) . '</div>';
         // For field with additional options / sub-fields, we add wrapper for them
         if ( array_key_exists( 'field_options_wrapper', $args ) && $args['field_options_wrapper'] ) {
             echo '<div class="asenha-subfields" style="display:none"></div>';

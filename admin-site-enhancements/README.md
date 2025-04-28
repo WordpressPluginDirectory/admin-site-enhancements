@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.8  
-Stable tag: 7.8.7  
+Stable tag: 7.8.8  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -196,49 +196,46 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **145 _minor_ releases** (e.g. 4.9.1), for a **total of 223 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **146 _minor_ releases** (e.g. 4.9.1), for a **total of 224 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 7.8.7 (2025.04.21) - ASE Free and Pro
+### 7.8.8 (2025.04.28) - ASE Free and Pro
 
-* **[SECURITY FIX in Free and Pro] Custom Code >> Insert &lt;head&gt;, &lt;body&gt; and &lt;footer&gt; Code** fixed Stored XSS vulnerability reported by @ha1s3nb3rgg.
+* **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**: 
+  * Implemented **code snippets export and import** via ASE settings page's "Export | Import" panel. Props to Philippe G., Tanguy, Nicolas M., Dennis M., Jeremy L., Yasuyoshi T., Daniel, Simon and Hoang Hxn for suggesting this improvement.
+  * Fixed an issue where PHP snippets that contains certain **code was being truncated upon saving**. Props to Markus F. for reporting the issue and facilitating the troubleshooting process.
+  * Fixed an issue where PHP snippets that contains certain **code was being malformed upon saving**, causing the snippet to churn out an error. Props to Emile V. for reporting the issue and facilitating the troubleshooting process.
+  * Fixed an issue where **snippet description editor is not loaded properly in the snippet edit screen**. Props to Jim R. for reporting the issue and facilitating the troubleshooting process.
+  * Fixed a **JS error when editing PHP snippet**.
+  * Fixed **PHP warning** that occurs when saving a JS snippet with certain options
 
-* **[IMPROVED in Free and Pro] Utilities >> Password Protection**:
-  * ASE Pro: **Color of the "View Content" button** will now follow the one set in the Login Page Customizer module. Props to Sébastien B. for propmpting this improvement.
-  * ASE Free and Pro: **Error messages are now internationalized**, i.e. translatable.  Props to Sébastien B. for propmpting this improvement.
-  
-* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**:
-  * Date field format will now be honored when displaying a date field in Breakdance builder. Props to Radoslaw B. for the detailed reporting of the issue which includes environment data, current vs expected behaviour, technical details and steps to reproduce the issue.
-  * "Line Break" label when a line break field is inside a repeater will no longer show up in the edit screen.
-  * The 'Instructions' option when editing a "Line Break" field will no longer be displayed.
-  
-* **[IMPROVED in Pro] Utilities >> Maintenance Mode**: added an option to insert custom &lt;head&gt; code, which is useful, for example, to load custom web fonts, e.g. Google Fonts. The font can then be used in the Custom CSS section for styling the text on the maintenance page. Props to Bent F. for prompting this improvement.
+* **[IMPROVED and FIXED in Free and Pro] ASE Settings**: 
+  * ASE Free and Pro: **Implement modules live search**, so you can more easily and quickly get to the module settings you need. Props to [wpman](https://wordpress.org/support/topic/feature-request-search-in-ase/), Todd, Max Z. and Nathan I. for prompting this improvement.
+  * ASE Pro: Fixed an issue where **settings can not be imported when Admin Menu Organizer module is not enabled**. Props to Hoang Hxn. for reporting the issue.
+  * ASE Pro: Fixed an issue where **translations are not properly loaded when the Form Builder module is enabled**. Props to Hoang Hxn. for reporting the issue.
 
-* **[IMPROVED in Pro] Content Management >> Media Categories**: the categories tree state are now saved and will be shown upon reopening the media library or after drag-and-dropping media items to a category / sub-category. Props to Jeroen, Nicola and Ramyt I. for prompting this improvement.
+* **[IMPROVED in Pro] Disable Components >> CAPTCHA Protection >> Comment Form**: make sure CAPTCHA assets are not loaded when commenting is allowed on an individual post while disabled for the entire post type via the Disable Comments module.
+
+* **[CHANGED in Free and Pro] Translations**: make sure that translations are always loaded from the included .mo files. Props to Hoang Hxn for prompting this improvement.
 
 * **[IMPROVED and FIXED in Pro] Utilities >> Form Builder**: 
-  * **Form scripts and styles will now only be loaded on pages where a form is being shown**. Props to Mathijs v.d.B. for prompting this improvement.
-  * **Fixed an issue where ALTCHA field was not working properly**. Props to John E. for reporting the issue and facilitating the troubleshooting process.
-
-* **[FIXED in Free and Pro] Log In/Out & Register >> Change Login URL**: fixed a bug where uploading a file on the frontend in Gravity Forms by a non-logged-in user fails due to recent security fix in Change Login URL. Props to [Bernd](https://wordpress.org/support/users/eide/) for [reporting the issue](https://wordpress.org/support/topic/gravitforms-logic-flawed-in-prevent_redirect_to_custom_login_url/) with sufficient technical details.
-
-* **[FIXED in Free and Pro] ASE Settings Export / Import** will now include the settings for the Admin Menu Organizer module after recent change where the module settings has moved into it's own admin page. Props to Hoang Hxn for reporting the issue.
+  * Added **custom CSS for email templates**. Props to Mathijs v.d.B. for prompting this improvement.
+  * Fixed an issue where **form preview are devoid of any styling** after v7.8.7 release. Props to John E. for prompting the fix.
+  * Fixed an issue where **form inserted with the form block** in the block editor is devoid of any styles. Props to John E. for prompting this fix.
+  * Added **new error message for the upload field when the PHP `tmpfile()` function is disabled / not available**, which will cause uploads to fail. Props to Eric L. for propmting this improvement.
+  * **Fixed PHP warnings** when sending test emails.
   
-* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fixed an issue where sortable Meta Box columns were not shown as sortable due to [recent changes](https://metabox.io/meta-box-aio-includes-framework/) in how Meta Box AIO started including the Meta Box framework. Props to David D. for reporting the issue and facilitating troubleshooting.
+* **[IMPROVED in Pro] Content Management >> Custom Content Types**: added a warning message when rendering the `[post_cf_form]` shortcode in edit mode but no post ID has been set.
 
-* **[FIXED in Pro] Security >> Email Address Obfuscator**: fixed an issue where email address was not automatically obfuscated in an Elementor text widget. Props to Linda H. for reporting the issue.
-
-* **[FIXED in Pro] Utilities >> Display System Summary**: added potential fix to prevent error when calculating varioius folder sizes. Props to @jh for reporting the issue and facilitating troubleshooting.
-
-* **[FIXED in Pro] Admin Interface >> Show Custom Taxonomy Filters**: fix an issue where search is broken for posts while filter(s) for non-hierarchical taxonomies are enabled. Props Grzegorz K. for reporting the issue.
+* **[FIXED in Free and Pro] Log In/Out & Register >> Change Login URL**: fixed a conflict with Gravity Forms causing the file upload field, when set to upload multiple files, to fail with a JS error. Props to Henry R. for reporting the issue.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [31 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: Updated Vietnamese, Spanish (Spain), Portuguese (Brazil), Polish, Norwegian, German, Dutch, Danish.
-    * ASE Pro: Updated Vietnamese, Hungarian.
+    * ASE Free: updated Vietnamese, Ukrainian, Spanish (Chile), Spanish (Spain), Slovak, Portuguese (Brazil), Polish, Norwegian, Indonesian, Dutch, Chinese (Taiwan).
+    * ASE Pro: updated Romanian, Portuguese (Brazil), Polish, Vietnamese.
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.
