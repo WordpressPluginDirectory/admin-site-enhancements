@@ -357,10 +357,12 @@ class Content_Order {
                     <?php 
             echo '<div class="content-main">
                                 <span class="dashicons dashicons-menu"></span><a href="' . esc_attr( get_edit_post_link( $post->ID ) ) . '" class="item-title">' . esc_html( $post->post_title ) . '</a><span class="item-status' . esc_attr( $post_status_label_class ) . '">' . esc_html( $post_status_label_separator ) . esc_html( $post_status_label ) . '</span>' . wp_kses_post( $has_child_label ) . wp_kses_post( $taxonomies_and_terms ) . wp_kses_post( $short_excerpt ) . '<div class="fader"></div>
-                            </div>
-                            <div class="content-additional">
+                            </div>';
+            if ( !in_array( $post->post_type, array('asenha_code_snippet') ) ) {
+                echo '<div class="content-additional">
                                 <a href="' . esc_attr( get_the_permalink( $post->ID ) ) . '" target="_blank" class="button item-view-link">View</a>
                             </div>';
+            }
             ?>
                 </div>
             </div>

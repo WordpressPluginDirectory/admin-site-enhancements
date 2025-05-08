@@ -61,7 +61,7 @@ class Redirect_After_Login {
     public function get_redirect_relative_path( $redirect_after_login_to_slug_raw ) {
         if ( !empty( $redirect_after_login_to_slug_raw ) ) {
             $redirect_after_login_to_slug = trim( trim( $redirect_after_login_to_slug_raw ), '/' );
-            if ( false !== strpos( $redirect_after_login_to_slug, '.php' ) ) {
+            if ( false !== strpos( $redirect_after_login_to_slug, '.php' ) || false !== strpos( $redirect_after_login_to_slug, '.html' ) ) {
                 $slug_suffix = '';
             } else {
                 $slug_suffix = '/';

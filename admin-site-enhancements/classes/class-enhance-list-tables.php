@@ -129,7 +129,7 @@ class Enhance_List_Tables {
      */
     public function add_excerpt( $column_name, $id ) {
         if ( 'asenha-excerpt' === $column_name ) {
-            $excerpt = get_the_excerpt( $id );
+            $excerpt = wp_strip_all_tags( get_the_excerpt( $id ) );
             // about 310 characters
             $excerpt = substr( $excerpt, 0, 160 );
             // truncate to 160 characters

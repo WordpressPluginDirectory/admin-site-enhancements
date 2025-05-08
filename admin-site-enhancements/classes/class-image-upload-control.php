@@ -314,7 +314,7 @@ class Image_Upload_Control {
      */
     public function fix_image_orientation( $file ) {
         if ( !isset( $this->orientation_fixed[$file] ) ) {
-            $exif = exif_read_data( $file );
+            $exif = @exif_read_data( $file );
             if ( isset( $exif ) && isset( $exif['Orientation'] ) && $exif['Orientation'] > 1 ) {
                 // Need it so that image editors are available to us.
                 // include_once ABSPATH . 'wp-admin/includes/image-edit.php';

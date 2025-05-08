@@ -4,8 +4,8 @@ Contributors: qriouslad
 Donate link: https://bowo.io/asenha-sp-rdm  
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
-Tested up to: 6.8  
-Stable tag: 7.8.8  
+Tested up to: 6.8.1  
+Stable tag: 7.8.9  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -196,46 +196,33 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **146 _minor_ releases** (e.g. 4.9.1), for a **total of 224 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **147 _minor_ releases** (e.g. 4.9.1), for a **total of 225 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 7.8.8 (2025.04.28) - ASE Free and Pro
+### 7.8.9 (2025.05.05) - ASE Free and Pro
 
-* **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**: 
-  * Implemented **code snippets export and import** via ASE settings page's "Export | Import" panel. Props to Philippe G., Tanguy, Nicolas M., Dennis M., Jeremy L., Yasuyoshi T., Daniel, Simon and Hoang Hxn for suggesting this improvement.
-  * Fixed an issue where PHP snippets that contains certain **code was being truncated upon saving**. Props to Markus F. for reporting the issue and facilitating the troubleshooting process.
-  * Fixed an issue where PHP snippets that contains certain **code was being malformed upon saving**, causing the snippet to churn out an error. Props to Emile V. for reporting the issue and facilitating the troubleshooting process.
-  * Fixed an issue where **snippet description editor is not loaded properly in the snippet edit screen**. Props to Jim R. for reporting the issue and facilitating the troubleshooting process.
-  * Fixed a **JS error when editing PHP snippet**.
-  * Fixed **PHP warning** that occurs when saving a JS snippet with certain options
+* **[IMPROVED and FIXED in Pro] Content Management >> Content Order**: 
+  * When enabling content ordering for ASE code snippets, the 'View' button will no longer be shown as there is no frontend view for code snipepts, so, clicking on it would've shown a 404 error page. Props to Jim W. for prompting this change.
+  * Fix PHP warning in a certain scenario involving 404 error pages. Pros to David B. for reporting the issue.
 
-* **[IMPROVED and FIXED in Free and Pro] ASE Settings**: 
-  * ASE Free and Pro: **Implement modules live search**, so you can more easily and quickly get to the module settings you need. Props to [wpman](https://wordpress.org/support/topic/feature-request-search-in-ase/), Todd, Max Z. and Nathan I. for prompting this improvement.
-  * ASE Pro: Fixed an issue where **settings can not be imported when Admin Menu Organizer module is not enabled**. Props to Hoang Hxn. for reporting the issue.
-  * ASE Pro: Fixed an issue where **translations are not properly loaded when the Form Builder module is enabled**. Props to Hoang Hxn. for reporting the issue.
-
-* **[IMPROVED in Pro] Disable Components >> CAPTCHA Protection >> Comment Form**: make sure CAPTCHA assets are not loaded when commenting is allowed on an individual post while disabled for the entire post type via the Disable Comments module.
-
-* **[CHANGED in Free and Pro] Translations**: make sure that translations are always loaded from the included .mo files. Props to Hoang Hxn for prompting this improvement.
-
-* **[IMPROVED and FIXED in Pro] Utilities >> Form Builder**: 
-  * Added **custom CSS for email templates**. Props to Mathijs v.d.B. for prompting this improvement.
-  * Fixed an issue where **form preview are devoid of any styling** after v7.8.7 release. Props to John E. for prompting the fix.
-  * Fixed an issue where **form inserted with the form block** in the block editor is devoid of any styles. Props to John E. for prompting this fix.
-  * Added **new error message for the upload field when the PHP `tmpfile()` function is disabled / not available**, which will cause uploads to fail. Props to Eric L. for propmting this improvement.
-  * **Fixed PHP warnings** when sending test emails.
+* **[IMPROVED and FIXED in Pro] Custom Code >> Code Snippets Manager**: 
+  * **Added option to select code editor theme between dark and light**. Props to Jim W. for suggesting this improvement.
+  * **Trashed snippets will now be deactivated properly**. Props to Jim W. for suggesting this improvement.
+  * **Fixed snippet filtering not working when CSS type is selceted**. Props to Jim W. for reporting the issue.
   
-* **[IMPROVED in Pro] Content Management >> Custom Content Types**: added a warning message when rendering the `[post_cf_form]` shortcode in edit mode but no post ID has been set.
+* **[FIXED in Free and Pro] Log In/Out & Register >> Redirect After Login**: fix a redirect issue when the target URL is an HTML page with .html extension. THe slash (/) suffix will no longer be appended, which will break the URL / redirect. Props to [@hyzwar](https://wordpress.org/support/users/hyzwar/) for [reporting it](https://wordpress.org/support/topic/redirect-after-login-static-html-issue/).
 
-* **[FIXED in Free and Pro] Log In/Out & Register >> Change Login URL**: fixed a conflict with Gravity Forms causing the file upload field, when set to upload multiple files, to fail with a JS error. Props to Henry R. for reporting the issue.
+* **[FIXED in Free and Pro] Optimizations >> Image Upload Control**: fix PHP warnings that occurs in a certain scenario. Props to [@johnwebman](https://wordpress.org/support/users/johnwebman/) for [reporting the issue](https://wordpress.org/support/topic/multiple-warnings-in-error-log/) complete with the error log entries.
+
+* **[FIXED in Free and Pro] Admin Interface >> Enhance List Tables**: fixed an issue where showing the excerpt column can break the layout of WooCommerce products list (or any list) when the excerpt contains some HTML that gets improperly truncated. Props to @adminfongyuan for reporting the issue.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [31 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: updated Vietnamese, Ukrainian, Spanish (Chile), Spanish (Spain), Slovak, Portuguese (Brazil), Polish, Norwegian, Indonesian, Dutch, Chinese (Taiwan).
-    * ASE Pro: updated Romanian, Portuguese (Brazil), Polish, Vietnamese.
+    * ASE Free: updated Vietnamese, Spanish (Spain), Spanish (Chile), Portuguese (Brazil), Polish, Indonesian, Dutch, Chinese (Taiwan).
+    * ASE Pro: updated Slovak, Hungarian, Romanian, Polish, Vietnamese.
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al.
