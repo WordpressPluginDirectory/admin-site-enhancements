@@ -8,6 +8,11 @@ if ( ! is_rtl() ) {
 	$position = 'right';
 }
 
+/* Gravity Form - Form Editor */
+$custom_width_no_px = intval( str_replace( 'px', '', $custom_width ) );
+$gf_editor_width = 594 - 160 + $custom_width_no_px;
+$gf_editor_width = (string) $gf_editor_width . 'px';
+
 ?>
 <style>
 
@@ -44,6 +49,15 @@ if ( ! is_rtl() ) {
 /* ASE Form Builder */
 .fb-header-nav {
     width: calc(100% - <?php echo esc_html( esc_html( $custom_width ) ); ?>) !important;
+}
+
+/* Gravity Form - Form Editor */
+body.toplevel_page_gf_edit_forms .gform-form-toolbar {
+	width: calc(100% - <?php echo esc_html( esc_html( $custom_width ) ); ?>) !important;
+}
+
+.form_editor_fields_container {
+	max-width: calc(100% - <?php echo esc_html( esc_html( $gf_editor_width ) ); ?>) !important;
 }
 
 </style>

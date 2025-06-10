@@ -269,6 +269,9 @@
       $('.hide-admin-bar').appendTo('.fields-admin-interface > table > tbody');
       
       $('.hide-admin-bar-for').appendTo('.fields-admin-interface .hide-admin-bar .asenha-subfields');
+      $('.hide-admin-bar-always-show-for-admins').appendTo('.fields-admin-interface .hide-admin-bar .asenha-subfields');
+      
+      $('.hide-admin-bar-description').appendTo('.fields-admin-interface .hide-admin-bar .asenha-subfields');
       
       $('.wider-admin-menu').appendTo('.fields-admin-interface > table > tbody');
       $('.admin-menu-width').appendTo('.fields-admin-interface .wider-admin-menu .asenha-subfields');
@@ -299,6 +302,7 @@
       // Place fields into "Log In | Log Out" tab
       $('.change-login-url').appendTo('.fields-login-logout > table > tbody');
       $('.custom-login-slug').appendTo('.fields-login-logout .change-login-url .asenha-subfields');
+      $('.custom-login-whitelist').appendTo('.fields-login-logout .change-login-url .asenha-subfields');
       $('.default-login-redirect-slug').appendTo('.fields-login-logout .change-login-url .asenha-subfields');
       $('.change-login-url-description').appendTo('.fields-login-logout .change-login-url .asenha-subfields');
       $('.login-id-type-restriction').appendTo('.fields-login-logout > table > tbody');
@@ -887,6 +891,16 @@
          });
       }
 
+      // Form Builder - Empty out stored/hidden attachment ID when "Email header image" field is emptied
+      var emailHeaderImage = $('#form-builder-email-header-image');
+      var emailHeaderImageAttachmentId = $('.form-builder-email-header-image-attachment-id input');
+      
+      $(emailHeaderImage).keyup(delay(function (e) {
+         if ($(this).val().length === 0) {
+            emailHeaderImageAttachmentId.val("");
+         }
+      }, 200));
+
       // =============== Image Ratio Calculator / Preservation for Login Page Customizer >> Logo Image =================
 
       // Code modified from: https://codepen.io/tobiasdev/pen/XNjxdZ by Tobias Bogliolo
@@ -938,57 +952,64 @@
             
       // =============== ASE PRO =================
 
-      // Upgrade nudge to Pro
-      if ( asenhaStats.hideUpgradeNudge ) {
-         $('.asenha-upgrade-nudge').hide();
-         $('#bottom-upgrade-nudge').show();
-      } else {
-         $('.asenha-upgrade-nudge').show();
-         $('#bottom-upgrade-nudge').hide();
-      }
+      if ( asenhaStats.isYearEndPromoPeriod ) {
 
-      $('#dismiss-upgrade-nudge').click(function(e) {
-         e.preventDefault();
-         $.ajax({
-            url: ajaxurl,
-            data: {
-               'action':'dismiss_upgrade_nudge'
-            },
-            success:function(data) {
-               $('.asenha-upgrade-nudge').hide();
-               // $('#bottom-upgrade-nudge').show();
-            },
-            error:function(errorThrown) {
-               console.log(errorThrown);
-            }
+         // Promo nudge
+         if ( asenhaStats.hidePromoNudge ) {
+            $('.asenha-promo-nudge').hide();
+            $('#bottom-upgrade-nudge').show();
+         } else {
+            $('.asenha-promo-nudge').show();
+            $('#bottom-upgrade-nudge').hide();
+         }
+         
+         $('#dismiss-promo-nudge').click(function(e) {
+            e.preventDefault();
+            $.ajax({
+               url: ajaxurl,
+               data: {
+                  'action':'dismiss_promo_nudge',
+                  'nonce': adminPageVars.nonce
+               },
+               success:function(data) {
+                  $('.asenha-promo-nudge').hide();
+               },
+               error:function(errorThrown) {
+                  console.log(errorThrown);
+               }
+            });
          });
-      });
-      
-      // Promo nudge
-
-      if ( asenhaStats.hidePromoNudge ) {
-         $('.asenha-promo-nudge').hide();
-         $('#bottom-upgrade-nudge').show();
+         
       } else {
-         $('.asenha-promo-nudge').show();
-         $('#bottom-upgrade-nudge').hide();
-      }
-      
-      $('#dismiss-promo-nudge').click(function(e) {
-         e.preventDefault();
-         $.ajax({
-            url: ajaxurl,
-            data: {
-               'action':'dismiss_promo_nudge'
-            },
-            success:function(data) {
-               $('.asenha-promo-nudge').hide();
-            },
-            error:function(errorThrown) {
-               console.log(errorThrown);
-            }
+
+         // Upgrade nudge to Pro
+         if ( asenhaStats.hideUpgradeNudge ) {
+            $('.asenha-upgrade-nudge').hide();
+            $('#bottom-upgrade-nudge').show();
+         } else {
+            $('.asenha-upgrade-nudge').show();
+            $('#bottom-upgrade-nudge').hide();
+         }
+
+         $('#dismiss-upgrade-nudge').click(function(e) {
+            e.preventDefault();
+            $.ajax({
+               url: ajaxurl,
+               data: {
+                  'action':'dismiss_upgrade_nudge',
+                  'nonce': adminPageVars.nonce
+               },
+               success:function(data) {
+                  $('.asenha-upgrade-nudge').hide();
+                  // $('#bottom-upgrade-nudge').show();
+               },
+               error:function(errorThrown) {
+                  console.log(errorThrown);
+               }
+            });
          });
-      });
+
+      }
       
       // =============== SPONSORSHIP =================
 
@@ -1003,16 +1024,17 @@
 
       $('#have-shared,#have-reviewed').click(function(e) {
          e.preventDefault();
-         $.ajax({
-            url: 'https://bowo.io/asenha-sp-ndg',
-            method: 'GET',
-            dataType: 'jsonp',
-            crossDomain: true
-         });
+         // $.ajax({
+         //    url: 'https://bowo.io/asenha-sp-ndg',
+         //    method: 'GET',
+         //    dataType: 'jsonp',
+         //    crossDomain: true
+         // });
          $.ajax({
             url: ajaxurl,
             data: {
-               'action':'have_supported'
+               'action':'have_supported',
+               'nonce': adminPageVars.nonce
             },
             success:function(data) {
                $('.asenha-support-nudge').hide();
@@ -1025,16 +1047,17 @@
       
       $('#support-nudge-dismiss').click(function(e) {
          e.preventDefault();
-         $.ajax({
-            url: 'https://bowo.io/asenha-sp-ndg',
-            method: 'GET',
-            dataType: 'jsonp',
-            crossDomain: true
-         });
+         // $.ajax({
+         //    url: 'https://bowo.io/asenha-sp-ndg',
+         //    method: 'GET',
+         //    dataType: 'jsonp',
+         //    crossDomain: true
+         // });
          $.ajax({
             url: ajaxurl,
             data: {
-               'action':'dismiss_support_nudge'
+               'action':'dismiss_support_nudge',
+               'nonce': adminPageVars.nonce
             },
             success:function(data) {
                $('.asenha-support-nudge').hide();

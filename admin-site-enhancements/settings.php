@@ -129,13 +129,7 @@ function asenha_add_settings_page() {
 
 		<div class="asenha-body">
 			<?php 
-    $current_month = intval( date( 'n', time() ) );
-    // n is for numeric value of month, 1 to 12
-    if ( $current_month >= 10 ) {
-        $is_yearend_promo_period = true;
-    } else {
-        $is_yearend_promo_period = false;
-    }
+    $is_yearend_promo_period = is_yearend_promo_period();
     ?>
 			<?php 
     if ( $is_yearend_promo_period ) {
@@ -159,6 +153,20 @@ function asenha_add_settings_page() {
         echo esc_html__( 'Get It Now', 'admin-site-enhancements' );
         ?></a>
 					<a href="#" id="dismiss-promo-nudge" class="asenha-promo-nudge__dismiss">
+						<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="currentColor" d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24l9.6-9.6l9.6 9.6l2.4-2.4l-9.6-9.6z"/></svg>
+					</a>
+				</div>
+				<?php 
+    } else {
+        ?>
+				<div class="asenha-upgrade-nudge" style="display: none;">
+					<div class="asenha-upgrade-nudge__message"><?php 
+        echo esc_html__( 'Lifetime Deal (LTD) is available for the Pro version of ASE.', 'admin-site-enhancements' );
+        ?></div>
+					<a href="https://www.wpase.com/upgrade-ndg" class="button asenha-upgrade-nudge__button" target="_blank"><?php 
+        echo esc_html__( 'Find Out More', 'admin-site-enhancements' );
+        ?></a>
+					<a href="#" id="dismiss-upgrade-nudge" class="asenha-upgrade-nudge__dismiss">
 						<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="currentColor" d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24l9.6-9.6l9.6 9.6l2.4-2.4l-9.6-9.6z"/></svg>
 					</a>
 				</div>
@@ -407,6 +415,22 @@ function asenha_add_settings_page() {
 }
 
 /**
+ * Check whether it's the year-end promo period
+ * 
+ * @since 7.8.11
+ */
+function is_yearend_promo_period() {
+    $current_month = intval( date( 'n', time() ) );
+    // n is for numeric value of month, 1 to 12
+    if ( $current_month >= 10 ) {
+        $is_yearend_promo_period = true;
+    } else {
+        $is_yearend_promo_period = false;
+    }
+    return $is_yearend_promo_period;
+}
+
+/**
  * Suppress all notices, then add notice for successful settings update
  *
  * @since 1.1.0
@@ -603,6 +627,7 @@ function asenha_admin_scripts(  $hook_suffix  ) {
             false
         );
         wp_localize_script( 'asenha-admin-page', 'adminPageVars', array(
+            'nonce'                         => wp_create_nonce( 'asenha-' . get_current_user_id() ),
             'siteUrl'                       => get_site_url(),
             'wpcontentUrl'                  => content_url(),
             'mediaFrameTitle'               => __( 'Select an Image', 'admin-site-enhancements' ),
@@ -842,6 +867,7 @@ function asenha_admin_scripts(  $hook_suffix  ) {
     }
     $asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
     $hide_promo_nudge = false;
+    $is_yearend_promo_period = is_yearend_promo_period();
     // Pass on ASENHA stats to admin-page.js to determine whether to show support nudge
     $current_date = date( 'Y-m-d', time() );
     $show_support_nudge = false;
@@ -904,12 +930,13 @@ function asenha_admin_scripts(  $hook_suffix  ) {
         $first_save_date = ( isset( $asenha_stats['first_save_date'] ) ? $asenha_stats['first_save_date'] : '' );
         $last_save_date = ( isset( $asenha_stats['last_save_date'] ) ? $asenha_stats['last_save_date'] : '' );
         $asenha_stats_localized = array(
-            'firstSaveDate'    => $first_save_date,
-            'lastSaveDate'     => $last_save_date,
-            'saveCount'        => $save_count,
-            'hideUpgradeNudge' => $hide_upgrade_nudge,
-            'hidePromoNudge'   => $hide_promo_nudge,
-            'showSupportNudge' => $show_support_nudge,
+            'firstSaveDate'        => $first_save_date,
+            'lastSaveDate'         => $last_save_date,
+            'saveCount'            => $save_count,
+            'isYearEndPromoPeriod' => $is_yearend_promo_period,
+            'hideUpgradeNudge'     => $hide_upgrade_nudge,
+            'hidePromoNudge'       => $hide_promo_nudge,
+            'showSupportNudge'     => $show_support_nudge,
         );
     }
     wp_localize_script( 'asenha-admin-page', 'asenhaStats', $asenha_stats_localized );
@@ -1030,7 +1057,7 @@ function asenha_public_scripts(  $hook_suffix  ) {
     }
     // Media Replacement
     $enable_media_replacement = ( array_key_exists( 'enable_media_replacement', $options ) ? $options['enable_media_replacement'] : false );
-    if ( $enable_media_replacement && is_user_logged_in() ) {
+    if ( $enable_media_replacement && !is_admin() && is_user_logged_in() ) {
         wp_enqueue_style(
             'asenha-media-replace-frontend',
             ASENHA_URL . 'assets/css/media-replace-frontend.css',
@@ -1116,19 +1143,21 @@ function is_asenha() {
  * @since 5.2.7
  */
 function asenha_have_supported() {
-    if ( isset( $_REQUEST ) ) {
-        $asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
-        $asenha_stats['have_supported'] = true;
-        $asenha_stats['support_nudge_dismissed'] = true;
-        $success = update_option( ASENHA_SLUG_U . '_stats', $asenha_stats, false );
-        if ( $success ) {
-            echo json_encode( array(
-                'success' => true,
-            ) );
-        } else {
-            echo json_encode( array(
-                'success' => false,
-            ) );
+    if ( isset( $_REQUEST ) && current_user_can( 'manage_options' ) ) {
+        if ( wp_verify_nonce( sanitize_text_field( $_REQUEST['nonce'] ), 'asenha-' . get_current_user_id() ) ) {
+            $asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
+            $asenha_stats['have_supported'] = true;
+            $asenha_stats['support_nudge_dismissed'] = true;
+            $success = update_option( ASENHA_SLUG_U . '_stats', $asenha_stats, false );
+            if ( $success ) {
+                echo json_encode( array(
+                    'success' => true,
+                ) );
+            } else {
+                echo json_encode( array(
+                    'success' => false,
+                ) );
+            }
         }
     }
 }
@@ -1139,20 +1168,22 @@ function asenha_have_supported() {
  * @since 5.8.2
  */
 function asenha_dismiss_upgrade_nudge() {
-    if ( isset( $_REQUEST ) ) {
-        $current_date = date( 'Y-m-d', time() );
-        $asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
-        $asenha_stats['upgrade_nudge_dismissed'] = true;
-        $asenha_stats['upgrade_nudge_dismissed_date'] = $current_date;
-        $success = update_option( ASENHA_SLUG_U . '_stats', $asenha_stats, false );
-        if ( $success ) {
-            echo json_encode( array(
-                'success' => true,
-            ) );
-        } else {
-            echo json_encode( array(
-                'success' => false,
-            ) );
+    if ( isset( $_REQUEST ) && current_user_can( 'manage_options' ) ) {
+        if ( wp_verify_nonce( sanitize_text_field( $_REQUEST['nonce'] ), 'asenha-' . get_current_user_id() ) ) {
+            $current_date = date( 'Y-m-d', time() );
+            $asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
+            $asenha_stats['upgrade_nudge_dismissed'] = true;
+            $asenha_stats['upgrade_nudge_dismissed_date'] = $current_date;
+            $success = update_option( ASENHA_SLUG_U . '_stats', $asenha_stats, false );
+            if ( $success ) {
+                echo json_encode( array(
+                    'success' => true,
+                ) );
+            } else {
+                echo json_encode( array(
+                    'success' => false,
+                ) );
+            }
         }
     }
 }
@@ -1163,20 +1194,22 @@ function asenha_dismiss_upgrade_nudge() {
  * @since 7.5.1
  */
 function asenha_dismiss_promo_nudge() {
-    if ( isset( $_REQUEST ) ) {
-        $current_date = date( 'Y-m-d', time() );
-        $asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
-        $asenha_stats['promo_nudge_dismissed'] = true;
-        $asenha_stats['promo_nudge_dismissed_date'] = $current_date;
-        $success = update_option( ASENHA_SLUG_U . '_stats', $asenha_stats, false );
-        if ( $success ) {
-            echo json_encode( array(
-                'success' => true,
-            ) );
-        } else {
-            echo json_encode( array(
-                'success' => false,
-            ) );
+    if ( isset( $_REQUEST ) && current_user_can( 'manage_options' ) ) {
+        if ( wp_verify_nonce( sanitize_text_field( $_REQUEST['nonce'] ), 'asenha-' . get_current_user_id() ) ) {
+            $current_date = date( 'Y-m-d', time() );
+            $asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
+            $asenha_stats['promo_nudge_dismissed'] = true;
+            $asenha_stats['promo_nudge_dismissed_date'] = $current_date;
+            $success = update_option( ASENHA_SLUG_U . '_stats', $asenha_stats, false );
+            if ( $success ) {
+                echo json_encode( array(
+                    'success' => true,
+                ) );
+            } else {
+                echo json_encode( array(
+                    'success' => false,
+                ) );
+            }
         }
     }
 }
@@ -1187,18 +1220,20 @@ function asenha_dismiss_promo_nudge() {
  * @since 5.2.7
  */
 function asenha_dismiss_support_nudge() {
-    if ( isset( $_REQUEST ) ) {
-        $asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
-        $asenha_stats['support_nudge_dismissed'] = true;
-        $success = update_option( ASENHA_SLUG_U . '_stats', $asenha_stats, false );
-        if ( $success ) {
-            echo json_encode( array(
-                'success' => true,
-            ) );
-        } else {
-            echo json_encode( array(
-                'success' => false,
-            ) );
+    if ( isset( $_REQUEST ) && current_user_can( 'manage_options' ) ) {
+        if ( wp_verify_nonce( sanitize_text_field( $_REQUEST['nonce'] ), 'asenha-' . get_current_user_id() ) ) {
+            $asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
+            $asenha_stats['support_nudge_dismissed'] = true;
+            $success = update_option( ASENHA_SLUG_U . '_stats', $asenha_stats, false );
+            if ( $success ) {
+                echo json_encode( array(
+                    'success' => true,
+                ) );
+            } else {
+                echo json_encode( array(
+                    'success' => false,
+                ) );
+            }
         }
     }
 }

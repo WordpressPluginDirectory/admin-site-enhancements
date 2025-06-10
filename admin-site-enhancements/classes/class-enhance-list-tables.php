@@ -73,9 +73,9 @@ class Enhance_List_Tables {
         if ( 'asenha-featured-image' === $column_name ) {
             if ( has_post_thumbnail( $id ) ) {
                 $size = 'thumbnail';
-                echo get_the_post_thumbnail( $id, $size, '' );
+                echo '<a href="' . get_edit_post_link( $id ) . '">' . get_the_post_thumbnail( $id, $size, '' ) . '</a>';
             } else {
-                echo '<img src="' . esc_url( plugins_url( 'assets/img/default_featured_image.jpg', __DIR__ ) ) . '" />';
+                echo '<a href="' . get_edit_post_link( $id ) . '"><img src="' . esc_url( plugins_url( 'assets/img/default_featured_image.jpg', __DIR__ ) ) . '" /></a>';
             }
         }
     }

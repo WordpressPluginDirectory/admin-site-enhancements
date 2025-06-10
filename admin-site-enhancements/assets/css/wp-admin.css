@@ -73,6 +73,12 @@
 	border-top: 1px solid #ddd;
 }
 
+/* General */
+.asenha-warning-message {
+	font-weight: 500;
+	color: #d63638;
+}
+
 
 
 /* Utilities >> View Admin as Role */

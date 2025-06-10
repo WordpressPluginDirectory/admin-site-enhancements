@@ -719,6 +719,37 @@ class Settings_Sections_Fields {
                 );
             }
         }
+        $field_id = 'hide_admin_bar_always_show_for_admins';
+        $field_slug = 'hide-admin-bar-always-show-for-admins';
+        add_settings_field(
+            $field_id,
+            '',
+            // Field title
+            [$render_field, 'render_checkbox_plain'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name' => ASENHA_SLUG_U,
+                'field_id'    => $field_id,
+                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_label' => __( 'Always show the admin bar for administrators on the frontend. Useful for when an administrator has multiple user roles, and the admin bar is set to be hidden for the other user role(s).', 'admin-site-enhancements' ),
+                'class'       => 'asenha-checkbox asenha-hide-th asenha-th-border-top admin-interface ' . $field_slug,
+            )
+        );
+        $field_id = 'hide_admin_bar_description';
+        $field_slug = 'hide-admin-bar-description';
+        add_settings_field(
+            $field_id,
+            '',
+            [$render_field, 'render_description_subfield'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'       => ASENHA_SLUG_U,
+                'field_description' => '<div class="asenha-warning">' . __( 'The settings above will override the \'Toolbar\' settings in the user profile edit screen.', 'admin-site-enhancements' ) . '</div>',
+                'class'             => 'asenha-description login-logout ' . $field_slug,
+            )
+        );
         // Wider Admin Menu
         $field_id = 'wider_admin_menu';
         $field_slug = 'wider-admin-menu';
@@ -1200,6 +1231,27 @@ class Settings_Sections_Fields {
                 'field_placeholder' => __( 'e.g. backend', 'admin-site-enhancements' ),
                 'field_description' => '',
                 'class'             => 'asenha-text with-prefix-suffix login-logout ' . $field_slug,
+            )
+        );
+        $field_id = 'custom_login_whitelist';
+        $field_slug = 'custom-login-whitelist';
+        add_settings_field(
+            $field_id,
+            '<strong>' . __( 'Allow login from:', 'admin-site-enhancements' ) . '</strong> <span class="weight-normal">' . site_url() . '/</span>',
+            [$render_field, 'render_textarea_subfield'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'       => ASENHA_SLUG_U,
+                'field_id'          => $field_id,
+                'field_slug'        => $field_slug,
+                'field_name'        => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_type'        => 'textarea',
+                'field_rows'        => 3,
+                'field_intro'       => '',
+                'field_description' => __( 'Enter one path per line', 'admin-site-enhancements' ),
+                'field_placeholder' => __( 'e.g. dashboard', 'admin-site-enhancements' ),
+                'class'             => 'asenha-textarea margin-top-16 login-logout ' . $field_slug,
             )
         );
         $field_id = 'change_login_url_description';

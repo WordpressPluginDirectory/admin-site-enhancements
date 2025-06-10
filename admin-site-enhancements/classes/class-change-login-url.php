@@ -205,27 +205,52 @@ class Change_Login_URL {
         $options = get_option( ASENHA_SLUG_U );
         $custom_login_slug = $options['custom_login_slug'];
         // e.g. backend
+        $custom_login_whitelist_raw = ( isset( $options['custom_login_whitelist'] ) ? explode( PHP_EOL, $options['custom_login_whitelist'] ) : array() );
+        $custom_login_whitelist = array();
+        if ( !empty( $custom_login_whitelist_raw ) ) {
+            foreach ( $custom_login_whitelist_raw as $path ) {
+                $custom_login_whitelist[] = trim( $path );
+            }
+        }
         $url_input = sanitize_text_field( $_SERVER['REQUEST_URI'] );
         // e.g. /wp-admin/index.php?page=page-slug
         $url_input_parts = explode( '/', $url_input );
         $redirect_slug = 'not_found';
-        // When logging-in
-        if ( isset( $_POST['log'] ) && !empty( $_POST['log'] ) && isset( $_POST['pwd'] ) && !empty( $_POST['pwd'] ) || isset( $_POST['post_password'] ) && !empty( $_POST['post_password'] ) ) {
-            if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
-                $http_referrer = sanitize_url( $_SERVER['HTTP_REFERER'] );
-            } else {
-                $http_referrer = '';
-            }
+        if ( isset( $_POST['log'] ) && !empty( $_POST['log'] ) && isset( $_POST['pwd'] ) && !empty( $_POST['pwd'] ) ) {
+            // When logging-in
+            $http_referrer = ( isset( $_SERVER['HTTP_REFERER'] ) ? sanitize_url( $_SERVER['HTTP_REFERER'] ) : '' );
+            $http_referrer_no_protocol = str_replace( array('https://', 'http://'), '', $http_referrer );
+            $http_referrer_parts = explode( '/', $http_referrer_no_protocol );
+            $http_user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '' );
             if ( !empty( $http_referrer ) && false === strpos( $http_referrer, get_site_url() ) ) {
-                //     // The referer URL does not contain the site's URL. This is an attempt to do a login POST from an external URL / illegitimate method. Let's redirect that.
-                //     // Redirect to /not_found/
+                // The referer URL does not contain the site's URL. This is an attempt to do a login POST from an external URL / illegitimate method. Let's redirect that.
                 wp_safe_redirect( home_url( $redirect_slug . '/' ), 302 );
                 exit;
+            } elseif ( !empty( $http_user_agent ) && preg_match( '/^(curl|wget)/i', $http_user_agent ) ) {
+                // The post request is coming from a cURL or Wget request, let's redirect that.
+                wp_safe_redirect( home_url( $redirect_slug . '/' ), 302 );
+                exit;
+            } elseif ( empty( $http_referrer ) ) {
+                // The login request does not have HTTP_REFERER info. e.g. coming from cURL but with a user agent set to a browser's.
+                // Let's redirect that
+                wp_safe_redirect( home_url( $redirect_slug . '/' ), 302 );
+                exit;
+            } elseif ( !empty( $http_referrer ) && false === strpos( $http_referrer, $custom_login_slug ) ) {
+                // The referrer URL does not contain the custom login slug. Could be an attempt to login via cURL POST.
+                if ( isset( $http_referrer_parts[1] ) && in_array( $http_referrer_parts[1], $custom_login_whitelist ) ) {
+                    // Do nothing. i.e. do not redirect to /not_found/ as this contains a URL keyword that's been exlucded from redirection
+                } else {
+                    wp_safe_redirect( home_url( $redirect_slug . '/' ), 302 );
+                    exit;
+                }
             } else {
-                // Do nothing. i.e. do not redirect to /not_found/ as this contains a login POST request
+                // Do nothing. i.e. do not redirect to /not_found/ as this contains a valin login POST request
                 // upon successful login, redirection to logged-in view of /wp-admin/ happens.
                 // Without this condition, login attempt will redirect to /not_found/
             }
+        } elseif ( isset( $_POST['post_password'] ) && !empty( $_POST['post_password'] ) ) {
+            // When entering password for a password-protected post/page
+            // Do nothing. i.e. do not redirect to /not_found/
         } elseif ( is_user_logged_in() ) {
             // Do nothing user is already logged-in
             // Redirect to /wp-admin/ (Dashboard) when accessing /wp-login.php without any $_POST data

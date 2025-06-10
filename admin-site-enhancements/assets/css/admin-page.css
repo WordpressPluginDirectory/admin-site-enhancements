@@ -43,6 +43,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+/*    kinara-background: linear-gradient(red 0, orange 10%, green 20%, purple 30%, pink 45%, gold 60%, brown 70%, black 80%, red 90%, pink 100%); kinara*/
 }
 
 .asenha-header {
@@ -1757,6 +1758,10 @@ input[type="search"]#module-search-input.has-text-input {
 
 .full-width-div {
     width: 100%;
+}
+
+.weight-normal {
+    font-weight: normal !important;
 }
 
 

