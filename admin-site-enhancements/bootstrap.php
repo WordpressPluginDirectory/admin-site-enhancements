@@ -115,6 +115,7 @@ class Admin_Site_Enhancements {
         // Media Replacement
         if ( array_key_exists( 'enable_media_replacement', $options ) && $options['enable_media_replacement'] ) {
             $media_replacement = new ASENHA\Classes\Media_Replacement();
+            $disable_media_replacement_cache_busting = ( isset( $options['disable_media_replacement_cache_busting'] ) ? $options['disable_media_replacement_cache_busting'] : false );
             add_filter(
                 'media_row_actions',
                 [$media_replacement, 'modify_media_list_table_edit_link'],
@@ -129,31 +130,33 @@ class Admin_Site_Enhancements {
             );
             add_action( 'edit_attachment', [$media_replacement, 'replace_media'] );
             add_filter( 'post_updated_messages', [$media_replacement, 'attachment_updated_custom_message'] );
-            // Bust browser cache of old/replaced images
-            add_filter(
-                'wp_calculate_image_srcset',
-                [$media_replacement, 'append_cache_busting_param_to_image_srcset'],
-                10,
-                5
-            );
-            add_filter(
-                'wp_get_attachment_image_src',
-                [$media_replacement, 'append_cache_busting_param_to_attachment_image_src'],
-                10,
-                2
-            );
-            add_filter(
-                'wp_prepare_attachment_for_js',
-                [$media_replacement, 'append_cache_busting_param_to_attachment_for_js'],
-                10,
-                2
-            );
-            add_filter(
-                'wp_get_attachment_url',
-                [$media_replacement, 'append_cache_busting_param_to_attachment_url'],
-                20,
-                2
-            );
+            // Mayve bust browser cache of old/replaced images by appending a time stamp URL parameter
+            if ( !$disable_media_replacement_cache_busting ) {
+                add_filter(
+                    'wp_calculate_image_srcset',
+                    [$media_replacement, 'append_cache_busting_param_to_image_srcset'],
+                    10,
+                    5
+                );
+                add_filter(
+                    'wp_get_attachment_image_src',
+                    [$media_replacement, 'append_cache_busting_param_to_attachment_image_src'],
+                    10,
+                    2
+                );
+                add_filter(
+                    'wp_prepare_attachment_for_js',
+                    [$media_replacement, 'append_cache_busting_param_to_attachment_for_js'],
+                    10,
+                    2
+                );
+                add_filter(
+                    'wp_get_attachment_url',
+                    [$media_replacement, 'append_cache_busting_param_to_attachment_url'],
+                    20,
+                    2
+                );
+            }
         }
         // Media Library Infinite Scrolling
         if ( array_key_exists( 'media_library_infinite_scrolling', $options ) && $options['media_library_infinite_scrolling'] ) {

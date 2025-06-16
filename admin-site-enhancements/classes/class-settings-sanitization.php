@@ -59,6 +59,10 @@ class Settings_Sanitization {
             $options['enable_media_replacement'] = false;
         }
         $options['enable_media_replacement'] = ( 'on' == $options['enable_media_replacement'] ? true : false );
+        if ( !isset( $options['disable_media_replacement_cache_busting'] ) ) {
+            $options['disable_media_replacement_cache_busting'] = false;
+        }
+        $options['disable_media_replacement_cache_busting'] = ( 'on' == $options['disable_media_replacement_cache_busting'] ? true : false );
         // Enable SVG Upload
         if ( !isset( $options['enable_svg_upload'] ) ) {
             $options['enable_svg_upload'] = false;

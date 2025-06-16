@@ -237,13 +237,31 @@ class Settings_Sections_Fields {
             ASENHA_SLUG,
             'main-section',
             array(
-                'option_name'       => ASENHA_SLUG_U,
-                'field_id'          => $field_id,
-                'field_slug'        => $field_slug,
-                'field_title'       => $field_title,
-                'field_name'        => ASENHA_SLUG_U . '[' . $field_id . ']',
-                'field_description' => __( 'Easily replace any type of media file with a new one while retaining the existing media ID, publish date and file name. So, no existing links will break.', 'admin-site-enhancements' ),
-                'class'             => 'asenha-toggle content-management ' . $field_slug,
+                'option_name'            => ASENHA_SLUG_U,
+                'field_id'               => $field_id,
+                'field_slug'             => $field_slug,
+                'field_title'            => $field_title,
+                'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_description'      => __( 'Easily replace any type of media file with a new one while retaining the existing media ID, publish date and file name. So, no existing links will break.', 'admin-site-enhancements' ),
+                'field_options_wrapper'  => true,
+                'field_options_moreless' => true,
+                'class'                  => 'asenha-toggle content-management ' . $field_slug,
+            )
+        );
+        $field_id = 'disable_media_replacement_cache_busting';
+        $field_slug = 'disable-media-replacement-cache-busting';
+        add_settings_field(
+            $field_id,
+            '',
+            [$render_field, 'render_checkbox_plain'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name' => ASENHA_SLUG_U,
+                'field_id'    => $field_id,
+                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_label' => __( 'Disable adding timestamp URL parameter on newly replaced images for busting the browser cache.', 'admin-site-enhancements' ),
+                'class'       => 'asenha-checkbox asenha-hide-th content-management ' . $field_slug,
             )
         );
         // Enable SVG Upload

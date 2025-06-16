@@ -239,6 +239,7 @@
       
       
       $('.enable-media-replacement').appendTo('.fields-content-management > table > tbody');
+      $('.disable-media-replacement-cache-busting').appendTo('.fields-content-management .enable-media-replacement .asenha-subfields');
       $('.enable-svg-upload').appendTo('.fields-content-management > table > tbody');
       $('.enable-svg-upload-for').appendTo('.fields-content-management .enable-svg-upload .asenha-subfields');
       $('.enable-avif-upload').appendTo('.fields-content-management > table > tbody');
@@ -688,6 +689,7 @@
       subfieldsToggler( 'enable_duplication', 'enable-duplication' );
       subfieldsToggler( 'content_order', 'content-order' );
       
+      subfieldsToggler( 'enable_media_replacement', 'enable-media-replacement' );
       subfieldsToggler( 'enable_svg_upload', 'enable-svg-upload' );
       subfieldsToggler( 'enable_avif_upload', 'enable-avif-upload' );
       

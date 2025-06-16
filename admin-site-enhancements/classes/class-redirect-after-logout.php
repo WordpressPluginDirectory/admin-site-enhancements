@@ -31,10 +31,16 @@ class Redirect_After_Logout {
         $redirect_after_logout_to_slug_raw = ( isset( $options['redirect_after_logout_to_slug'] ) ? $options['redirect_after_logout_to_slug'] : '' );
         if ( !empty( $redirect_after_logout_to_slug_raw ) ) {
             $redirect_after_logout_to_slug = trim( trim( $redirect_after_logout_to_slug_raw ), '/' );
-            $relative_path = $redirect_after_logout_to_slug . '/';
+            if ( false !== strpos( $redirect_after_logout_to_slug, '#' ) || false !== strpos( $redirect_after_logout_to_slug, '.php' ) || false !== strpos( $redirect_after_logout_to_slug, '.html' ) ) {
+                $relative_path = $redirect_after_logout_to_slug;
+                // do not append slash at the end
+            } else {
+                $relative_path = $redirect_after_logout_to_slug . '/';
+            }
         } else {
             $relative_path = '';
         }
+        $redirect_url = get_site_url() . '/' . $relative_path;
         $redirect_after_logout_for = $options['redirect_after_logout_for'];
         $user = get_userdata( $user_id );
         if ( isset( $redirect_after_logout_for ) && count( $redirect_after_logout_for ) > 0 ) {
@@ -52,7 +58,7 @@ class Redirect_After_Logout {
             // Redirect for roles set in the settings. Otherwise, leave redirect URL to the default, i.e. admin dashboard.
             foreach ( $current_user_roles as $role ) {
                 if ( in_array( $role, $roles_for_custom_redirect ) ) {
-                    wp_safe_redirect( home_url( $relative_path ) );
+                    wp_safe_redirect( $redirect_url );
                     exit;
                 }
             }
@@ -67,7 +73,12 @@ class Redirect_After_Logout {
     public function get_redirect_relative_path( $redirect_after_logout_to_slug_raw ) {
         if ( !empty( $redirect_after_logout_to_slug_raw ) ) {
             $redirect_after_logout_to_slug = trim( trim( $redirect_after_logout_to_slug_raw ), '/' );
-            $relative_path = $redirect_after_logout_to_slug . '/';
+            if ( false !== strpos( $redirect_after_logout_to_slug, '#' ) || false !== strpos( $redirect_after_logout_to_slug, '.php' ) || false !== strpos( $redirect_after_logout_to_slug, '.html' ) ) {
+                $relative_path = $redirect_after_logout_to_slug;
+                // do not append slash at the end
+            } else {
+                $relative_path = $redirect_after_logout_to_slug . '/';
+            }
         } else {
             $relative_path = '';
         }

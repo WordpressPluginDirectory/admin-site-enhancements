@@ -1,16 +1,34 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **154 _minor_ releases** (e.g. 4.9.1), for a **total of 232 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **155 _minor_ releases** (e.g. 4.9.1), for a **total of 233 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 7.8.15 (2025.06.16) - ASE Free and Pro
+### 7.8.16 (2025.06.16) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Content Management >> Media Replacement**: added an option to disable adding timestamp URL parameter for newly replaced media item, for busting browser cache. If you disable it, you'll need to manually do a force reload of the browser tab to see the new image. Props to [@alriksson](https://wordpress.org/support/users/alriksson/) and [@antoinelrx](https://wordpress.org/support/users/antoinelrx/) for prompting this improvement [here](https://wordpress.org/support/topic/media-replacement-query-string/) and [here](https://wordpress.org/support/topic/media-replace-issue-url-parameter/).
+
+* **[IMPROVED in Pro] Admin Interface >> Admin Logo**: the admin bar logo will now be shown in mobile view/screen. Props to Daniel A. for prompting this improvement.
+
+* **[IMPROVED in Free and Pro] Log In/Out & Registration >> Redirect After Login/Logout**: will now work with redirection to a URL that contains an anchor (#anchor). Props to Uli L. for prompting this improvement.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types**: 
+  * in Elementer integration for ASE repeater, when configuring the Loop Grid widget to query repeater field data, there is now an **option to "Query Current Post Only"** which will ensure only reepater data from the current post in view will be shown. Props to Pierre A. for reporting the issue and facilitating the troubleshooting process.
+  * fix for when custom fields that are placed on posts **no longer display their value on taxonomy term archive** since v7.8.12. Props to Mirko S. for reporting the issue with a screencast to illustrate the issue in detail and facilitating the troubleshooting process.
+  * **fix PHP E_ERROR** that occurs in a certain scenario. Props to Wilbert S. for reporting the issue along with the error stack trace.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [33 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: jpdated Vietnamese, Spanish (Spain), Slovak, Russian, Portuguese (Brazil), Polish, Norwegian, Korean, Indonesian, Dutch, Danish
+    * ASE Pro: updated Spanish, Hungarian, Vietnamese
+
+### 7.8.15 (2025.06.10) - ASE Free and Pro
 
 * **[IMPROVED and FIXED in Free and Pro] Log In/Out & Register >> Change Login URL**: 
   * add an **option to allow login from additional login URLs**, e.g. created by e-commerce plugins or using page builders.
-  * fixed an issue where **password-protected pages/posts gets redirected to /not_found/** upon entering the correct password. Props to Emile V. and @jeromebxl for reporting the issue.
+  * fixed an issue where **password-protected pages/posts gets redirected to /not_found/** upon entering the correct password. Props to Emile V., @jeromebxl and Emmanuel A. for [reporting the issue](https://wordpress.org/support/topic/problem-with-a-password-protected-page/).
 
 * **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**: non-administrator will no longer see the "Code Snippets" menu item in the admin (side) menu. Props to Harry F. for prompting this improvement.
 
