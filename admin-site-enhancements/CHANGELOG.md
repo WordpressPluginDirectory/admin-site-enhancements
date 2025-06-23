@@ -1,18 +1,31 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **155 _minor_ releases** (e.g. 4.9.1), for a **total of 233 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **156 _minor_ releases** (e.g. 4.9.1), for a **total of 234 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
+### 7.8.17 (2025.06.16) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Log In/Out & Register >> Change Login URL**: make login failure process compatible with Bedrock installation where WP core is installed in a sub-directory (/wp/). Props to [@shadyshane](https://wordpress.org/support/users/shadyshane/) for [prompting](https://wordpress.org/support/topic/wp-bedrock-support-for-custom-login-url/) this improvement.
+
+* **[FIXED in Pro] Utilities >> Form Builder**:
+  * Fixed an issue where if checkbox and radio fields are marked as required in sites still on PHP 7.4, the form will fail submitting even if the checkbox and/or radio fields have been checked / selected. Props to Pierro B. and Leon S. for reporting the issue in detail, and especially for Leon who discovered that it only happened on sites still on PHP 7.4.
+  * Fixed an issue where if choice and matrix fields labels contain an apostrophe, e.g. I'm satisfied with the customer service, the submission data gets malformed.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [33 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: updated Vietnamese, Portuguese (Brazil), Polish, Norwegian, Japanese, Indonesian, Dutch.
+    * ASE Pro: updated Hungarian, Vietnamese.
+
 ### 7.8.16 (2025.06.16) - ASE Free and Pro
 
 * **[IMPROVED in Free and Pro] Content Management >> Media Replacement**: added an option to disable adding timestamp URL parameter for newly replaced media item, for busting browser cache. If you disable it, you'll need to manually do a force reload of the browser tab to see the new image. Props to [@alriksson](https://wordpress.org/support/users/alriksson/) and [@antoinelrx](https://wordpress.org/support/users/antoinelrx/) for prompting this improvement [here](https://wordpress.org/support/topic/media-replacement-query-string/) and [here](https://wordpress.org/support/topic/media-replace-issue-url-parameter/).
 
-* **[IMPROVED in Pro] Admin Interface >> Admin Logo**: the admin bar logo will now be shown in mobile view/screen. Props to Daniel A. for prompting this improvement.
-
 * **[IMPROVED in Free and Pro] Log In/Out & Registration >> Redirect After Login/Logout**: will now work with redirection to a URL that contains an anchor (#anchor). Props to Uli L. for prompting this improvement.
+
+* **[IMPROVED in Pro] Admin Interface >> Admin Logo**: the admin bar logo will now be shown in mobile view/screen. Props to Daniel A. for prompting this improvement.
 
 * **[FIXED in Pro] Content Management >> Custom Content Types**: 
   * in Elementer integration for ASE repeater, when configuring the Loop Grid widget to query repeater field data, there is now an **option to "Query Current Post Only"** which will ensure only reepater data from the current post in view will be shown. Props to Pierre A. for reporting the issue and facilitating the troubleshooting process.

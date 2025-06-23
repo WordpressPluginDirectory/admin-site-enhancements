@@ -340,7 +340,7 @@ class Change_Login_URL {
             }
             if ( $should_redirect ) {
                 // Append 'failed_login=true' so we can output custom error message above the login form
-                wp_safe_redirect( home_url( 'wp-login.php?' . $custom_login_slug . '&redirect=false&failed_login=true' ) );
+                wp_safe_redirect( site_url( 'wp-login.php?' . $custom_login_slug . '&redirect=false&failed_login=true' ) );
                 exit;
             }
         }
