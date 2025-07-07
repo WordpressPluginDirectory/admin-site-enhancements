@@ -1,12 +1,46 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **78 _major_ releases** (e.g. 1.1.0 ) and **156 _minor_ releases** (e.g. 4.9.1), for a **total of 234 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **79 _major_ releases** (e.g. 1.1.0 ) and **157 _minor_ releases** (e.g. 4.9.1), for a **total of 236 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 7.8.17 (2025.06.16) - ASE Free and Pro
+### 7.9.0 (2025.07.07) - ASE Free and Pro
+
+* **[ADDED in Free and Pro] Disable Components >> Disable Author Archvies**: Return 404 (Not Found) error when trying to load author archives. Remove or disable links to author archives. Remove author archives from the sitemap.
+
+* **[IMPROVED in Pro] Content Management >> Media Categories**: add an option to set the width of the categories panel, or to hide it. Props to Darren L. and Satoshi F. for prompting this improvement.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: fixed an issue with ASE Repeater only showing the first 10 rows of data in Elementor Loop Grid. Props to Pierre A. for reporting the issue and facilitating the troubleshooting process.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [33 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: updated Vietnamese, Russian, Portuguese (Brazil), Polish, German, Danish, Catalan
+    * ASE Pro: updated Spanish.
+
+### 7.8.18 (2025.06.30) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Custom Code >> Insert &lt;head&gt;, &lt;body&gt; and &lt;footer&gt; Code**: add an option to disable removal of backslashes from frontend code output. This would be useful if your code contains, for example, some sort of regex pattern. Props to [@rjwilt](https://wordpress.org/support/users/rjwilt/) for [prompting](https://wordpress.org/support/topic/custom-code-backslash-in-javascript-code-removed/) this improvement.
+
+* **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**: when a PHP fatal error occur, the module will now catch more type of errors and properly record it in the PHP snippet edit screen. Props to Jim R. for reporting a related issue in great detail and facilitating the troubleshooting process.
+
+* **[IMPROVED in Pro] Content Management >> Content Order**: the 'Order' button on posts lists table will now be visible for editors as well. Props to Markus R. for prompting this improvement.
+
+* **[IMPROVED in Pro] Optimizations >> Image Upload Control**: add an option to disable conversion to JPG / WebP, but still allow to resize image dimension and disable generation of intermediary sizes. Props to Himanshu A. for prompting this improvement.
+
+* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: 
+  * **Fixed the rendering of date, time and datetime fields when the admin is in a non-English language**. This sometimes resulted in a date or time column returning empty values. Props to Killian H. for reporting the issue and facilitating the troubleshooting process.
+  * **Fixed a JS error** that occurs when a custom field column's title is a number. This prevented the admin columns manager screen from being usable / functional, e.g. when managing the Courses post type (WPLMS) admin columns screen. Props to Stefanie N. for reporting this issue and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: link button in the WYSIWYG field inside a CFG placed on taxonomy terms will now work properly.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [33 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: ASE Free: update Portuguese (Brazil), Polish, Norwegian, Japanese, Indonesian, French, Arabic
+    * ASE Pro: update Spanish (Spain), Hungarian
+
+### 7.8.17 (2025.06.23) - ASE Free and Pro
 
 * **[IMPROVED in Free and Pro] Log In/Out & Register >> Change Login URL**: make login failure process compatible with Bedrock installation where WP core is installed in a sub-directory (/wp/). Props to [@shadyshane](https://wordpress.org/support/users/shadyshane/) for [prompting](https://wordpress.org/support/topic/wp-bedrock-support-for-custom-login-url/) this improvement.
 

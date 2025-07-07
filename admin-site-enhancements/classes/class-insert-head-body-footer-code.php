@@ -75,9 +75,16 @@ class Insert_Head_Body_Footer_Code {
 
         }
 
+        $disable_code_unslash = array_key_exists( 'disable_code_unslash', $options ) ? $options['disable_code_unslash'] : false;
+
         // [TODO] Properly escape code
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        echo wp_unslash( $code ) . PHP_EOL;
+        if ( $disable_code_unslash ) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo $code . PHP_EOL;
+        } else {
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo wp_unslash( $code ) . PHP_EOL;
+        }
 
     }
 

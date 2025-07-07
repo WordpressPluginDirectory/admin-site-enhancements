@@ -113,9 +113,12 @@ class Content_Order {
         $content_order_for = ( isset( $options['content_order_for'] ) ? $options['content_order_for'] : array() );
         $content_order_enabled_post_types = $common_methods->get_array_of_keys_with_true_value( $content_order_for );
         $content_order_other_enabled_post_types = array();
-        // List tables of pages, posts and CPTs. Administrators only.
-        if ( 'edit.php' == $pagenow && current_user_can( 'manage_options' ) && (in_array( $typenow, $content_order_enabled_post_types ) || in_array( $typenow, $content_order_other_enabled_post_types )) ) {
+        // List tables of pages, posts and CPTs. Administrators and Editors only.
+        if ( 'edit.php' == $pagenow && current_user_can( 'edit_others_posts' ) && (in_array( $typenow, $content_order_enabled_post_types ) || in_array( $typenow, $content_order_other_enabled_post_types )) ) {
             // Add "Order" button
+            if ( 'post' == $typenow ) {
+                $typenow = 'posts';
+            }
             ?>
             <div id="content-order-button">
                 <a class="button" href="<?php 
@@ -145,7 +148,7 @@ class Content_Order {
         $content_order_enabled_post_types = $common_methods->get_array_of_keys_with_true_value( $content_order_for );
         $content_order_other_enabled_post_types = array();
         // List tables of pages, posts and CPTs
-        if ( 'edit.php' == $hook_suffix && current_user_can( 'manage_options' ) && (in_array( $typenow, $content_order_enabled_post_types ) || in_array( $typenow, $content_order_other_enabled_post_types )) ) {
+        if ( 'edit.php' == $hook_suffix && current_user_can( 'edit_others_posts' ) && (in_array( $typenow, $content_order_enabled_post_types ) || in_array( $typenow, $content_order_other_enabled_post_types )) ) {
             wp_enqueue_style(
                 'asenha-list-tables-content-order',
                 ASENHA_URL . 'assets/css/list-tables-content-order.css',

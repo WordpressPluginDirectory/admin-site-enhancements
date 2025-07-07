@@ -459,6 +459,10 @@ class Settings_Sanitization {
             $options['insert_head_body_footer_code'] = false;
         }
         $options['insert_head_body_footer_code'] = ( 'on' == $options['insert_head_body_footer_code'] ? true : false );
+        if ( !isset( $options['disable_code_unslash'] ) ) {
+            $options['disable_code_unslash'] = false;
+        }
+        $options['disable_code_unslash'] = ( 'on' == $options['disable_code_unslash'] ? true : false );
         if ( !isset( $options['head_code_priority'] ) ) {
             $options['head_code_priority'] = 10;
         }
@@ -533,6 +537,11 @@ class Settings_Sanitization {
             $options['disable_all_updates'] = false;
         }
         $options['disable_all_updates'] = ( 'on' == $options['disable_all_updates'] ? true : false );
+        // Disable Author Archives
+        if ( !isset( $options['disable_author_archives'] ) ) {
+            $options['disable_author_archives'] = false;
+        }
+        $options['disable_author_archives'] = ( 'on' == $options['disable_author_archives'] ? true : false );
         // Disable Smaller Components
         if ( !isset( $options['disable_smaller_components'] ) ) {
             $options['disable_smaller_components'] = false;

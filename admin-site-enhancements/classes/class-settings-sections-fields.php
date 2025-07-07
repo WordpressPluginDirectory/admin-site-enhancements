@@ -1282,7 +1282,7 @@ class Settings_Sections_Fields {
             'main-section',
             array(
                 'option_name'       => ASENHA_SLUG_U,
-                'field_description' => __( '<div class="asenha-warning">This feature <strong>only works for/with the default WordPress login page</strong>. It does not support using custom login page you manually created with a page builder or with another plugin.<br /><br />It\'s also <strong>not yet compatible with two-factor authentication (2FA) methods</strong>. If you use a 2FA plugin, please use the change login URL feature bundled in that plugin, or use another plugin that is compatible with it.<br /><br />And obviously, to improve security, please <strong>use something other than \'login\'</strong> for the custom login slug.</div>', 'admin-site-enhancements' ),
+                'field_description' => __( '<div class="asenha-warning">"New login URL" <strong>only works for/with the default WordPress login page</strong>. If you have a login page you manually created with a page builder or with another plugin, please add them to the "Allow login from" section.<br /><br />This module is <strong>not yet compatible with two-factor authentication (2FA) methods</strong>. If you use a 2FA plugin, please use the change login URL feature bundled in that plugin, or use another plugin that is compatible with it.<br /><br />And obviously, to improve security, please <strong>use something other than \'login\'</strong> for the custom login slug.</div>', 'admin-site-enhancements' ),
                 'class'             => 'asenha-description login-logout ' . $field_slug,
             )
         );
@@ -1651,6 +1651,22 @@ class Settings_Sections_Fields {
                 'field_options_wrapper'  => true,
                 'field_options_moreless' => true,
                 'class'                  => 'asenha-toggle custom-code ' . $field_slug,
+            )
+        );
+        $field_id = 'disable_code_unslash';
+        $field_slug = 'disable-code-unslash';
+        add_settings_field(
+            $field_id,
+            '',
+            [$render_field, 'render_checkbox_plain'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name' => ASENHA_SLUG_U,
+                'field_id'    => $field_id,
+                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_label' => __( 'Do not remove backslashes from the code output on the frontend', 'admin-site-enhancements' ),
+                'class'       => 'asenha-checkbox asenha-hide-th asenha-th-border-bottom custom-code ' . $field_slug,
             )
         );
         $field_id = 'head_code_priority';
@@ -2105,6 +2121,28 @@ class Settings_Sections_Fields {
                 'field_title'            => $field_title,
                 'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_description'      => __( 'Completely disable core, theme and plugin updates and auto-updates. Will also disable update checks, notices and emails.', 'admin-site-enhancements' ),
+                'field_options_wrapper'  => true,
+                'field_options_moreless' => true,
+                'class'                  => 'asenha-toggle disable-components ' . $field_slug,
+            )
+        );
+        // Disable Author Archives
+        $field_id = 'disable_author_archives';
+        $field_slug = 'disable-author-archives';
+        $field_title = __( 'Disable Author Archives', 'admin-site-enhancements' );
+        add_settings_field(
+            $field_id,
+            $field_title,
+            [$render_field, 'render_checkbox_toggle'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'            => ASENHA_SLUG_U,
+                'field_id'               => $field_id,
+                'field_slug'             => $field_slug,
+                'field_title'            => $field_title,
+                'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_description'      => __( 'Return 404 (Not Found) error when trying to load author archives. Remove or disable links to author archives. Remove authors archives from the sitemap.', 'admin-site-enhancements' ),
                 'field_options_wrapper'  => true,
                 'field_options_moreless' => true,
                 'class'                  => 'asenha-toggle disable-components ' . $field_slug,

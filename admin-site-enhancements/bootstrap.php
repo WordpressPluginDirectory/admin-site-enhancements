@@ -822,6 +822,22 @@ class Admin_Site_Enhancements {
             // Remove Dashboard >> Updates menu
             add_action( 'admin_menu', [$disable_updates, 'remove_updates_menu'] );
         }
+        // Disable Author Archives
+        if ( array_key_exists( 'disable_author_archives', $options ) && $options['disable_author_archives'] ) {
+            $disable_author_archives = new ASENHA\Classes\Disable_Author_Archives();
+            add_action( 'template_redirect', [$disable_author_archives, 'redirect_to_404'], 1 );
+            add_filter( 'author_link', [$disable_author_archives, 'disable_frontend_author_link'], PHP_INT_MAX );
+            add_filter( 'user_row_actions', [$disable_author_archives, 'remove_user_view_action'], PHP_INT_MAX );
+            if ( class_exists( 'WP_Sitemaps' ) ) {
+                add_filter(
+                    'wp_sitemaps_add_provider',
+                    [$disable_author_archives, 'remove_users_from_sitemap'],
+                    PHP_INT_MAX,
+                    2
+                );
+            }
+            add_filter( 'author_rewrite_rules', [$disable_author_archives, 'disable_rewrite_rules_for_authors'], 10 );
+        }
         // Disable Smaller Components
         if ( array_key_exists( 'disable_smaller_components', $options ) && $options['disable_smaller_components'] ) {
             $disable_smaller_components = new ASENHA\Classes\Disable_Smaller_Components();

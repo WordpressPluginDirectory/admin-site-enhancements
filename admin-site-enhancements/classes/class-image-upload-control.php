@@ -52,6 +52,7 @@ class Image_Upload_Control {
      * @since 4.3.0
      */
     public function image_upload_handler( $upload ) {
+        $options = get_option( ASENHA_SLUG_U, array() );
         $applicable_mime_types = array(
             'image/bmp',
             'image/x-ms-bmp',
@@ -60,18 +61,22 @@ class Image_Upload_Control {
             'image/jpg',
             'image/webp'
         );
+        $disable_image_conversion = false;
         if ( in_array( $upload['type'], $applicable_mime_types ) ) {
             // Exlude from conversion and resizing images with filenames ending with '-nr', e.g. birds-nr.png
             if ( false !== strpos( $upload['file'], '-nr.' ) ) {
                 return $upload;
             }
-            // Convert BMP
-            if ( 'image/bmp' === $upload['type'] || 'image/x-ms-bmp' === $upload['type'] ) {
-                $upload = $this->maybe_convert_image( 'bmp', $upload );
-            }
-            // Convert PNG without transparency
-            if ( 'image/png' === $upload['type'] ) {
-                $upload = $this->maybe_convert_image( 'png', $upload );
+            // Image conversion is not disabled
+            if ( !$disable_image_conversion ) {
+                // Convert BMP
+                if ( 'image/bmp' === $upload['type'] || 'image/x-ms-bmp' === $upload['type'] ) {
+                    $upload = $this->maybe_convert_image( 'bmp', $upload );
+                }
+                // Convert PNG without transparency
+                if ( 'image/png' === $upload['type'] ) {
+                    $upload = $this->maybe_convert_image( 'png', $upload );
+                }
             }
             // At this point, BMPs and non-transparent PNGs are already converted to JPGs, unless excluded with '-nr' suffix.
             // Let's perform resize operation as needed, i.e. if image dimension is larger than specified
@@ -86,7 +91,6 @@ class Image_Upload_Control {
                 $wp_image_editor = wp_get_image_editor( $upload['file'] );
                 if ( !is_wp_error( $wp_image_editor ) ) {
                     $image_size = $wp_image_editor->get_size();
-                    $options = get_option( ASENHA_SLUG_U, array() );
                     $max_width = $options['image_max_width'];
                     $max_height = $options['image_max_height'];
                     $convert_to_jpg_quality = 82;

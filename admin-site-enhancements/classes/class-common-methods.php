@@ -519,6 +519,18 @@ class Common_Methods {
     }
 
     /**
+     * Get full URL, with query parameters
+     * e.g. https://www.site.com/some-page?param=value
+     * 
+     * @link https://stackoverflow.com/a/6768831
+     * @since 7.8.18
+     */
+    public function get_full_url() {
+        $full_url = (( empty( $_SERVER['HTTPS'] ) ? 'http' : 'https' )) . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+        return $full_url;
+    }
+
+    /**
      * Get array of elements with value of true
      * 
      * @since 7.6.10
