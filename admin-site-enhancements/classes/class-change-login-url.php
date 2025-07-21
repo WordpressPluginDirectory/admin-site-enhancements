@@ -183,7 +183,7 @@ class Change_Login_URL {
     public function customize_register_url( $registration_url ) {
         $options = get_option( ASENHA_SLUG_U );
         $custom_login_slug = $options['custom_login_slug'];
-        // return home_url( '/wp-login.php?backend&action=lostpassword' );
+        // return home_url( '/wp-login.php?action=register&custom_login_slug' );
         return $registration_url . '&' . $custom_login_slug;
     }
 
@@ -259,8 +259,12 @@ class Change_Login_URL {
                 exit;
             }
         } elseif ( !is_user_logged_in() ) {
-            // Check if request URL ends in /admin/, /wp-admin/, /login/, /wp-login/ or /wp-login.php
-            if ( isset( $url_input_parts[1] ) && in_array( $url_input_parts[1], array(
+            // WHen trying to access /wp-signup.php without the ?custom_login_slug, redirect to the redriect_slug
+            if ( isset( $url_input_parts[1] ) && 'wp-signup.php' == $url_input_parts[1] && false === strpos( $url_input, $custom_login_slug ) ) {
+                // Redirect to /not_found/
+                wp_safe_redirect( home_url( $redirect_slug . '/' ), 302 );
+                exit;
+            } elseif ( isset( $url_input_parts[1] ) && in_array( $url_input_parts[1], array(
                 'admin',
                 'wp-admin',
                 'login',

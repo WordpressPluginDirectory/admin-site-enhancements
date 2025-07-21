@@ -199,6 +199,7 @@ function asenha_get_import_content(  $name  ) {
         if ( is_uploaded_file( $temp_file_path ) ) {
             $file_contents = file_get_contents( $temp_file_path );
             $imported_settings = json_decode( $file_contents, true );
+            // vi( $imported_settings );
             return $imported_settings;
         } else {
             return false;

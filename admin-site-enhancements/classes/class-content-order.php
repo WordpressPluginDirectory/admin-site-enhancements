@@ -297,10 +297,10 @@ class Content_Order {
             $post_status_label_separator = ' — ';
             $post_status_label = $post_status_object->label;
         }
-        if ( empty( wp_trim_excerpt( '', $post ) ) ) {
+        if ( empty( wp_trim_excerpt( $post->post_excerpt, $post ) ) ) {
             $short_excerpt = '';
         } else {
-            $excerpt_trimmed = implode( " ", array_slice( explode( " ", wp_trim_excerpt( '', $post ) ), 0, 30 ) );
+            $excerpt_trimmed = implode( " ", array_slice( explode( " ", wp_trim_excerpt( $post->post_excerpt, $post ) ), 0, 30 ) );
             $short_excerpt = '<span class="item-excerpt"> | ' . $excerpt_trimmed . '</span>';
         }
         $taxonomies = get_object_taxonomies( $post->post_type, 'objects' );

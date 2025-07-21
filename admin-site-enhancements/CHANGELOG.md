@@ -1,10 +1,36 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **79 _major_ releases** (e.g. 1.1.0 ) and **157 _minor_ releases** (e.g. 4.9.1), for a **total of 236 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **79 _major_ releases** (e.g. 1.1.0 ) and **159 _minor_ releases** (e.g. 4.9.1), for a **total of 238 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+
+### 7.9.2 (2025.07.21) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Log In/Out & Register >> Change Login URL**: when in Settings >> General, "Membership: Anyone can register" is checked, opening /wp-signup.php will no longer redirect to the registration form. The custom login slug is required in the URL, i.e. /wp-signup.php?custom_login_slug, to be able to access the registration form.
+
+* **[IMPROVED in Pro] Utilities >> Form Builder**: Improved accessibility of the file upload field. Make sure all input elements in this field have corresponding labels. Props to Claudio P. for prompting this improvement.
+
+* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fixed an issue where the 'Hide' options were not being properly shown in full or were toggleable correctly when wp-admin is set to display in non-English language and the Independent Analytics plugin is active. Props to François A. for reporting the issue in detail and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fixed an issue where on importing PHP snippets, backslashes were unnecessarily removed, e.g. from regex patterns, resulting in broken, non-working snippets. Props to Oliver Z. for reporting the issue in detail and facilitating the troubleshooting process.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [33 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: updated Portuguese (Brazil), Chinese (China), Catalan.
+    * ASE Pro: Completed Spanish (100%). Special props to Lluis H. for a great effort in completing the translation.
+    
+### 7.9.1 (2025.07.14) - ASE Free and Pro
+
+* **[IMPROVED in Pro] Content Management >> Content Order**: the "show excerpt" toggle will now use an actual excerpt if already set, instead of generating one from the post content. Props to @ricjoh for prompting this improvement.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: fixed a PHP warning causing internal server (500) error in Breakdance builder. Props to Henry R. for reporting the issue with the error log entry.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [33 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: updated Spanish, Russian, Portuguese (Brazil), Polish, Norwegian, Italian, Indonesian, French, Dutch, Danish.
+    * ASE Pro: updated Norwegian and Spanish.
 
 ### 7.9.0 (2025.07.07) - ASE Free and Pro
 
