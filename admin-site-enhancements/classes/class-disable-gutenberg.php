@@ -138,15 +138,22 @@ class Disable_Gutenberg {
                         if ( false !== strpos( $handle, 'wp-block' ) ) {
                             if ( !in_array( $handle, $keep_enqueued ) ) {
                                 wp_dequeue_style( $handle );
+                                wp_deregister_style( $handle );
                             }
                         }
                     }
                     // Additional dequeuing
                     wp_dequeue_style( 'core-block-supports' );
+                    wp_deregister_style( 'core-block-supports' );
                     wp_dequeue_style( 'global-styles' );
+                    // theme.json
+                    wp_deregister_style( 'global-styles' );
                     // theme.json
                     wp_dequeue_style( 'classic-theme-styles' );
                     // classic theme
+                    wp_deregister_style( 'classic-theme-styles' );
+                    // classic theme
+                    wp_dequeue_style( 'wp-block-library' );
                     wp_deregister_style( 'wp-block-library' );
                 }
                 // wp_deregister_style( 'wp-block-library' );

@@ -1,10 +1,23 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **79 _major_ releases** (e.g. 1.1.0 ) and **159 _minor_ releases** (e.g. 4.9.1), for a **total of 238 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **79 _major_ releases** (e.g. 1.1.0 ) and **160 _minor_ releases** (e.g. 4.9.1), for a **total of 239 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+
+### 7.9.3 (2025.07.28) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Disable Components >> Disable Gutenberg**: improve code to remove frontend Gutenbeg assets to account for edge cases. Props to Mike D. for prompting the improvement.
+
+* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: added shortcode sub-type for text field and implement shortcode output for this sub-type in Oxygen, Breakdance and Elementor. Props to Radoslaw B. for prompting this improvement.
+
+* **[FIXED in Pro] Utilities >> Form Builder**: fixed a PHP warning error related to the display of name field in the entries list page. Props to Radoslaw B. for reporting the issue in detail, including the error log entry and a screenshot.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [33 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: updated Slovak, Portuguese (Brazil), Polish, Japanese, 
+    * ASE Pro: updated German and Japanese.
 
 ### 7.9.2 (2025.07.21) - ASE Free and Pro
 
