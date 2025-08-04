@@ -83,10 +83,10 @@ class Settings_Sections_Fields {
         // sort by value, ascending
         // Get array of slugs and plural labels for non-public post types, e.g. array( 'post' => 'Posts', 'page' => 'Pages' )
         $asenha_nonpublic_post_types = array();
-        $public_post_type_names = get_post_types( array(
+        $nonpublic_post_type_names = get_post_types( array(
             'public' => false,
         ), 'names' );
-        foreach ( $public_post_type_names as $post_type_name ) {
+        foreach ( $nonpublic_post_type_names as $post_type_name ) {
             $post_type_object = get_post_type_object( $post_type_name );
             $asenha_nonpublic_post_types[$post_type_name] = $post_type_object->label;
         }
@@ -106,10 +106,39 @@ class Settings_Sections_Fields {
             'wp_template',
             'wp_template_part',
             'wp_global_styles',
-            'wp_navigation'
+            'wp_navigation',
+            'wp_font_family',
+            'wp_font_face',
+            // ACF
+            'acf-post-type',
+            'acf-taxonomy',
+            'acf-field-group',
+            'acf-ui-options-page',
+            // Elementor
+            'e-landing-page',
+            'elementor_library',
+            'elementor_snippet',
+            'elementor_font',
+            'elementor_icons',
+            // Oxygen Classic
+            'ct_template',
+            'scheduled-action',
+            // Breakdance
+            'breakdance_template',
+            'breakdance_header',
+            'breakdance_footer',
+            'breakdance_popup',
+            'breakdance_block',
+            'breakdance_acf_block',
+            'breakdance_form_res',
+            // Bricks
+            'bricks_template',
+            'bricks_fonts',
         );
-        $all_post_types = get_post_types( array(), 'objects' );
-        foreach ( $all_post_types as $post_type_slug => $post_type_info ) {
+        $rest_api_enabled_post_type_names = get_post_types( array(
+            'show_in_rest' => true,
+        ), 'objects' );
+        foreach ( $rest_api_enabled_post_type_names as $post_type_slug => $post_type_info ) {
             $asenha_gutenberg_post_types[$post_type_slug] = $post_type_info->label;
             if ( in_array( $post_type_slug, $gutenberg_not_applicable_types ) ) {
                 unset($asenha_gutenberg_post_types[$post_type_slug]);

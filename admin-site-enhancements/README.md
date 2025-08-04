@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.8.2  
-Stable tag: 7.9.3  
+Stable tag: 7.9.4  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -91,7 +91,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **Login ID Type**. Restrict login ID to username or email address only.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Login Page Customizer**. Easily customize the design of the login page.
 * **Site Identity on Login Page**. Use the site icon and URL to replace the default WordPress logo with link to wordpress.org on the login page.
-* **Log In/Out Menu**. Enable log in, log out and dynamic log in/out menu item for addition to any menu.
+* **Log In/Out Menu**. Enable log in, log out and dynamic log in/out menu item for addition to any menu. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to customize the "Log In" and "Log Out" text.
 * **Registration Column**. Show users registration date. [ASE Pro](https://www.wpase.com/rdme-to-web) makes the column sortable.
 * **Last Login Column**. Log when users on the site last logged in and display the date and time in the users list table. [ASE Pro](https://www.wpase.com/rdme-to-web) makes the column sortable.
 * **Redirect After Login / Logout**. Set custom redirect URL for all or some user roles after login / logout. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to set separate redirect URL for each role.
@@ -197,24 +197,30 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **79 _major_ releases** (e.g. 1.1.0 ) and **160 _minor_ releases** (e.g. 4.9.1), for a **total of 239 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **79 _major_ releases** (e.g. 1.1.0 ) and **161 _minor_ releases** (e.g. 4.9.1), for a **total of 240 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 7.9.3 (2025.07.28) - ASE Free and Pro
+### 7.9.4 (2025.08.04) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Disable Components >> Disable Gutenberg**: improve code to remove frontend Gutenbeg assets to account for edge cases. Props to Mike D. for prompting the improvement.
+* **[FIXED in Free] Utilities >> Maintenance Mode**: fixed PHP warning as [reported](https://wordpress.org/support/topic/undefined-variable-custom_head_code-in/) by [@jacekjacek](https://wordpress.org/support/users/jacekjacek/).
 
-* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: added shortcode sub-type for text field and implement shortcode output for this sub-type in Oxygen, Breakdance and Elementor. Props to Radoslaw B. for prompting this improvement.
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: fixed an issue where in certain scenarios the Elementor repeater field integration is not shwoing the repeater sub-fields in the loop item template. Props to Muhammad Q. for reporting the issue in detail and facilitating the troubleshooting process.
 
-* **[FIXED in Pro] Utilities >> Form Builder**: fixed a PHP warning error related to the display of name field in the entries list page. Props to Radoslaw B. for reporting the issue in detail, including the error log entry and a screenshot.
+* **[IMPROVED in Free and Pro] Disable Components >> Disable Gutenberg**: 
+  * automatically exclude post types that are not exposed in the REST API from the module settings, as these post types would not have the block editor enabled.
+  * remove inapplicatble post types registered by WordPress, ASE, ACF, Elementor, Breakdance, Oxygen Classic and Bricks from module settings.
 
-* **[TRANSLATION in Free and Pro]** ASE is now being translated into [33 languages](https://translate.wpase.com/):
+* **[IMPROVED in Free and Pro] Log In/Out | Register >> Log In/Out Menu**: 
+  * Free and Pro: strings in this module are now internationalized, i.e. ready for translations. Props to Markus F. for prompting this improvement.
+  * Pro: added options to set custom "Log In" and "Log Out" menu labels. Props to Markus F. for prompting this improvement.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [34 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: updated Slovak, Portuguese (Brazil), Polish, Japanese, 
-    * ASE Pro: updated German and Japanese.
+    * ASE Free: Added Bengali (Bangladesh, completed). Updated German, Polish and Portuguese (Brazil).
+    * ASE Pro: Added Bengali (Bangladesh, partial). Updated Spanish and Japanese.
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [0 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).
@@ -224,7 +230,7 @@ Each **_major release_** usually corresponds with the addition of one new module
   * **[Italian](https://translate.wordpress.org/locale/it/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [Fabio P.](https://profiles.wordpress.org/fabioperri/) et. al. Current status: [16 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/it/default/?filters%5Bstatus%5D=untranslated).
   * **[Dutch](https://translate.wordpress.org/locale/nl/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [Toine R](https://profiles.wordpress.org/toineenzo/) and [Peter S.](https://profiles.wordpress.org/psmits1567/) et al. Current status: [0 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/nl/default/?filters%5Bstatus%5D=untranslated).
   * **[Korean](https://translate.wordpress.org/locale/ko/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@chazmlab](https://profiles.wordpress.org/chazmlab/) et al. Current status: [4 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/ko/default/?filters%5Bstatus%5D=untranslated).
-  * **[German (Formal)](https://translate.wordpress.org/locale/de/formal/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@markussss](https://profiles.wordpress.org/markussss/), Bastian S. et al. Current status: [100 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/de/formal/?filters%5Bstatus%5D=untranslated).
+  * **[German (Formal)](https://translate.wordpress.org/locale/de/formal/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@markussss](https://profiles.wordpress.org/markussss/), Bastian S. et al. Current status: [81 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/de/formal/?filters%5Bstatus%5D=untranslated).
   * **[French](https://translate.wordpress.org/locale/fr/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [Stéphan G.](https://profiles.wordpress.org/gongonzo/), [@jeanfrancoisdelvin](https://profiles.wordpress.org/jeanfrancoisdelvin/), [@srossignol](https://profiles.wordpress.org/srossignol/), [@lucashw](https://profiles.wordpress.org/lucashw/), [@skippy43](https://profiles.wordpress.org/skippy43/), [@anlip](https://profiles.wordpress.org/anlip/), [@agencefacton](https://profiles.wordpress.org/agencefacton/), [@injsbx](https://profiles.wordpress.org/injsbx/) et al. Current status: [0 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/fr/default/?filters%5Bstatus%5D=untranslated).
   * **[Polish](https://translate.wordpress.org/locale/pl/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [Jaroslaw K.](https://profiles.wordpress.org/kosmity/), [Dziubek](https://profiles.wordpress.org/dziubek/) and [Dariusz Z.](https://profiles.wordpress.org/dariobros/) et al. Current status: [0 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/pl/default/?filters%5Bstatus%5D=untranslated).
   * **[Norwegian](https://translate.wordpress.org/locale/nb/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [Alf O.F.](https://profiles.wordpress.org/skoen/) et al. Current status: [0 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/nb/default/?filters%5Bstatus%5D=untranslated).
@@ -250,5 +256,6 @@ Each **_major release_** usually corresponds with the addition of one new module
   * **[Croatian](https://translate.wordpress.org/locale/hr/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed). Props to [@plug-n-play](https://profiles.wordpress.org/plug-n-play/). Current status: [27 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/hr/default/?filters%5Bstatus%5D=untranslated).
   * **[Japanese](https://translate.wordpress.org/locale/ja/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed). Props to [@zionote](https://profiles.wordpress.org/zionote/) et al. Current status: [0 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/ja/default/?filters%5Bstatus%5D=untranslated).
   * **[Catalan](https://translate.wordpress.org/locale/ca/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@agendablanca](https://profiles.wordpress.org/agendablanca/), [@lluishospital](https://profiles.wordpress.org/lluishospital/) et al. Current status: [0 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/ca/default/?filters%5Bstatus%5D=untranslated).
+  * **[Bengali (Bangladesh)](https://translate.wordpress.org/locale/bn/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed) and Pro (partial). Props to [Ruhani R.](https://profiles.wordpress.org/ruhanirabin/). Current status: [0 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/bn/default/?filters%5Bstatus%5D=untranslated).
 
 [**See the full changelog >>**](https://www.wpase.com/documentation/changelog/)

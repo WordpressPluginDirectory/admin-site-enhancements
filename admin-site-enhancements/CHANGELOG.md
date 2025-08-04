@@ -1,10 +1,29 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **79 _major_ releases** (e.g. 1.1.0 ) and **160 _minor_ releases** (e.g. 4.9.1), for a **total of 239 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **79 _major_ releases** (e.g. 1.1.0 ) and **161 _minor_ releases** (e.g. 4.9.1), for a **total of 240 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+
+### 7.9.4 (2025.08.04) - ASE Free and Pro
+
+* **[FIXED in Free] Utilities >> Maintenance Mode**: fixed PHP warning as [reported](https://wordpress.org/support/topic/undefined-variable-custom_head_code-in/) by [@jacekjacek](https://wordpress.org/support/users/jacekjacek/).
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: fixed an issue where in certain scenarios the Elementor repeater field integration is not shwoing the repeater sub-fields in the loop item template. Props to Muhammad Q. for reporting the issue in detail and facilitating the troubleshooting process.
+
+* **[IMPROVED in Free and Pro] Disable Components >> Disable Gutenberg**: 
+  * automatically exclude post types that are not exposed in the REST API from the module settings, as these post types would not have the block editor enabled.
+  * remove inapplicatble post types registered by WordPress, ASE, ACF, Elementor, Breakdance, Oxygen Classic and Bricks from module settings.
+
+* **[IMPROVED in Free and Pro] Log In/Out | Register >> Log In/Out Menu**: 
+  * Free and Pro: strings in this module are now internationalized, i.e. ready for translations. Props to Markus F. for prompting this improvement.
+  * Pro: added options to set custom "Log In" and "Log Out" menu labels. Props to Markus F. for prompting this improvement.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [34 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Added Bengali (Bangladesh, completed). Updated German, Polish and Portuguese (Brazil).
+    * ASE Pro: Added Bengali (Bangladesh, partial). Updated Spanish and Japanese.
 
 ### 7.9.3 (2025.07.28) - ASE Free and Pro
 
