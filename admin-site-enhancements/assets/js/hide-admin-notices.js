@@ -211,7 +211,19 @@
 			// WooCommerce Stock Sync
 			+ '#wpbody-content > .wrap > .ssgs-influencer-banner,'
 			+ '#wpbody-content > .wrap > .ssgs-upgrade-banner,'
-			+ '#wpbody-content > .wrap > .ssgs-rating-banner'
+			+ '#wpbody-content > .wrap > .ssgs-rating-banner,'
+			// Dokan
+			+ '#wpbody-content > .wrap .dokan-dashboard .notice:not(.system-notice,.hidden,.wcml-notice),'
+			+ '#wpbody-content > .wrap .dokan-dashboard .notice-error,'
+			+ '#wpbody-content > .wrap .dokan-dashboard .error:not(.hidden),'
+			+ '#wpbody-content > .wrap .dokan-dashboard .notice-info,'
+			+ '#wpbody-content > .wrap .dokan-dashboard .notice-information,'
+			+ '#wpbody-content > .wrap .dokan-dashboard #message,'
+			+ '#wpbody-content > .wrap .dokan-dashboard .notice-warning:not(.hidden),'
+			+ '#wpbody-content > .wrap .dokan-dashboard .notice-success,'
+			+ '#wpbody-content > .wrap .dokan-dashboard .notice-updated,'
+			+ '#wpbody-content > .wrap .dokan-dashboard .updated:not(.inline),'
+			+ '#wpbody-content > .wrap .dokan-dashboard .update-nag'
 			).not(':hidden').detach()
 			.appendTo(noticesPanel)
 			.show();
