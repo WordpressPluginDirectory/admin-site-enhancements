@@ -364,7 +364,12 @@ class Admin_Site_Enhancements {
                     if ( false !== strpos( $custom_menu_title, 'menu-posts__' ) ) {
                         $custom_menu_title = explode( '__', $custom_menu_title );
                         $posts_custom_title = $custom_menu_title[1];
-                        $posts_default_title = $wp_post_types['post']->label;
+                        $posts_default_title = __( 'Posts', 'admin-site-enhancements' );
+                        if ( is_array( $wp_post_types ) ) {
+                            if ( isset( $wp_post_types['post'] ) && property_exists( $wp_post_types['post'], 'label' ) ) {
+                                $posts_default_title = $wp_post_types['post']->label;
+                            }
+                        }
                         if ( $posts_default_title != $posts_custom_title ) {
                             add_filter( 'post_type_labels_post', [$admin_menu_organizer, 'change_post_labels'] );
                             add_action( 'init', [$admin_menu_organizer, 'change_post_object_label'] );

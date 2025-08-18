@@ -1,10 +1,20 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **79 _major_ releases** (e.g. 1.1.0 ) and **162 _minor_ releases** (e.g. 4.9.1), for a **total of 241 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **79 _major_ releases** (e.g. 1.1.0 ) and **163 _minor_ releases** (e.g. 4.9.1), for a **total of 242 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+
+### 7.9.6 (2025.08.18) - ASE Free and Pro
+
+* **[FIXED in Free and Pro] Admin Interface >> Admin Menu Organizer**: fix PHP warnings that occurs when using "wp list post" command via WP CLI. Props to [Apostolos P.T.](https://wordpress.org/support/users/monotropos/) for [reporting](https://wordpress.org/support/topic/2-warnings-when-getting-page-from-cli/) this issue.
+
+* **[CHANGED in Pro] Custom Code >> Code Snippets Manager**: The snippet description field/editor is now placed below the code editor, so you can immediately work on the code upon page load / saving changes. This also fixes an issue where the snippet description field very occasionally shows a blank white box rendering it unusable. Props to Kilian H. for prompting this change.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [34 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Updated Russian, Portuguese (Brazil), Polish, Norwegian, Japanese, German (formal), Dutch, Bengali.
 
 ### 7.9.5 (2025.08.11) - ASE Free and Pro
 
