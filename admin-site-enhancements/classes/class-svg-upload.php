@@ -105,6 +105,31 @@ class SVG_Upload {
     }
     
     /**
+     * Sanitize SVG upload via xmlrpc.php
+     * 
+     * @link https://developer.wordpress.org/reference/hooks/xmlrpc_prepare_media_item/
+     * @since 7.9.8
+     */
+    public function sanitize_xmlrpc_svg_upload( $_media_item, $media_item ) {
+        if ( is_object( $media_item ) ) {
+            if ( property_exists( $media_item, 'ID' ) ) {
+                $file_path = get_attached_file( $media_item->ID );
+                $original_svg = file_get_contents( $file_path );
+
+                $sanitizer = $this->get_svg_sanitizer();                
+                $sanitized_svg = $sanitizer->sanitize( $original_svg ); // boolean
+
+                if ( false !== $sanitized_svg ) {
+                    // Sanitization was a success, let's write the result back to the file
+                    file_put_contents( $file_path, $sanitized_svg );
+                }
+            }
+        }
+
+        return $_media_item;
+    }
+    
+    /**
      * Sanitize a file after it is added to the media library, e.g. via REST API POST request
      * 
      * @since 7.5.2

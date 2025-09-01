@@ -187,6 +187,12 @@ class Admin_Site_Enhancements {
             );
             add_filter( 'wp_handle_sideload_prefilter', [$svg_upload, 'sanitize_and_maybe_allow_svg_upload'] );
             add_filter( 'wp_handle_upload_prefilter', [$svg_upload, 'sanitize_and_maybe_allow_svg_upload'] );
+            add_filter(
+                'xmlrpc_prepare_media_item',
+                [$svg_upload, 'sanitize_xmlrpc_svg_upload'],
+                10,
+                2
+            );
             add_action(
                 'rest_insert_attachment',
                 [$svg_upload, 'sanitize_after_upload'],
@@ -358,26 +364,7 @@ class Admin_Site_Enhancements {
             }
             if ( array_key_exists( 'custom_menu_titles', $admin_menu_options ) ) {
                 add_action( 'admin_menu', [$admin_menu_organizer, 'apply_custom_menu_item_titles'], 9999999995 );
-                // For 'Posts' menu, if the title has been changed, try changing the labels for it everywhere
-                $custom_menu_titles = explode( ',', $admin_menu_options['custom_menu_titles'] );
-                foreach ( $custom_menu_titles as $custom_menu_title ) {
-                    if ( false !== strpos( $custom_menu_title, 'menu-posts__' ) ) {
-                        $custom_menu_title = explode( '__', $custom_menu_title );
-                        $posts_custom_title = $custom_menu_title[1];
-                        $posts_default_title = __( 'Posts', 'admin-site-enhancements' );
-                        if ( is_array( $wp_post_types ) ) {
-                            if ( isset( $wp_post_types['post'] ) && property_exists( $wp_post_types['post'], 'label' ) ) {
-                                $posts_default_title = $wp_post_types['post']->label;
-                            }
-                        }
-                        if ( $posts_default_title != $posts_custom_title ) {
-                            add_filter( 'post_type_labels_post', [$admin_menu_organizer, 'change_post_labels'] );
-                            add_action( 'init', [$admin_menu_organizer, 'change_post_object_label'] );
-                            add_action( 'admin_menu', [$admin_menu_organizer, 'change_post_menu_label'], PHP_INT_MAX );
-                            add_action( 'admin_bar_menu', [$admin_menu_organizer, 'change_wp_admin_bar'], 80 );
-                        }
-                    }
-                }
+                add_action( 'init', [$admin_menu_organizer, 'apply_custom_title_for_posts_menu'] );
             }
             if ( array_key_exists( 'custom_menu_hidden', $admin_menu_options ) || array_key_exists( 'custom_menu_always_hidden', $admin_menu_options ) ) {
                 add_action( 'admin_menu', [$admin_menu_organizer, 'hide_menu_items'], 9999999996 );

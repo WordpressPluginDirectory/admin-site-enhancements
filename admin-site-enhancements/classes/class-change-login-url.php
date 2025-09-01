@@ -264,6 +264,8 @@ class Change_Login_URL {
                 // Redirect to /not_found/
                 wp_safe_redirect( home_url( $redirect_slug . '/' ), 302 );
                 exit;
+            } elseif ( false !== strpos( $url_input, 'wp-admin/admin-post.php' ) ) {
+                // Do nothing. i.e. do not redirect to /not_found/
             } elseif ( isset( $url_input_parts[1] ) && in_array( $url_input_parts[1], array(
                 'admin',
                 'wp-admin',

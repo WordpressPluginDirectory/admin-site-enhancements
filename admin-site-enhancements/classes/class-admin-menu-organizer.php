@@ -140,6 +140,38 @@ class Admin_Menu_Organizer {
     }
 
     /**
+     * Apply custom menu item titles
+     *
+     * @since 7.9.7
+     */
+    public function apply_custom_title_for_posts_menu() {
+        global $wp_post_types;
+        $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
+        $admin_menu_options = ( isset( $options_extra['admin_menu'] ) ? $options_extra['admin_menu'] : array() );
+        // $admin_menu_organizer = new ASENHA\Classes\Admin_Menu_Organizer();
+        // For 'Posts' menu, if the title has been changed, try changing the labels for it everywhere
+        $custom_menu_titles = explode( ',', $admin_menu_options['custom_menu_titles'] );
+        foreach ( $custom_menu_titles as $custom_menu_title ) {
+            if ( false !== strpos( $custom_menu_title, 'menu-posts__' ) ) {
+                $custom_menu_title = explode( '__', $custom_menu_title );
+                $posts_custom_title = $custom_menu_title[1];
+                $posts_default_title = __( 'Posts', 'admin-site-enhancements' );
+                if ( is_array( $wp_post_types ) ) {
+                    if ( isset( $wp_post_types['post'] ) && property_exists( $wp_post_types['post'], 'label' ) ) {
+                        $posts_default_title = $wp_post_types['post']->label;
+                    }
+                }
+                if ( $posts_default_title != $posts_custom_title ) {
+                    add_filter( 'post_type_labels_post', [$this, 'change_post_labels'] );
+                    add_action( 'init', [$this, 'change_post_object_label'] );
+                    add_action( 'admin_menu', [$this, 'change_post_menu_label'], PHP_INT_MAX );
+                    add_action( 'admin_bar_menu', [$this, 'change_wp_admin_bar'], 80 );
+                }
+            }
+        }
+    }
+
+    /**
      * Get custom title for 'Posts' menu item
      * 
      * @since 6.9.13
