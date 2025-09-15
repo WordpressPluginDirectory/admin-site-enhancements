@@ -60,4 +60,12 @@ body.toplevel_page_gf_edit_forms .gform-form-toolbar {
 	max-width: calc(100% - <?php echo esc_html( esc_html( $gf_editor_width ) ); ?>) !important;
 }
 
+/* Formidable Forms */
+.auto-fold.frm-admin-page-styles:not(.frm-full-screen) .frm_page_container, 
+.auto-fold:not(.frm-full-screen) .frm_wrap .frm_page_container, 
+.frm-unfold.frm-admin-page-styles:not(.frm-full-screen) .frm_page_container, 
+.frm-unfold:not(.frm-full-screen) .frm_wrap .frm_page_container {
+	left: <?php echo esc_html( $custom_width ); ?> !important;
+}
+
 </style>

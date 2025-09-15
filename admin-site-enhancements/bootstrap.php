@@ -855,11 +855,13 @@ class Admin_Site_Enhancements {
                 remove_action( 'wp_head', 'rsd_link' );
             }
             if ( array_key_exists( 'disable_head_shortlink_tag', $options ) && $options['disable_head_shortlink_tag'] ) {
+                // https://github.com/WordPress/wordpress-develop/blob/646fd2308f87332b0db5218ee2071c0ff8db0d4c/src/wp-includes/default-filters.php#L358
                 remove_action( 'wp_head', 'wp_shortlink_wp_head' );
+                // https://github.com/WordPress/wordpress-develop/blob/646fd2308f87332b0db5218ee2071c0ff8db0d4c/src/wp-includes/default-filters.php#L363
                 remove_action(
                     'template_redirect',
                     'wp_shortlink_header',
-                    100,
+                    11,
                     0
                 );
             }
