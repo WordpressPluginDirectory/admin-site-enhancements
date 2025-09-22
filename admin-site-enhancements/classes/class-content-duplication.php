@@ -63,10 +63,8 @@ class Content_Duplication {
         // non-public, WooCommerce
         'shop_order_placehold',
         // non-public, WooCommerce
-        'elementor_library',
-        // public, Elementor
-        'e-landing-page',
-        // public, Elementor
+        // 'elementor_library', // public, Elementor -- not excluded as data is stored only in wp_posts and wp_postmeta
+        // 'e-landing-page', // public, Elementor -- not excluded as data is stored only in wp_posts and wp_postmeta
         'elementor_snippet',
         // non-public, Elementor
         'elementor_font',

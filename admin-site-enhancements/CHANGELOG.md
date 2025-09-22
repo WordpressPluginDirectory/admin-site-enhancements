@@ -1,10 +1,23 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **79 _major_ releases** (e.g. 1.1.0 ) and **167 _minor_ releases** (e.g. 4.9.1), for a **total of 246 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **79 _major_ releases** (e.g. 1.1.0 ) and **168 _minor_ releases** (e.g. 4.9.1), for a **total of 247 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+
+### 7.9.11 (2025.09.22) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Content Management >> Content Duplication**: re-enable duplication of Elementor templates and landing pages as data for both post types are confirmed to be stored only in the default wp_posts and wp_postmeta tables. Props to Marcel N. and Celeste W.
+
+* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fixed sorting based on the "Modified" date time / column not properly working in the snippets listing page. Props to Oliver S. for reporting the issue and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: fixed a bug where update_cf() doesn't work when a field in a custom field group has an empty 'Name'. Props to @compwj for reporting the issue.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [34 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: updated Spanish (Chile), Portuguese (Brazil), Polish, Norwegian, German (Formal), Danish.
+    * ASE Pro: updated Arabic.
 
 ### 7.9.10 (2025.09.15) - ASE Free and Pro
 
