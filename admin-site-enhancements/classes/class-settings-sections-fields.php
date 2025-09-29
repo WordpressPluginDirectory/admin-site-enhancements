@@ -2133,6 +2133,33 @@ class Settings_Sections_Fields {
                 'class'                  => 'asenha-toggle disable-components ' . $field_slug,
             )
         );
+        // Disable Embeds
+        $field_id = 'disable_embeds';
+        $field_slug = 'disable-embeds';
+        $field_title = __( 'Disable Embeds', 'admin-site-enhancements' );
+        $oembed_providers_doc = 'https://developer.wordpress.org/advanced-administration/wordpress/oembed/#does-this-work-with-any-url';
+        add_settings_field(
+            $field_id,
+            $field_title,
+            [$render_field, 'render_checkbox_toggle'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'            => ASENHA_SLUG_U,
+                'field_id'               => $field_id,
+                'field_slug'             => $field_slug,
+                'field_title'            => $field_title,
+                'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_description'      => __( 'Prevent your site content from being embedded on other sites.', 'admin-site-enhancements' ) . ' ' . sprintf( 
+                    /* translators: %s is URL of WP Dev Resource page */
+                    __( 'Prevent embedding of non-<a href="%s" target="_blank">whitelisted</a> sites in your site.', 'admin-site-enhancements' ),
+                    $oembed_providers_doc
+                 ) . ' ' . __( 'Disable all, related JavaScript.', 'admin-site-enhancements' ) . ' ' . __( 'Removes support for the embed block.', 'admin-site-enhancements' ),
+                'field_options_wrapper'  => true,
+                'field_options_moreless' => true,
+                'class'                  => 'asenha-toggle disable-components ' . $field_slug,
+            )
+        );
         // Disable Auto Updates
         $field_id = 'disable_all_updates';
         $field_slug = 'disable-all-updates';

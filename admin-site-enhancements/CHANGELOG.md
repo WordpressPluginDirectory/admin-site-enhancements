@@ -1,10 +1,22 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **79 _major_ releases** (e.g. 1.1.0 ) and **168 _minor_ releases** (e.g. 4.9.1), for a **total of 247 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **168 _minor_ releases** (e.g. 4.9.1), for a **total of 248 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+
+### 8.0.0 (2025.09.29) - ASE Free and Pro
+
+* **[ADDED in Free and Pro] Disable Components >> Disable Embeds**: Prevent your site content from being embedded on other sites. Prevent embedding of non-whitelisted sites in your site. Disable all, related JavaScript. Removes support for the embed block.
+
+* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fixed PHP warning that occurs in a certain scenario. Props to Andrew A. for reporting the issue and suggesting the fix.
+
+* **[FIXED in Pro] Content Management >> Content Duplication**: fixed a bug where the duplication link is not properly showing up in the admin bar on the frontend when viewing single pages / posts /CPT post, and when viewing the homepage that uses a specific page. Props to Lee B. for prompting this fix.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [34 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: updated Serbian, Portuguese (Brazil), Polish, Norwegian, Korean, Japanese, Danish.
 
 ### 7.9.11 (2025.09.22) - ASE Free and Pro
 

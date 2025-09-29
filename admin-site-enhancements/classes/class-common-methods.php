@@ -579,4 +579,24 @@ class Common_Methods {
         return $sanitized_code;
     }
 
+    /**
+     * Part of Disable Embeds module
+     * Remove all rewrite rules related to embeds.
+     * During deactivation / activation.
+     *
+     * @link https://plugins.trac.wordpress.org/browser/disable-embeds/tags/1.5.0/disable-embeds.php#L86
+     * @since 8.0.0
+     *
+     * @param array $rules WordPress rewrite rules.
+     * @return array Rewrite rules without embeds rules.
+     */
+    public function disable_embeds_rewrites( $rules ) {
+        foreach ( $rules as $rule => $rewrite ) {
+            if ( false !== strpos( $rewrite, 'embed=true' ) ) {
+                unset($rules[$rule]);
+            }
+        }
+        return $rules;
+    }
+
 }

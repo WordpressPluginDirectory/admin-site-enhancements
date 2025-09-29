@@ -532,6 +532,11 @@ class Settings_Sanitization {
             $options['disable_feeds'] = false;
         }
         $options['disable_feeds'] = ( 'on' == $options['disable_feeds'] ? true : false );
+        // Disable Embeds
+        if ( !isset( $options['disable_embeds'] ) ) {
+            $options['disable_embeds'] = false;
+        }
+        $options['disable_embeds'] = ( 'on' == $options['disable_embeds'] ? true : false );
         // Disable Auto Updates
         if ( !isset( $options['disable_all_updates'] ) ) {
             $options['disable_all_updates'] = false;

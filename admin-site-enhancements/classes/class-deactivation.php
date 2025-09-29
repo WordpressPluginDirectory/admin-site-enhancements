@@ -26,4 +26,18 @@ class Deactivation {
         $wpdb->query("DROP TABLE IF EXISTS `". $table_name ."`");
 
 	}
+
+	/**
+     * Part of Disable Embeds module
+	 * Flush rewrite rules on plugin deactivation.
+	 *
+	 * @link https://plugins.trac.wordpress.org/browser/disable-embeds/tags/1.5.0/disable-embeds.php#L113
+	 * @since 8.0.0
+	 */
+	public function disable_embeds_flush_rewrite_rules() {
+        $common_methods = new Common_Methods;
+		remove_filter( 'rewrite_rules_array', [ $common_methods, 'disable_embeds_rewrites' ] );
+		flush_rewrite_rules( false );
+	}
+
 }

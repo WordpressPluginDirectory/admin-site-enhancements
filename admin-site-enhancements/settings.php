@@ -424,6 +424,17 @@ function is_yearend_promo_period() {
     // n is for numeric value of month, 1 to 12
     if ( $current_month >= 10 ) {
         $is_yearend_promo_period = true;
+        // Clear out last year's promo nudge dismissal data
+        $current_year = date( 'Y', time() );
+        $asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
+        if ( isset( $asenha_stats['promo_nudge_dismissed'] ) && $asenha_stats['promo_nudge_dismissed'] ) {
+            $last_dismissed_year = date( 'Y', strtotime( $asenha_stats['promo_nudge_dismissed_date'] ) );
+            if ( $current_year > $last_dismissed_year ) {
+                $asenha_stats['promo_nudge_dismissed'] = false;
+                $asenha_stats['promo_nudge_dismissed_date'] = '';
+                update_option( ASENHA_SLUG_U . '_stats', $asenha_stats, false );
+            }
+        }
     } else {
         $is_yearend_promo_period = false;
     }

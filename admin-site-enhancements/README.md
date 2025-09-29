@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.8.2  
-Stable tag: 7.9.11  
+Stable tag: 8.0.0  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -112,6 +112,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **Disable Comments**. Disable comments for some or all public post types. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to disable only on / except on certain post types, or on all post types.
 * **Disable REST API**. Disable REST API access for non-authenticated users and remove URL traces from &lt;head&gt;, HTTP headers and WP RSD endpoint. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to enable access only for some, authenticated user roles, e.g. administrators, and also a way to exclude certain API routes from being disabled.
 * **Disable Feeds**. Disable all RSS, Atom and RDF feeds.
+* **Disable Embeds**. Prevent your site content from being embedded on other sites. Prevent embedding of non-whitelisted sites in your site. Disable all, related JavaScript. Removes support for the embed block.
 * **Disable All Updates**. Completely disable core, theme and plugin updates and auto-updates. Will also disable update checks, notices and emails.
 * **Disable Author Archives**. Return 404 (Not Found) error when trying to load author archives. Remove or disable links to author archives. Remove authors archives from the sitemap.
 * **Disable Smaller Components**. Prevent smaller components from running or loading. Those are generator &lt;meta&gt; tag, version number, Windows Live Writer (WLW) manifest &lt;link&gt; tag, Really Simple Discovery (RSD) &lt;link&gt; tag, WordPress shortlink &lt;link&gt; tag in &lt;head&gt;, and also dashicons CSS and JS files, emoji support, jQuery Migrate, block-based widgets settings screen, native lazy load of images, application passwords and plugin / theme editor.
@@ -197,24 +198,23 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **79 _major_ releases** (e.g. 1.1.0 ) and **168 _minor_ releases** (e.g. 4.9.1), for a **total of 247 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **168 _minor_ releases** (e.g. 4.9.1), for a **total of 248 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 7.9.11 (2025.09.22) - ASE Free and Pro
+### 8.0.0 (2025.09.29) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Content Management >> Content Duplication**: re-enable duplication of Elementor templates and landing pages as data for both post types are confirmed to be stored only in the default wp_posts and wp_postmeta tables. Props to Marcel N. and Celeste W.
+* **[ADDED in Free and Pro] Disable Components >> Disable Embeds**: Prevent your site content from being embedded on other sites. Prevent embedding of non-whitelisted sites in your site. Disable all, related JavaScript. Removes support for the embed block.
 
-* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fixed sorting based on the "Modified" date time / column not properly working in the snippets listing page. Props to Oliver S. for reporting the issue and facilitating the troubleshooting process.
+* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fixed PHP warning that occurs in a certain scenario. Props to Andrew A. for reporting the issue and suggesting the fix.
 
-* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: fixed a bug where update_cf() doesn't work when a field in a custom field group has an empty 'Name'. Props to @compwj for reporting the issue.
+* **[FIXED in Pro] Content Management >> Content Duplication**: fixed a bug where the duplication link is not properly showing up in the admin bar on the frontend when viewing single pages / posts /CPT post, and when viewing the homepage that uses a specific page. Props to Lee B. for prompting this fix.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [34 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: updated Spanish (Chile), Portuguese (Brazil), Polish, Norwegian, German (Formal), Danish.
-    * ASE Pro: updated Arabic.
+    * ASE Free: updated Serbian, Portuguese (Brazil), Polish, Norwegian, Korean, Japanese, Danish.
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [0 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).

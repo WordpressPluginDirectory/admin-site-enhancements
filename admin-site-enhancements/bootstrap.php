@@ -775,6 +775,11 @@ class Admin_Site_Enhancements {
                 1
             );
         }
+        // Disable Feeds
+        if ( array_key_exists( 'disable_embeds', $options ) && $options['disable_embeds'] ) {
+            $disable_embeds = new ASENHA\Classes\Disable_Embeds();
+            add_action( 'init', [$disable_embeds, 'disable_embeds_init'], 9999 );
+        }
         // Disable All Updates
         if ( array_key_exists( 'disable_all_updates', $options ) && $options['disable_all_updates'] ) {
             $disable_updates = new ASENHA\Classes\Disable_Updates();

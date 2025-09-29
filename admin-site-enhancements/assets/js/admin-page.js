@@ -359,6 +359,7 @@
       $('.disable-rest-api').appendTo('.fields-disable-components > table > tbody');
       
       $('.disable-feeds').appendTo('.fields-disable-components > table > tbody');
+      $('.disable-embeds').appendTo('.fields-disable-components > table > tbody');
       $('.disable-all-updates').appendTo('.fields-disable-components > table > tbody');
       $('.disable-author-archives').appendTo('.fields-disable-components > table > tbody');
       $('.disable-smaller-components').appendTo('.fields-disable-components > table > tbody');

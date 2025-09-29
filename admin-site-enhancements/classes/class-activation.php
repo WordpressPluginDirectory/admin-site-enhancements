@@ -197,4 +197,17 @@ class Activation {
         return true;
     }
 
+    /**
+     * Part of Disable Embeds module
+     * Remove embeds rewrite rules on plugin activation.
+     *
+     * @link https://plugins.trac.wordpress.org/browser/disable-embeds/tags/1.5.0/disable-embeds.php#L101
+     * @since 8.0.0
+     */
+    public function disable_embeds_remove_rewrite_rules() {
+        $common_methods = new Common_Methods;
+        add_filter( 'rewrite_rules_array', [ $common_methods, 'disable_embeds_rewrites' ] );
+        flush_rewrite_rules( false );
+    }
+
 }
