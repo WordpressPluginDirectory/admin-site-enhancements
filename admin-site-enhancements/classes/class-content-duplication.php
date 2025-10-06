@@ -232,37 +232,39 @@ class Content_Duplication {
         $duplication_link_locations = $this->get_duplication_link_locations();
         $allow_duplication = $this->is_user_allowed_to_duplicate_content();
         global $pagenow, $post;
-        if ( !is_null( $post ) && property_exists( $post, 'post_type' ) ) {
-            $post_type = $post->post_type;
-            $inapplicable_post_types = array('attachment');
-            $post_type_is_duplicable = $this->is_post_type_duplicable( $post_type );
-            if ( $allow_duplication && $post_type_is_duplicable ) {
-                if ( 'post.php' == $pagenow && !in_array( $post_type, $inapplicable_post_types ) || is_singular() || is_front_page() && !is_home() ) {
-                    if ( in_array( 'admin-bar', $duplication_link_locations ) ) {
-                        $common_methods = new Common_Methods();
-                        $post_type_singular_label = $common_methods->get_post_type_singular_label( $post );
-                        $post_id = 0;
-                        if ( is_front_page() && !is_home() ) {
-                            $post_id = get_option( 'page_on_front' );
-                        } else {
-                            // if ( property_exists( $post, 'ID' ) ) {
-                            $post_id = (int) $post->ID;
-                            // } else {
-                            //     $post_id = 0;
-                            // }
-                        }
-                        if ( $post_id > 0 ) {
-                            $wp_admin_bar->add_menu( array(
-                                'id'     => 'duplicate-content',
-                                'parent' => null,
-                                'group'  => null,
-                                'title'  => sprintf( 
-                                    /* translators: %s is the singular label for the post type */
-                                    __( 'Duplicate %s', 'admin-site-enhancements' ),
-                                    $post_type_singular_label
-                                 ),
-                                'href'   => admin_url( 'admin.php?action=duplicate_content&amp;post=' . $post_id . '&amp;nonce=' . wp_create_nonce( 'asenha-duplicate-' . $post_id ) ),
-                            ) );
+        if ( is_object( $post ) ) {
+            if ( property_exists( $post, 'post_type' ) ) {
+                $post_type = $post->post_type;
+                $inapplicable_post_types = array('attachment');
+                $post_type_is_duplicable = $this->is_post_type_duplicable( $post_type );
+                if ( $allow_duplication && $post_type_is_duplicable ) {
+                    if ( 'post.php' == $pagenow && !in_array( $post_type, $inapplicable_post_types ) || is_singular() || is_front_page() && !is_home() ) {
+                        if ( in_array( 'admin-bar', $duplication_link_locations ) ) {
+                            $common_methods = new Common_Methods();
+                            $post_type_singular_label = $common_methods->get_post_type_singular_label( $post );
+                            $post_id = 0;
+                            if ( is_front_page() && !is_home() ) {
+                                $post_id = get_option( 'page_on_front' );
+                            } else {
+                                // if ( property_exists( $post, 'ID' ) ) {
+                                $post_id = (int) $post->ID;
+                                // } else {
+                                //     $post_id = 0;
+                                // }
+                            }
+                            if ( $post_id > 0 ) {
+                                $wp_admin_bar->add_menu( array(
+                                    'id'     => 'duplicate-content',
+                                    'parent' => null,
+                                    'group'  => null,
+                                    'title'  => sprintf( 
+                                        /* translators: %s is the singular label for the post type */
+                                        __( 'Duplicate %s', 'admin-site-enhancements' ),
+                                        $post_type_singular_label
+                                     ),
+                                    'href'   => admin_url( 'admin.php?action=duplicate_content&amp;post=' . $post_id . '&amp;nonce=' . wp_create_nonce( 'asenha-duplicate-' . $post_id ) ),
+                                ) );
+                            }
                         }
                     }
                 }
@@ -300,8 +302,8 @@ class Content_Duplication {
      * @since 6.9.7
      */
     public function is_post_type_duplicable( $post_type ) {
-        global $asenha_public_post_types;
         $common_methods = new Common_Methods();
+        $asenha_public_post_types = $common_methods->get_public_post_type_slugs();
         $inapplicable_post_types = $this->inapplicable_post_types;
         $is_woocommerce_active = $common_methods->is_woocommerce_active();
         $options = get_option( ASENHA_SLUG_U, array() );

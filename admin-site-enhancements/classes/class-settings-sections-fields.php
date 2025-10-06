@@ -72,15 +72,7 @@ class Settings_Sections_Fields {
         // sort by value, ascending
         // Get array of slugs and plural labels for public post types, e.g. array( 'post' => 'Posts', 'page' => 'Pages' )
         $asenha_public_post_types = array();
-        $public_post_type_names = get_post_types( array(
-            'public' => true,
-        ), 'names' );
-        foreach ( $public_post_type_names as $post_type_name ) {
-            $post_type_object = get_post_type_object( $post_type_name );
-            $asenha_public_post_types[$post_type_name] = $post_type_object->label;
-        }
-        asort( $asenha_public_post_types );
-        // sort by value, ascending
+        $asenha_public_post_types = $common_methods->get_public_post_type_slugs();
         // Get array of slugs and plural labels for non-public post types, e.g. array( 'post' => 'Posts', 'page' => 'Pages' )
         $asenha_nonpublic_post_types = array();
         $nonpublic_post_type_names = get_post_types( array(

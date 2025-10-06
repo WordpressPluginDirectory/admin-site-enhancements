@@ -351,7 +351,7 @@ class Admin_Menu_Organizer {
                 $current_user_role_capabilities = array_keys( $current_user_role_capabilities );
                 // indexed array
                 $current_user_role_capabilities = implode( ",", $current_user_role_capabilities );
-                $current_user_capabilities .= $current_user_role_capabilities;
+                $current_user_capabilities .= ',' . $current_user_role_capabilities;
             }
         }
         // Maybe show "Show All/Less" toggle

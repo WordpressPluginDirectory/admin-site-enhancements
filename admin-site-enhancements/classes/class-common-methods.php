@@ -599,4 +599,23 @@ class Common_Methods {
         return $rules;
     }
 
+    /**
+     * Get an indexed array of public post type slug => label pairs
+     * 
+     * @since 8.0.1
+     */
+    public function get_public_post_type_slugs() {
+        $asenha_public_post_types = array();
+        $public_post_type_names = get_post_types( array(
+            'public' => true,
+        ), 'names' );
+        foreach ( $public_post_type_names as $post_type_name ) {
+            $post_type_object = get_post_type_object( $post_type_name );
+            $asenha_public_post_types[$post_type_name] = $post_type_object->label;
+        }
+        asort( $asenha_public_post_types );
+        // sort by value, ascending
+        return $asenha_public_post_types;
+    }
+
 }

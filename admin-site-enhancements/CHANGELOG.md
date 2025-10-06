@@ -1,10 +1,34 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **168 _minor_ releases** (e.g. 4.9.1), for a **total of 248 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **169 _minor_ releases** (e.g. 4.9.1), for a **total of 249 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
-[**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+[**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
+
+### 8.0.1 (2025.10.06) - ASE Free and Pro
+
+* **[FIXED in Free and Pro] Content Management >> Content Duplication**: 
+  * fixed a fatal error that occurs in a specific scenario. Props to [@afrigols](https://wordpress.org/support/users/afrigols/) for [reporting](https://wordpress.org/support/topic/php-fatal-error-in-the-latest-plugin-update-v8-0-0/) the issue.
+  * improved fix of missing admin bar duplication link in the frontend view of posts.
+
+* **[IMPROVED and FIXED in Pro] Admin Interface >> Admin Menu Organizer**: 
+  * improved reset logic to also work when no settings has been saved.
+  * prevent several of [MainWP Dashboard](https://wordpress.org/plugins/mainwp/) and [Smash Balloon Social Post Feed](https://wordpress.org/plugins/custom-facebook-feed/) submenu items from showing up blank in the AMO settings page.
+  * fixed an edge case where hidden menu item toggle (Show All/Less) was not shown in a rare scenario for users with multiple roles.
+
+* **[FIXED in Pro] Security >> CAPTCHA Protection**: fixed a CSS issue with ALTCHA, where the checkbox label turned white and unreadable. Props to Shawn B. for reporting the issue.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: 
+  * fixed a fatal error when `update_cf()` is invoked. Props to Pierre A. for reporting the issue.
+  * fixed PHP warning when rendering relationship field in a certain scenario in Bricks. Props to Tadea T. for reporting the issue with the relevant error/debug log entry.
+
+* **[FIXED in Pro] Utilities >> Form Builder**: fixed a typo in the UI (English). Props to Morten E.L. for catching and reporting it.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [35 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Added Bulgarian. Updated Russian, Portuguese (Portugal), Portuguese (Brazil), Polish, Norwegian, French, Dutch, Danish, Bengali (Bangladesh), Arabic.
+    * ASE Pro: Updated Danish.
 
 ### 8.0.0 (2025.09.29) - ASE Free and Pro
 
