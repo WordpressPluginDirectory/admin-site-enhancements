@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.8.3  
-Stable tag: 8.0.1  
+Stable tag: 8.0.2  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -42,8 +42,8 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### FEATURES & MODULES
 
-**67 modules** in total:  
-**55 free modules** (28 has Pro features) | **12 Pro modules**
+**68 modules** in total:  
+**56 free modules** (28 has Pro features) | **12 Pro modules**
 
 [**See all features >>**](https://www.wpase.com/features/)
 
@@ -198,35 +198,26 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **169 _minor_ releases** (e.g. 4.9.1), for a **total of 249 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **170 _minor_ releases** (e.g. 4.9.1), for a **total of 250 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
 
-### 8.0.1 (2025.10.06) - ASE Free and Pro
+### 8.0.2 (2025.10.13) - ASE Free and Pro
 
-* **[FIXED in Free and Pro] Content Management >> Content Duplication**: 
-  * fixed a fatal error that occurs in a specific scenario. Props to [@afrigols](https://wordpress.org/support/users/afrigols/) for [reporting](https://wordpress.org/support/topic/php-fatal-error-in-the-latest-plugin-update-v8-0-0/) the issue.
-  * improved fix of missing admin bar duplication link in the frontend view of posts.
+* **[IMPROVED in Free and Pro] Disable Components >> Disable Comments**: only post types that has support for comments will be listed as options now. Props to [DJABHipHop](https://wordpress.org/support/users/pressthemes1/) for [prompting](https://wordpress.org/support/topic/suggestion-for-the-disable-comments-feature/) this improvement.
 
-* **[IMPROVED and FIXED in Pro] Admin Interface >> Admin Menu Organizer**: 
-  * improved reset logic to also work when no settings has been saved.
-  * prevent several of [MainWP Dashboard](https://wordpress.org/plugins/mainwp/) and [Smash Balloon Social Post Feed](https://wordpress.org/plugins/custom-facebook-feed/) submenu items from showing up blank in the AMO settings page.
-  * fixed an edge case where hidden menu item toggle (Show All/Less) was not shown in a rare scenario for users with multiple roles.
+* **[IMPROVED in Pro] Disable Components >> Disable REST API**: improved the logic to always enable certain endpoints, e.g. /wp-json/wc/store/v1/cart, especially for authenticated user roles which have not been explicitly been allowed access in the module settings. Special props to Eric C. for spotting this unobvious oversight, reporting it in detail and with clarity, and on top of that, providing the code fix.
 
-* **[FIXED in Pro] Security >> CAPTCHA Protection**: fixed a CSS issue with ALTCHA, where the checkbox label turned white and unreadable. Props to Shawn B. for reporting the issue.
+* **[FIXED in Pro] Utilities >> Display System Summary**: fixed a fatal error that occurs in a certain scenario when trying to calculate the size of a folder/file in a must-use plugin. Props to someone from creatives.hu for reporting the issue and facilitating the troubleshooting process.
 
-* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: 
-  * fixed a fatal error when `update_cf()` is invoked. Props to Pierre A. for reporting the issue.
-  * fixed PHP warning when rendering relationship field in a certain scenario in Bricks. Props to Tadea T. for reporting the issue with the relevant error/debug log entry.
-
-* **[FIXED in Pro] Utilities >> Form Builder**: fixed a typo in the UI (English). Props to Morten E.L. for catching and reporting it.
+* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fixed an issue where the AMO settings page is not working properly when a certain custom menu item is manually added via a PHP code snippet. Props to Theodore for reporting the issue.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [35 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: Added Bulgarian. Updated Russian, Portuguese (Portugal), Portuguese (Brazil), Polish, Norwegian, French, Dutch, Danish, Bengali (Bangladesh), Arabic.
-    * ASE Pro: Updated Danish.
+    * ASE Free: Updated Portuguese (Brazil), Polish, Norwegian, Korean, Japanese, German, Danish.
+    * ASE Pro: Updated Danish, Norwegian, Hungarian, Portuguese (Brazil).
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [0 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).

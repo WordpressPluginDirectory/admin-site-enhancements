@@ -2064,21 +2064,23 @@ class Settings_Sections_Fields {
         if ( is_array( $asenha_public_post_types ) ) {
             foreach ( $asenha_public_post_types as $post_type_slug => $post_type_label ) {
                 // e.g. $post_type_slug is post, $post_type_label is Posts
-                add_settings_field(
-                    $field_id . '_' . $post_type_slug,
-                    '',
-                    [$render_field, 'render_checkbox_subfield'],
-                    ASENHA_SLUG,
-                    'main-section',
-                    array(
-                        'option_name'     => ASENHA_SLUG_U,
-                        'parent_field_id' => $field_id,
-                        'field_id'        => $post_type_slug,
-                        'field_name'      => ASENHA_SLUG_U . '[' . $field_id . '][' . $post_type_slug . ']',
-                        'field_label'     => $post_type_label . ' <span class="faded">(' . $post_type_slug . ')</span>',
-                        'class'           => 'asenha-checkbox asenha-checkbox-item asenha-hide-th asenha-half disable-components ' . $field_slug . ' ' . $post_type_slug,
-                    )
-                );
+                if ( post_type_supports( $post_type_slug, 'comments' ) ) {
+                    add_settings_field(
+                        $field_id . '_' . $post_type_slug,
+                        '',
+                        [$render_field, 'render_checkbox_subfield'],
+                        ASENHA_SLUG,
+                        'main-section',
+                        array(
+                            'option_name'     => ASENHA_SLUG_U,
+                            'parent_field_id' => $field_id,
+                            'field_id'        => $post_type_slug,
+                            'field_name'      => ASENHA_SLUG_U . '[' . $field_id . '][' . $post_type_slug . ']',
+                            'field_label'     => $post_type_label . ' <span class="faded">(' . $post_type_slug . ')</span>',
+                            'class'           => 'asenha-checkbox asenha-checkbox-item asenha-hide-th asenha-half disable-components ' . $field_slug . ' ' . $post_type_slug,
+                        )
+                    );
+                }
             }
         }
         // Disable REST API

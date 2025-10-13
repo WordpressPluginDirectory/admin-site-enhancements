@@ -1,10 +1,25 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **169 _minor_ releases** (e.g. 4.9.1), for a **total of 249 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **170 _minor_ releases** (e.g. 4.9.1), for a **total of 250 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
+
+### 8.0.2 (2025.10.13) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Disable Components >> Disable Comments**: only post types that has support for comments will be listed as options now. Props to [DJABHipHop](https://wordpress.org/support/users/pressthemes1/) for [prompting](https://wordpress.org/support/topic/suggestion-for-the-disable-comments-feature/) this improvement.
+
+* **[IMPROVED in Pro] Disable Components >> Disable REST API**: improved the logic to always enable certain endpoints, e.g. /wp-json/wc/store/v1/cart, especially for authenticated user roles which have not been explicitly been allowed access in the module settings. Special props to Eric C. for spotting this unobvious oversight, reporting it in detail and with clarity, and on top of that, providing the code fix.
+
+* **[FIXED in Pro] Utilities >> Display System Summary**: fixed a fatal error that occurs in a certain scenario when trying to calculate the size of a folder/file in a must-use plugin. Props to someone from creatives.hu for reporting the issue and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fixed an issue where the AMO settings page is not working properly when a certain custom menu item is manually added via a PHP code snippet. Props to Theodore for reporting the issue.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [35 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Updated Portuguese (Brazil), Polish, Norwegian, Korean, Japanese, German, Danish.
+    * ASE Pro: Updated Danish, Norwegian, Hungarian, Portuguese (Brazil).
 
 ### 8.0.1 (2025.10.06) - ASE Free and Pro
 

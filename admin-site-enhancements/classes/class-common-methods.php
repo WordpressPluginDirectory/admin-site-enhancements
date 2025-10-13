@@ -204,14 +204,16 @@ class Common_Methods {
             "=/",
             "=",
             "&",
-            "/"
+            "/",
+            ";"
         ), array(
             "__",
             "___",
             "_______",
             "____",
             "_____",
-            "______"
+            "______",
+            "________"
         ), $menu_item_id );
         return $menu_item_id_transformed;
     }
@@ -224,6 +226,7 @@ class Common_Methods {
     public function restore_menu_item_id( $menu_item_id_transformed ) {
         // Transform e.g. edit__php___post_type____page ==> edit.php?post_type=page
         $menu_item_id = str_replace( array(
+            "________",
             "_______",
             "______",
             "_____",
@@ -231,6 +234,7 @@ class Common_Methods {
             "___",
             "__"
         ), array(
+            ";",
             "=/",
             "/",
             "&",
