@@ -1,10 +1,42 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **170 _minor_ releases** (e.g. 4.9.1), for a **total of 250 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **172 _minor_ releases** (e.g. 4.9.1), for a **total of 252 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
+
+### 8.0.4 (2025.10.27) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Utilities >> Multiple User Roles**: the 'Administrator' role checkbox will now be disabled to prevent accidentally removing this role and cause the user to lose the admin role without an easy way to restore it. Props to [Edward B.](https://wordpress.org/support/users/edviser/) for [prompting](https://wordpress.org/support/topic/how-to-regain-admin-access-when-misusing-multiple-userroles-feature/) this improvement.
+
+* **[FIXED in Free and Pro] Disable Components >> Disable REST API**: 
+  * ASE Free: fixed an issue whre The Events Calendar ajax-based navigation of the frontend calendar broke, because it's REST API route is disabled. The route has been automatically excluded from being disabled, i.e. automatically whitelisted. Props to Michael D. for reporting the issue.
+  * ASE Pro: fixed an issue with how excluded routes are not being properly handled and excluded due to a flawed logic in the code. Props to Eric C. for reporting the issue and suggesting a code fix for it, and props to Michael D. for reporting a related issue with excluding The Events Calendar routes not properly working.
+  
+* **[IMPROVED in Pro] Utilities >> Form Builder**: added feature to export and import forms. This is done via the 'Settinsg' tab. Once exported, on the target site, create a blank form and go to the 'Settings' tab to import the form. Props to Marcellus J. Hoang H., netcit, Bo M. and John E. for suggesting this improvement.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [35 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Updated Slovak, Portuguese (Brazil), Polish, Japanese, Dutch, Danish, Chinese (Taiwan), Arabic.
+    * ASE Pro: Updated Portuguese (Brazil), Hungarian. 
+
+### 8.0.3 (2025.10.20) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Utilities >> View Admin as Role**: add an additional note to create a backup admin user before using this module. This backup admin user is useful when for whatever reason and in very rare occasions, the primary admin user is not able to return / login as an admin.
+
+* **[FIXED in Pro] Disable Components >> Disable REST API**: fixed an issue where the /wp-json route is still publicly accessible. Props to Pavan K. for reporting the issue.
+
+* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: 
+  * fix the link for "Manage Columns" button in the "All Posts" listing page.
+  * fix PHP warning that occurs in a certain scenario
+
+* **[FIXED in Pro] Utilities >> Display System Summary**: additional fix for a fatal error that occurs in a certain scenario when trying to calculate the size of a folder/file in a must-use plugin. Props to someone from creatives.hu for reporting this related, follow up issue and facilitating the troubleshooting process.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [35 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Updated Spanish (Spain), Spanish (Chile), Portuguese (Brazil), Polish, Norwegian, Dutch, Chinese (Taiwan)
+    * ASE Pro: Added Bulgarian (partial).
 
 ### 8.0.2 (2025.10.13) - ASE Free and Pro
 

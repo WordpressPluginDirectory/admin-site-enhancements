@@ -15,9 +15,11 @@ class Multiple_User_Roles {
      * @since 4.8.0
      */
     public function add_multiple_roles_ui( $user ) {
-
         // Get user roles that the current user is allowed to edit
         $roles = get_editable_roles();
+
+        $current_user = wp_get_current_user();
+        $current_user_roles = array_intersect( array_values( $current_user->roles ), array_keys( $roles ) ); // indexed array of role slugs
 
         // Get the roles of the user being shown / edited / created
         if ( ! empty( $user->roles ) ) {
@@ -47,10 +49,19 @@ class Multiple_User_Roles {
                                 } else {
                                     $checked = '';
                                 }
+                                
+                                // We disable the 'Administrator' checkbox so it could not be unchecked and cause user to lose administrator priviledges without a way to restore it
+                                $disabled = '';
 
+                                if ( 'administrator' == $role_slug 
+                                    && $user->ID == $current_user->ID
+                                ) {
+                                    $disabled = 'disabled ';
+                                }
+                                
                                 // Output roles checkboxes
                                 ?>
-                                <label for="<?php esc_attr_e( $checkbox_id ); ?>"><input type="checkbox" id="<?php esc_attr_e( $checkbox_id ); ?>" value="<?php esc_attr_e( $role_slug ); ?>" name="asenha_assigned_roles[]" <?php esc_attr_e( $checked ) ?> /> <?php esc_html_e( $role_name ); ?></label><br />
+                                <label for="<?php esc_attr_e( $checkbox_id ); ?>"><input type="checkbox" id="<?php esc_attr_e( $checkbox_id ); ?>" value="<?php esc_attr_e( $role_slug ); ?>" name="asenha_assigned_roles[]" <?php esc_attr_e( $checked ); ?> <?php esc_attr_e( $disabled ); ?>/> <?php esc_html_e( $role_name ); ?></label><br />
                                 <?php
 
                             }
@@ -86,6 +97,9 @@ class Multiple_User_Roles {
         // Get user roles that the current user is allowed to edit
         $roles = get_editable_roles();
 
+        $current_user = wp_get_current_user();
+        $current_user_roles = array_intersect( array_values( $current_user->roles ), array_keys( $roles ) ); // indexed array of role slugs
+
         // Get the roles of the user being shown / edited / created
         $user = get_user_by( 'id', (int) $user_id ); // WP_User object
         $user_roles = array_intersect( array_values( $user->roles ), array_keys( $roles ) ); // Current/existing roles
@@ -118,6 +132,10 @@ class Multiple_User_Roles {
 
                 // Identify and add roles not present in the existing roles
                 $roles_to_add = array_diff( $assigned_roles, $user_roles );
+
+                if ( $user->ID == $current_user->ID ) {
+                    $roles_to_add[] = 'administrator';
+                }
 
                 if ( ! empty( $roles_to_add ) ) {
                     foreach ( $roles_to_add as $role_to_add ) {

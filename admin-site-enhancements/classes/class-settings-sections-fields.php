@@ -3342,7 +3342,7 @@ class Settings_Sections_Fields {
                     /* translators: %s is URL of the role reset link */
                     __( 'If something goes wrong</strong> and you need to regain access to your account as an administrator, please visit the following URL: <br /><strong>%s</strong><br /><br />If you use <strong>Ninja Firewall</strong>, please uncheck "Block attempts to gain administrative privileges" in the Firewall Policies settings before you try to view as a non-admin user role to <strong>prevent being locked out</strong> of your admin account.', 'admin-site-enhancements' ),
                     $role_reset_link
-                 ) . '</div>',
+                 ) . '<br /><br />' . __( 'In any case, please also <strong>create at least one backup admin user</strong> as a last resort should your primary admin user fails to properly login as admin. With this second admin user, you can also restore the admin role for your primary admin user.', 'admin-site-enhancements' ) . '</div>',
                 'class'             => 'asenha-description utilities ' . $field_slug,
             )
         );
