@@ -221,10 +221,8 @@ class Content_Order {
         echo esc_html( get_admin_page_title() );
         ?>
                 </h2>
-                <div id="toggles" style="display:none;">
-                    <input type="checkbox" id="toggle-taxonomy-terms" name="terms" value="" /><label for="toggle-taxonomy-terms">Show taxonomy terms</label>
-                    <input type="checkbox" id="toggle-excerpt" name="excerpt" value="" /><label for="toggle-excerpt">Show excerpt</label>
-                </div>
+                <?php 
+        ?>
             </div>
         <?php 
         // Get posts
@@ -344,7 +342,7 @@ class Content_Order {
             ?>
         <li id="list_<?php 
             echo esc_attr( $post->ID );
-            ?>" data-id="<?php 
+            ?>" class="list-item" data-id="<?php 
             echo esc_attr( $post->ID );
             ?>" data-menu-order="<?php 
             echo esc_attr( $post->menu_order );
@@ -359,8 +357,8 @@ class Content_Order {
                 <div class="row-content">
                     <?php 
             echo '<div class="content-main">
-                                <span class="dashicons dashicons-menu"></span><a href="' . esc_attr( get_edit_post_link( $post->ID ) ) . '" class="item-title">' . esc_html( $post->post_title ) . '</a><span class="item-status' . esc_attr( $post_status_label_class ) . '">' . esc_html( $post_status_label_separator ) . esc_html( $post_status_label ) . '</span>' . wp_kses_post( $has_child_label ) . wp_kses_post( $taxonomies_and_terms ) . wp_kses_post( $short_excerpt ) . '<div class="fader"></div>
-                            </div>';
+                                    <span class="dashicons dashicons-menu"></span><a href="' . esc_attr( get_edit_post_link( $post->ID ) ) . '" class="item-title">' . esc_html( $post->post_title ) . '</a><span class="item-status' . esc_attr( $post_status_label_class ) . '">' . esc_html( $post_status_label_separator ) . esc_html( $post_status_label ) . '</span>' . wp_kses_post( $has_child_label ) . wp_kses_post( $taxonomies_and_terms ) . wp_kses_post( $short_excerpt ) . '<div class="fader"></div>
+                                </div>';
             if ( !in_array( $post->post_type, array('asenha_code_snippet') ) ) {
                 echo '<div class="content-additional">
                                 <a href="' . esc_attr( get_the_permalink( $post->ID ) ) . '" target="_blank" class="button item-view-link">View</a>
@@ -369,10 +367,12 @@ class Content_Order {
             ?>
                 </div>
             </div>
-        </li>
-        <?php 
+            <?php 
         }
         // if ( $same_language )
+        ?>
+        </li>
+        <?php 
     }
 
     /**
@@ -454,7 +454,6 @@ class Content_Order {
         $response = array();
         // Update the item whose order/position was moved
         if ( $post_id > 0 && !isset( $_POST['more_posts'] ) ) {
-            // https://developer.wordpress.org/reference/classes/wpdb/update/
             $wpdb->update( 
                 $wpdb->posts,
                 // The table

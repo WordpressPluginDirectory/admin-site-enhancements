@@ -119,7 +119,7 @@ class Media_Replacement {
 
                 // If original file is larger than 2560 pixel
                 // https://make.wordpress.org/core/2019/10/09/introducing-handling-of-big-images-in-wordpress-5-3/
-                if ( array_key_exists( 'original_image', $new_attachment_meta ) ) {
+                if ( is_array( $new_attachment_meta ) && array_key_exists( 'original_image', $new_attachment_meta ) ) {
 
                     // Get the original media file path
                     $new_media_file_path = wp_get_original_image_path( $new_attachment_id );
@@ -143,7 +143,7 @@ class Media_Replacement {
 
                 // If original file is larger than 2560 pixel
                 // https://make.wordpress.org/core/2019/10/09/introducing-handling-of-big-images-in-wordpress-5-3/
-                if ( array_key_exists( 'original_image', $new_attachment_meta ) ) {
+                if ( is_array( $new_attachment_meta ) && array_key_exists( 'original_image', $new_attachment_meta ) ) {
 
                     // Get the original media file path
                     $old_media_file_path = wp_get_original_image_path( $old_attachment_id );

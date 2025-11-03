@@ -1,18 +1,35 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **172 _minor_ releases** (e.g. 4.9.1), for a **total of 252 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **173 _minor_ releases** (e.g. 4.9.1), for a **total of 253 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
+
+### 8.0.5 (2025.11.03) - ASE Free and Pro
+
+* **[FIXED in Free and Pro] Content Management >> Media Replacement**: fixed a fatal error that occurs in a certain scenario. Props to [@zadine](https://wordpress.org/support/users/zadine/) for [reporting the issue](https://wordpress.org/support/topic/fatal-error-4934/) complete with the debug.log entry details, including the stack trace.
+
+* **[FIXED in Free and Pro] Admin Interface >> Clean Up Admin Bar**: fixed an issue with Fluent Forms admin bar menu item not being hideable, i.e. not available as a choice to be hidden. Props to Frank K. for reporting the issue.
+
+* **[FIXED in Pro] Security >> CAPTCHA Protection**: fixed a PHP warning that occurs in a certain scenario. Props to @betaplus for reporting the issue with the error/debug log entry.
+
+* **[FIXED in Pro] Content Management >> Media Categories**: Fixed a fatal error that occurs in a certain scenario when the [gallery] shortcode is in use (by a user, or via another plugin). Also fixed a related PHP warning. Props to Rauf K. for reporting the issue and suggesting the code fix!
+
+* **[IMPROVED in Pro] Content Management >> Content Order**: Added the ability to reorder and change the parent of child posts. Props to Hui C., Kees, Ole, Marco M. and Ian H. for prompting this improvement.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [35 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Updated Ukrainian, Portuguese (Brazil), Polish, Norwegian, Korean, Japanese, French, Dutch, Danish, Chinese (Taiwan), Arabic
+    * ASE Pro: Updated Danish, Hungarian, Portuguese (Brazil)
 
 ### 8.0.4 (2025.10.27) - ASE Free and Pro
 
 * **[IMPROVED in Free and Pro] Utilities >> Multiple User Roles**: the 'Administrator' role checkbox will now be disabled to prevent accidentally removing this role and cause the user to lose the admin role without an easy way to restore it. Props to [Edward B.](https://wordpress.org/support/users/edviser/) for [prompting](https://wordpress.org/support/topic/how-to-regain-admin-access-when-misusing-multiple-userroles-feature/) this improvement.
 
 * **[FIXED in Free and Pro] Disable Components >> Disable REST API**: 
-  * ASE Free: fixed an issue whre The Events Calendar ajax-based navigation of the frontend calendar broke, because it's REST API route is disabled. The route has been automatically excluded from being disabled, i.e. automatically whitelisted. Props to Michael D. for reporting the issue.
-  * ASE Pro: fixed an issue with how excluded routes are not being properly handled and excluded due to a flawed logic in the code. Props to Eric C. for reporting the issue and suggesting a code fix for it, and props to Michael D. for reporting a related issue with excluding The Events Calendar routes not properly working.
+  * ASE Free and Pro: fixed an issue where The Events Calendar ajax-based navigation of the frontend calendar broke, because it's REST API route is disabled. The route has been automatically excluded from being disabled, i.e. automatically whitelisted. Props to Michael D. for reporting the issue.
+  * ASE Pro: fixed an issue with how excluded routes are not being properly handled and excluded due to a flawed logic in the code. Props to Eric C. for reporting the issue and suggesting a code fix for it.
   
 * **[IMPROVED in Pro] Utilities >> Form Builder**: added feature to export and import forms. This is done via the 'Settinsg' tab. Once exported, on the target site, create a blank form and go to the 'Settings' tab to import the form. Props to Marcellus J. Hoang H., netcit, Bo M. and John E. for suggesting this improvement.
 

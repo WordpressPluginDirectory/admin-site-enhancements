@@ -18,6 +18,7 @@ class CAPTCHA_Protection {
         // Skip redirection if login is performed from a WooCommerce checkout page
         // This will ensure user is redirected back to the checkout page after successful login
         if ( isset( $_REQUEST['woocommerce-login-nonce'] ) 
+            && isset( $_REQUEST['redirect'] )
             && wc_get_checkout_url() == $_REQUEST['redirect']
         ) {
             wp_safe_redirect( wc_get_checkout_url() );

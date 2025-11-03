@@ -15,9 +15,14 @@
       // Make item list into nested sortable
       // Ref: https://api.jqueryui.com/sortable/
       // Ref: https://github.com/ilikenwf/nestedSortable
+      // See options at https://github.com/ilikenwf/nestedSortable/blob/master/jquery.mjs.nestedSortable.js#L37
+      // Ref: https://ilikenwf.github.io/example.html (demo)
       itemList.nestedSortable({
          // Disable nesting if set to true
-         protectRoot: true,
+         protectRoot: false,
+         // Disable moving sub-item to a different parent or up the nested structure
+         disableParentChange: false,
+         isTree: true,
          // Forces the placeholder to have a size.
          forcePlaceholderSize: true,
          // Restricts sort start click to the specified element.
@@ -41,15 +46,19 @@
          revert: 250,
          // How far right or left (in pixels) the item has to travel 
          // in order to be nested or to be sent outside its current list. Default: 20
-         tabSize: 25, 
+         tabSize: 20, 
          // This event is triggered when sorting starts.
          start: function (event, ui) {
+            // console.log('ui.item -- start');
+            // console.log(ui.item);
             sort_started.item = ui.item; // The jQuery object representing the current dragged element.
             sort_started.prev = ui.item.prev(':not(".ui-sortable-placeholder")');
             sort_started.next = ui.item.next(':not(".ui-sortable-placeholder")');
          },
          // This event is triggered when the user stopped sorting and the DOM position has changed.
          update: function (event, ui) {
+            // console.log('ui.item -- update');
+            // console.log(ui.item);
             // Elements of the "Updating order..." notice
             var updateNotice = $('#updating-order-notice'), // Wrapper
                 spinner = $('#spinner-img'), // Spinner
@@ -63,10 +72,27 @@
             $(updateNotice).css('background-color','#eee').fadeIn();
             
             // Get the end items where the item was placed
+            // console.log('sort_finished');
+            // console.log(sort_finished);
             sort_finished.item = ui.item; // The jQuery object representing the current dragged element.
-            sort_finished.prev = ui.item.prev(':not(".ui-sortable-placeholder")');
-            sort_finished.next = ui.item.next(':not(".ui-sortable-placeholder")');
+            // sort_finished.prev = ui.item.prev(':not(".ui-sortable-placeholder")');
+            // sort_finished.next = ui.item.next(':not(".ui-sortable-placeholder")');
 
+            // If an item is moved as a child of another item
+            // it will be inserted inside the ul.child-list with a data-parent
+            if ( ui.item.parent('.child-list').length ) {
+               // if ( ui.item.siblings('.list-item').length ) {
+                  // Do something       
+               // } else {
+                  // Let's set the item's parent ID here, taking from ul.child-list's data-parent info
+                  sort_finished.item.attr('data-parent', ui.item.parent('.child-list').attr('data-parent'));
+               // }
+            } else {
+                  sort_finished.item.attr('data-parent', '0');               
+            }
+            // console.log('sort_finished.prev');
+            // console.log(sort_finished.prev);
+            
             var list_offset = parseInt(sort_finished.item.index());
             sort_finished.item.attr('data-menu-order', list_offset);
             
@@ -89,6 +115,8 @@
                post_type: sort_started.item.attr('data-post-type'),
                attributes: attributes,
             };
+
+            
             // console.log('dataArgs: ' + cleanStringify(dataArgs));
             
             // AJAX call to update menu_order for items in the list
