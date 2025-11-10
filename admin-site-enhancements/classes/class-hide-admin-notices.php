@@ -3,14 +3,12 @@
 namespace ASENHA\Classes;
 
 use WP_Admin_Bar;
-
 /**
  * Class for Hide Admin Notices module
  *
  * @since 6.9.5
  */
 class Hide_Admin_Notices {
-    
     /**
      * Wrapper for admin notices being output on admin screens
      *
@@ -18,19 +16,26 @@ class Hide_Admin_Notices {
      */
     public function admin_notices_wrapper() {
         $options = get_option( ASENHA_SLUG_U, array() );
-        $hide_for_nonadmins = isset( $options['hide_admin_notices_for_nonadmins'] ) ? $options['hide_admin_notices_for_nonadmins'] : false;
-        
+        $hide_for_nonadmins = ( isset( $options['hide_admin_notices_for_nonadmins'] ) ? $options['hide_admin_notices_for_nonadmins'] : false );
         $minimum_capability = 'manage_options';
-
-        if ( function_exists( 'bwasenha_fs' ) ) {
-            if ( $hide_for_nonadmins && bwasenha_fs()->can_use_premium_code__premium_only() ) {
-                $minimum_capability = 'read';           
-            }
-        }
-
         if ( current_user_can( $minimum_capability ) ) {
             echo '<div class="asenha-admin-notices-drawer" style="display:none;"><h2>' . __( 'Admin Notices', 'admin-site-enhancements' ) . '</h2></div>';
         }
+    }
+
+    /**
+     * FOR TESTING: show an admin notice that is visible for all user roles
+     * 
+     * @since 8.0.4
+     */
+    public function show_test_admin_notice_for_all_user_roles() {
+        ?>
+        <div class="notice notice-info is-dismissible">
+            <p><?php 
+        esc_html_e( "This notice is visible for all user roles.", 'wpturbo' );
+        ?></p>
+        </div>
+        <?php 
     }
 
     /**
@@ -41,37 +46,25 @@ class Hide_Admin_Notices {
      * @since 1.2.0
      */
     public function admin_notices_menu( WP_Admin_Bar $wp_admin_bar ) {
-
         // Only show Notices menu in wp-admin but when not in Customizer preview
-        if ( is_admin() && ! is_customize_preview() ) {
+        if ( is_admin() && !is_customize_preview() ) {
             $options = get_option( ASENHA_SLUG_U, array() );
-            $hide_for_nonadmins = isset( $options['hide_admin_notices_for_nonadmins'] ) ? $options['hide_admin_notices_for_nonadmins'] : false;
-            
+            $hide_for_nonadmins = ( isset( $options['hide_admin_notices_for_nonadmins'] ) ? $options['hide_admin_notices_for_nonadmins'] : false );
+            $hide_menu_for_nonadmins = ( isset( $options['hide_admin_notices_menu_for_nonadmins'] ) ? $options['hide_admin_notices_menu_for_nonadmins'] : false );
             $minimum_capability = 'manage_options';
-
-            if ( function_exists( 'bwasenha_fs' ) ) {
-                if ( $hide_for_nonadmins && bwasenha_fs()->can_use_premium_code__premium_only() ) {
-                    $minimum_capability = 'read';           
-                }
-            }
-
             if ( current_user_can( $minimum_capability ) ) {
-                
                 $wp_admin_bar->add_menu( array(
-                    'id'        => 'asenha-hide-admin-notices',
-                    'parent'    => 'top-secondary',
-                    'group'     => null,
-                    'title'     => __( 'Notices', 'admin-site-enhancements' ) . '<span class="asenha-admin-notices-counter" style="opacity:0;">0</span>',
-                    // 'href'       => '',
-                    'meta'      => array(
-                        'class'     => 'asenha-admin-notices-menu hidden',
-                        'title'     => __( 'Click to view hidden admin notices', 'admin-site-enhancements' ),
+                    'id'     => 'asenha-hide-admin-notices',
+                    'parent' => 'top-secondary',
+                    'group'  => null,
+                    'title'  => __( 'Notices', 'admin-site-enhancements' ) . '<span class="asenha-admin-notices-counter" style="opacity:0;">0</span>',
+                    'meta'   => array(
+                        'class' => 'asenha-admin-notices-menu hidden',
+                        'title' => __( 'Click to view hidden admin notices', 'admin-site-enhancements' ),
                     ),
                 ) );
-
-            }           
+            }
         }
-
     }
 
     /**
@@ -80,20 +73,10 @@ class Hide_Admin_Notices {
      * @since 1.2.0
      */
     public function admin_notices_menu_inline_css() {
-
         $options = get_option( ASENHA_SLUG_U, array() );
-        $hide_for_nonadmins = isset( $options['hide_admin_notices_for_nonadmins'] ) ? $options['hide_admin_notices_for_nonadmins'] : false;
-        
+        $hide_for_nonadmins = ( isset( $options['hide_admin_notices_for_nonadmins'] ) ? $options['hide_admin_notices_for_nonadmins'] : false );
         $minimum_capability = 'manage_options';
-
-        if ( function_exists( 'bwasenha_fs' ) ) {
-            if ( $hide_for_nonadmins && bwasenha_fs()->can_use_premium_code__premium_only() ) {
-                $minimum_capability = 'read';           
-            }
-        }
-
-        if ( is_admin() && ! is_customize_preview() && current_user_can( $minimum_capability ) ) {
-
+        if ( is_admin() && !is_customize_preview() && current_user_can( $minimum_capability ) ) {
             // Below we pre-emptively hide notices to avoid having them shown briefly before being moved into the notices panel via JS
             ?>
             <style type="text/css">
@@ -126,14 +109,14 @@ class Hide_Admin_Notices {
                 #wpbody-content .notice-updated,
                 #wpbody-content .updated:not(.active, .inactive, .plugin-update-tr),
                 #wpbody-content .update-nag, */
-                #wpbody-content > .wrap > .notice:not(#plugin-activated-successfully,.system-notice,.hidden),
+                #wpbody-content > .wrap > .notice:not(#plugin-activated-successfully,.system-notice,.updated,.hidden,.inline,.wcml-notice,.asenha-media-replacement-notice),
                 #wpbody-content > .wrap > .notice-error,
                 #wpbody-content > .wrap > .error:not(.hidden),
                 #wpbody-content > .wrap > .notice-info,
                 #wpbody-content > .wrap > .notice-information,
-                #wpbody-content > .wrap > #message,
+                #wpbody-content > .wrap > #message:not(.updated,.asenha-media-replacement-notice),
                 #wpbody-content > .wrap > .notice-warning:not(.hidden),
-                #wpbody-content > .wrap > .notice-success:not(#plugin-activated-successfully),
+                #wpbody-content > .wrap > .notice-success:not(.updated,#plugin-activated-successfully,.updated,.asenha-media-replacement-notice),
                 #wpbody-content > .wrap > .notice-updated,
                 #wpbody-content > .wrap > .updated:not(.inline),
                 #wpbody-content > .wrap > .update-nag,
@@ -311,9 +294,8 @@ class Hide_Admin_Notices {
                     visibility: hidden !important;
                 }
             </style>
-            <?php
-        
+            <?php 
         }
     }
-    
+
 }

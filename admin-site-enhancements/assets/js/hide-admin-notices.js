@@ -44,14 +44,14 @@
 			// TotalPress Custom post types - https://wordpress.org/plugins/custom-post-types/
 
 			// Reposition notices with the following selectors. Excluding 'notice-system'.
-			$('#wpbody-content > .wrap > .notice:not(.system-notice,.hidden,.wcml-notice),'
+			$('#wpbody-content > .wrap > .notice:not(#plugin-activated-successfully,.system-notice,.updated,.hidden,.inline,.wcml-notice,.asenha-media-replacement-notice),'
 			+ '#wpbody-content > .wrap > .notice-error,'
 			+ '#wpbody-content > .wrap > .error:not(.hidden),'
 			+ '#wpbody-content > .wrap > .notice-info,'
 			+ '#wpbody-content > .wrap > .notice-information,'
-			+ '#wpbody-content > .wrap > #message,'
+			+ '#wpbody-content > .wrap > #message:not(.updated,.asenha-media-replacement-notice),'
 			+ '#wpbody-content > .wrap > .notice-warning:not(.hidden),'
-			+ '#wpbody-content > .wrap > .notice-success,'
+			+ '#wpbody-content > .wrap > .notice-success:not(.updated,#plugin-activated-successfully,.asenha-media-replacement-notice),'
 			+ '#wpbody-content > .wrap > .notice-updated,'
 			+ '#wpbody-content > .wrap > .updated:not(.inline),'
 			+ '#wpbody-content > .wrap > .update-nag,'

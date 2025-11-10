@@ -328,6 +328,7 @@ class Admin_Site_Enhancements {
             $hide_admin_notices = new ASENHA\Classes\Hide_Admin_Notices();
             add_action( 'admin_footer', [$hide_admin_notices, 'admin_notices_wrapper'], 9 );
             // add_action( 'all_admin_notices', [ $hide_admin_notices, 'admin_notices_wrapper' ] );
+            // add_action( 'admin_notices', [ $hide_admin_notices, 'show_test_admin_notice_for_all_user_roles' ] );
             add_action( 'admin_bar_menu', [$hide_admin_notices, 'admin_notices_menu'] );
             add_action( 'admin_print_styles', [$hide_admin_notices, 'admin_notices_menu_inline_css'] );
         }

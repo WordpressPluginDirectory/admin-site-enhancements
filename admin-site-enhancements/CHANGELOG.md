@@ -1,16 +1,31 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **173 _minor_ releases** (e.g. 4.9.1), for a **total of 253 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **174 _minor_ releases** (e.g. 4.9.1), for a **total of 254 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
 
+### 8.0.6 (2025.11.10) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Log In/Out & Register >> Change Login URL**: login attempts from Paid Membership Pro's login form will now, always be allowed, whether the form is embedded in a page, or in a pop-up / modal window. Props to Bent F. for prompting this improvement.
+
+* **[IMPROVED in Pro] Admin Interface >> Hide Admin Notices**: add the option to also hide the 'Notices' menu in the admin bar for non-administrators. This will effectively hide all notices for non-admins. Props to Theodore for prompting this improvement.
+
+* **[IMPROVED in Pro] Content Management >> Content Order**:
+  * The "Hide child posts" checkbox will now only show up on hierarchical post types order pages
+  * When "Hide child posts" is checked, the "Has child posts" status will be shown next to the title of parent posts
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [35 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Updated Turkish, Spanish, German (Formal), Portuguese (Brazil), Polish, Norwegian, Dutch.
+    * ASE Pro: Updated Portuguese (Brazil), Norwegian, Danish.
+
 ### 8.0.5 (2025.11.03) - ASE Free and Pro
 
 * **[FIXED in Free and Pro] Content Management >> Media Replacement**: fixed a fatal error that occurs in a certain scenario. Props to [@zadine](https://wordpress.org/support/users/zadine/) for [reporting the issue](https://wordpress.org/support/topic/fatal-error-4934/) complete with the debug.log entry details, including the stack trace.
 
-* **[FIXED in Free and Pro] Admin Interface >> Clean Up Admin Bar**: fixed an issue with Fluent Forms admin bar menu item not being hideable, i.e. not available as a choice to be hidden. Props to Frank K. for reporting the issue.
+* **[FIXED in Pro] Admin Interface >> Clean Up Admin Bar**: fixed an issue with Fluent Forms admin bar menu item not being hideable, i.e. not available as a choice to be hidden. Props to Frank K. for reporting the issue.
 
 * **[FIXED in Pro] Security >> CAPTCHA Protection**: fixed a PHP warning that occurs in a certain scenario. Props to @betaplus for reporting the issue with the error/debug log entry.
 

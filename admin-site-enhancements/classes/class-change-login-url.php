@@ -222,7 +222,10 @@ class Change_Login_URL {
             $http_referrer_no_protocol = str_replace( array('https://', 'http://'), '', $http_referrer );
             $http_referrer_parts = explode( '/', $http_referrer_no_protocol );
             $http_user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '' );
-            if ( !empty( $http_referrer ) && false === strpos( $http_referrer, get_site_url() ) ) {
+            if ( in_array( 'paid-memberships-pro/paid-memberships-pro.php', get_option( 'active_plugins', array() ) ) && isset( $_POST['pmpro_login_form_used'] ) && '1' == $_POST['pmpro_login_form_used'] ) {
+                // Do nothing. i.e. do not redirect to /not_found/
+                // This is a login attempt from Paid Membership Pro login form, which may include a modal/pop-up form.
+            } elseif ( !empty( $http_referrer ) && false === strpos( $http_referrer, get_site_url() ) ) {
                 // The referer URL does not contain the site's URL. This is an attempt to do a login POST from an external URL / illegitimate method. Let's redirect that.
                 wp_safe_redirect( home_url( $redirect_slug . '/' ), 302 );
                 exit;
