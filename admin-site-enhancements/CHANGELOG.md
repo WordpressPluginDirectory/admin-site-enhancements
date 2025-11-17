@@ -1,10 +1,23 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **174 _minor_ releases** (e.g. 4.9.1), for a **total of 254 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **175 _minor_ releases** (e.g. 4.9.1), for a **total of 255 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
+
+### 8.0.7 (2025.11.17) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Admin Interface >> Hide Admin Notices**: notice from the Shortpixel plugin is now properly hidden as well.
+
+* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fixed a fatal error that occurs in a certain scenario. Props to Jannick N. for reporting the issue complete with the error stack trace and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: fixed an issue where the 'Instructions' field is not shown immediately when adding a new field in a custom field group. Props to Niels S. for investigating and reporting the issue.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [36 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: updated Portuguese (Portugal), Portuguese (Brazil), Polish, Norwegian, French, Dutch.
+    * ASE Pro: update Greek, Hungarian.
 
 ### 8.0.6 (2025.11.10) - ASE Free and Pro
 

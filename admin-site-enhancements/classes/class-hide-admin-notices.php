@@ -278,6 +278,8 @@ class Hide_Admin_Notices {
                 #wpbody-content > .wrap > .ssgs-influencer-banner,
                 #wpbody-content > .wrap > .ssgs-upgrade-banner,
                 #wpbody-content > .wrap > .ssgs-rating-banner,
+                /* Shortpixel */
+                #wpbody-content > .shortpixel-notice,
                 /* Dokan */
                 #wpbody-content > .wrap .dokan-dashboard .notice:not(.system-notice,.hidden,.wcml-notice),
                 #wpbody-content > .wrap .dokan-dashboard .notice-error,
