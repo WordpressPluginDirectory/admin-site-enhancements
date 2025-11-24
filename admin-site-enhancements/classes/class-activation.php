@@ -131,66 +131,66 @@ class Activation {
         $entry_meta_table_name = $wpdb->prefix . 'asenha_formbuilder_entry_meta';
         
         $sql = "CREATE TABLE {$fields_table_name} (
-        id BIGINT(20) NOT NULL auto_increment,
-        field_key varchar(100) default NULL,
-                name text default NULL,
-                description longtext default NULL,
-                type text default NULL,
-                default_value longtext default NULL,
-                options longtext default NULL,
-                field_order int(11) default 0,
-                required int(1) default NULL,
-                field_options longtext default NULL,
-                form_id int(11) default NULL,
-                created_at datetime NOT NULL,
-                PRIMARY KEY (id),
-                KEY form_id (form_id),
-                UNIQUE KEY field_key (field_key)
-        ) {$charset_collation_sql}";
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  field_key varchar(100) NULL,
+  name text NULL,
+  description longtext NULL,
+  type text NULL,
+  default_value longtext NULL,
+  options longtext NULL,
+  field_order int(11) DEFAULT 0,
+  required int(1) NULL,
+  field_options longtext NULL,
+  form_id int(11) NULL,
+  created_at datetime NOT NULL,
+  PRIMARY KEY (id),
+  KEY form_id (form_id),
+  UNIQUE KEY field_key (field_key)
+) {$charset_collation_sql}";
 
         dbDelta( $sql );
         
         $sql = "CREATE TABLE {$forms_table_name} (
-                id int(11) NOT NULL auto_increment,
-        form_key varchar(100) default NULL,
-                name varchar(255) default NULL,
-                description text default NULL,
-                status varchar(255) default NULL,
-                options longtext default NULL,
-                settings longtext default NULL,
-                styles longtext default NULL,
-                created_at datetime NOT NULL,
-                PRIMARY KEY (id),
-                UNIQUE KEY form_key (form_key)
-        ) {$charset_collation_sql}";
+  id int(11) NOT NULL AUTO_INCREMENT,
+  form_key varchar(100) NULL,
+  name varchar(255) NULL,
+  description text NULL,
+  status varchar(255) NULL,
+  options longtext NULL,
+  settings longtext NULL,
+  styles longtext NULL,
+  created_at datetime NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY form_key (form_key)
+) {$charset_collation_sql}";
 
         dbDelta( $sql );
 
         $sql = "CREATE TABLE {$entries_table_name} (
-        id BIGINT(20) NOT NULL auto_increment,
-                ip text default NULL,
-        form_id BIGINT(20) default NULL,
-        user_id BIGINT(20) default NULL,
-        delivery_status tinyint(1) default 0,
-                status varchar(255) default NULL,
-                created_at datetime NOT NULL,
-                PRIMARY KEY (id),
-                KEY form_id (form_id),
-                KEY user_id (user_id)
-        ) {$charset_collation_sql}";
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  ip text NULL,
+  form_id bigint(20) NULL,
+  user_id bigint(20) NULL,
+  delivery_status tinyint(1) DEFAULT 0,
+  status varchar(255) NULL,
+  created_at datetime NOT NULL,
+  PRIMARY KEY (id),
+  KEY form_id (form_id),
+  KEY user_id (user_id)
+) {$charset_collation_sql}";
 
         dbDelta( $sql );
 
         $sql = "CREATE TABLE {$entry_meta_table_name} (
-        id BIGINT(20) NOT NULL auto_increment,
-        meta_value longtext default NULL,
-        field_id BIGINT(20) NOT NULL,
-        item_id BIGINT(20) NOT NULL,
-                created_at datetime NOT NULL,
-                PRIMARY KEY  (id),
-                KEY field_id (field_id),
-                KEY item_id (item_id)
-        ) {$charset_collation_sql}";
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  meta_value longtext NULL,
+  field_id bigint(20) NOT NULL,
+  item_id bigint(20) NOT NULL,
+  created_at datetime NOT NULL,
+  PRIMARY KEY (id),
+  KEY field_id (field_id),
+  KEY item_id (item_id)
+) {$charset_collation_sql}";
 
         dbDelta( $sql );
 

@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.8.3  
-Stable tag: 8.0.7  
+Stable tag: 8.0.8  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -198,24 +198,29 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **175 _minor_ releases** (e.g. 4.9.1), for a **total of 255 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **176 _minor_ releases** (e.g. 4.9.1), for a **total of 256 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
 
-### 8.0.7 (2025.11.17) - ASE Free and Pro
+### 8.0.8 (2025.11.24) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Admin Interface >> Hide Admin Notices**: notice from the Shortpixel plugin is now properly hidden as well.
+* **[FIXED in Free and Pro] Admin Interface >> Admin Menu Organizer**: fixed an issue where backslash were added before a single quote mark when it's present in a menu title. This occurs upon saving changes. Props to Stéphane N. for reporting the issue and facilitating the troubleshooting process.
 
-* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fixed a fatal error that occurs in a certain scenario. Props to Jannick N. for reporting the issue complete with the error stack trace and facilitating the troubleshooting process.
+* **[FIXED in Pro] Utilities >> Email Delivery**: fixed missing slash (/) in email log's attachment link, between the site domain and the 'wp-content' string, e.g. https://wwww.domain.domwp-content/uploads/the-attachment-file.pdf. Props to Florian D. for reporting the issue with a clearly annotated screenshot.
 
-* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: fixed an issue where the 'Instructions' field is not shown immediately when adding a new field in a custom field group. Props to Niels S. for investigating and reporting the issue.
+* **[IMPROVED in Pro] Utilities >> Form Builder**: 
+  * Improve compatibility with WordPress installation using SQLite, e.g. WordPress Studio local installation.
+  * "Screen Options" is now hidden when viewing a single form entry.
+  * Upgrade the "Form Builder" block from API v1 to v3. Props to Fahd M. for prompting this improvement.
+  * Change "Form Builder" block to use the same icon as the "Forms" admin menu.
+  
+* **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**: add an option to select which snippets to export: all snippets / only active snippets / by snippets type / by categories / manual selection. Please go to the main ASE settings page and click "Export | Import" link in the bottom-right part of the page to see the changes. Props to Jim R. for prompting this improvement.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [36 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: updated Portuguese (Portugal), Portuguese (Brazil), Polish, Norwegian, French, Dutch.
-    * ASE Pro: update Greek, Hungarian.
+    * ASE Free: ASE Free: updated Turkish, Spanish, Portuguese (Brazil), Polish, Norwegian, Indonesian, Dutch, Bengali (Bangladesh), Albanian.
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [12 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).

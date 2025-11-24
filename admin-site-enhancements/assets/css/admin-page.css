@@ -15,9 +15,9 @@
     --ase-body-text: #1d2327;
     --ase-link: #2271b1;
     --ase-link-hover: #0a4b78;
-    --toggleHeight: 22px;
-    --toggleWidth: 40px;
-    --toggleGap: 3px;
+    --ase-toggle-height: 22px;
+    --ase-toggle-width: 40px;
+    --ase-toggle-gap: 3px;
 }
 
 /* disable elastic scrolling */
@@ -473,6 +473,8 @@ a.asenha-support-nudge-dismiss:hover,
     padding-bottom: 0;
 }
 
+
+
 .asenha-icon {
     width: 40px;
     height: 40px;
@@ -754,16 +756,16 @@ input[type="search"]#module-search-input.has-text-input {
 .asenha-field-checkbox + label {
   position: relative;
   background: #c0c0c0;
-  width: var(--toggleWidth);
-  min-width: var(--toggleWidth);
-  height: var(--toggleHeight);
+  width: var(--ase-toggle-width);
+  min-width: var(--ase-toggle-width);
+  height: var(--ase-toggle-height);
   margin-right: 8px;
   display: inline-flex;
   align-items: center;
   border-radius: 25px;
   cursor: pointer;
   transition: background 0.2s ease-in-out;
-  text-indent: calc( var(--toggleWidth) + 10px);
+  text-indent: calc( var(--ase-toggle-width) + 10px);
 }
 .rtl .asenha-field-checkbox + label {
   margin-right: 0;
@@ -772,11 +774,11 @@ input[type="search"]#module-search-input.has-text-input {
 .asenha-field-checkbox + label:after {
   content: "";
   background: #fff;
-  width: calc(var(--toggleHeight) - (var(--toggleGap) * 2));
-  height: calc(var(--toggleHeight) - (var(--toggleGap) * 2));
+  width: calc(var(--ase-toggle-height) - (var(--ase-toggle-gap) * 2));
+  height: calc(var(--ase-toggle-height) - (var(--ase-toggle-gap) * 2));
   position: absolute;
-  top: var(--toggleGap);
-  left: var(--toggleGap);
+  top: var(--ase-toggle-gap);
+  left: var(--ase-toggle-gap);
   border-radius: 50%;
   transition: left 0.3s ease-in-out, background 0.2s ease-in-out;
 }
@@ -786,7 +788,7 @@ input[type="search"]#module-search-input.has-text-input {
   background: var(--ase-accent);
 }
 .asenha-field-checkbox:checked + label:after {
-  left: calc(100% - calc(var(--toggleHeight) - var(--toggleGap)));
+  left: calc(100% - calc(var(--ase-toggle-height) - var(--ase-toggle-gap)));
 }
 
 /* Vertical Tabs */

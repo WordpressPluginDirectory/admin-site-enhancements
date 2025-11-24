@@ -740,7 +740,7 @@ class Settings_Fields_Render {
                                 }
                                 ?>
 													<input type="text" value="<?php 
-                                echo wp_kses_post( $menu_item_title );
+                                echo wp_kses_post( wp_unslash( $menu_item_title ) );
                                 ?>" class="menu-item-custom-title" data-menu-item-id="<?php 
                                 echo esc_attr( $menu_item_id );
                                 ?>">
@@ -854,7 +854,7 @@ class Settings_Fields_Render {
                         } else {
                             ?>
 													<input type="text" value="<?php 
-                            echo wp_kses_post( $menu_item_title );
+                            echo wp_kses_post( wp_unslash( $menu_item_title ) );
                             ?>" class="menu-item-custom-title" data-menu-item-id="<?php 
                             echo esc_attr( $menu_item_id );
                             ?>">
@@ -943,7 +943,7 @@ class Settings_Fields_Render {
                     } else {
                         ?>
 											<input type="text" value="<?php 
-                        echo wp_kses_post( $menu_item_title );
+                        echo wp_kses_post( wp_unslash( $menu_item_title ) );
                         ?>" class="menu-item-custom-title" data-menu-item-id="<?php 
                         echo esc_attr( $menu_item_id );
                         ?>">

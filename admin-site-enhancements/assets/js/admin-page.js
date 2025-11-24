@@ -207,6 +207,8 @@
          }
       });
 
+      
+
       // Initialize data tables
       var table = $("#login-attempts-log").DataTable({
          pageLength: 10,

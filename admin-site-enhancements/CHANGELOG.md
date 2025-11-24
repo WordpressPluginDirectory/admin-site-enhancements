@@ -1,10 +1,28 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **175 _minor_ releases** (e.g. 4.9.1), for a **total of 255 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **176 _minor_ releases** (e.g. 4.9.1), for a **total of 256 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
+
+### 8.0.8 (2025.11.24) - ASE Free and Pro
+
+* **[FIXED in Free and Pro] Admin Interface >> Admin Menu Organizer**: fixed an issue where backslash were added before a single quote mark when it's present in a menu title. This occurs upon saving changes. Props to Stéphane N. for reporting the issue and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Utilities >> Email Delivery**: fixed missing slash (/) in email log's attachment link, between the site domain and the 'wp-content' string, e.g. https://wwww.domain.domwp-content/uploads/the-attachment-file.pdf. Props to Florian D. for reporting the issue with a clearly annotated screenshot.
+
+* **[IMPROVED in Pro] Utilities >> Form Builder**: 
+  * Improve compatibility with WordPress installation using SQLite, e.g. WordPress Studio local installation.
+  * "Screen Options" is now hidden when viewing a single form entry.
+  * Upgrade the "Form Builder" block from API v1 to v3. Props to Fahd M. for prompting this improvement.
+  * Change "Form Builder" block to use the same icon as the "Forms" admin menu.
+  
+* **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**: add an option to select which snippets to export: all snippets / only active snippets / by snippets type / by categories / manual selection. Please go to the main ASE settings page and click "Export | Import" link in the bottom-right part of the page to see the changes. Props to Jim R. for prompting this improvement.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [36 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: ASE Free: updated Turkish, Spanish, Portuguese (Brazil), Polish, Norwegian, Indonesian, Dutch, Bengali (Bangladesh), Albanian.
 
 ### 8.0.7 (2025.11.17) - ASE Free and Pro
 
