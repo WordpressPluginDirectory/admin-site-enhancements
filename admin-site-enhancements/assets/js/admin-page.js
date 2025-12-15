@@ -4,13 +4,15 @@
    $(document).ready( function() {
 
       // Make page header sticky on scroll. Using https://github.com/AndrewHenderson/jSticky
-      $('#asenha-header').sticky({
-         topSpacing: 0, // Space between element and top of the viewport (in pixels)
-         zIndex: 100, // z-index
-         stopper: '', // Id, class, or number value
-         stickyClass: 'asenha-sticky' // Class applied to element when it's stuck. Class name or false.
-      })
-
+      if (typeof $.fn.sticky === 'function') {
+         $('#asenha-header').sticky({
+            topSpacing: 0, // Space between element and top of the viewport (in pixels)
+            zIndex: 100, // z-index
+            stopper: '', // Id, class, or number value
+            stickyClass: 'asenha-sticky' // Class applied to element when it's stuck. Class name or false.
+         })       
+      }
+     
       // Clicking on header save button triggers click of the hidden form submit button
       $('.asenha-save-button').click( function(e) {
 
@@ -440,6 +442,7 @@
       $('.enable-password-protection').appendTo('.fields-utilities > table > tbody');
       $('.password-protection-password').appendTo('.fields-utilities .enable-password-protection .asenha-subfields');
       
+      $('.password-protection-notes').appendTo('.fields-utilities .enable-password-protection .asenha-subfields');
       $('.maintenance-mode').appendTo('.fields-utilities > table > tbody');
       
       $('.maintenance-page-type-custom').appendTo('.fields-utilities .maintenance-mode .asenha-subfields');
@@ -450,6 +453,7 @@
       $('.maintenance-page-background').appendTo('.maintenance-page-type-custom');
       
       $('.maintenance-mode-description').appendTo('.fields-utilities .maintenance-mode .asenha-subfields');
+      
       $('.redirect-404-to-homepage').appendTo('.fields-utilities > table > tbody');
       
       $('.display-system-summary').appendTo('.fields-utilities > table > tbody');

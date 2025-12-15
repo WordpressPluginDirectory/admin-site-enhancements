@@ -6,13 +6,28 @@
  * @since 6.4.1
  */
 if ( false === get_option( ASENHA_SLUG_U ) ) {
-    add_option( ASENHA_SLUG_U, array(), true );
+    add_option(
+        ASENHA_SLUG_U,
+        array(),
+        '',
+        true
+    );
 }
 if ( false === get_option( ASENHA_SLUG_U . '_stats' ) ) {
-    add_option( ASENHA_SLUG_U . '_stats', array(), false );
+    add_option(
+        ASENHA_SLUG_U . '_stats',
+        array(),
+        '',
+        false
+    );
 }
 if ( false === get_option( ASENHA_SLUG_U . '_extra' ) ) {
-    add_option( ASENHA_SLUG_U . '_extra', array(), true );
+    add_option(
+        ASENHA_SLUG_U . '_extra',
+        array(),
+        '',
+        true
+    );
 }
 // Bugfix in v7.1.2 for Custom Content Type module
 $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
@@ -637,33 +652,18 @@ function asenha_admin_scripts(  $hook_suffix  ) {
             ASENHA_VERSION,
             false
         );
-        wp_localize_script( 'asenha-admin-page', 'adminPageVars', array(
-            'nonce'                                   => wp_create_nonce( 'asenha-' . get_current_user_id() ),
-            'siteUrl'                                 => get_site_url(),
-            'wpcontentUrl'                            => content_url(),
-            'mediaFrameTitle'                         => __( 'Select an Image', 'admin-site-enhancements' ),
-            'mediaFrameButtonText'                    => __( 'Use Selected Image', 'admin-site-enhancements' ),
-            'resetMenuNonce'                          => wp_create_nonce( 'reset-menu-nonce' ),
-            'sendTestEmailNonce'                      => wp_create_nonce( 'send-test-email-nonce_' . get_current_user_id() ),
-            'formBuilderSendTestEmailNonce'           => wp_create_nonce( 'formbuilder_ajax' ),
-            'expandText'                              => __( 'Expand', 'admin-site-enhancements' ),
-            'collapseText'                            => __( 'Collapse', 'admin-site-enhancements' ),
-            'snippetsExportActiveInfo'                => __( 'Only active snippets will be exported.', 'admin-site-enhancements' ),
-            'snippetsExportByTypesInfo'               => __( 'Select snippet types to export.', 'admin-site-enhancements' ),
-            'snippetsExportSelectTypesLabel'          => __( 'Select snippet types to export:', 'admin-site-enhancements' ),
-            'snippetsExportNoCategoriesInfo'          => __( 'No categories found.', 'admin-site-enhancements' ),
-            'snippetsExportNoSnippetsInfo'            => __( 'No snippets found.', 'admin-site-enhancements' ),
-            'snippetsExportSelectCategoriesLabel'     => __( 'Select categories to export:', 'admin-site-enhancements' ),
-            'snippetsExportSelectSnippetsLabel'       => __( 'Select snippets to export:', 'admin-site-enhancements' ),
-            'snippetsExportEditLabel'                 => __( 'View', 'admin-site-enhancements' ),
-            'snippetTypeCssLabel'                     => __( 'CSS/SCSS snippets', 'admin-site-enhancements' ),
-            'snippetTypeJsLabel'                      => __( 'JS snippets', 'admin-site-enhancements' ),
-            'snippetTypeHtmlLabel'                    => __( 'HTML snippets', 'admin-site-enhancements' ),
-            'snippetTypePhpLabel'                     => __( 'PHP snippets', 'admin-site-enhancements' ),
-            'snippetsExportNoCategoriesSelectedAlert' => __( 'Please select at least one category.', 'admin-site-enhancements' ),
-            'snippetsExportNoSnippetsSelectedAlert'   => __( 'Please select at least one snippet.', 'admin-site-enhancements' ),
-            'snippetsExportNoTypesSelectedAlert'      => __( 'Please select at least one snippet type.', 'admin-site-enhancements' ),
-            'dataTable'                               => array(
+        $jsvars = array(
+            'nonce'                         => wp_create_nonce( 'asenha-' . get_current_user_id() ),
+            'siteUrl'                       => get_site_url(),
+            'wpcontentUrl'                  => content_url(),
+            'mediaFrameTitle'               => __( 'Select an Image', 'admin-site-enhancements' ),
+            'mediaFrameButtonText'          => __( 'Use Selected Image', 'admin-site-enhancements' ),
+            'resetMenuNonce'                => wp_create_nonce( 'reset-menu-nonce' ),
+            'sendTestEmailNonce'            => wp_create_nonce( 'send-test-email-nonce_' . get_current_user_id() ),
+            'formBuilderSendTestEmailNonce' => wp_create_nonce( 'formbuilder_ajax' ),
+            'expandText'                    => __( 'Expand', 'admin-site-enhancements' ),
+            'collapseText'                  => __( 'Collapse', 'admin-site-enhancements' ),
+            'dataTable'                     => array(
                 'emptyTable'   => __( 'No data available in table', 'admin-site-enhancements' ),
                 'info'         => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'admin-site-enhancements' ),
                 'infoEmpty'    => __( 'Showing 0 to 0 of 0 entries', 'admin-site-enhancements' ),
@@ -678,7 +678,8 @@ function asenha_admin_scripts(  $hook_suffix  ) {
                     'previous' => __( 'Previous', 'admin-site-enhancements' ),
                 ),
             ),
-        ) );
+        );
+        wp_localize_script( 'asenha-admin-page', 'adminPageVars', $jsvars );
     }
     // Enqueue on all wp-admin
     wp_enqueue_style(

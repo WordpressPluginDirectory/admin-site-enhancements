@@ -4,8 +4,8 @@ Contributors: qriouslad
 Donate link: https://bowo.io/asenha-sp-rdm  
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
-Tested up to: 6.8.3  
-Stable tag: 8.0.8  
+Tested up to: 6.9  
+Stable tag: 8.1.2  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -42,8 +42,8 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### FEATURES & MODULES
 
-**68 modules** in total:  
-**56 free modules** (28 has Pro features) | **12 Pro modules**
+**69 modules** in total:  
+**56 free modules** (28 has Pro features) | **13 Pro modules**
 
 [**See all features >>**](https://www.wpase.com/features/)
 
@@ -141,6 +141,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **View Admin as Role**. View admin pages and the site (logged-in) as one of the non-administrator user roles.
 * **Password Protection**. Password-protect the entire site to hide the content from public view and search engine bots / crawlers. [ASE Pro](https://www.wpase.com/rdme-to-web) adds IP whitelisting and bypassing via URL parameter, and also applies design elements from the Login Page Customizer module.
 * **Maintenance Mode**. Show a simple maintenance message. [ASE Pro](https://www.wpase.com/rdme-to-web) adds option to set custom page and browser tab title, use WYSIWYG editor, use pattern, image, solid color background, apply custom CSS, and also add the option to use an existing page created with the block / classic editor or a page builder as the maintenance page. It also adds an option to exclude certain URLs and allow non-admins to access the frontend.
+* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Redirect Manager**. Easily manage various types of redirects / redirections with support for wildcards and regular expressions (regex). Supported redirection types: 301 Moved Permanently, 302 Found (default), 303 See Other, 304 Not Modified, 307 Temporary Redirect, 308 Permanent Redirect, 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, 410 Gone, 500 Internal Server Error, 501 Not Implemented and 503 Server Unavailable.
 * **Redirect 404**. Perform 301 (permanent) redirect to the homepage for all 404 (not found) pages. [ASE Pro](https://www.wpase.com/rdme-to-web) adds option to set custom redirect URL.
 * **Display System Summary**. Show web server software, PHP version, database software and server IP address in the "At a Glance" dashboard widget. [ASE Pro](https://www.wpase.com/rdme-to-web) also shows the size of the site, database and root, wp-content, plugins, themes and upload folders.
 * **Search Engines Visibility Status**. Show admin bar status and admin notice when search engines are set to be discouraged from indexing the site. [ASE Pro](https://www.wpase.com/rdme-to-web) adds a way to prevent dev / staging sites from having search engine visibility enabled.
@@ -198,29 +199,27 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **176 _minor_ releases** (e.g. 4.9.1), for a **total of 256 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **81 _major_ releases** (e.g. 1.1.0 ) and **178 _minor_ releases** (e.g. 4.9.1), for a **total of 259 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
 
-### 8.0.8 (2025.11.24) - ASE Free and Pro
+### 8.1.2 (2025.12.15) - ASE Free and Pro
 
-* **[FIXED in Free and Pro] Admin Interface >> Admin Menu Organizer**: fixed an issue where backslash were added before a single quote mark when it's present in a menu title. This occurs upon saving changes. Props to Stéphane N. for reporting the issue and facilitating the troubleshooting process.
+* **[IMPROVED in Free and Pro] Admin Interface >> Hide Admin Notices**: notices on Meta Box plugin's admin screens are now properly hidden in the notices panel.
 
-* **[FIXED in Pro] Utilities >> Email Delivery**: fixed missing slash (/) in email log's attachment link, between the site domain and the 'wp-content' string, e.g. https://wwww.domain.domwp-content/uploads/the-attachment-file.pdf. Props to Florian D. for reporting the issue with a clearly annotated screenshot.
-
-* **[IMPROVED in Pro] Utilities >> Form Builder**: 
-  * Improve compatibility with WordPress installation using SQLite, e.g. WordPress Studio local installation.
-  * "Screen Options" is now hidden when viewing a single form entry.
-  * Upgrade the "Form Builder" block from API v1 to v3. Props to Fahd M. for prompting this improvement.
-  * Change "Form Builder" block to use the same icon as the "Forms" admin menu.
+* **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**:
+  * Public-facing snippet category archive pages have been disabled as they do not serve any purpose. Props to Martin S. for prompting this improvement.
+  * XML sitemap for the snippet category archive pages have been removed as they do not serve any purpose. Props to Robert F. for prompting this improvement.
+  * Added an option to disable the Code Snippets Editor custom user role. Props to David M. and Martin S. for prompting this improvement.
   
-* **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**: add an option to select which snippets to export: all snippets / only active snippets / by snippets type / by categories / manual selection. Please go to the main ASE settings page and click "Export | Import" link in the bottom-right part of the page to see the changes. Props to Jim R. for prompting this improvement.
+* **[IMPROVED in Pro] Security >> Email Address Obfuscator**: add a new 'mailto' option for the 'link' parameter, that will output the plain `mailto:obfuscated@email.address` string, which may be useful for scnearios where you need this added to a block editor or page builder widget/element/component that accepts a shortcode for the URL. Props to Ramyt I. for prompting this improvement.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [36 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: ASE Free: updated Turkish, Spanish, Portuguese (Brazil), Polish, Norwegian, Indonesian, Dutch, Bengali (Bangladesh), Albanian.
+    * ASE Free: updated Swedish, Portuguese (Brazil), Polish, Dutch, Norwegian, Korean, Italian, German (Formal)
+    * ASE Pro: updated Chinese (China), Portuguese (Brazil), Norwegian, Hungarian, Greek
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [12 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).

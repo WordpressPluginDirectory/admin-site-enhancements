@@ -41,12 +41,18 @@ class Email_Delivery {
         if ( $smtp_force_from ) {
             $phpmailer->FromName = $smtp_default_from_name;
             $phpmailer->From = $smtp_default_from_email;
+            // WP 6.9 fix. Ref: https://make.wordpress.org/core/2025/11/18/more-reliable-email-in-wordpress-6-9/
+            $phpmailer->Sender = $smtp_default_from_email;
+            $phpmailer->ReturnPath = $smtp_default_from_email;
         } else {
             if ( 'WordPress' === $from_name && !empty( $smtp_default_from_name ) ) {
                 $phpmailer->FromName = $smtp_default_from_name;
             }
             if ( 'wordpress' === $from_email_beginning && !empty( $smtp_default_from_email ) ) {
                 $phpmailer->From = $smtp_default_from_email;
+                // WP 6.9 fix. Ref: https://make.wordpress.org/core/2025/11/18/more-reliable-email-in-wordpress-6-9/
+                $phpmailer->Sender = $smtp_default_from_email;
+                $phpmailer->ReturnPath = $smtp_default_from_email;
             }
         }
         // Only attempt to send via SMTP if all the required info is present. Otherwise, use default PHP Mailer settings as set by wp_mail()

@@ -102,6 +102,13 @@ class Media_Replacement {
             $new_attachment_id = intval( sanitize_text_field( $_POST['new-attachment-id-'.$old_attachment_id] ) );
             // vi( $new_attachment_id, '', '$new_attachment_id is detected in replace_media' );
 
+            // Verify the user has permission to delete the new attachment (source file for replacement)
+            // This prevents unauthorized users from using another user's attachment as a replacement source
+            // which would result in that attachment being deleted
+            if ( ! current_user_can( 'delete_post', $new_attachment_id ) ) {
+                return;
+            }
+
             $old_post_meta = get_post( $old_attachment_id, ARRAY_A );
             $old_post_mime = $old_post_meta['post_mime_type']; // e.g. 'image/jpeg'
             // vi( $old_post_mime, '', 'old_post_mime is detected in replace_media' );
@@ -320,7 +327,7 @@ class Media_Replacement {
         $attachment_mime_type = get_post_mime_type( $attachment->ID );
 
         if ( in_array( $attachment->ID, $recently_replaced_media ) 
-            && false !== strpos( $attachment_mime_type, 'image' )        
+            // && false !== strpos( $attachment_mime_type, 'image' )
         ) {
             if ( false !== strpos( $response['url'], '?' ) ) {
                 $response['url'] .= $this->maybe_append_timestamp_parameter( $response['url'] );
@@ -334,7 +341,7 @@ class Media_Replacement {
             }
         }
 
-        return $response;       
+        return $response;
     }
     
     /**
@@ -348,12 +355,12 @@ class Media_Replacement {
         $attachment_mime_type = get_post_mime_type( $attachment_id );
 
         if ( in_array( $attachment_id, $recently_replaced_media ) 
-            && false !== strpos( $attachment_mime_type, 'image' )
+            // && false !== strpos( $attachment_mime_type, 'image' )
         ) {
             $url .= $this->maybe_append_timestamp_parameter( $url );
             // vi( $url, '', 'cache busting added via append_cache_busting_param_to_attachment_url' );
         }
-
+        
         return $url;
     }
     

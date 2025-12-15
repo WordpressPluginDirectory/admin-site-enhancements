@@ -224,7 +224,10 @@ class Settings_Sections_Fields {
         $field_id = 'content_order_for';
         $field_slug = 'content-order-for';
         if ( is_array( $asenha_all_post_types ) ) {
-            $inapplicable_post_types = array();
+            $inapplicable_post_types = array(
+                // 'asenha_code_snippet', // ASE code snippets
+                'asenha_redirect',
+            );
             foreach ( $asenha_all_post_types as $post_type_slug => $post_type_label ) {
                 // e.g. $post_type_slug is post, $post_type_label is Posts
                 $is_hierarchical_label = ( is_post_type_hierarchical( $post_type_slug ) ? ' <span class="faded">- Hierarchical</span>' : '' );
@@ -3385,6 +3388,24 @@ class Settings_Sections_Fields {
                 'field_suffix'      => '<span class="faded">' . __( '(Default is \'secret\')', 'admin-site-enhancements' ) . '</span>',
                 'field_description' => '',
                 'class'             => 'asenha-text with-prefix-suffix utilities ' . $field_slug,
+            )
+        );
+        $field_id = 'password_protection_notes';
+        $field_slug = 'password-protection-notes';
+        add_settings_field(
+            $field_id,
+            '',
+            [$render_field, 'render_description_subfield'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'       => ASENHA_SLUG_U,
+                'field_description' => sprintf( 
+                    /* translators: %s is URL to the documentation for nocache_headers() */
+                    __( '<div class="asenha-warning">When password protection is enabled and the password input form is displayed, caching is disabled using <a href="%s"><code>nocache_headers()</code></a>. Caching remains disabled after submitting the valid password and seeing the actual page content.</div>', 'admin-site-enhancements' ),
+                    'https://developer.wordpress.org/reference/functions/nocache_headers/'
+                 ),
+                'class'             => 'asenha-description login-logout ' . $field_slug,
             )
         );
         // Maintenance Mode

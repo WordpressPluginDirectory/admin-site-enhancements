@@ -1,10 +1,64 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **80 _major_ releases** (e.g. 1.1.0 ) and **176 _minor_ releases** (e.g. 4.9.1), for a **total of 256 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **81 _major_ releases** (e.g. 1.1.0 ) and **178 _minor_ releases** (e.g. 4.9.1), for a **total of 259 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
+
+### 8.1.2 (2025.12.15) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Admin Interface >> Hide Admin Notices**: notices on Meta Box plugin's admin screens are now properly hidden in the notices panel.
+
+* **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**:
+  * Public-facing snippet category archive pages have been disabled as they do not serve any purpose. Props to Martin S. for prompting this improvement.
+  * XML sitemap for the snippet category archive pages have been removed as they do not serve any purpose. Props to Robert F. for prompting this improvement.
+  * Added an option to disable the Code Snippets Editor custom user role. Props to David M. and Martin S. for prompting this improvement.
+  
+* **[IMPROVED in Pro] Security >> Email Address Obfuscator**: add a new 'mailto' option for the 'link' parameter, that will output the plain `mailto:obfuscated@email.address` string, which may be useful for scnearios where you need this added to a block editor or page builder widget/element/component that accepts a shortcode for the URL. Props to Ramyt I. for prompting this improvement.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [36 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: updated Swedish, Portuguese (Brazil), Polish, Dutch, Norwegian, Korean, Italian, German (Formal)
+    * ASE Pro: updated Chinese (China), Portuguese (Brazil), Norwegian, Hungarian, Greek
+
+### 8.1.1 (2025.12.08) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Utilities >> Password Protection**: added a note about caching being disabled when this module is enabled. Props to Ralf L. for prompting this improvement.
+
+* **[IMPROVED and FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: 
+  * the relationship field is now supported in Elementor integration, in a similar way repeater field is already integrated. You can use the Loop Grid widget to select the relationship field as data source, and a Loot Item template to display dynamic data, including ASE custom fields, for each related post. Props to Ian B. for prompting this improvement.
+  * fixed an issue where taxonomy term custom fields are not displaying their values in Bricks builder Query Loop (for terms). Props to Michael S. for reporting the issue in great detail (also with a screen recording) and facilitating the troubleshooting process.
+
+* **[FIXED in Free and Pro] ASE Settings**: in a rare scenario, ASE settings page is not properly loaded because of a Javascript error. This fix adds a simple check to prevent the error from happening. Props to Connor B. for reporting this and facilitating the troubleshooting process.
+
+* **[FIXED in Free and Pro] Utilities >> Email Delivery**: fixed an issue with [changes in WP v6.9](https://make.wordpress.org/core/2025/11/18/more-reliable-email-in-wordpress-6-9/) to ensure the `Envelope-From`, `Return-Path` is properly set via `$phpmailer->Sender` and `$phpmailer->ReturnPath`. Props to Pavlov P. for reporting the issue and doing the research towards the fix, and @denisgomesfranco for [reporting the issue](https://wordpress.org/support/topic/wordpress-6-9-changed-things-on-wp_mail-and-mail-delivery-is-causing-errors/) separately.
+
+* **[FIXED in Pro] Utilities >> Redirect Manager**: fixed a bug where redirecting to an external URL, e.g. https://www.google.com, is not working. Props to Mathijs v.d.B. for reporting the issue in detail and helping to test the fix.
+
+* **[FIXED in Pro] Utilities >> Form Builder**: 
+  * fixed raw HTMl being shown in entry listing's "Preview" column, in entry view screen's field labels, and in "Form Settings >> Entries >> Content for the Preview Column" dropdown options.
+  * fixed "Screen Options >> Pagination" not working properly in the forms listing page.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [36 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: updated Spanish (Spain), Spanish (Chile), Portuguese (Brazil), Polish, Norwegian, Korean, Italian, Dutch, Chinese (China)
+    * ASE Pro: updated Greek, Chinese (China), Italian, Polish, Portuguese (Brazil)
+
+### 8.1.0 (2025.12.01) - ASE Free and Pro
+
+* **[ADDED in Pro] Utilities >> Redirect Manager**: Easily manage various types of redirects with support for wildcards and regular expressions (regex).
+
+* **[SECURITY FIX in Free and Pro] Content Management >> Media Replacement**: fix for broken access control vulnerability that allows an authenticated user with author role to delete arbitrary media files owned by any user, including administrators. Props to @daroo, a security researcher responsibly disclosing this via Pathstack.
+
+* **[IMPROVED in Free and Pro] Content Management >> Media Replacement**: non-image attachments that's recently been replaced will now have timestamps added in the URL for certain scenarios. Props to Simone S. for prompting this improvement.
+
+* **[IMPROVED in Pro] Utilities >> Form Builder**: HTML are now allowed in field labels and descriptions, as well as in radio / checkbox / image select fields labels/options and matrix fields row/column labels. This can be handy for example, when adding the link tag &lt;a&gt; to your privacy policy page in a checkbox label. Props to Peter D. and Oliver S. for prompting this improvement.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [36 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: updated Portuguese (Brazil), Polish, Norwegian, Korean, Dutch, Danish.
+    * ASE Pro: updated Greek, Danish, Polish.
 
 ### 8.0.8 (2025.11.24) - ASE Free and Pro
 
