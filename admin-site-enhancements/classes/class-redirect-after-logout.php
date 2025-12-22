@@ -31,7 +31,7 @@ class Redirect_After_Logout {
         $redirect_after_logout_to_slug_raw = ( isset( $options['redirect_after_logout_to_slug'] ) ? $options['redirect_after_logout_to_slug'] : '' );
         if ( !empty( $redirect_after_logout_to_slug_raw ) ) {
             $redirect_after_logout_to_slug = trim( trim( $redirect_after_logout_to_slug_raw ), '/' );
-            if ( false !== strpos( $redirect_after_logout_to_slug, '#' ) || false !== strpos( $redirect_after_logout_to_slug, '.php' ) || false !== strpos( $redirect_after_logout_to_slug, '.html' ) ) {
+            if ( false !== strpos( $redirect_after_logout_to_slug, '#' ) ||  false !== strpos( $redirect_after_logout_to_slug, '?' ) || false !== strpos( $redirect_after_logout_to_slug, '.php' ) || false !== strpos( $redirect_after_logout_to_slug, '.html' ) ) {
                 $relative_path = $redirect_after_logout_to_slug;
                 // do not append slash at the end
             } else {
@@ -73,7 +73,7 @@ class Redirect_After_Logout {
     public function get_redirect_relative_path( $redirect_after_logout_to_slug_raw ) {
         if ( !empty( $redirect_after_logout_to_slug_raw ) ) {
             $redirect_after_logout_to_slug = trim( trim( $redirect_after_logout_to_slug_raw ), '/' );
-            if ( false !== strpos( $redirect_after_logout_to_slug, '#' ) || false !== strpos( $redirect_after_logout_to_slug, '.php' ) || false !== strpos( $redirect_after_logout_to_slug, '.html' ) ) {
+            if ( false !== strpos( $redirect_after_logout_to_slug, '#' ) || false !== strpos( $redirect_after_logout_to_slug, '?' ) || false !== strpos( $redirect_after_logout_to_slug, '.php' ) || false !== strpos( $redirect_after_logout_to_slug, '.html' ) ) {
                 $relative_path = $redirect_after_logout_to_slug;
                 // do not append slash at the end
             } else {

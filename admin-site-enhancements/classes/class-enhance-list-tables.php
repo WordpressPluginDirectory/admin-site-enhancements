@@ -189,7 +189,7 @@ class Enhance_List_Tables {
      */
     public function show_last_modified_datetime( $column_name, $id ) {
         if ( 'asenha-last-modified' == $column_name ) {
-            $modified_date_time_unix = strtotime( get_the_modified_date( 'F j, Y' ) . ' ' . get_the_modified_time( 'H:i:s' ) );
+            $modified_date_time_unix = strtotime( get_post_field( 'post_modified_gmt', $id ) );
             echo '<span class="last-modified-timestamp">' . wp_date( get_option( 'date_format' ), $modified_date_time_unix ) . '<br />' . wp_date( get_option( 'time_format' ), $modified_date_time_unix ) . '</span>';
         }
     }

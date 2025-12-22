@@ -1,10 +1,25 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **81 _major_ releases** (e.g. 1.1.0 ) and **178 _minor_ releases** (e.g. 4.9.1), for a **total of 259 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **81 _major_ releases** (e.g. 1.1.0 ) and **179 _minor_ releases** (e.g. 4.9.1), for a **total of 260 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
+
+### 8.1.3 (2025.12.22) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Disable Components >> Disable Gutenberg**: fixed an issue where 'global-styles-inline-css' internal CSS is still being output despite checking "Also disable frontend block styles / CSS files for the selected post types.". Props to Mike D. for reporting the issue, facilitating the troubleshooting process, providing analysis of why it occurs in certain scenarios (e.g. Bricks builder), and proposing the fix for it!
+
+* **[FIXED in Free and Pro] Content Management >> External Permalinks**: Fixed a PHP warning. Props to Tanja K. for reporting it with the debug log entry.
+
+* **[FIXED in Free and Pro] Log In/Out | Register >> Redirect After Login / Logout**: fixed an issue where if the target has query parameters, e.g. /account/?tab=profile, the redirect will append a slash at the end, e.g. /account/?tab=profile/, which might break the functionality dependent on the query parameter value. Props to [@robo1999](https://wordpress.org/support/users/robo1999/) for [reporting this](https://wordpress.org/support/topic/redirect-on-login-trailing-slash-problem/).
+
+* **[FIXED in Free and Pro] Admin Interface >> Enhance List Tables >> Last Modified Column**: make sure the date time is using the timezone set in "Settings >> General". Props to [Mikka](https://wordpress.org/support/users/miikkamakela/) for [suggesting](https://wordpress.org/support/topic/timezone-for-last-modified/) this improvement.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [36 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: updated Danish, Polish, Portuguese (Brazil)
+    * ASE Pro: updated Greek
 
 ### 8.1.2 (2025.12.15) - ASE Free and Pro
 

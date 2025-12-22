@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.9  
-Stable tag: 8.1.2  
+Stable tag: 8.1.3  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -199,27 +199,26 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **81 _major_ releases** (e.g. 1.1.0 ) and **178 _minor_ releases** (e.g. 4.9.1), for a **total of 259 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **81 _major_ releases** (e.g. 1.1.0 ) and **179 _minor_ releases** (e.g. 4.9.1), for a **total of 260 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
 
-### 8.1.2 (2025.12.15) - ASE Free and Pro
+### 8.1.3 (2025.12.22) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Admin Interface >> Hide Admin Notices**: notices on Meta Box plugin's admin screens are now properly hidden in the notices panel.
+* **[IMPROVED in Free and Pro] Disable Components >> Disable Gutenberg**: fixed an issue where 'global-styles-inline-css' internal CSS is still being output despite checking "Also disable frontend block styles / CSS files for the selected post types.". Props to Mike D. for reporting the issue, facilitating the troubleshooting process, providing analysis of why it occurs in certain scenarios (e.g. Bricks builder), and proposing the fix for it!
 
-* **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**:
-  * Public-facing snippet category archive pages have been disabled as they do not serve any purpose. Props to Martin S. for prompting this improvement.
-  * XML sitemap for the snippet category archive pages have been removed as they do not serve any purpose. Props to Robert F. for prompting this improvement.
-  * Added an option to disable the Code Snippets Editor custom user role. Props to David M. and Martin S. for prompting this improvement.
-  
-* **[IMPROVED in Pro] Security >> Email Address Obfuscator**: add a new 'mailto' option for the 'link' parameter, that will output the plain `mailto:obfuscated@email.address` string, which may be useful for scnearios where you need this added to a block editor or page builder widget/element/component that accepts a shortcode for the URL. Props to Ramyt I. for prompting this improvement.
+* **[FIXED in Free and Pro] Content Management >> External Permalinks**: Fixed a PHP warning. Props to Tanja K. for reporting it with the debug log entry.
+
+* **[FIXED in Free and Pro] Log In/Out | Register >> Redirect After Login / Logout**: fixed an issue where if the target has query parameters, e.g. /account/?tab=profile, the redirect will append a slash at the end, e.g. /account/?tab=profile/, which might break the functionality dependent on the query parameter value. Props to [@robo1999](https://wordpress.org/support/users/robo1999/) for [reporting this](https://wordpress.org/support/topic/redirect-on-login-trailing-slash-problem/).
+
+* **[FIXED in Free and Pro] Admin Interface >> Enhance List Tables >> Last Modified Column**: make sure the date time is using the timezone set in "Settings >> General". Props to [Mikka](https://wordpress.org/support/users/miikkamakela/) for [suggesting](https://wordpress.org/support/topic/timezone-for-last-modified/) this improvement.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [36 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: updated Swedish, Portuguese (Brazil), Polish, Dutch, Norwegian, Korean, Italian, German (Formal)
-    * ASE Pro: updated Chinese (China), Portuguese (Brazil), Norwegian, Hungarian, Greek
+    * ASE Free: updated Danish, Polish, Portuguese (Brazil)
+    * ASE Pro: updated Greek
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [12 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).

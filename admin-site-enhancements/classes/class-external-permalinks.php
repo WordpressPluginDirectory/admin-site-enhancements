@@ -149,14 +149,18 @@ class External_Permalinks {
         }
 
         global $post;
-        
-        $external_permalink = get_post_meta( $post->ID, '_links_to', true );
 
-        if ( ! empty( $external_permalink ) ) {
-            wp_redirect( $external_permalink, 302 ); // temporary redirect
-            exit;
+        if ( ! is_null( $post ) && is_object( $post ) && is_a( $post, 'WP_Post' ) ) {
+            if ( property_exists( $post, 'ID' ) ) {
+                $external_permalink = get_post_meta( $post->ID, '_links_to', true );
+
+                if ( ! empty( $external_permalink ) ) {
+                    wp_redirect( $external_permalink, 302 ); // temporary redirect
+                    exit;
+                }
+            }
         }
-
+        
     }
     
 }

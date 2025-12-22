@@ -665,6 +665,7 @@ class Admin_Site_Enhancements {
                 add_action( 'admin_print_styles', [$disable_gutenberg, 'safari_18_fix'] );
                 if ( array_key_exists( 'disable_gutenberg_frontend_styles', $options ) && $options['disable_gutenberg_frontend_styles'] ) {
                     add_action( 'wp_enqueue_scripts', [$disable_gutenberg, 'disable_gutenberg_for_post_types_frontend'], 999999 );
+                    add_action( 'wp_footer', [$disable_gutenberg, 'disable_gutenberg_for_post_types_frontend'] );
                 }
             }
         }
