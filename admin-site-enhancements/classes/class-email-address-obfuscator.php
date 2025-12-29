@@ -9,6 +9,16 @@ namespace ASENHA\Classes;
  */
 class Email_Address_Obfuscator {
     /**
+     * Cached associative array of allowed upload extensions (lowercase), e.g. [ 'jpg' => true ].
+     *
+     * Derived from WordPress core `get_allowed_mime_types()`, which respects `upload_mimes` filters.
+     *
+     * @since 7.??.? (ASE)
+     * @var array|null
+     */
+    private static $allowed_upload_extensions = null;
+
+    /**
      * Obfuscate email address on the frontend using antispambot() native WP function
      * 
      * @link: https://gist.github.com/eclarrrk/349360b52e8822b69cb6fc499722520f

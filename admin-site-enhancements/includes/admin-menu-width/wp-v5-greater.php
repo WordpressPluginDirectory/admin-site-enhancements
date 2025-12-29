@@ -12,6 +12,8 @@ if ( ! is_rtl() ) {
 $custom_width_no_px = intval( str_replace( 'px', '', $custom_width ) );
 $gf_editor_width = 594 - 160 + $custom_width_no_px;
 $gf_editor_width = (string) $gf_editor_width . 'px';
+$fluent_cart_inner_wrapper = $custom_width_no_px - 30;
+$fluent_cart_inner_wrapper = (string) $fluent_cart_inner_wrapper . 'px';
 
 ?>
 <style>
@@ -66,6 +68,19 @@ body.toplevel_page_gf_edit_forms .gform-form-toolbar {
 .frm-unfold.frm-admin-page-styles:not(.frm-full-screen) .frm_page_container, 
 .frm-unfold:not(.frm-full-screen) .frm_wrap .frm_page_container {
 	left: <?php echo esc_html( $custom_width ); ?> !important;
+}
+
+/* FluentCart */
+#wpbody-content #fct_admin_menu_holder .fct_admin_menu_wrap{
+	width: calc(100% - <?php echo esc_html( esc_html( $custom_width ) ); ?>) !important;;
+}
+
+.fct-reports-view-inner {
+	padding-left: <?php echo esc_html( esc_html( $fluent_cart_inner_wrapper ) ); ?> !important;
+}
+
+.fct-setting-container .fct-tab-wrapper {
+	padding-left: <?php echo esc_html( $custom_width ); ?> !important;
 }
 
 </style>

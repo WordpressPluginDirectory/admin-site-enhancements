@@ -1,10 +1,25 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **81 _major_ releases** (e.g. 1.1.0 ) and **179 _minor_ releases** (e.g. 4.9.1), for a **total of 260 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **81 _major_ releases** (e.g. 1.1.0 ) and **180 _minor_ releases** (e.g. 4.9.1), for a **total of 261 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
+
+### 8.1.4 (2025.12.29) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro]** Prevent FOUC (Flash of Unstyled Content) in the admin (side) menu when either the Custom Content Types, Admin Menu Organizer or Admin Logo modules is active. Props to Jake H. for prompting this improvement.
+
+* **[FIXED in Free and Pro] Admin Interface >> Wider Admin Menu**: fixed admin menu overlap with several of FluentCart's admin pages. Props to Richard B. for reporting the issue.
+
+* **[FIXED in Pro] Security >> Email Address Obfuscator**: prevent removal of strings in post content that looks like an email address but is not, e.g. some-@-image.jpg, important@document.pdf, etc.. Props to Joe S. for prompting this fix.
+
+* **[FIXED in Free and Pro] Utilities >> Multiple User Roles**: fix PHP warning when an admin is viewing another user's profile screen. Props to Bas B. for reporting the issue.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [36 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free - Updated Persian, Romanian, Hungarian, Turkish, Portuguese (Brazil), Polish, Japanese
+    * ASE Pro - Added Persion (partial). Updated Catalan, Greek, Hungarian.
 
 ### 8.1.3 (2025.12.22) - ASE Free and Pro
 

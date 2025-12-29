@@ -688,6 +688,22 @@ function asenha_admin_scripts(  $hook_suffix  ) {
         array(),
         ASENHA_VERSION
     );
+    // Prevent left admin menu FOUC when Admin Logo / Admin Menu Organizer / Custom Content Types is enabled.
+    // Hide the admin menu (and admin menu logo container, if present) until DOM is ready.
+    if ( !is_network_admin() ) {
+        $enable_anti_fouc = false;
+        // Admin Interface >> Admin Menu Organizer (free).
+        if ( array_key_exists( 'customize_admin_menu', $options ) && $options['customize_admin_menu'] ) {
+            $enable_anti_fouc = true;
+        }
+        if ( $enable_anti_fouc ) {
+            wp_add_inline_style( 'asenha-wp-admin', '#admin_menu_logo,' . PHP_EOL . '#adminmenu {' . PHP_EOL . "\tvisibility: hidden;" . PHP_EOL . "\topacity: 0;" . PHP_EOL . "\tpointer-events: none;" . PHP_EOL . '}' . PHP_EOL );
+            // Ensure required scripts are loaded so the inline script can run.
+            wp_enqueue_script( 'jquery' );
+            wp_enqueue_script( 'svg-painter' );
+            wp_add_inline_script( 'svg-painter', 'jQuery(document).ready(function() {' . PHP_EOL . "\tjQuery(\"#admin_menu_logo, #adminmenu\").css({ visibility: \"visible\", opacity: \"1\", pointerEvents: \"auto\" });" . PHP_EOL . "\tjQuery(document).trigger(\"wp-window-resized\");" . PHP_EOL . '});' . PHP_EOL, 'after' );
+        }
+    }
     // Content Management >> Show IDs, for list tables in wp-admin, e.g. All Posts page
     if ( false !== strpos( $current_screen->base, 'edit' ) || false !== strpos( $current_screen->base, 'users' ) || false !== strpos( $current_screen->base, 'upload' ) ) {
         wp_enqueue_style(

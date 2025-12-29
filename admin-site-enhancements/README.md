@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.9  
-Stable tag: 8.1.3  
+Stable tag: 8.1.4  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -199,26 +199,26 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **81 _major_ releases** (e.g. 1.1.0 ) and **179 _minor_ releases** (e.g. 4.9.1), for a **total of 260 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **81 _major_ releases** (e.g. 1.1.0 ) and **180 _minor_ releases** (e.g. 4.9.1), for a **total of 261 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
 
-### 8.1.3 (2025.12.22) - ASE Free and Pro
+### 8.1.4 (2025.12.29) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Disable Components >> Disable Gutenberg**: fixed an issue where 'global-styles-inline-css' internal CSS is still being output despite checking "Also disable frontend block styles / CSS files for the selected post types.". Props to Mike D. for reporting the issue, facilitating the troubleshooting process, providing analysis of why it occurs in certain scenarios (e.g. Bricks builder), and proposing the fix for it!
+* **[IMPROVED in Free and Pro]** Prevent FOUC (Flash of Unstyled Content) in the admin (side) menu when either the Custom Content Types, Admin Menu Organizer or Admin Logo modules is active. Props to Jake H. for prompting this improvement.
 
-* **[FIXED in Free and Pro] Content Management >> External Permalinks**: Fixed a PHP warning. Props to Tanja K. for reporting it with the debug log entry.
+* **[FIXED in Free and Pro] Admin Interface >> Wider Admin Menu**: fixed admin menu overlap with several of FluentCart's admin pages. Props to Richard B. for reporting the issue.
 
-* **[FIXED in Free and Pro] Log In/Out | Register >> Redirect After Login / Logout**: fixed an issue where if the target has query parameters, e.g. /account/?tab=profile, the redirect will append a slash at the end, e.g. /account/?tab=profile/, which might break the functionality dependent on the query parameter value. Props to [@robo1999](https://wordpress.org/support/users/robo1999/) for [reporting this](https://wordpress.org/support/topic/redirect-on-login-trailing-slash-problem/).
+* **[FIXED in Pro] Security >> Email Address Obfuscator**: prevent removal of strings in post content that looks like an email address but is not, e.g. some-@-image.jpg, important@document.pdf, etc.. Props to Joe S. for prompting this fix.
 
-* **[FIXED in Free and Pro] Admin Interface >> Enhance List Tables >> Last Modified Column**: make sure the date time is using the timezone set in "Settings >> General". Props to [Mikka](https://wordpress.org/support/users/miikkamakela/) for [suggesting](https://wordpress.org/support/topic/timezone-for-last-modified/) this improvement.
+* **[FIXED in Free and Pro] Utilities >> Multiple User Roles**: fix PHP warning when an admin is viewing another user's profile screen. Props to Bas B. for reporting the issue.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [36 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: updated Danish, Polish, Portuguese (Brazil)
-    * ASE Pro: updated Greek
+    * ASE Free - Updated Persian, Romanian, Hungarian, Turkish, Portuguese (Brazil), Polish, Japanese
+    * ASE Pro - Added Persion (partial). Updated Catalan, Greek, Hungarian.
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [12 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).

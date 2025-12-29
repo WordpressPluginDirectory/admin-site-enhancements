@@ -54,9 +54,15 @@ class Multiple_User_Roles {
                                 $disabled = '';
 
                                 if ( 'administrator' == $role_slug 
-                                    && $user->ID == $current_user->ID
+                                    && is_object( $user )
+                                    && is_object( $current_user )
                                 ) {
-                                    $disabled = 'disabled ';
+                                    if ( property_exists( $user, 'ID' )
+                                    && property_exists( $current_user, 'ID' )
+                                    && $user->ID == $current_user->ID
+                                    ) {
+                                        $disabled = 'disabled ';
+                                    }
                                 }
                                 
                                 // Output roles checkboxes
