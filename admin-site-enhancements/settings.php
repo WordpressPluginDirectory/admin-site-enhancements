@@ -701,7 +701,7 @@ function asenha_admin_scripts(  $hook_suffix  ) {
             // Ensure required scripts are loaded so the inline script can run.
             wp_enqueue_script( 'jquery' );
             wp_enqueue_script( 'svg-painter' );
-            wp_add_inline_script( 'svg-painter', 'jQuery(document).ready(function() {' . PHP_EOL . "\tjQuery(\"#admin_menu_logo, #adminmenu\").css({ visibility: \"visible\", opacity: \"1\", pointerEvents: \"auto\" });" . PHP_EOL . "\tjQuery(document).trigger(\"wp-window-resized\");" . PHP_EOL . '});' . PHP_EOL, 'after' );
+            wp_add_inline_script( 'wp-dom-ready', 'jQuery(document).ready(function() {' . PHP_EOL . "\tjQuery(\"#admin_menu_logo, #adminmenu\").css({ visibility: \"visible\", opacity: \"1\", pointerEvents: \"auto\" });" . PHP_EOL . "\tjQuery(document).trigger(\"wp-window-resized\");" . PHP_EOL . '});' . PHP_EOL, 'after' );
         }
     }
     // Content Management >> Show IDs, for list tables in wp-admin, e.g. All Posts page

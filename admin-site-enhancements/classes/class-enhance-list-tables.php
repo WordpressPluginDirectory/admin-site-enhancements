@@ -157,7 +157,7 @@ class Enhance_List_Tables {
                 10,
                 2
             );
-            add_action(
+            add_filter(
                 'manage_edit-' . $post_type . '_sortable_columns',
                 [$this, 'make_last_modified_column_sortable'],
                 10,
@@ -199,7 +199,7 @@ class Enhance_List_Tables {
      * 
      * @since 7.4.0
      */
-    public function make_last_modified_column_sortable() {
+    public function make_last_modified_column_sortable( $columns ) {
         $columns['asenha-last-modified'] = 'modified';
         return $columns;
     }

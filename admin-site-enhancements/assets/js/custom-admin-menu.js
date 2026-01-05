@@ -1,6 +1,20 @@
 (function( $ ) {
    'use strict';
 
+   /**
+    * Get an element by ID without using CSS selector parsing.
+    *
+    * This avoids jQuery selector syntax errors when IDs contain percent-encoded
+    * sequences (e.g. %e3%83...) which can happen for multibyte site languages.
+    *
+    * @param {string} id Element ID (without '#').
+    * @return {Object} jQuery object (empty set when not found).
+    */
+   function asenhaGetById( id ) {
+      var el = document.getElementById( id );
+      return el ? $( el ) : $();
+   }
+
    $(document).ready( function() {
 
       // ----- Menu Ordering -----

@@ -1,10 +1,31 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **81 _major_ releases** (e.g. 1.1.0 ) and **180 _minor_ releases** (e.g. 4.9.1), for a **total of 261 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **82 _major_ releases** (e.g. 1.1.0 ) and **180 _minor_ releases** (e.g. 4.9.1), for a **total of 262 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
-[**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
+[**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+
+### 8.2.0 (2025.01.05) - ASE Free and Pro
+
+* **[ADDED in Pro] Utilities >> File Manager**: A comprehensive file manager for WordPress with folder tree navigation, file and folder operations, and code editing capabilities.
+
+* **[IMPROVED in Free and Pro]** Improved admin menu FOUC prevention mechanism introduced in v8.1.4, which wasn't loading properly in a particular scenario. Props to Mikael E. for reporting the issue and facilitating troubleshooting.
+
+* **[FIXED in Free and Pro] Admin Interface >> Enhance List Tables**: fix an issue where the Title column is no longer sortable when the Last Modified column is shown. Props to [@pierre1wp](https://wordpress.org/support/users/pierre1wp/) for spotting and [reporting](https://wordpress.org/support/topic/ase-disabled-the-ability-to-sort-posts-by-title/) this.
+
+* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: added an option to use wpLink modal (that allows for manual URL insertion, or search from existing posts) to render the hyperlink field input UI. Props to Mohammed Z. for prompting this improvement.
+
+* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: 
+  * Fixed column for an ASE repeater field showing empty value for time and datetime sub-fields.
+  * Fixed PHP deprecation notice that occurs when trying to render repeater sub-fields with `null` value.
+  
+* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fixed a javascript error that occurs when viewing wp-admin in a language that uses multi-bytes characters, e.g. Japanese. The error prevents the option panel to always hide menu items by user roles to properly show up and function. Props to Taro O. for reporting the issue in detail and with relevant screenshots.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [36 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free - Updated Spanish (Spain), Chinese (Taiwan), Greek.
+    * ASE Pro - Completed Greek. Special props for [Stelio C.](https://profiles.wordpress.org/scprojectsgr/)!
 
 ### 8.1.4 (2025.12.29) - ASE Free and Pro
 

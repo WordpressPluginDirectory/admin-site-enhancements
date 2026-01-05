@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.9  
-Stable tag: 8.1.4  
+Stable tag: 8.2.0  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -18,7 +18,7 @@ Duplicate post, post order, image resize, email via SMTP, admin menu editor, cus
 
 Admin and Site Enhancements (ASE) helps you to **easily enhance** various admin workflows and site aspects while **replacing multiple plugins** doing it.
 
-**Pro version** with Lifetime Deal (LTD) is available at [www.wpase.com](https://www.wpase.com/rdme-to-web). **Currently on YEAR END SALE, 20% discount**.
+**Pro version** with Lifetime Deal (LTD) is available at [www.wpase.com](https://www.wpase.com/rdme-to-web).
 
 Here's a quick walkthrough of ASE Free at v7.1.5 by Jakson.
 
@@ -43,7 +43,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 ### FEATURES & MODULES
 
 **69 modules** in total:  
-**56 free modules** (28 has Pro features) | **13 Pro modules**
+**56 free modules** (28 has Pro features) | **14 Pro modules**
 
 [**See all features >>**](https://www.wpase.com/features/)
 
@@ -135,6 +135,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 * **Email Delivery**. Set custom sender name and email. Optionally use external SMTP service to ensure notification and transactional emails from your site are being delivered to inboxes. [ASE Pro](https://www.wpase.com/rdme-to-web) adds the option to specify a custom reply-to name and email, Bcc address(es), disable authentication and the option to log email delivery.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Form Builder**. Enable the drag-and-drop creation of various types of forms (contact, feedback, booking, application, proposal, admission, support, survey, etc.) on the frontend to collect information from site visitors or users or members. 33 field types are available, including Net Promoter Score (NPS), Likert, Matrix of Uniform and Variable Dropdowns and CAPTCHA fields. Support custom form styles, multi-columns layout, email notification, auto responder, entries management and webhooks for sending submission data to Zapier, n8n, Make, Pabbly Connect, Integrately, IFTTT, SureTriggers / OttoKit, Uncanny Automator, Bit Flows, AutomatorWP, WP Fusion, etc.
+* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] File Manager**. A comprehensive file manager for WordPress with folder tree navigation, file and folder operations, and code editing capabilities.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Local User Avatar**. Enable usage of any image from WordPress Media Library as user avatars.
 * **Multiple User Roles**. Enable assignment of multiple roles during user account creation and editing.
 * **Image Sizes Panel**. Display a panel showing and linking to all available sizes when viewing an image in the media library. [ASE Pro](https://www.wpase.com/rdme-to-web) adds a convenient button to copy the image URL on click.
@@ -150,7 +151,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### ASE Pro
 
-**Lifetime Deal (LTD)** is available at [www.wpase.com](https://www.wpase.com/rdme-to-web). **Currently on YEAR END SALE, 20% discount**.
+**Lifetime Deal (LTD)** is available at [www.wpase.com](https://www.wpase.com/rdme-to-web).
 
 ### LANGUAGES
 
@@ -199,26 +200,32 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **81 _major_ releases** (e.g. 1.1.0 ) and **180 _minor_ releases** (e.g. 4.9.1), for a **total of 261 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **82 _major_ releases** (e.g. 1.1.0 ) and **180 _minor_ releases** (e.g. 4.9.1), for a **total of 262 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
-[**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). **Currently on YEAR END SALE, 20% discount**. Lifetime Deal (LTD) available.
+[**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 8.1.4 (2025.12.29) - ASE Free and Pro
+### 8.2.0 (2025.01.05) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro]** Prevent FOUC (Flash of Unstyled Content) in the admin (side) menu when either the Custom Content Types, Admin Menu Organizer or Admin Logo modules is active. Props to Jake H. for prompting this improvement.
+* **[ADDED in Pro] Utilities >> File Manager**: A comprehensive file manager for WordPress with folder tree navigation, file and folder operations, and code editing capabilities.
 
-* **[FIXED in Free and Pro] Admin Interface >> Wider Admin Menu**: fixed admin menu overlap with several of FluentCart's admin pages. Props to Richard B. for reporting the issue.
+* **[IMPROVED in Free and Pro]** Improved admin menu FOUC prevention mechanism introduced in v8.1.4, which wasn't loading properly in a particular scenario. Props to Mikael E. for reporting the issue and facilitating troubleshooting.
 
-* **[FIXED in Pro] Security >> Email Address Obfuscator**: prevent removal of strings in post content that looks like an email address but is not, e.g. some-@-image.jpg, important@document.pdf, etc.. Props to Joe S. for prompting this fix.
+* **[FIXED in Free and Pro] Admin Interface >> Enhance List Tables**: fix an issue where the Title column is no longer sortable when the Last Modified column is shown. Props to [@pierre1wp](https://wordpress.org/support/users/pierre1wp/) for spotting and [reporting](https://wordpress.org/support/topic/ase-disabled-the-ability-to-sort-posts-by-title/) this.
 
-* **[FIXED in Free and Pro] Utilities >> Multiple User Roles**: fix PHP warning when an admin is viewing another user's profile screen. Props to Bas B. for reporting the issue.
+* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: added an option to use wpLink modal (that allows for manual URL insertion, or search from existing posts) to render the hyperlink field input UI. Props to Mohammed Z. for prompting this improvement.
+
+* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: 
+  * Fixed column for an ASE repeater field showing empty value for time and datetime sub-fields.
+  * Fixed PHP deprecation notice that occurs when trying to render repeater sub-fields with `null` value.
+  
+* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fixed a javascript error that occurs when viewing wp-admin in a language that uses multi-bytes characters, e.g. Japanese. The error prevents the option panel to always hide menu items by user roles to properly show up and function. Props to Taro O. for reporting the issue in detail and with relevant screenshots.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [36 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free - Updated Persian, Romanian, Hungarian, Turkish, Portuguese (Brazil), Polish, Japanese
-    * ASE Pro - Added Persion (partial). Updated Catalan, Greek, Hungarian.
+    * ASE Free - Updated Spanish (Spain), Chinese (Taiwan), Greek.
+    * ASE Pro - Completed Greek. Special props for [Stelio C.](https://profiles.wordpress.org/scprojectsgr/)!
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [12 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).
@@ -256,6 +263,6 @@ Each **_major release_** usually corresponds with the addition of one new module
   * **[Catalan](https://translate.wordpress.org/locale/ca/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@agendablanca](https://profiles.wordpress.org/agendablanca/), [@lluishospital](https://profiles.wordpress.org/lluishospital/) et al. Current status: [12 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/ca/default/?filters%5Bstatus%5D=untranslated).
   * **[Bengali (Bangladesh)](https://translate.wordpress.org/locale/bn/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed) and Pro (partial). Props to [Ruhani R.](https://profiles.wordpress.org/ruhanirabin/). Current status: [9 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/bn/default/?filters%5Bstatus%5D=untranslated).
   * **[Bulgarian](https://translate.wordpress.org/locale/bg/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed) and Pro (partial). Props to [Svetoslav S.](https://sslavkov.eu). Current status, [8 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/bg/default/?filters%5Bstatus%5D=untranslated).
-  * **[Greek](https://translate.wordpress.org/locale/el/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed) and Pro (partial). Props to [Stelio C.](https://profiles.wordpress.org/scprojectsgr/). Current status: [1 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/el/default/?filters%5Bstatus%5D=untranslated).
+  * **[Greek](https://translate.wordpress.org/locale/el/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed) and Pro (completed). Props to [Stelio C.](https://profiles.wordpress.org/scprojectsgr/). Current status: [0 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/el/default/?filters%5Bstatus%5D=untranslated).
 
 [**See the full changelog >>**](https://www.wpase.com/documentation/changelog/)
