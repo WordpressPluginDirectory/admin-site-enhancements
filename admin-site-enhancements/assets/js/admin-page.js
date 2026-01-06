@@ -890,6 +890,8 @@
                      heightInput.val(attachment.attributes.height);                     
                   }
 
+                  
+
                   if ( '#form-builder-email-header-image' == selector ) {
                      var attachmentId = $('.form-builder-email-header-image-attachment-id input');
                      attachmentId.val(attachment.attributes.id);
@@ -902,6 +904,8 @@
             wp.media.frames.frame.open();
          });
       }
+
+      
 
       // Form Builder - Empty out stored/hidden attachment ID when "Email header image" field is emptied
       var emailHeaderImage = $('#form-builder-email-header-image');

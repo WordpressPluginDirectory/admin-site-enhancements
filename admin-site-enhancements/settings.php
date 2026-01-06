@@ -435,6 +435,7 @@ function asenha_add_settings_page() {
  * @since 7.8.11
  */
 function is_yearend_promo_period() {
+    // For year end promo between October 1 to December 31
     $current_month = intval( date( 'n', time() ) );
     // n is for numeric value of month, 1 to 12
     if ( $current_month >= 10 ) {
@@ -453,6 +454,34 @@ function is_yearend_promo_period() {
     } else {
         $is_yearend_promo_period = false;
     }
+    // For year end promo between November 15 to December 31
+    // $tz = wp_timezone(); // WordPress timezone; or: new DateTimeZone('UTC')
+    // $current_date = new DateTimeImmutable('now', $tz);
+    // // $current_date = new DateTimeImmutable('2025-11-15', $tz); // For testing
+    // // $current_date = new DateTimeImmutable('2026-01-01', $tz); // For testing
+    // // $current_date = new DateTimeImmutable('2027-11-15', $tz); // For testing
+    // $year  = (int) $current_date->format('Y');
+    // $start = new DateTimeImmutable("$year-11-15 00:00:00", $tz);
+    // $end   = new DateTimeImmutable("$year-12-31 23:59:59", $tz);
+    // $is_between = ($current_date >= $start && $current_date <= $end);
+    // if ( $is_between ) {
+    // 	$is_yearend_promo_period = true;
+    // } else {
+    // 	$is_yearend_promo_period = false;
+    // }
+    // // Clear out last year's promo nudge dismissal data
+    // if ( $is_yearend_promo_period ) {
+    // 	$current_year = $year;
+    // 	$asenha_stats = get_option( ASENHA_SLUG_U . '_stats', array() );
+    // 	if ( isset( $asenha_stats['promo_nudge_dismissed'] ) && $asenha_stats['promo_nudge_dismissed'] ) {
+    // 		$last_dismissed_year = date( 'Y', strtotime( $asenha_stats['promo_nudge_dismissed_date'] ) );
+    // 		if ( $current_year > $last_dismissed_year ) {
+    // 			$asenha_stats['promo_nudge_dismissed'] = false;
+    // 			$asenha_stats['promo_nudge_dismissed_date'] = '';
+    // 			update_option( ASENHA_SLUG_U . '_stats', $asenha_stats, false );
+    // 		}
+    // 	}
+    // }
     return $is_yearend_promo_period;
 }
 
@@ -688,22 +717,6 @@ function asenha_admin_scripts(  $hook_suffix  ) {
         array(),
         ASENHA_VERSION
     );
-    // Prevent left admin menu FOUC when Admin Logo / Admin Menu Organizer / Custom Content Types is enabled.
-    // Hide the admin menu (and admin menu logo container, if present) until DOM is ready.
-    if ( !is_network_admin() ) {
-        $enable_anti_fouc = false;
-        // Admin Interface >> Admin Menu Organizer (free).
-        if ( array_key_exists( 'customize_admin_menu', $options ) && $options['customize_admin_menu'] ) {
-            $enable_anti_fouc = true;
-        }
-        if ( $enable_anti_fouc ) {
-            wp_add_inline_style( 'asenha-wp-admin', '#admin_menu_logo,' . PHP_EOL . '#adminmenu {' . PHP_EOL . "\tvisibility: hidden;" . PHP_EOL . "\topacity: 0;" . PHP_EOL . "\tpointer-events: none;" . PHP_EOL . '}' . PHP_EOL );
-            // Ensure required scripts are loaded so the inline script can run.
-            wp_enqueue_script( 'jquery' );
-            wp_enqueue_script( 'svg-painter' );
-            wp_add_inline_script( 'wp-dom-ready', 'jQuery(document).ready(function() {' . PHP_EOL . "\tjQuery(\"#admin_menu_logo, #adminmenu\").css({ visibility: \"visible\", opacity: \"1\", pointerEvents: \"auto\" });" . PHP_EOL . "\tjQuery(document).trigger(\"wp-window-resized\");" . PHP_EOL . '});' . PHP_EOL, 'after' );
-        }
-    }
     // Content Management >> Show IDs, for list tables in wp-admin, e.g. All Posts page
     if ( false !== strpos( $current_screen->base, 'edit' ) || false !== strpos( $current_screen->base, 'users' ) || false !== strpos( $current_screen->base, 'upload' ) ) {
         wp_enqueue_style(
@@ -1001,6 +1014,11 @@ function asenha_admin_menu_organizer_css() {
 	.toplevel_page_wpide #adminmenuwrap {
 		height: calc(100vh - var(--wpide-admin-bar-height)) !important;
 	} /* Fix for when in WPIDE plugin's menu / admin page */
+
+	/* Hide "Show Less" toggle by default to avoid initial flash before JS runs. */
+	#toplevel_page_asenha_hide_hidden_menu {
+		display: none;
+	}
 
 	.current.menu-top.hidden,
 	.wp-has-current-submenu.hidden {

@@ -75,6 +75,12 @@ class Admin_Site_Enhancements {
             $styles[] = 'display';
             return $styles;
         } );
+        // ===== Activate modules based on settings =====
+        // Ensure SVG admin menu icons render with the correct admin color scheme on first paint.
+        // Modules can register SVG data URI icons with this helper and then use a Dashicon placeholder.
+        if ( is_admin() ) {
+            add_action( 'admin_enqueue_scripts', array('ASENHA\\Classes\\Admin_Menu_Svg_Icon_Mask', 'enqueue_mask_css'), 99 );
+        }
         // Content Duplication
         if ( array_key_exists( 'enable_duplication', $options ) && $options['enable_duplication'] ) {
             $content_duplication = new ASENHA\Classes\Content_Duplication();

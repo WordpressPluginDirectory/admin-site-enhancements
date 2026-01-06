@@ -94,16 +94,21 @@ class Image_Upload_Control {
                     $max_width = $options['image_max_width'];
                     $max_height = $options['image_max_height'];
                     $convert_to_jpg_quality = 82;
+                    $did_resize = false;
                     // Check upload image's dimension and only resize if larger than the defined max dimension
                     if ( isset( $image_size['width'] ) && $image_size['width'] > $max_width || isset( $image_size['height'] ) && $image_size['height'] > $max_height ) {
                         $wp_image_editor->resize( $max_width, $max_height, false );
                         // false is for no cropping
+                        $did_resize = true;
                     }
-                    // Save
-                    if ( 'image/jpg' === $upload['type'] || 'image/jpeg' === $upload['type'] ) {
-                        $wp_image_editor->set_quality( $convert_to_jpg_quality );
+                    // Save only when a resize happened.
+                    // Avoid re-encoding (and potentially recompressing) images that are already within max dimensions.
+                    if ( $did_resize ) {
+                        if ( 'image/jpg' === $upload['type'] || 'image/jpeg' === $upload['type'] ) {
+                            $wp_image_editor->set_quality( $convert_to_jpg_quality );
+                        }
+                        $wp_image_editor->save( $upload['file'] );
                     }
-                    $wp_image_editor->save( $upload['file'] );
                 }
             }
         }

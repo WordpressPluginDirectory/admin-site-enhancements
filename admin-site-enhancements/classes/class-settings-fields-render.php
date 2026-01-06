@@ -575,6 +575,20 @@ class Settings_Fields_Render {
         echo __( 'Select an Image', 'admin-site-enhancements' );
         ?></button>
 			<?php 
+        if ( array_key_exists( 'field_hidden_inputs', $args ) && is_array( $args['field_hidden_inputs'] ) ) {
+            foreach ( $args['field_hidden_inputs'] as $hidden_input ) {
+                $hidden_option_key = ( isset( $hidden_input['option_key'] ) ? sanitize_key( $hidden_input['option_key'] ) : '' );
+                $hidden_id = ( isset( $hidden_input['field_id'] ) ? (string) $hidden_input['field_id'] : '' );
+                $hidden_name = ( isset( $hidden_input['field_name'] ) ? (string) $hidden_input['field_name'] : '' );
+                if ( empty( $hidden_option_key ) || empty( $hidden_id ) || empty( $hidden_name ) ) {
+                    continue;
+                }
+                $hidden_value = ( isset( $options[$hidden_option_key] ) ? absint( $options[$hidden_option_key] ) : 0 );
+                echo '<input type="hidden" id="' . esc_attr( $hidden_id ) . '" class="asenha-hidden-media-dim" name="' . esc_attr( $hidden_name ) . '" value="' . esc_attr( $hidden_value ) . '" />';
+            }
+        }
+        ?>
+			<?php 
         if ( !empty( $field_description ) ) {
             echo '<div class="asenha-subfield-description media-subfield">' . wp_kses_post( $field_description ) . '</div>';
         }

@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.9  
-Stable tag: 8.2.0  
+Stable tag: 8.2.1  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -200,11 +200,23 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **82 _major_ releases** (e.g. 1.1.0 ) and **180 _minor_ releases** (e.g. 4.9.1), for a **total of 262 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **82 _major_ releases** (e.g. 1.1.0 ) and **181 _minor_ releases** (e.g. 4.9.1), for a **total of 263 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+
+### 8.2.1 (2025.01.06) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Optimization >> Image Upload Control**: prevent an image (JPG, PNG or WebP) with dimension smaller than max width / max height set in the module, from being re-saved, and thus, prevent it from being re-compressed upon upload. Props to Monika W. for prompting this improvement.
+
+* **[IMPROVED in Free and Pro] Admin Interface >> Admin Menu Organizer**: when at least on menu item is hidden until toggled, the "Show Less" menu item is no longer briefly shown on admin page load.
+
+* **[IMPROVED in Pro] Admin Interface >> Admin Logo**: admin logo is now loaded in a way that prevents layout shift in the admin menu panel.
+
+* **[IMPROVED in Pro] Custom Content Types, Code Snippets Manager, Form Builder**: top level admin menu icons added by these modules are now rendered with the correct admin color scheme's color on page load, no longer briefly rendered with black color.
+
+* **[FIXED in Pro] Content Management >> Content Order**: fixed a fatal error that occurs in a certain scenario. Props to John S. for reporting the issue in detail, copying the exact error message, which helped with troubleshooting.
 
 ### 8.2.0 (2025.01.05) - ASE Free and Pro
 
