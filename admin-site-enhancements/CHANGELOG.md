@@ -1,10 +1,65 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **82 _major_ releases** (e.g. 1.1.0 ) and **181 _minor_ releases** (e.g. 4.9.1), for a **total of 263 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **82 _major_ releases** (e.g. 1.1.0 ) and **183 _minor_ releases** (e.g. 4.9.1), for a **total of 265 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+
+### 8.2.3 (2025.01.19) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Admin Interface >> Admin Menu Organizer**: added an option to make the "Collapse Menu" toggler sticky at the bottom of the admin menu. Props to [@outdoorsdev1](https://wordpress.org/support/users/outdoorsdev1/) for [suggesting this](https://wordpress.org/support/topic/request-make-expand-collapse-menu-item-in-wordpress-admin-navigation-sticky/) and sharing the code snippets this improvement is based upon.
+
+* **[IMPROVED in Pro] Utilities >> File Manager**:
+  * When DISALLOW_FILE_EDIT is set to true, only 'Open' (read-only) and 'Download' actions are available within the plugins and themes folder.
+  * When DISALLOW_FILE_MODS is set to true, only 'Open' (read-only) and 'Download' actions are available across all folders and files.
+  * 'Open' is now properly hidden in the right-click context menu for non-text files.
+  * Main folders and files list has been made more compact and styling polished to make it more useful (more items in view) and more comfortable (less busy look).
+  * Fix alphabetical sort of sub-folders on clicking a parent folder in the folder tree navigation.
+  * Right click to paste into a folder now works properly.
+
+* **[IMPROVED in Pro] Disable Components >> Disable Comments**: when comments are disabled for all post types, the admin bar counter/link and the admin menu item for comments will automatically be removed as well. Props to Kenneth S. and other users for propmpting this imprvement.
+
+* **[IMPROVED in Pro] Content Management >> Content Order**: add an option to show featured image thumbnails in the Order page. Props to Hans R. for suggesting this improvement.
+
+* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Group**: 
+  * added an option to show sequence number for repeater field row label. This is useful for when you have a lot of rows in your repeater field and would like to keep track of the sequence / position of each row. Props to Igor K. for prompting this improvement.
+  * fixed PHP fatal error that occurs in a certain scenario. Props to Stefan for reporting the issue with the debug/error log entry.
+
+* **[IMPROVED in Pro] Admin Interface >> Admin Columns Manager**: 
+  * Add a new 'Template' column within the 'Default' category for the Pages (page) post type. This will show the template in use by a page, whether in the context of a block theme, or a classic theme. Props to Hans R. for prompting this improvement.
+  * Make the first column sticky when horizontal scrolling is enabled.
+  * If a plugin registers a sortable column, it is now recognized as a column that can be used as the default sort.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free - Updated Portuguese (Brazil), Polish, Persian, Danish.
+    * ASE Pro - Updated Portuguese (Brazil).
+
+### 8.2.2 (2025.01.12) - ASE Free and Pro
+
+* **[IMPROVED in Pro] Utilities >> File Manager**:
+  * 'Download' a file previous would open the file URL in a new browser tab for several file types. It will now properly initiate a download.
+  * When a file is selected via it's checkbox, 'Open' and 'Download' buttons will now be shown.
+  * Sync the order of actions between the toolbar buttons and right-click context menu.
+
+* **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**: when creating a PHP snippet, 'Hook' is now selected by default for "Where to execute / insert".
+
+* **[IMPROVED in Pro] Optimization >> Image Upload Control**: add an option to limit resize and conversion only to media library and block editor uploads. This may be useful for a scenario where a frontend form has an upload field that was resizing and converting image files being uploaded, and that behaviour is not desired. Props to Stijn V. for prompting this improvement.
+
+* **[FIXED and IMPROVED in Pro] Content Management >> Media Categories**: 
+  * Fixed layout shift issue in the list view of the media library caused by the categories tree being loaded into view a bit late.
+  * After drag-and-drop operation to a category, the page no longer reloads and the counter for the category will be updated live.
+  * Category tree state preservation across page reloads is now more robust, making use of browser localStorage.
+  * Uploading multiple files to a specific category or sub-category now properly shows a placeholder with progress bar for each file.
+  * Categorizing via bulk select and drag-and-dropping selection to a category is now more stable, preserving the media grid in view (with infinite scrolling enabled) and keeping the bulk select mode active. This makes it easier to perform sequential categorization operations. Props to Ramyt I. for prompting this improvement.
+
+* **[FIXED in Pro] Utilities >> Local User Avatar**: fixed a typo in javascript code causing issue with updating another, non-admin user's avatar. Props to RJ Ramey for reporting the issue.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free - Added Azerbaijani, props to [Saeid BGrn](https://profiles.wordpress.org/saeead/), and Dutch (Belgium), props to [Pieterjan D.](https://profiles.wordpress.org/nekojonez/). Updated Spanish (Spain), Portuguese (Brazil), Polish, Persian, Norwegian, Indonesian, German (Formal), Dutch, Arabic.
+    * ASE Pro - Updated Indonesian.
 
 ### 8.2.1 (2025.01.06) - ASE Free and Pro
 
@@ -12,7 +67,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[IMPROVED in Pro] Custom Content Types, Code Snippets Manager, Form Builder**: top level admin menu icons added by these modules are now rendered with the correct admin color scheme's color on page load, no longer briefly rendered with black color.
 
-* **[IMPROVED in Free and Pro] Admin Interface >> Admin Menu Organizer**: when at least on menu item is hidden until toggled, the "Show Less" menu item is no longer briefly shown on admin page load.
+* **[IMPROVED in Free and Pro] Admin Interface >> Admin Menu Organizer**: when at least one menu item is hidden until toggled, the "Show Less" menu item is no longer briefly shown on admin page load.
 
 * **[IMPROVED in Free and Pro] Optimization >> Image Upload Control**: prevent an image (JPG, PNG or WebP) with dimension smaller than max width / max height set in the module, from being re-saved, and thus, prevent it from being re-compressed upon upload. Props to Monika W. for prompting this improvement.
 

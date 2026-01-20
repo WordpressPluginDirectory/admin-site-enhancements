@@ -9,6 +9,42 @@ namespace ASENHA\Classes;
  */
 class Admin_Menu_Organizer {
     /**
+     * Make the "Collapse Menu" toggler sticky at the bottom of the admin menu
+     * 
+     * @since 8.2.3
+     */
+    public function make_collapse_menu_item_sticky() {
+        ?>
+        <style>
+            #adminmenu #collapse-menu {
+                position: sticky;
+                bottom: 0;
+                background: #1d2327;
+                z-index: 100;
+                box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+                border-top: 1px solid #3c4349;
+            }
+            #adminmenuwrap {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+            }
+            #adminmenu {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                margin: 12px 0 0;
+            }
+            .folded #adminmenu #collapse-menu {
+                position: sticky;
+                bottom: 0;
+                background: #1d2327;
+            }
+        </style>
+        <?php 
+    }
+
+    /**
      * Add Admin Menu item under Settings menu
      * 
      * @since 7.8.5

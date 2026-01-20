@@ -281,6 +281,7 @@
       $('.wider-admin-menu').appendTo('.fields-admin-interface > table > tbody');
       $('.admin-menu-width').appendTo('.fields-admin-interface .wider-admin-menu .asenha-subfields');
       $('.customize-admin-menu').appendTo('.fields-admin-interface > table > tbody');
+      $('.admin-menu-organizer-sticky-collapse-menu').appendTo('.fields-admin-interface .customize-admin-menu .asenha-subfields');
       
       $('.show-custom-taxonomy-filters').appendTo('.fields-admin-interface > table > tbody');
       
@@ -360,6 +361,7 @@
       $('.disable-comments').appendTo('.fields-disable-components > table > tbody');
       
       $('.disable-comments-for').appendTo('.fields-disable-components .disable-comments .asenha-subfields');
+      $('.disable-comments-all-cpts-description').appendTo('.fields-disable-components .disable-comments .asenha-subfields');
       $('.disable-rest-api').appendTo('.fields-disable-components > table > tbody');
       
       $('.disable-feeds').appendTo('.fields-disable-components > table > tbody');
@@ -819,6 +821,243 @@
       
 
       
+
+      // CAPTCHA Protection
+      // CAPTCHA Type conditional show/hide
+      $(document).on('change', 'select[name="admin_site_enhancements[captcha_protection_types]"]', function() {
+         var selectValue = this.value;
+         if ( 'altcha' == selectValue ) {
+            $('.captcha-protection-altcha-wrapper').show();
+            $('.captcha-protection-recaptcha-wrapper').hide();
+            $('.captcha-protection-turnstile-wrapper').hide();
+            // $('input#captcha_woo_locations_woo_checkout_form').prop('disabled', '');
+            // $('input#captcha_woo_locations_woo_checkout_form').show();
+            // $('label[for="captcha_woo_locations_woo_checkout_form"]').show();
+         } else if ( 'recaptcha' == selectValue ) {
+            $('.captcha-protection-altcha-wrapper').hide();
+            $('.captcha-protection-recaptcha-wrapper').show();
+            $('.captcha-protection-turnstile-wrapper').hide();
+            // $('input#captcha_woo_locations_woo_checkout_form').prop('disabled', '');
+            // $('input#captcha_woo_locations_woo_checkout_form').show();
+            // $('label[for="captcha_woo_locations_woo_checkout_form"]').show();
+         } else if ( 'turnstile' == selectValue ) {
+            $('.captcha-protection-altcha-wrapper').hide();
+            $('.captcha-protection-recaptcha-wrapper').hide();
+            $('.captcha-protection-turnstile-wrapper').show();
+            // $('input#captcha_woo_locations_woo_checkout_form').prop('disabled', 'disabled');
+            // $('input#captcha_woo_locations_woo_checkout_form').hide();
+            // $('label[for="captcha_woo_locations_woo_checkout_form"]').hide();
+         }
+      });
+      
+      if ( 'altcha' == $('select[name="admin_site_enhancements[captcha_protection_types]"]').val() ) {
+         $('.captcha-protection-altcha-wrapper').show();
+         $('.captcha-protection-recaptcha-wrapper').hide();
+         $('.captcha-protection-turnstile-wrapper').hide();
+         $('input#captcha_woo_locations_woo_checkout_form').prop('disabled', '');
+         $('input#captcha_woo_locations_woo_checkout_form').show();
+         $('label[for="captcha_woo_locations_woo_checkout_form"]').show();
+      } else if ( 'recaptcha' == $('select[name="admin_site_enhancements[captcha_protection_types]"]').val() ) {
+         $('.captcha-protection-altcha-wrapper').hide();
+         $('.captcha-protection-recaptcha-wrapper').show();
+         $('.captcha-protection-turnstile-wrapper').hide();
+         $('input#captcha_woo_locations_woo_checkout_form').prop('disabled', '');
+         $('input#captcha_woo_locations_woo_checkout_form').show();
+         $('label[for="captcha_woo_locations_woo_checkout_form"]').show();
+      } else if ( 'turnstile' == $('select[name="admin_site_enhancements[captcha_protection_types]"]').val() ) {
+         $('.captcha-protection-altcha-wrapper').hide();
+         $('.captcha-protection-recaptcha-wrapper').hide();
+         $('.captcha-protection-turnstile-wrapper').show();
+         $('input#captcha_woo_locations_woo_checkout_form').prop('disabled', 'disabled');
+         $('input#captcha_woo_locations_woo_checkout_form').hide();
+         $('label[for="captcha_woo_locations_woo_checkout_form"]').hide();
+      }
+
+      // ALTCHA Floating UI conditional value selection
+      $(document).on('change', 'select[name="admin_site_enhancements[altcha_widget]"]', function() {
+         var selectValue = this.value;
+         if ( 'checkbox' == selectValue ) {
+            $('select[name="admin_site_enhancements[altcha_auto_verification]"]').val('');
+         } else if ( 'invisible' == selectValue ) {
+            $('select[name="admin_site_enhancements[altcha_auto_verification]"]').val('onsubmit');
+         }
+      });
+
+      if ( 'checkbox' == $('select[name="admin_site_enhancements[altcha_widget]"]').val() ) {
+         $('select[name="admin_site_enhancements[altcha_auto_verification]"]').val('');
+      } else if ( 'invisible' == $('select[name="admin_site_enhancements[altcha_widget]"]').val() ) {
+         $('select[name="admin_site_enhancements[altcha_auto_verification]"]').val('onsubmit');
+      }
+
+      // reCAPTCHA Type conditional show/hide
+      $(document).on('change', 'select[name="admin_site_enhancements[recaptcha_widget]"]', function() {
+         var selectValue = this.value;
+         if ( 'v2_checkbox' == selectValue ) {
+            $('.recaptcha-site-key-v2-checkbox').show();
+            $('.recaptcha-secret-key-v2-checkbox').show();
+            $('.recaptcha-site-key-v3-invisible').hide();
+            $('.recaptcha-secret-key-v3-invisible').hide();
+         } else if ( 'v3_invisible' == selectValue ) {
+            $('.recaptcha-site-key-v2-checkbox').hide();
+            $('.recaptcha-secret-key-v2-checkbox').hide();
+            $('.recaptcha-site-key-v3-invisible').show();
+            $('.recaptcha-secret-key-v3-invisible').show();
+         }
+      });
+
+      if ( 'v2_checkbox' == $('select[name="admin_site_enhancements[recaptcha_widget]"]').val() ) {
+         $('.recaptcha-site-key-v2-checkbox').show();
+         $('.recaptcha-secret-key-v2-checkbox').show();
+         $('.recaptcha-site-key-v3-invisible').hide();
+         $('.recaptcha-secret-key-v3-invisible').hide();
+      } else if ( 'v3_invisible' == $('select[name="admin_site_enhancements[recaptcha_widget]"]').val() ) {
+         $('.recaptcha-site-key-v2-checkbox').hide();
+         $('.recaptcha-secret-key-v2-checkbox').hide();
+         $('.recaptcha-site-key-v3-invisible').show();
+         $('.recaptcha-secret-key-v3-invisible').show();
+      }
+
+      // Email Address Obfuscator
+      if ( $('input[name="admin_site_enhancements[obfuscate_email_address_in_content]"]').is(':checked') ) {
+         $('.obfuscate-email-address-visitor-only').show();
+      } else {
+         $('.obfuscate-email-address-visitor-only').hide();
+      }
+
+      $('input[name="admin_site_enhancements[obfuscate_email_address_in_content]"]').click(function() {
+         if ($(this).is(':checked')) {
+            $('.obfuscate-email-address-visitor-only').show();
+         } else {
+            $('.obfuscate-email-address-visitor-only').hide();
+         }
+      });
+
+      // Image Upload Control
+      if ( $('input[name="admin_site_enhancements[convert_to_webp]"]').is(':checked') ) {
+         $('.convert-to-jpg-quality').hide();
+         $('.convert-to-webp-quality').show();
+      } else {
+         $('.convert-to-jpg-quality').show();
+         $('.convert-to-webp-quality').hide();
+      }
+
+      $('input[name="admin_site_enhancements[convert_to_webp]"]').click(function() {
+         if ($(this).is(':checked')) {
+            $('.convert-to-jpg-quality').hide();
+            $('.convert-to-webp-quality').show();
+         } else {
+            $('.convert-to-jpg-quality').show();
+            $('.convert-to-webp-quality').hide();
+         }
+      });
+
+      if ( $('input[name="admin_site_enhancements[disable_image_conversion]"]').is(':checked') ) {
+         $('.image-conversion-wrapper').hide();
+      } else {
+         $('.image-conversion-wrapper').show();
+      }
+
+      $('input[name="admin_site_enhancements[disable_image_conversion]"]').click(function() {
+         if ($(this).is(':checked')) {
+            $('.image-conversion-wrapper').hide();
+         } else {
+            $('.image-conversion-wrapper').show();
+         }
+      });
+
+      function field_value_initial_sync( originSelector, targetSelector ) {
+         if ( $(originSelector).val() != '' ) {
+            $(targetSelector).val($(originSelector).val());
+         }
+      }
+
+      function field_value_live_sync( originSelector, targetSelector ) {
+         $('.asenha-body').on('input', originSelector, function() {
+            var originValue = $(this).val();
+            $(targetSelector).val(originValue);
+         });
+      }
+      
+      function field_value_syncing( originSelector, targetSelector ) {
+         field_value_initial_sync( originSelector, targetSelector );
+         field_value_live_sync( originSelector, targetSelector );
+      }
+
+      // Form Builder site and secret keys syncing
+      field_value_syncing('input[name="admin_site_enhancements[altcha_secret_key]"]', 'input[name="admin_site_enhancements[form_builder_altcha_secret_key]"]');
+      field_value_syncing('input[name="admin_site_enhancements[recaptcha_site_key_v2_checkbox]"]', 'input[name="admin_site_enhancements[form_builder_recaptcha_site_key_v2_checkbox]"]');
+      field_value_syncing('input[name="admin_site_enhancements[recaptcha_secret_key_v2_checkbox]"]', 'input[name="admin_site_enhancements[form_builder_recaptcha_secret_key_v2_checkbox]"]');
+      field_value_syncing('input[name="admin_site_enhancements[recaptcha_site_key_v3_invisible]"]', 'input[name="admin_site_enhancements[form_builder_recaptcha_site_key_v3_invisible]"]');
+      field_value_syncing('input[name="admin_site_enhancements[recaptcha_secret_key_v3_invisible]"]', 'input[name="admin_site_enhancements[form_builder_recaptcha_secret_key_v3_invisible]"]');
+      field_value_syncing('input[name="admin_site_enhancements[turnstile_site_key]"]', 'input[name="admin_site_enhancements[form_builder_turnstile_site_key]"]');
+      field_value_syncing('input[name="admin_site_enhancements[turnstile_secret_key]"]', 'input[name="admin_site_enhancements[form_builder_turnstile_secret_key]"]');
+      
+      // Maintenance Mode => Use a customizable page vs Use an existing page      
+      if ( $('input[name="admin_site_enhancements[maintenance_page_type]"]:checked').val() == 'custom' ) {
+         $('.maintenance-page-type-custom').show();
+         $('tr.maintenance-page-slug').hide();
+      } else if ( $('input[name="admin_site_enhancements[maintenance_page_type]"]:checked').val() == 'existing' ) {
+         $('.maintenance-page-type-custom').hide();
+         $('tr.maintenance-page-slug').show();
+      } else {
+         $('.maintenance-page-type-custom').show();
+         $('tr.maintenance-page-slug').hide();
+      }
+
+      $('input[name="admin_site_enhancements[maintenance_page_type]"]').click(function() {
+         var radioValue = $(this).attr('value');
+         if ( radioValue == 'custom' ) {
+         $('.maintenance-page-type-custom').show();
+            $('tr.maintenance-page-slug').hide();
+         } else if ( radioValue == 'existing' ) {
+         $('.maintenance-page-type-custom').hide();
+            $('tr.maintenance-page-slug').show();
+         } else {
+            $('.maintenance-page-type-custom').show();
+            $('tr.maintenance-page-slug').hide();
+         }
+      });
+
+      // Maintenance Mode => Check if 'Image' or 'Color' is chosen/clicked and show/hide the corresponding select field      
+      if ( $('input[name="admin_site_enhancements[maintenance_page_background]"]:checked').val() == 'pattern' ) {
+         $('tr.maintenance-page-background-pattern').show();
+         $('tr.maintenance-page-background-image').hide();
+         $('tr.maintenance-page-background-color').hide();         
+      } else if( $('input[name="admin_site_enhancements[maintenance_page_background]"]:checked').val() == 'image' ) {
+         $('tr.maintenance-page-background-pattern').hide();
+         $('tr.maintenance-page-background-image').show();
+         $('tr.maintenance-page-background-color').hide();
+      } else if ( $('input[name="admin_site_enhancements[maintenance_page_background]"]:checked').val() == 'solid_color' ) {
+         $('tr.maintenance-page-background-pattern').hide();
+         $('tr.maintenance-page-background-image').hide();
+         $('tr.maintenance-page-background-color').show();
+      } else {
+         $('tr.maintenance-page-background-pattern').hide();
+         $('tr.maintenance-page-background-image').hide();
+         $('tr.maintenance-page-background-color').hide();         
+      }
+
+      $('input[name="admin_site_enhancements[maintenance_page_background]"]').click(function() {
+         var radioValue = $(this).attr('value');
+         if ( radioValue == 'pattern' ) {
+            $('tr.maintenance-page-background-pattern').show();
+            $('tr.maintenance-page-background-image').hide();
+            $('tr.maintenance-page-background-color').hide();            
+         } else if ( radioValue == 'image' ) {
+            $('tr.maintenance-page-background-pattern').hide();
+            $('tr.maintenance-page-background-image').show();
+            $('tr.maintenance-page-background-color').hide();
+         } else if ( radioValue == 'solid_color' ) {
+            $('tr.maintenance-page-background-pattern').hide();
+            $('tr.maintenance-page-background-image').hide();
+            $('tr.maintenance-page-background-color').show();
+         } else {
+            $('tr.maintenance-page-background-pattern').hide();
+            $('tr.maintenance-page-background-image').hide();
+            $('tr.maintenance-page-background-color').hide();         
+         }
+      });
+      /*! </fs_premium_only> */
       
       // Content Toggler
       $('.asenha-body').on('click', '.asenha-content-toggler', function(e) {

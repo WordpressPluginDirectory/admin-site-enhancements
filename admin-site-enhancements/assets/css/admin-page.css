@@ -1564,9 +1564,9 @@ input[type="search"]#module-search-input.has-text-input {
 .asenha-warning {
     display: block;
     padding: 12px 16px;
-    color: #997404;
-    background: #fff3cd;
-    border: 1px solid #ffe69c;
+    background: #fcf9e8;
+    border: 1px solid #dba617;
+    border-radius: 3px;
 }
 
 /* jBox Modals */

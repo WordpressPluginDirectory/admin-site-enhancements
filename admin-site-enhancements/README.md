@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.9  
-Stable tag: 8.2.1  
+Stable tag: 8.2.3  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -42,7 +42,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### FEATURES & MODULES
 
-**69 modules** in total:  
+**70 modules** in total:  
 **56 free modules** (28 has Pro features) | **14 Pro modules**
 
 [**See all features >>**](https://www.wpase.com/features/)
@@ -200,44 +200,40 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **82 _major_ releases** (e.g. 1.1.0 ) and **181 _minor_ releases** (e.g. 4.9.1), for a **total of 263 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **82 _major_ releases** (e.g. 1.1.0 ) and **183 _minor_ releases** (e.g. 4.9.1), for a **total of 265 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 8.2.1 (2025.01.06) - ASE Free and Pro
+### 8.2.3 (2025.01.19) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Optimization >> Image Upload Control**: prevent an image (JPG, PNG or WebP) with dimension smaller than max width / max height set in the module, from being re-saved, and thus, prevent it from being re-compressed upon upload. Props to Monika W. for prompting this improvement.
+* **[IMPROVED in Free and Pro] Admin Interface >> Admin Menu Organizer**: added an option to make the "Collapse Menu" toggler sticky at the bottom of the admin menu. Props to [@outdoorsdev1](https://wordpress.org/support/users/outdoorsdev1/) for [suggesting this](https://wordpress.org/support/topic/request-make-expand-collapse-menu-item-in-wordpress-admin-navigation-sticky/) and sharing the code snippets this improvement is based upon.
 
-* **[IMPROVED in Free and Pro] Admin Interface >> Admin Menu Organizer**: when at least on menu item is hidden until toggled, the "Show Less" menu item is no longer briefly shown on admin page load.
+* **[IMPROVED in Pro] Utilities >> File Manager**:
+  * When DISALLOW_FILE_EDIT is set to true, only 'Open' (read-only) and 'Download' actions are available within the plugins and themes folder. When DISALLOW_FILE_MODS is set to true, only 'Open' (read-only) and 'Download' actions are available across all folders and files. Props to Rob M. for prompting this improvement.
+  * 'Open' is now properly hidden in the right-click context menu for non-text files.
+  * Main folders and files list has been made more compact and styling polished to make it more useful (more items in view) and more comfortable (less busy look).
+  * Fix alphabetical sort of sub-folders on clicking a parent folder in the folder tree navigation.
+  * Right click to paste into a folder now works properly.
 
-* **[IMPROVED in Pro] Admin Interface >> Admin Logo**: admin logo is now loaded in a way that prevents layout shift in the admin menu panel.
+* **[IMPROVED in Pro] Disable Components >> Disable Comments**: when comments are disabled for all post types, the admin bar counter/link and the admin menu item for comments will automatically be removed as well. Props to Kenneth S. and other users for propmpting this imprvement.
 
-* **[IMPROVED in Pro] Custom Content Types, Code Snippets Manager, Form Builder**: top level admin menu icons added by these modules are now rendered with the correct admin color scheme's color on page load, no longer briefly rendered with black color.
+* **[IMPROVED in Pro] Content Management >> Content Order**: add an option to show featured image thumbnails in the Order page. Props to Hans R. for suggesting this improvement.
 
-* **[FIXED in Pro] Content Management >> Content Order**: fixed a fatal error that occurs in a certain scenario. Props to John S. for reporting the issue in detail, copying the exact error message, which helped with troubleshooting.
+* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Group**: 
+  * added an option to show sequence number for repeater field row label. This is useful for when you have a lot of rows in your repeater field and would like to keep track of the sequence / position of each row. Props to Igor K. for prompting this improvement.
+  * fixed PHP fatal error that occurs in a certain scenario. Props to Stefan for reporting the issue with the debug/error log entry.
 
-### 8.2.0 (2025.01.05) - ASE Free and Pro
+* **[IMPROVED in Pro] Admin Interface >> Admin Columns Manager**: 
+  * Add a new 'Template' column within the 'Default' category for the Pages (page) post type. This will show the template in use by a page, whether in the context of a block theme, or a classic theme. Props to Hans R. for prompting this improvement.
+  * Make the first column sticky when horizontal scrolling is enabled.
+  * If a plugin registers a sortable column, it is now recognized as a column that can be used as the default sort.
 
-* **[ADDED in Pro] Utilities >> File Manager**: A comprehensive file manager for WordPress with folder tree navigation, file and folder operations, and code editing capabilities.
-
-* **[IMPROVED in Free and Pro]** Improved admin menu FOUC prevention mechanism introduced in v8.1.4, which wasn't loading properly in a particular scenario. Props to Mikael E. for reporting the issue and facilitating troubleshooting.
-
-* **[FIXED in Free and Pro] Admin Interface >> Enhance List Tables**: fix an issue where the Title column is no longer sortable when the Last Modified column is shown. Props to [@pierre1wp](https://wordpress.org/support/users/pierre1wp/) for spotting and [reporting](https://wordpress.org/support/topic/ase-disabled-the-ability-to-sort-posts-by-title/) this.
-
-* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: added an option to use wpLink modal (that allows for manual URL insertion, or search from existing posts) to render the hyperlink field input UI. Props to Mohammed Z. for prompting this improvement.
-
-* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: 
-  * Fixed column for an ASE repeater field showing empty value for time and datetime sub-fields.
-  * Fixed PHP deprecation notice that occurs when trying to render repeater sub-fields with `null` value.
-  
-* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fixed a javascript error that occurs when viewing wp-admin in a language that uses multi-bytes characters, e.g. Japanese. The error prevents the option panel to always hide menu items by user roles to properly show up and function. Props to Taro O. for reporting the issue in detail and with relevant screenshots.
-
-* **[TRANSLATION in Free and Pro]** ASE is now being translated into [36 languages](https://translate.wpase.com/):
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free - Updated Spanish (Spain), Chinese (Taiwan), Greek.
-    * ASE Pro - Completed Greek. Special props for [Stelio C.](https://profiles.wordpress.org/scprojectsgr/)!
+    * ASE Free - Updated Portuguese (Brazil), Polish, Persian, Danish.
+    * ASE Pro - Updated Portuguese (Brazil).
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [12 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).
@@ -276,5 +272,8 @@ Each **_major release_** usually corresponds with the addition of one new module
   * **[Bengali (Bangladesh)](https://translate.wordpress.org/locale/bn/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed) and Pro (partial). Props to [Ruhani R.](https://profiles.wordpress.org/ruhanirabin/). Current status: [9 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/bn/default/?filters%5Bstatus%5D=untranslated).
   * **[Bulgarian](https://translate.wordpress.org/locale/bg/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed) and Pro (partial). Props to [Svetoslav S.](https://sslavkov.eu). Current status, [8 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/bg/default/?filters%5Bstatus%5D=untranslated).
   * **[Greek](https://translate.wordpress.org/locale/el/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed) and Pro (completed). Props to [Stelio C.](https://profiles.wordpress.org/scprojectsgr/). Current status: [0 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/el/default/?filters%5Bstatus%5D=untranslated).
+  * **[Dutch (Belgium)](https://translate.wordpress.org/locale/nl-be/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed). Props to [Pieterjan D.](https://profiles.wordpress.org/nekojonez/). Current status, [0 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/nl-be/default/?filters%5Bstatus%5D=untranslated).
+  * **[Azerbaijani](https://translate.wordpress.org/locale/az/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed). Props to [Saeid BGrn](https://profiles.wordpress.org/saeead/). Current status, [0 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/az/default/?filters%5Bstatus%5D=untranslated).
+
 
 [**See the full changelog >>**](https://www.wpase.com/documentation/changelog/)

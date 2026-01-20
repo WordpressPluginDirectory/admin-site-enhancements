@@ -207,6 +207,10 @@ class Settings_Sanitization {
             $options['customize_admin_menu'] = false;
         }
         $options['customize_admin_menu'] = ( 'on' == $options['customize_admin_menu'] ? true : false );
+        if ( !isset( $options['admin_menu_organizer_sticky_collapse_menu'] ) ) {
+            $options['admin_menu_organizer_sticky_collapse_menu'] = false;
+        }
+        $options['admin_menu_organizer_sticky_collapse_menu'] = ( 'on' == $options['admin_menu_organizer_sticky_collapse_menu'] ? true : false );
         // Enhance List Tables
         if ( !isset( $options['enhance_list_tables'] ) ) {
             $options['enhance_list_tables'] = false;

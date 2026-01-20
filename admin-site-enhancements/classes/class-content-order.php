@@ -9,6 +9,15 @@ use WP_Query;
  * @since 6.9.5
  */
 class Content_Order {
+    /**
+     * Whether to render featured image thumbnails on the "Order" admin page.
+     *
+     * Pro-only feature. Default is false to avoid rendering thumbnails for large lists.
+     *
+     * @var bool
+     */
+    private $show_featured_thumbnails = false;
+
     /** 
      * Add "Custom Order" sub-menu for post types
      * 
@@ -205,6 +214,8 @@ class Content_Order {
         } else {
             $post_type_slug = str_replace( 'edit.php?post_type=', '', $parent_slug );
         }
+        // Pro-only: featured image thumbnails are rendered only when explicitly enabled via query arg.
+        $this->show_featured_thumbnails = false;
         // Object with properties for each post status and the count of posts for each status
         // $post_count_object = wp_count_posts( $post_type_slug );
         // Number of items with the status 'publish(ed)', 'future' (scheduled), 'draft', 'pending' and 'private'

@@ -362,6 +362,9 @@ class Admin_Site_Enhancements {
             $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
             $admin_menu_options = ( isset( $options_extra['admin_menu'] ) ? $options_extra['admin_menu'] : array() );
             $admin_menu_organizer = new ASENHA\Classes\Admin_Menu_Organizer();
+            if ( array_key_exists( 'admin_menu_organizer_sticky_collapse_menu', $options ) && $options['admin_menu_organizer_sticky_collapse_menu'] ) {
+                add_action( 'admin_head', [$admin_menu_organizer, 'make_collapse_menu_item_sticky'] );
+            }
             add_action( 'admin_menu', [$admin_menu_organizer, 'add_menu_item'] );
             // add_action( 'wp_ajax_save_custom_menu_order', [ $admin_menu_organizer, 'save_custom_menu_order' ] );
             // add_action( 'wp_ajax_save_hidden_menu_items', [ $admin_menu_organizer, 'save_hidden_menu_items' ] );

@@ -565,6 +565,7 @@ class Settings_Sections_Fields {
         );
         $field_id = 'hide_ab_comments_menu';
         $field_slug = 'hide-ab-comments-menu';
+        $field_label = __( 'Remove comments counter/link', 'admin-site-enhancements' );
         add_settings_field(
             $field_id,
             '',
@@ -575,7 +576,7 @@ class Settings_Sections_Fields {
                 'option_name' => ASENHA_SLUG_U,
                 'field_id'    => $field_id,
                 'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
-                'field_label' => __( 'Remove comments counter/link', 'admin-site-enhancements' ),
+                'field_label' => $field_label,
                 'class'       => 'asenha-checkbox asenha-hide-th admin-interface ' . $field_slug,
             )
         );
@@ -864,9 +865,25 @@ class Settings_Sections_Fields {
                     __( 'Once enabled, you can find the <a href="%s">Admin Menu</a> item under the Settings menu.', 'admin-site-enhancements' ),
                     admin_url( 'options-general.php?page=admin-menu-organizer' )
                  ),
-                'field_options_wrapper'  => false,
-                'field_options_moreless' => false,
+                'field_options_wrapper'  => true,
+                'field_options_moreless' => true,
                 'class'                  => 'asenha-toggle admin-interface ' . $field_slug,
+            )
+        );
+        $field_id = 'admin_menu_organizer_sticky_collapse_menu';
+        $field_slug = 'admin-menu-organizer-sticky-collapse-menu';
+        add_settings_field(
+            $field_id,
+            '',
+            [$render_field, 'render_checkbox_plain'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name' => ASENHA_SLUG_U,
+                'field_id'    => $field_id,
+                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_label' => __( 'Make "Collapse Menu" sticky at the bottom of the admin menu', 'admin-site-enhancements' ),
+                'class'       => 'asenha-checkbox asenha-hide-th admin-interface ' . $field_slug,
             )
         );
         // Show Custom Taxonomy Filters

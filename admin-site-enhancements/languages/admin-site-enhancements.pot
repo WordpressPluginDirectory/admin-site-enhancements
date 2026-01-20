@@ -1,15 +1,15 @@
-# Copyright (C) 2025 wpase.com
+# Copyright (C) 2026 wpase.com
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Admin and Site Enhancements (ASE) 8.1.1\n"
+"Project-Id-Version: Admin and Site Enhancements (ASE) 8.2.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/admin-site-enhancements\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-12-04T10:11:30+00:00\n"
+"POT-Creation-Date: 2026-01-14T12:18:52+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: admin-site-enhancements\n"
@@ -39,71 +39,71 @@ msgstr ""
 msgid "https://www.wpase.com/author-uri"
 msgstr ""
 
-#: classes/class-admin-menu-organizer.php:20
+#: classes/class-admin-menu-organizer.php:56
 msgid "Admin Menu Settings"
 msgstr ""
 
-#: classes/class-admin-menu-organizer.php:22
+#: classes/class-admin-menu-organizer.php:58
 msgid "Admin Menu"
 msgstr ""
 
-#: classes/class-admin-menu-organizer.php:42
-#: classes/class-settings-sections-fields.php:850
+#: classes/class-admin-menu-organizer.php:78
+#: classes/class-settings-sections-fields.php:851
 msgid "Admin Menu Organizer"
 msgstr ""
 
-#: classes/class-admin-menu-organizer.php:52
+#: classes/class-admin-menu-organizer.php:88
 #: settings.php:137
 #: settings.php:374
 msgid "Save Changes"
 msgstr ""
 
-#: classes/class-admin-menu-organizer.php:158
+#: classes/class-admin-menu-organizer.php:194
 msgid "Posts"
 msgstr ""
 
 #. translators: %s is post type or taxonomy label
-#: classes/class-admin-menu-organizer.php:246
 #: classes/class-admin-menu-organizer.php:282
-#: classes/class-admin-menu-organizer.php:288
+#: classes/class-admin-menu-organizer.php:318
+#: classes/class-admin-menu-organizer.php:324
 msgid "All %s"
 msgstr ""
 
-#: classes/class-admin-menu-organizer.php:249
-#: classes/class-admin-menu-organizer.php:250
+#: classes/class-admin-menu-organizer.php:285
+#: classes/class-admin-menu-organizer.php:286
 msgid "Add New"
 msgstr ""
 
-#: classes/class-admin-menu-organizer.php:251
+#: classes/class-admin-menu-organizer.php:287
 msgid "Edit"
 msgstr ""
 
-#: classes/class-admin-menu-organizer.php:253
+#: classes/class-admin-menu-organizer.php:289
 msgid "View"
 msgstr ""
 
 #. translators: %s is post type or taxonomy label
-#: classes/class-admin-menu-organizer.php:256
+#: classes/class-admin-menu-organizer.php:292
 msgid "Search %s"
 msgstr ""
 
 #. translators: %s is the post type label
-#: classes/class-admin-menu-organizer.php:261
+#: classes/class-admin-menu-organizer.php:297
 msgid "No %s found"
 msgstr ""
 
 #. translators: %s is the post type label
-#: classes/class-admin-menu-organizer.php:266
+#: classes/class-admin-menu-organizer.php:302
 msgid "No %s found in Trash"
 msgstr ""
 
-#: classes/class-admin-menu-organizer.php:370
-#: classes/class-admin-menu-organizer.php:371
+#: classes/class-admin-menu-organizer.php:406
+#: classes/class-admin-menu-organizer.php:407
 msgid "Show All"
 msgstr ""
 
-#: classes/class-admin-menu-organizer.php:381
-#: classes/class-admin-menu-organizer.php:382
+#: classes/class-admin-menu-organizer.php:417
+#: classes/class-admin-menu-organizer.php:418
 msgid "Show Less"
 msgstr ""
 
@@ -136,13 +136,13 @@ msgstr ""
 msgid "Duplicate %s"
 msgstr ""
 
-#: classes/class-content-order.php:31
-#: classes/class-content-order.php:48
-#: classes/class-content-order.php:50
-#: classes/class-content-order.php:66
-#: classes/class-content-order.php:68
-#: classes/class-content-order.php:84
-#: classes/class-content-order.php:131
+#: classes/class-content-order.php:40
+#: classes/class-content-order.php:57
+#: classes/class-content-order.php:59
+#: classes/class-content-order.php:75
+#: classes/class-content-order.php:77
+#: classes/class-content-order.php:93
+#: classes/class-content-order.php:140
 msgid "Order"
 msgstr ""
 
@@ -231,7 +231,7 @@ msgid "Replace Media"
 msgstr ""
 
 #: classes/class-media-replacement.php:74
-#: settings.php:718
+#: settings.php:747
 msgid "Select New Media File"
 msgstr ""
 
@@ -264,55 +264,55 @@ msgid "Search engines are discouraged from indexing this site. Click to change t
 msgstr ""
 
 #: classes/class-settings-fields-render.php:34
-#: settings.php:664
+#: settings.php:693
 msgid "Expand"
 msgstr ""
 
 #: classes/class-settings-fields-render.php:575
-#: settings.php:659
+#: settings.php:688
 msgid "Select an Image"
 msgstr ""
 
-#: classes/class-settings-fields-render.php:652
+#: classes/class-settings-fields-render.php:666
 msgid "Drag and drop menu items to the desired position. Optionally change 3rd party plugin/theme's menu item titles or hide some items until toggled by clicking \"Show All\" at the bottom of the admin menu."
 msgstr ""
 
-#: classes/class-settings-fields-render.php:757
-#: classes/class-settings-fields-render.php:870
-#: classes/class-settings-fields-render.php:960
+#: classes/class-settings-fields-render.php:771
+#: classes/class-settings-fields-render.php:884
+#: classes/class-settings-fields-render.php:974
 msgid "Hide until toggled"
 msgstr ""
 
-#: classes/class-settings-fields-render.php:1047
+#: classes/class-settings-fields-render.php:1061
 msgid "IP Address<br />Last Username"
 msgstr ""
 
-#: classes/class-settings-fields-render.php:1050
+#: classes/class-settings-fields-render.php:1064
 msgid "Attempts<br />Lockouts"
 msgstr ""
 
-#: classes/class-settings-fields-render.php:1053
+#: classes/class-settings-fields-render.php:1067
 msgid "Last Attempt On"
 msgstr ""
 
-#: classes/class-settings-fields-render.php:1115
+#: classes/class-settings-fields-render.php:1129
 msgid "with AVIF support"
 msgstr ""
 
-#: classes/class-settings-fields-render.php:1117
+#: classes/class-settings-fields-render.php:1131
 msgid "without AVIF support"
 msgstr ""
 
-#: classes/class-settings-fields-render.php:1122
-#: classes/class-settings-fields-render.php:1143
+#: classes/class-settings-fields-render.php:1136
+#: classes/class-settings-fields-render.php:1157
 msgid "Not available"
 msgstr ""
 
-#: classes/class-settings-fields-render.php:1146
+#: classes/class-settings-fields-render.php:1160
 msgid "AVIF Support Status"
 msgstr ""
 
-#: classes/class-settings-fields-render.php:1152
+#: classes/class-settings-fields-render.php:1166
 msgid "Full AVIF support requires that your server / hosting has <a href=\"https://php.watch/versions/8.1/gd-avif\" target=\"_blank\">GD extension</a> compiled with AVIF support in PHP 8.1 or greater, or, <a href=\"https://web.archive.org/web/20240104012918/https://avif.io/blog/tutorials/imagemagick/\" target=\"_blank\">ImageMagick 7.0.25 or greater</a> installed. Without either, you can still upload AVIF files but without auto-generation of the smaller thumbnail sizes. A majority of <a href=\"https://web.archive.org/web/20231207174740/https://avif.io/blog/articles/avif-browser-support/\" target=\"_blank\">modern desktop and mobile browsers</a> support the display of AVIF files."
 msgstr ""
 
@@ -428,569 +428,573 @@ msgstr ""
 msgid "Remove updates counter/link"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:578
+#: classes/class-settings-sections-fields.php:568
 msgid "Remove comments counter/link"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:594
+#: classes/class-settings-sections-fields.php:595
 msgid "Remove new content menu"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:610
+#: classes/class-settings-sections-fields.php:611
 msgid "Remove 'Howdy'"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:626
+#: classes/class-settings-sections-fields.php:627
 msgid "Remove the Help tab and drawer"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:633
+#: classes/class-settings-sections-fields.php:634
 msgid "Hide Admin Notices"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:648
+#: classes/class-settings-sections-fields.php:649
 msgid "Clean up admin pages by moving notices into a separate panel easily accessible via the admin bar."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:657
+#: classes/class-settings-sections-fields.php:658
 msgid "Disable Dashboard Widgets"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:670
+#: classes/class-settings-sections-fields.php:671
 msgid "Clean up and speed up the dashboard by completely disabling some or all widgets. Disabled widgets won't load any assets nor show up under Screen Options."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:688
+#: classes/class-settings-sections-fields.php:689
 msgid "Welcome to WordPress"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:722
+#: classes/class-settings-sections-fields.php:723
 msgid "Hide Admin Bar"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:723
+#: classes/class-settings-sections-fields.php:724
 msgid "Hide admin bar on the frontend for all or some user roles."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:777
+#: classes/class-settings-sections-fields.php:778
 msgid "Always show the admin bar for administrators on the frontend. Useful for when an administrator has multiple user roles, and the admin bar is set to be hidden for the other user role(s)."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:791
+#: classes/class-settings-sections-fields.php:792
 msgid "The settings above will override the 'Toolbar' settings in the user profile edit screen."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:798
+#: classes/class-settings-sections-fields.php:799
 msgid "Wider Admin Menu"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:811
+#: classes/class-settings-sections-fields.php:812
 msgid "Give the admin menu more room to better accommodate wider items."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:829
+#: classes/class-settings-sections-fields.php:830
 msgid "Set width to"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:830
+#: classes/class-settings-sections-fields.php:831
 msgid "(Default is 160px)"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:862
+#: classes/class-settings-sections-fields.php:863
 msgid "Customize the order of the admin menu and optionally change menu item title or hide some items."
 msgstr ""
 
 #. translators: %s is URL to the Admin Menu Organizer settings page
-#: classes/class-settings-sections-fields.php:864
+#: classes/class-settings-sections-fields.php:865
 msgid "Once enabled, you can find the <a href=\"%s\">Admin Menu</a> item under the Settings menu."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:875
+#: classes/class-settings-sections-fields.php:885
+msgid "Make \"Collapse Menu\" sticky at the bottom of the admin menu"
+msgstr ""
+
+#: classes/class-settings-sections-fields.php:892
 msgid "Show Custom Taxonomy Filters"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:890
+#: classes/class-settings-sections-fields.php:907
 msgid "Show additional filter(s) on list tables for hierarchical, custom taxonomies."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:899
+#: classes/class-settings-sections-fields.php:916
 msgid "Enhance List Tables"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:912
+#: classes/class-settings-sections-fields.php:929
 msgid "Improve the usefulness of listing pages for various post types and taxonomies, media, comments and users by adding / removing columns and elements."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:931
+#: classes/class-settings-sections-fields.php:948
 msgid "Show featured image column"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:948
+#: classes/class-settings-sections-fields.php:965
 msgid "Show excerpt column"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:965
+#: classes/class-settings-sections-fields.php:982
 msgid "Show last modified column"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:982
+#: classes/class-settings-sections-fields.php:999
 msgid "Show ID column"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:999
+#: classes/class-settings-sections-fields.php:1016
 msgid "Show file size column in media library"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1016
+#: classes/class-settings-sections-fields.php:1033
 msgid "Show ID in action rows along with links for Edit, View, etc."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1033
+#: classes/class-settings-sections-fields.php:1050
 msgid "Remove date column"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1050
+#: classes/class-settings-sections-fields.php:1067
 msgid "Remove comments column"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1067
+#: classes/class-settings-sections-fields.php:1084
 msgid "Remove tags column (for posts)"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1074
+#: classes/class-settings-sections-fields.php:1091
 msgid "Various Admin UI Enhancements"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1087
+#: classes/class-settings-sections-fields.php:1104
 msgid "Various, smaller enhancements for different parts of the admin interface."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1106
+#: classes/class-settings-sections-fields.php:1123
 msgid "Media Library Infinite Scrolling"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1106
+#: classes/class-settings-sections-fields.php:1123
 msgid "Re-enable infinite scrolling in the grid view of the media library. Useful for scrolling through a large library."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1123
+#: classes/class-settings-sections-fields.php:1140
 msgid "Display Active Plugins First"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1123
+#: classes/class-settings-sections-fields.php:1140
 msgid "Display active / activated plugins at the top of the Installed Plugins list. Useful when your site has many deactivated plugins for testing or development purposes."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1130
+#: classes/class-settings-sections-fields.php:1147
 msgid "Custom Admin Footer Text"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1143
+#: classes/class-settings-sections-fields.php:1160
 msgid "Customize the text you see on the footer of wp-admin pages other than this ASE settings page."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1171
+#: classes/class-settings-sections-fields.php:1188
 msgid "Left Side"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1182
+#: classes/class-settings-sections-fields.php:1199
 msgid "Default text is: <em>Thank you for creating with <a href=\"https://wordpress.org/\">WordPress</a></em>."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1207
+#: classes/class-settings-sections-fields.php:1224
 msgid "Right Side"
 msgstr ""
 
 #. translators: %s is the WordPress version number
-#: classes/class-settings-sections-fields.php:1221
+#: classes/class-settings-sections-fields.php:1238
 msgid "Default text is: <em>Version %s</em>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1235
+#: classes/class-settings-sections-fields.php:1252
 msgid "Change Login URL"
 msgstr ""
 
 #. translators: %s is the default login URL
-#: classes/class-settings-sections-fields.php:1250
+#: classes/class-settings-sections-fields.php:1267
 msgid "Default is %s"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1262
+#: classes/class-settings-sections-fields.php:1279
 msgid "New login URL:"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1273
+#: classes/class-settings-sections-fields.php:1290
 msgid "e.g. backend"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1282
+#: classes/class-settings-sections-fields.php:1299
 msgid "Allow login from:"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1294
+#: classes/class-settings-sections-fields.php:1311
 msgid "Enter one path per line"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1295
+#: classes/class-settings-sections-fields.php:1312
 msgid "e.g. dashboard"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1309
+#: classes/class-settings-sections-fields.php:1326
 msgid "<div class=\"asenha-warning\">\"New login URL\" <strong>only works for/with the default WordPress login page</strong>. If you have a login page you manually created with a page builder or with another plugin, please add them to the \"Allow login from\" section.<br /><br />This module is <strong>not yet compatible with two-factor authentication (2FA) methods</strong>. If you use a 2FA plugin, please use the change login URL feature bundled in that plugin, or use another plugin that is compatible with it.<br /><br />And obviously, to improve security, please <strong>use something other than 'login'</strong> for the custom login slug.</div>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1316
+#: classes/class-settings-sections-fields.php:1333
 msgid "Login ID Type"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1329
+#: classes/class-settings-sections-fields.php:1346
 msgid "Restrict login ID to username or email address only."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1347
+#: classes/class-settings-sections-fields.php:1364
 msgid "Username only"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1348
+#: classes/class-settings-sections-fields.php:1365
 msgid "Email address only"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1357
+#: classes/class-settings-sections-fields.php:1374
 msgid "Site Identity on Login Page"
 msgstr ""
 
 #. translators: %s is URL to the Customizer
-#: classes/class-settings-sections-fields.php:1372
+#: classes/class-settings-sections-fields.php:1389
 msgid "Use the site icon and URL to replace the default WordPress logo with link to wordpress.org on the login page. Go to <a href=\"%1$s\">General Settings</a> or the <a href=\"%2$s\">Customizer</a> to set or change your site icon."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1383
+#: classes/class-settings-sections-fields.php:1400
 msgid "Log In/Out Menu"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1396
+#: classes/class-settings-sections-fields.php:1413
 msgid "Enable log in, log out and dynamic log in/out menu item for addition to any menu."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1405
+#: classes/class-settings-sections-fields.php:1422
 msgid "Last Login Column"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1418
+#: classes/class-settings-sections-fields.php:1435
 msgid "Log when users on the site last logged in and display the date and time in the users list table."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1427
+#: classes/class-settings-sections-fields.php:1444
 msgid "Registration Date Column"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1440
+#: classes/class-settings-sections-fields.php:1457
 msgid "Display the registration date and time in the users list table."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1449
+#: classes/class-settings-sections-fields.php:1466
 msgid "Redirect After Login"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1462
+#: classes/class-settings-sections-fields.php:1479
 msgid "Set custom redirect URL for all or some user roles after login."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1472
-#: classes/class-settings-sections-fields.php:1536
+#: classes/class-settings-sections-fields.php:1489
+#: classes/class-settings-sections-fields.php:1553
 msgid "Redirect to:"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1482
-#: classes/class-settings-sections-fields.php:1546
+#: classes/class-settings-sections-fields.php:1499
+#: classes/class-settings-sections-fields.php:1563
 msgid "for:"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1513
+#: classes/class-settings-sections-fields.php:1530
 msgid "Redirect After Logout"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1526
+#: classes/class-settings-sections-fields.php:1543
 msgid "Set custom redirect URL for all or some user roles after logout."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1576
+#: classes/class-settings-sections-fields.php:1593
 msgid "Custom Admin CSS"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1589
+#: classes/class-settings-sections-fields.php:1606
 msgid "Add custom CSS on all admin pages for all user roles."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1618
+#: classes/class-settings-sections-fields.php:1635
 msgid "Custom Frontend CSS"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1631
+#: classes/class-settings-sections-fields.php:1648
 msgid "Add custom CSS on all frontend pages for all user roles."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1660
+#: classes/class-settings-sections-fields.php:1677
 msgid "Insert &lt;head&gt;, &lt;body&gt; and &lt;footer&gt; Code"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1674
+#: classes/class-settings-sections-fields.php:1691
 msgid "Easily insert &lt;meta&gt;, &lt;link&gt;, &lt;script&gt; and &lt;style&gt; tags, Google Analytics, Tag Manager, AdSense, Ads Conversion and Optimize code, Facebook, TikTok and Twitter pixels, etc."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1692
+#: classes/class-settings-sections-fields.php:1709
 msgid "Do not remove backslashes from the code output on the frontend"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1709
+#: classes/class-settings-sections-fields.php:1726
 msgid "<strong>Code to insert before &lt;/head&gt; with the priority of</strong>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1715
+#: classes/class-settings-sections-fields.php:1732
 msgid "Default is 10. Larger number insert code closer to &lt;/head&gt;"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1752
+#: classes/class-settings-sections-fields.php:1769
 msgid "<strong>Code to insert after &lt;body&gt; with the priority of</strong>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1758
+#: classes/class-settings-sections-fields.php:1775
 msgid "Default is 10. Smaller number insert code closer to &lt;body&gt;"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1795
+#: classes/class-settings-sections-fields.php:1812
 msgid "<strong>Code to insert in footer section before &lt;/body&gt; with the priority of</strong>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1801
+#: classes/class-settings-sections-fields.php:1818
 msgid "Default is 10. Larger number insert code closer to &lt;/body&gt;"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1828
+#: classes/class-settings-sections-fields.php:1845
 msgid "Custom Body Class"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1841
+#: classes/class-settings-sections-fields.php:1858
 msgid "Add custom &lt;body&gt; class(es) on the singular view of some or all public post types. Compatible with classes already added using <a href=\"https://wordpress.org/plugins/wp-custom-body-class\" target=\"_blank\">Custom Body Class plugin</a>."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1874
+#: classes/class-settings-sections-fields.php:1891
 msgid "Manage ads.txt and app-ads.txt"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1887
+#: classes/class-settings-sections-fields.php:1904
 msgid "Easily edit and validate your <a href=\"/ads.txt\" target=\"_blank\">ads.txt</a> and <a href=\"/app-ads.txt\" target=\"_blank\">app-ads.txt</a> content."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1910
+#: classes/class-settings-sections-fields.php:1927
 msgid "<strong>Your ads.txt content:</strong>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1911
-#: classes/class-settings-sections-fields.php:1933
-#: classes/class-settings-sections-fields.php:1976
+#: classes/class-settings-sections-fields.php:1928
+#: classes/class-settings-sections-fields.php:1950
+#: classes/class-settings-sections-fields.php:1993
 msgid "Validate with:"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1932
+#: classes/class-settings-sections-fields.php:1949
 msgid "<strong>Your app-ads.txt content:</strong>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1940
+#: classes/class-settings-sections-fields.php:1957
 msgid "Manage robots.txt"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1953
+#: classes/class-settings-sections-fields.php:1970
 msgid "Easily edit and validate your <a href=\"/robots.txt\" target=\"_blank\">robots.txt</a> content."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1986
+#: classes/class-settings-sections-fields.php:2003
 msgid "Disable Gutenberg"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:1999
+#: classes/class-settings-sections-fields.php:2016
 msgid "Disable the Gutenberg block editor for some or all applicable post types."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2039
+#: classes/class-settings-sections-fields.php:2056
 msgid "Also disable frontend block styles / CSS files for the selected post types."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2046
+#: classes/class-settings-sections-fields.php:2063
 msgid "Disable Comments"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2059
+#: classes/class-settings-sections-fields.php:2076
 msgid "Disable comments for some or all public post types. When disabled, existing comments will also be hidden on the frontend."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2092
+#: classes/class-settings-sections-fields.php:2109
 msgid "Disable REST API"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2105
+#: classes/class-settings-sections-fields.php:2122
 msgid "Disable REST API access for non-authenticated users and remove URL traces from &lt;head&gt;, HTTP headers and WP RSD endpoint."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2114
+#: classes/class-settings-sections-fields.php:2131
 msgid "Disable Feeds"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2127
+#: classes/class-settings-sections-fields.php:2144
 msgid "Disable all RSS, Atom and RDF feeds. This includes feeds for posts, categories, tags, comments, authors and search. Also removes traces of feed URLs from &lt;head&gt;."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2136
+#: classes/class-settings-sections-fields.php:2153
 msgid "Disable Embeds"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2150
+#: classes/class-settings-sections-fields.php:2167
 msgid "Prevent your site content from being embedded on other sites."
 msgstr ""
 
 #. translators: %s is URL of WP Dev Resource page
-#: classes/class-settings-sections-fields.php:2152
+#: classes/class-settings-sections-fields.php:2169
 msgid "Prevent embedding of non-<a href=\"%s\" target=\"_blank\">whitelisted</a> sites in your site."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2154
+#: classes/class-settings-sections-fields.php:2171
 msgid "Disable all, related JavaScript."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2154
+#: classes/class-settings-sections-fields.php:2171
 msgid "Removes support for the embed block."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2163
+#: classes/class-settings-sections-fields.php:2180
 msgid "Disable All Updates"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2176
+#: classes/class-settings-sections-fields.php:2193
 msgid "Completely disable core, theme and plugin updates and auto-updates. Will also disable update checks, notices and emails."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2185
+#: classes/class-settings-sections-fields.php:2202
 msgid "Disable Author Archives"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2198
+#: classes/class-settings-sections-fields.php:2215
 msgid "Return 404 (Not Found) error when trying to load author archives. Remove or disable links to author archives. Remove authors archives from the sitemap."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2207
+#: classes/class-settings-sections-fields.php:2224
 msgid "Disable Smaller Components"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2220
+#: classes/class-settings-sections-fields.php:2237
 msgid "Prevent smaller components from running or loading. Make the site more secure, load slightly faster and be more optimized for crawling by search engines."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2238
+#: classes/class-settings-sections-fields.php:2255
 msgid "Disable the <strong>generator &lt;meta&gt; tag</strong> in &lt;head&gt;, which discloses the WordPress version number. Older versions(s) might contain unpatched security loophole(s)."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2254
+#: classes/class-settings-sections-fields.php:2271
 msgid "Disable the <strong>&lt;generator&gt; tag</strong> in RSS feed &lt;channel&gt;, which discloses the WordPress version number. Older versions(s) might contain unpatched security loophole(s)."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2270
+#: classes/class-settings-sections-fields.php:2287
 msgid "Disable <strong>version number</strong> on static resource URLs referenced in &lt;head&gt;, which can disclose WordPress version number. Older versions(s) might contain unpatched security loophole(s). Applies to non-logged-in view of pages. This will also increase cacheability of static assets, but may have unintended consequences. Make sure you know what you are doing."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2286
+#: classes/class-settings-sections-fields.php:2303
 msgid "Disable the <strong>Windows Live Writer (WLW) manifest &lt;link&gt; tag</strong> in &lt;head&gt;. The WLW app was discontinued in 2017."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2302
+#: classes/class-settings-sections-fields.php:2319
 msgid "Disable the <strong>Really Simple Discovery (RSD) &lt;link&gt; tag</strong> in &lt;head&gt;. It's not needed if your site is not using pingback or remote (XML-RPC) client to manage posts."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2318
+#: classes/class-settings-sections-fields.php:2335
 msgid "Disable the default <strong>WordPress shortlink &lt;link&gt; tag</strong> in &lt;head&gt;. Ignored by search engines and has minimal practical use case. Usually, a dedicated shortlink plugin or service is preferred that allows for nice names in the short links and tracking of clicks when sharing the link on social media."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2334
+#: classes/class-settings-sections-fields.php:2351
 msgid "Disable loading of <strong>Dashicons CSS and JS files</strong> on the front-end for public site visitors. This might break the layout or design of custom forms, including custom login forms, if they depend on Dashicons. Make sure to check those forms after disabling."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2350
+#: classes/class-settings-sections-fields.php:2367
 msgid "Disable <strong>emoji support for pages, posts and custom post types</strong> on the admin and frontend. The support is primarily useful for older browsers that do not have native support for it. Most modern browsers across different OSes and devices now have native support for it."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2366
+#: classes/class-settings-sections-fields.php:2383
 msgid "Disable <strong>jQuery Migrate</strong> script on the frontend, which should no longer be needed if your site uses modern theme and plugins."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2382
+#: classes/class-settings-sections-fields.php:2399
 msgid "Disable <strong>block-based widgets settings screen</strong>. Restores the classic widgets settings screen when using a classic (non-block) theme. This has no effect on block themes."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2398
+#: classes/class-settings-sections-fields.php:2415
 msgid "Disable <strong>lazy loading of images</strong> that was natively added since WordPress v5.5."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2414
+#: classes/class-settings-sections-fields.php:2431
 msgid "Disable <strong>application passwords</strong> that was added since WordPress v5.6."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2423
-#: classes/class-settings-sections-fields.php:2428
+#: classes/class-settings-sections-fields.php:2440
+#: classes/class-settings-sections-fields.php:2445
 msgid "Disable the <strong>plugin and theme editor</strong>."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2426
+#: classes/class-settings-sections-fields.php:2443
 msgid "Disable the <strong>plugin and theme editor</strong>. <span class=\"warning-text\">Note that wp-config.php in this site is not writeable and <code>DISALLOW_FILE_EDIT</code> constant is already defined there. You either need to make it writeable to make this setting functional, or, you need to manually change the value of <code>DISALLOW_FILE_EDIT</code> there.</span>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2451
+#: classes/class-settings-sections-fields.php:2468
 msgid "Limit Login Attempts"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2464
+#: classes/class-settings-sections-fields.php:2481
 msgid "Prevent brute force attacks by limiting the number of failed login attempts allowed per IP address."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2484
+#: classes/class-settings-sections-fields.php:2501
 msgid "failed login attempts allowed before 15 minutes lockout"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2507
+#: classes/class-settings-sections-fields.php:2524
 msgid "lockout(s) will block further login attempts for 24 hours"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2520
+#: classes/class-settings-sections-fields.php:2537
 msgid "<span class=\"field-sublabel sublabel-wide\">Detect IP address from the following header first:</span>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2553
+#: classes/class-settings-sections-fields.php:2570
 msgid "Failed login attempts:"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2563
+#: classes/class-settings-sections-fields.php:2580
 msgid "Only the latest 1,000 entries are kept in the database."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2565
+#: classes/class-settings-sections-fields.php:2582
 msgid "Failed Login Attempts Log"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2572
+#: classes/class-settings-sections-fields.php:2589
 msgid "Obfuscate Author Slugs"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2585
+#: classes/class-settings-sections-fields.php:2602
 msgid "Obfuscate publicly exposed author page URLs that shows the user slugs / usernames, e.g. <em>sitename.com/author/username1/</em> into <em>sitename.com/author/a6r5b8ytu9gp34bv/</em>, and output 404 errors for the original URLs. Also obfuscates in /wp-json/wp/v2/users/ REST API endpoint."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2593
+#: classes/class-settings-sections-fields.php:2610
 msgid "Email Address Obfuscator"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2606
+#: classes/class-settings-sections-fields.php:2623
 msgid "Obfuscate email address to prevent spam bots from harvesting them, but make it readable like a regular email address for human visitors."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2614
+#: classes/class-settings-sections-fields.php:2631
 msgid ""
 "Use a shortcode like the following examples to display an email address on the frontend of your site: \n"
 "        \t\t<ul>\n"
@@ -999,374 +1003,374 @@ msgid ""
 "        \t\t</ul>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2634
+#: classes/class-settings-sections-fields.php:2651
 msgid "Disable XML-RPC"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2647
+#: classes/class-settings-sections-fields.php:2664
 msgid "Protect your site from brute force, DOS and DDOS attacks via <a href=\"https://kinsta.com/blog/xmlrpc-php/#what-is-xmlrpcphp\" target=\"_blank\">XML-RPC</a>. Also disables trackbacks and pingbacks."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2658
+#: classes/class-settings-sections-fields.php:2675
 msgid "Image Upload Control"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2671
+#: classes/class-settings-sections-fields.php:2688
 msgid "Resize newly uploaded, large images to a smaller dimension and delete originally uploaded files. BMPs and non-transparent PNGs will be converted to JPGs and resized."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2690
+#: classes/class-settings-sections-fields.php:2707
 msgid "Max width:"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2691
+#: classes/class-settings-sections-fields.php:2708
 msgid "pixels. <span class=\"faded\">(Default is 1920 pixels)</span>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2713
+#: classes/class-settings-sections-fields.php:2730
 msgid "Max height:"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2714
+#: classes/class-settings-sections-fields.php:2731
 msgid "pixels <span class=\"faded\">(Default is 1920 pixels)</span>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2724
+#: classes/class-settings-sections-fields.php:2741
 msgid "To exclude an image from conversion and resizing, append '-nr' suffix to the file name, e.g. bird-photo-4k-nr.jpg"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2740
+#: classes/class-settings-sections-fields.php:2757
 msgid "Revisions Control"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2753
+#: classes/class-settings-sections-fields.php:2770
 msgid "Prevent bloating the database by limiting the number of revisions to keep for some or all post types supporting revisions."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2772
+#: classes/class-settings-sections-fields.php:2789
 msgid "Limit to"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2773
+#: classes/class-settings-sections-fields.php:2790
 msgid "revisions for:"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2810
+#: classes/class-settings-sections-fields.php:2827
 msgid "Heartbeat Control"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2823
+#: classes/class-settings-sections-fields.php:2840
 msgid "Modify the interval of the WordPress heartbeat API or disable it on admin pages, post creation/edit screens and/or the frontend. This will help reduce CPU load on the server."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2833
+#: classes/class-settings-sections-fields.php:2850
 msgid "On admin pages"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2842
-#: classes/class-settings-sections-fields.php:2894
-#: classes/class-settings-sections-fields.php:2945
+#: classes/class-settings-sections-fields.php:2859
+#: classes/class-settings-sections-fields.php:2911
+#: classes/class-settings-sections-fields.php:2962
 msgid "Keep as is"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2843
-#: classes/class-settings-sections-fields.php:2895
-#: classes/class-settings-sections-fields.php:2946
+#: classes/class-settings-sections-fields.php:2860
+#: classes/class-settings-sections-fields.php:2912
+#: classes/class-settings-sections-fields.php:2963
 msgid "Modify"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2844
-#: classes/class-settings-sections-fields.php:2896
-#: classes/class-settings-sections-fields.php:2947
+#: classes/class-settings-sections-fields.php:2861
+#: classes/class-settings-sections-fields.php:2913
+#: classes/class-settings-sections-fields.php:2964
 msgid "Disable"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2863
-#: classes/class-settings-sections-fields.php:2915
-#: classes/class-settings-sections-fields.php:2966
+#: classes/class-settings-sections-fields.php:2880
+#: classes/class-settings-sections-fields.php:2932
+#: classes/class-settings-sections-fields.php:2983
 msgid "Set interval to once every"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2864
+#: classes/class-settings-sections-fields.php:2881
 msgid "<span class=\"faded\">(Default is 1 minute)</span>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2866
-#: classes/class-settings-sections-fields.php:2918
-#: classes/class-settings-sections-fields.php:2969
+#: classes/class-settings-sections-fields.php:2883
+#: classes/class-settings-sections-fields.php:2935
+#: classes/class-settings-sections-fields.php:2986
 msgid "15 seconds"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2867
-#: classes/class-settings-sections-fields.php:2919
-#: classes/class-settings-sections-fields.php:2970
+#: classes/class-settings-sections-fields.php:2884
+#: classes/class-settings-sections-fields.php:2936
+#: classes/class-settings-sections-fields.php:2987
 msgid "30 seconds"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2868
-#: classes/class-settings-sections-fields.php:2971
+#: classes/class-settings-sections-fields.php:2885
+#: classes/class-settings-sections-fields.php:2988
 msgid "1 minute"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2869
-#: classes/class-settings-sections-fields.php:2972
+#: classes/class-settings-sections-fields.php:2886
+#: classes/class-settings-sections-fields.php:2989
 msgid "2 minutes"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2870
-#: classes/class-settings-sections-fields.php:2973
+#: classes/class-settings-sections-fields.php:2887
+#: classes/class-settings-sections-fields.php:2990
 msgid "3 minutes"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2871
-#: classes/class-settings-sections-fields.php:2974
+#: classes/class-settings-sections-fields.php:2888
+#: classes/class-settings-sections-fields.php:2991
 msgid "5 minutes"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2872
-#: classes/class-settings-sections-fields.php:2975
+#: classes/class-settings-sections-fields.php:2889
+#: classes/class-settings-sections-fields.php:2992
 msgid "10 minutes"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2885
+#: classes/class-settings-sections-fields.php:2902
 msgid "On post creation and edit screens"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2916
+#: classes/class-settings-sections-fields.php:2933
 msgid "<span class=\"faded\">(Default is 15 seconds)</span>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2920
+#: classes/class-settings-sections-fields.php:2937
 msgid "45 seconds"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2921
+#: classes/class-settings-sections-fields.php:2938
 msgid "60 seconds"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2922
+#: classes/class-settings-sections-fields.php:2939
 msgid "90 seconds"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2923
+#: classes/class-settings-sections-fields.php:2940
 msgid "120 seconds"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2936
+#: classes/class-settings-sections-fields.php:2953
 msgid "On the frontend"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:2990
+#: classes/class-settings-sections-fields.php:3007
 msgid "Email Delivery"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3003
+#: classes/class-settings-sections-fields.php:3020
 msgid "Set custom sender name and email. Optionally use external SMTP service to ensure notification and transactional emails from your site are being delivered to inboxes."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3019
+#: classes/class-settings-sections-fields.php:3036
 msgid "If set, the following sender name/email overrides WordPress core defaults but can still be overridden by other plugins that enables custom sender name/email, e.g. form plugins."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3027
+#: classes/class-settings-sections-fields.php:3044
 msgid "<span class=\"field-sublabel sublabel-wide\">Sender name</span>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3046
+#: classes/class-settings-sections-fields.php:3063
 msgid "<span class=\"field-sublabel sublabel-wide\">Sender email</span>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3073
+#: classes/class-settings-sections-fields.php:3090
 msgid "Force the usage of the sender name/email defined above. It will override those set by other plugins."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3087
+#: classes/class-settings-sections-fields.php:3104
 msgid "If set, the following SMTP service/account wil be used to deliver your emails."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3095
+#: classes/class-settings-sections-fields.php:3112
 msgid "<span class=\"field-sublabel sublabel-wide\">Host</span>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3114
+#: classes/class-settings-sections-fields.php:3131
 msgid "<span class=\"field-sublabel sublabel-wide\">Port</span>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3136
+#: classes/class-settings-sections-fields.php:3153
 msgid "<span class=\"field-sublabel sublabel-wide\">Security</span>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3145
+#: classes/class-settings-sections-fields.php:3162
 msgid "None"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3146
+#: classes/class-settings-sections-fields.php:3163
 msgid "SSL"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3147
+#: classes/class-settings-sections-fields.php:3164
 msgid "TLS"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3157
+#: classes/class-settings-sections-fields.php:3174
 msgid "<span class=\"field-sublabel sublabel-wide\">Username</span>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3176
+#: classes/class-settings-sections-fields.php:3193
 msgid "<span class=\"field-sublabel sublabel-wide\">Password</span>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3203
+#: classes/class-settings-sections-fields.php:3220
 msgid "Bypass verification of SSL certificate. This would be insecure if mail is delivered across the internet but could help in certain local and/or containerized WordPress scenarios."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3219
+#: classes/class-settings-sections-fields.php:3236
 msgid "Enable debug mode and output the debug info into WordPress debug.log file."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3233
+#: classes/class-settings-sections-fields.php:3250
 msgid "After saving the settings above, check if everything is configured properly below."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3241
+#: classes/class-settings-sections-fields.php:3258
 msgid "<span class=\"field-sublabel sublabel-wide\">Send a test email to</span>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3246
+#: classes/class-settings-sections-fields.php:3263
 msgid "Send Now"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3261
+#: classes/class-settings-sections-fields.php:3278
 msgid "Sending test email..."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3262
+#: classes/class-settings-sections-fields.php:3279
 msgid "Test email was successfully processed</span>.<br />Please check the destination email's inbox to verify successful delivery."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3263
+#: classes/class-settings-sections-fields.php:3280
 msgid "Oops, something went wrong</span>.<br />Please double check your settings and the destination email address."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3270
+#: classes/class-settings-sections-fields.php:3287
 msgid "Multiple User Roles"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3283
+#: classes/class-settings-sections-fields.php:3300
 msgid "Enable assignment of multiple roles during user account creation and editing. This maybe useful for working with roles not defined in WordPress core, e.g. from e-commerce or LMS plugins."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3291
+#: classes/class-settings-sections-fields.php:3308
 msgid "Image Sizes Panel"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3304
+#: classes/class-settings-sections-fields.php:3321
 msgid "Display a panel showing and linking to all available sizes when viewing an image in the media library. Especially useful to quickly get the URL of a particular image size."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3312
+#: classes/class-settings-sections-fields.php:3329
 msgid "View Admin as Role"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3325
+#: classes/class-settings-sections-fields.php:3342
 msgid "View admin pages and the site (logged-in) as one of the non-administrator user roles."
 msgstr ""
 
 #. translators: %s is URL of the role reset link
-#: classes/class-settings-sections-fields.php:3346
+#: classes/class-settings-sections-fields.php:3363
 msgid "If something goes wrong</strong> and you need to regain access to your account as an administrator, please visit the following URL: <br /><strong>%s</strong><br /><br />If you use <strong>Ninja Firewall</strong>, please uncheck \"Block attempts to gain administrative privileges\" in the Firewall Policies settings before you try to view as a non-admin user role to <strong>prevent being locked out</strong> of your admin account."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3348
+#: classes/class-settings-sections-fields.php:3365
 msgid "In any case, please also <strong>create at least one backup admin user</strong> as a last resort should your primary admin user fails to properly login as admin. With this second admin user, you can also restore the admin role for your primary admin user."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3355
+#: classes/class-settings-sections-fields.php:3372
 msgid "Password Protection"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3368
+#: classes/class-settings-sections-fields.php:3385
 msgid "Password-protect the entire site to hide the content from public view and search engine bots / crawlers. Logged-in administrators can still access the site as usual."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3378
+#: classes/class-settings-sections-fields.php:3395
 msgid "Set the password:"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3388
+#: classes/class-settings-sections-fields.php:3405
 msgid "(Default is 'secret')"
 msgstr ""
 
 #. translators: %s is URL to the documentation for nocache_headers()
-#: classes/class-settings-sections-fields.php:3405
+#: classes/class-settings-sections-fields.php:3422
 msgid "<div class=\"asenha-warning\">When password protection is enabled and the password input form is displayed, caching is disabled using <a href=\"%s\"><code>nocache_headers()</code></a>. Caching remains disabled after submitting the valid password and seeing the actual page content.</div>"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3414
+#: classes/class-settings-sections-fields.php:3431
 msgid "Maintenance Mode"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3427
+#: classes/class-settings-sections-fields.php:3444
 msgid "Show a customizable maintenance page on the frontend while performing a brief maintenance to your site. Logged-in administrators can still view the site as usual."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3449
+#: classes/class-settings-sections-fields.php:3466
 msgid "Heading"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3461
+#: classes/class-settings-sections-fields.php:3478
 msgid "We'll be back soon."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3469
+#: classes/class-settings-sections-fields.php:3486
 msgid "Description"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3482
+#: classes/class-settings-sections-fields.php:3499
 msgid "This site is undergoing maintenance for an extended period today. Thanks for your patience."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3489
+#: classes/class-settings-sections-fields.php:3506
 msgid "Stripes"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3490
+#: classes/class-settings-sections-fields.php:3507
 msgid "Curves"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3491
+#: classes/class-settings-sections-fields.php:3508
 msgid "Lines"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3495
+#: classes/class-settings-sections-fields.php:3512
 msgid "Background"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3518
+#: classes/class-settings-sections-fields.php:3535
 msgid "Please clear your cache</strong> after enabling or disabling maintenance mode. This ensures site visitors see either the maintenance page or the actual content of each page."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3525
+#: classes/class-settings-sections-fields.php:3542
 msgid "Redirect 404 to Homepage"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3526
+#: classes/class-settings-sections-fields.php:3543
 msgid "Perform 301 (permanent) redirect to the homepage for all 404 (not found) pages."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3551
+#: classes/class-settings-sections-fields.php:3568
 msgid "Display System Summary"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3552
+#: classes/class-settings-sections-fields.php:3569
 msgid "Show quick summary of the system the site is running on to admins, in the \"At a Glance\" dashboard widget. This includes the web server software, the PHP version, the database software and server IP address."
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3573
+#: classes/class-settings-sections-fields.php:3590
 msgid "Search Engines Visibility Status"
 msgstr ""
 
-#: classes/class-settings-sections-fields.php:3588
+#: classes/class-settings-sections-fields.php:3605
 msgid "Show admin bar status when search engines are set to be discouraged from indexing the site. This is set through a \"Search engine visibility\" checkbox in Settings >> Reading."
 msgstr ""
 
@@ -1514,62 +1518,62 @@ msgstr ""
 msgid "Currently on YEAR-END SALE. <a href=\"https://www.wpase.com/promo-ndg\" target=\"_blank\">20% discount</a>."
 msgstr ""
 
-#: settings.php:660
+#: settings.php:689
 msgid "Use Selected Image"
 msgstr ""
 
-#: settings.php:665
+#: settings.php:694
 msgid "Collapse"
 msgstr ""
 
-#: settings.php:667
+#: settings.php:696
 msgid "No data available in table"
 msgstr ""
 
-#: settings.php:668
+#: settings.php:697
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: settings.php:669
+#: settings.php:698
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: settings.php:670
+#: settings.php:699
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: settings.php:671
+#: settings.php:700
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: settings.php:672
+#: settings.php:701
 msgid "Search:"
 msgstr ""
 
-#: settings.php:673
+#: settings.php:702
 msgid "No matching records found"
 msgstr ""
 
-#: settings.php:675
+#: settings.php:704
 msgid "First"
 msgstr ""
 
-#: settings.php:676
+#: settings.php:705
 msgid "Last"
 msgstr ""
 
-#: settings.php:677
+#: settings.php:706
 msgid "Next"
 msgstr ""
 
-#: settings.php:678
+#: settings.php:707
 msgid "Previous"
 msgstr ""
 
-#: settings.php:719
+#: settings.php:748
 msgid "Perform Replacement"
 msgstr ""
 
-#: settings.php:1121
+#: settings.php:1155
 msgid "Configure"
 msgstr ""

@@ -54,6 +54,8 @@
 	border: 1px solid #c3c4c7;	
 }
 .row-content {
+	display: flex;
+	align-items: center;
 	position: relative;
 	padding: 11px 16px 9px;
 	font-size: 14px;
@@ -62,14 +64,19 @@
 	overflow: hidden;
 }
 .content-main {
+	display: flex;
+	align-items: center;
 	white-space: nowrap;
     overflow: hidden;
     text-overflow: clip;
 }
 .content-additional {
+	display: flex;
+	align-items: center;
+	height: 100%;
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 0;
+    right: 8px;
 }
 .row-content:hover {
 	background: #fff6e5;
@@ -88,6 +95,9 @@
 .row-content:hover .dashicons.dashicons-menu {
 	color: inherit;
 }
+
+
+
 a.item-title,
 a.item-view-link {
 	text-decoration: none;
@@ -101,6 +111,7 @@ a.item-title:hover {
 }
 .wp-core-ui .row-content:hover .button.item-view-link {
 	display: inherit;
+	display: flex;
 }
 .wp-core-ui .button.item-view-link {
 	font-weight: normal;
@@ -135,8 +146,7 @@ a.item-title:hover {
 .updating-order-notice {
 	box-sizing: border-box;
 	position: absolute;
-	right: 4px;
-	top: 4px;
+	right: 8px;
 	z-index: 10;
 	height: 32px;
 	display: flex;
