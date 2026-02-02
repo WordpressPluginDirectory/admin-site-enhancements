@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.9  
-Stable tag: 8.2.3  
+Stable tag: 8.3.1  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -42,8 +42,8 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### FEATURES & MODULES
 
-**70 modules** in total:  
-**56 free modules** (28 has Pro features) | **14 Pro modules**
+**71 modules** in total:  
+**57 free modules** (30 has Pro features) | **14 Pro modules**
 
 [**See all features >>**](https://www.wpase.com/features/)
 
@@ -53,12 +53,13 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **Content Duplication**. One-click duplication of pages, posts and CPTs. [ASE Pro](https://www.wpase.com/rdme-to-web) enables duplication only for certain user roles and post types, and adds location option for duplication link.
 * **Content Order**. Enable custom ordering of various post types that are hierarchical or support page attributes, in wp-admin. [ASE Pro](https://www.wpase.com/rdme-to-web) enables ordering of post types that are non-hierarchical and does not support page attributes, including media / attachments. Reordering and changing the parent of child posts is supported. It also enable toggling taxonomy terms and / or excerpt on the ordering page and applying the custom order on the frontend including for adjacent posts navigation.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Terms Order**. Enable custom ordering of terms from various taxonomies in wp-admin and on the frontend.
+* **Media Files Visibility Control**: Limit media files visibility so only administrators can see all media files. Non-administrator users will only see media files they uploaded themselves in the media library and in the modal window to add/insert media. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to specify which non-administrator user roles will have such limitation. 
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Media Categories**. Add categories for the media library and enable drag-and-drop categorization of media items.
 * **Media Replacement**. Easily replace any type of media file with a new one while ensuring no existing links will break. [ASE Pro](https://www.wpase.com/rdme-to-web) allows replacing media from the grid view of media library as well.
 * **SVG Upload**. Allow some or all user roles to upload SVG files, which will then be sanitized to keep things secure.
 * **AVIF Upload**. Enable uploading AVIF files in the Media Library.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Public Preview for Drafts**. Enable public preview for draft posts from some or all public post types.
-* **External Permalinks**. Enable pages, posts and/or custom post types to have permalinks that point to external URLs.
+* **External Permalinks**. Enable pages, posts and/or custom post types to have permalinks that point to external URLs. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to enable only on / except on certain post types, or on all post types.
 * **Open All External Links in New Tab**. Force all links to external sites to open in new browser tab via target="\_blank" attribute.
 * **Allow Custom Navigation Menu Items to Open in New Tab**. Allow custom navigation menu items to have links that open in new browser tab via target="\_blank" attribute.
 * **Auto-Publish Posts with Missed Schedule**. Trigger publishing of scheduled posts of all types marked with "missed schedule", anytime the site is visited.
@@ -200,40 +201,38 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **82 _major_ releases** (e.g. 1.1.0 ) and **183 _minor_ releases** (e.g. 4.9.1), for a **total of 265 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **83 _major_ releases** (e.g. 1.1.0 ) and **184 _minor_ releases** (e.g. 4.9.1), for a **total of 267 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 8.2.3 (2025.01.19) - ASE Free and Pro
+### 8.3.1 (2025.02.02) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Admin Interface >> Admin Menu Organizer**: added an option to make the "Collapse Menu" toggler sticky at the bottom of the admin menu. Props to [@outdoorsdev1](https://wordpress.org/support/users/outdoorsdev1/) for [suggesting this](https://wordpress.org/support/topic/request-make-expand-collapse-menu-item-in-wordpress-admin-navigation-sticky/) and sharing the code snippets this improvement is based upon.
+* **[IMPROVED in Free and Pro] Admin Interface >> Hide Admin Notices**: notice/ad from BdThemes Element Pack Pro plugin is now properly moved to the notices panel. Props to Alexander P. for reporting the issue.
 
-* **[IMPROVED in Pro] Utilities >> File Manager**:
-  * When DISALLOW_FILE_EDIT is set to true, only 'Open' (read-only) and 'Download' actions are available within the plugins and themes folder. When DISALLOW_FILE_MODS is set to true, only 'Open' (read-only) and 'Download' actions are available across all folders and files. Props to Rob M. for prompting this improvement.
-  * 'Open' is now properly hidden in the right-click context menu for non-text files.
-  * Main folders and files list has been made more compact and styling polished to make it more useful (more items in view) and more comfortable (less busy look).
-  * Fix alphabetical sort of sub-folders on clicking a parent folder in the folder tree navigation.
-  * Right click to paste into a folder now works properly.
+* **[IMPROVED in Pro] Content Management >>  External Permalinks**: add an option to enable the module "only on", "except on" or "on all" post types. Props to Martin S. for prompting this improvement.
 
-* **[IMPROVED in Pro] Disable Components >> Disable Comments**: when comments are disabled for all post types, the admin bar counter/link and the admin menu item for comments will automatically be removed as well. Props to Kenneth S. and other users for propmpting this imprvement.
+* **[IMPROVED in Pro] Content Management >> Media Categories**: add an option to disable the media categories features for some or all non-administrator user roles with access to the media library, i.e. user roles with `upload_files` capability.
 
-* **[IMPROVED in Pro] Content Management >> Content Order**: add an option to show featured image thumbnails in the Order page. Props to Hans R. for suggesting this improvement.
+* **[IMPROVED in Pro] Admin Interface >> Admin Logo**: add an option to replace the home icon in the admin bar with the site logo set in "Settings >> General". Props to Martin S. for prompting this improvement.
 
-* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Group**: 
-  * added an option to show sequence number for repeater field row label. This is useful for when you have a lot of rows in your repeater field and would like to keep track of the sequence / position of each row. Props to Igor K. for prompting this improvement.
-  * fixed PHP fatal error that occurs in a certain scenario. Props to Stefan for reporting the issue with the debug/error log entry.
+* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Gropus**: 
+  - add a top sticky bar with title and publish / update button when the custom field group creation / edit screen is scrolled down.
+  - in the custom field groups listing page, for the Placement colum, labels are now added before the raw values, e.g. 'post' becomes "Post (post)".
+  
+* **[IMPROVED in Pro] Optimizations >> Image Upload Control**: when "Only apply resize and conversion to media library and block editor uploads" is checked/enabled, only uploads done directly in the media library or within the context of creating or editing pages and posts will go through conversion (to JPG or WebP). This provides better isolation, so that plugins that incorporates the block editor in creating something, e.g. MailPoet creating newsletter in wp-admin (not frontend form), will no longer have image uploads automatically converting to JPG / WebP, where conversion to WebP may result in blank image in some email clients. Props to Lee B. for prompting this improvement.
 
-* **[IMPROVED in Pro] Admin Interface >> Admin Columns Manager**: 
-  * Add a new 'Template' column within the 'Default' category for the Pages (page) post type. This will show the template in use by a page, whether in the context of a block theme, or a classic theme. Props to Hans R. for prompting this improvement.
-  * Make the first column sticky when horizontal scrolling is enabled.
-  * If a plugin registers a sortable column, it is now recognized as a column that can be used as the default sort.
+* **[FIXED and IMPROVED in Pro] Admin Interface >> Clean Up Admin Bar**: 
+  * fixed an issue where admin bar menu item from the Paymattic plugin is not being properly detected and listed for removal. Props to Maik E. for reporting the issue
+  * add a button to clear and rescan the list of extra admin bar elements that may have piled up over time and no longer reflects the current state of the admin bar.
+
+* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fix category filter not working in the snippets listing page. Props to Mirko S. for reporting the issue.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free - Updated Portuguese (Brazil), Polish, Persian, Danish.
-    * ASE Pro - Updated Portuguese (Brazil).
+    * ASE Free - Updated Spanish (Spain), Portuguese (Brazil), Polish, French, Dutch,.
+    * ASE Pro - Updated Polish.
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [12 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).

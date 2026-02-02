@@ -315,7 +315,10 @@ class Hide_Admin_Notices {
                 #wpbody-content > .wrap .dokan-dashboard .notice-success:not(#plugin-activated-successfully),
                 #wpbody-content > .wrap .dokan-dashboard .notice-updated,
                 #wpbody-content > .wrap .dokan-dashboard .updated:not(.inline),
-                #wpbody-content > .wrap .dokan-dashboard .update-nag {
+                #wpbody-content > .wrap .dokan-dashboard .update-nag,
+                /* BdThemes Element Pack Pro */
+                #wpbody-content > .wrap > .biggopti
+                {
                     position: absolute !important;
                     visibility: hidden !important;
                 }

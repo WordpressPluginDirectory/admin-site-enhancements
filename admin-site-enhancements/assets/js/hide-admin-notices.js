@@ -13,8 +13,8 @@
 
 		var interval = setInterval(function () {
 
-			// Stop monitoring after 5 seconds
-			if (new Date().getTime() - startTime > 1000) {
+			// Stop monitoring after 1,05 seconds (some notices has a 1 second delay, so, we make this slightly longer)
+			if (new Date().getTime() - startTime > 1050) {
 				clearInterval(interval);
 
 		   		// Count hidden notices and append into admin bar counter
@@ -238,6 +238,8 @@
 			+ '#wpbody-content > .wrap > .ssgs-rating-banner,'
 			// Shortpixel
 			+ '#wpbody-content > .shortpixel-notice,'
+			// BdThemes Element Pack Pro
+			+ '#wpbody-content > .wrap > .biggopti,'
 			// Dokan
 			+ '#wpbody-content > .wrap .dokan-dashboard .notice:not(.system-notice,.hidden,.wcml-notice),'
 			+ '#wpbody-content > .wrap .dokan-dashboard .notice-error,'

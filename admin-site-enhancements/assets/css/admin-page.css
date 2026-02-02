@@ -1094,6 +1094,25 @@ input[type="search"]#module-search-input.has-text-input {
     margin-left: 12px;
 }
 
+.asenha-admin-bar-rescan-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.asenha-admin-bar-rescan-status {
+    display: none;
+    color: var(--ase-accent-grey-dark);
+}
+
+.asenha-admin-bar-rescan-status.is-success {
+    color: seagreen;
+}
+
+.asenha-admin-bar-rescan-status.is-error {
+    color: var(--ase-accent-warning);
+}
+
 .asenha-subfields .vspacer {
     display: block;
     width: 100%;
@@ -1468,6 +1487,10 @@ input[type="search"]#module-search-input.has-text-input {
 
 .asenha-subfields th .faded {
     font-weight: normal;
+}
+
+.faded code {
+    background: rgba(0, 0, 0, 0.05);
 }
 
 .asenha-subfield-status {

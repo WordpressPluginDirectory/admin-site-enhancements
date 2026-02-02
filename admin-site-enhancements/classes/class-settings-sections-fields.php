@@ -250,6 +250,31 @@ class Settings_Sections_Fields {
                 }
             }
         }
+        // Media Files Visibility Control
+        $field_id = 'media_files_visibility_control';
+        $field_slug = 'media-files-visibility-control';
+        $field_title = __( 'Media Files Visibility Control', 'admin-site-enhancements' );
+        $field_description = __( 'Limit media files visibility so only administrators can see all media files. Non-administrator users will only see media files they uploaded themselves in the media library and in the modal window to add/insert media.', 'admin-site-enhancements' );
+        $field_options_wrapper = false;
+        $field_options_moreless = false;
+        add_settings_field(
+            $field_id,
+            $field_title,
+            [$render_field, 'render_checkbox_toggle'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'            => ASENHA_SLUG_U,
+                'field_id'               => $field_id,
+                'field_slug'             => $field_slug,
+                'field_title'            => $field_title,
+                'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_description'      => $field_description,
+                'field_options_wrapper'  => $field_options_wrapper,
+                'field_options_moreless' => $field_options_moreless,
+                'class'                  => 'asenha-toggle content-management ' . $field_slug,
+            )
+        );
         // Media Replacement
         $field_id = 'enable_media_replacement';
         $field_slug = 'enable-media-replacement';
@@ -406,7 +431,7 @@ class Settings_Sections_Fields {
                             'field_id'        => $post_type_slug,
                             'field_name'      => ASENHA_SLUG_U . '[' . $field_id . '][' . $post_type_slug . ']',
                             'field_label'     => $post_type_label . ' <span class="faded">(' . $post_type_slug . ')</span>',
-                            'class'           => 'asenha-checkbox asenha-hide-th asenha-half content-management ' . $field_slug . ' ' . $post_type_slug,
+                            'class'           => 'asenha-checkbox asenha-checkbox-item asenha-hide-th asenha-half content-management ' . $field_slug . ' ' . $post_type_slug,
                         )
                     );
                 }

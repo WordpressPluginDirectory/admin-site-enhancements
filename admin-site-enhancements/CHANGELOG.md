@@ -1,18 +1,72 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **82 _major_ releases** (e.g. 1.1.0 ) and **183 _minor_ releases** (e.g. 4.9.1), for a **total of 265 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **83 _major_ releases** (e.g. 1.1.0 ) and **184 _minor_ releases** (e.g. 4.9.1), for a **total of 267 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+
+### 8.3.1 (2025.02.02) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Admin Interface >> Hide Admin Notices**: notice/ad from BdThemes Element Pack Pro plugin is now properly moved to the notices panel. Props to Alexander P. for reporting the issue.
+
+* **[IMPROVED in Pro] Content Management >>  External Permalinks**: add an option to enable the module "only on", "except on" or "on all" post types. Props to Martin S. for prompting this improvement.
+
+* **[IMPROVED in Pro] Content Management >> Media Categories**: add an option to disable the media categories features for some or all non-administrator user roles with access to the media library, i.e. user roles with `upload_files` capability.
+
+* **[IMPROVED in Pro] Admin Interface >> Admin Logo**: add an option to replace the home icon in the admin bar with the site logo set in "Settings >> General". Props to Martin S. for prompting this improvement.
+
+* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Gropus**: 
+  - add a top sticky bar with title and publish / update button when the custom field group creation / edit screen is scrolled down.
+  - in the custom field groups listing page, for the Placement colum, labels are now added before the raw values, e.g. 'post' becomes "Post (post)".
+  
+* **[IMPROVED in Pro] Optimizations >> Image Upload Control**: when "Only apply resize and conversion to media library and block editor uploads" is checked/enabled, only uploads done directly in the media library or within the context of creating or editing pages and posts will go through conversion (to JPG or WebP). This provides better isolation, so that plugins that incorporates the block editor in creating something, e.g. MailPoet creating newsletter in wp-admin (not frontend form), will no longer have image uploads automatically converting to JPG / WebP, where conversion to WebP may result in blank image in some email clients. Props to Lee B. for prompting this improvement.
+
+* **[FIXED and IMPROVED in Pro] Admin Interface >> Clean Up Admin Bar**: 
+  * fixed an issue where admin bar menu item from the Paymattic plugin is not being properly detected and listed for removal. Props to Maik E. for reporting the issue
+  * add a button to clear and rescan the list of extra admin bar elements that may have piled up over time and no longer reflects the current state of the admin bar.
+
+* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fix category filter not working in the snippets listing page. Props to Mirko S. for reporting the issue.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free - Updated Spanish (Spain), Portuguese (Brazil), Polish, French, Dutch,.
+    * ASE Pro - Updated Polish.
+
+### 8.3.0 (2025.01.26) - ASE Free and Pro
+
+* **[ADDED in Free and Pro] Content Management >> Media Files Visibility Control**: in ASE Free, this module will limit media library in a way that only administrators can see all media files. Non-administrator users will only see media files they uploaded themselves in the media library and in the modal window to add/insert media. ASE Pro adds an option to specify which non-administrator user roles will be limited to only seeing media files they uploaded themselves. 
+
+* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**:
+  * In the Placement tab, post types now shows the label as well. e.g. 'post' now becomes 'Posts (post)'.
+  * In the Placement tab, user roles now shows the label as well. e.g. 'administrator' now becomes 'Administrator (administrator)'.
+  * Fixed PHP warnings related to custom field group creation / update process.
+
+* **[IMPROVED in Pro] Utilities >> File Manager**:
+  * Add the option to set FM_READ_ONLY constant to true in wp-config.php if you want to activate read-only mode, i.e. only Open and Download actions are available.
+  * Add a note in the module to quickly explain about enabling the read-only mode by setting FM_READ_ONLY, DISALLOW_FILE_MODS or DISALLOW_FILE_EDIT to true in wp-config.php.
+
+* **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**: 
+  * add an "Export / Import Snippets" button in the snippets listing page and an "Export / Import Snippets" submenu item inside the "Code Snippets" admim menu. Both link to the snippets export / import section in the main ASE settings page, at the bottom. Props to Henry R. for prompting this improvement.
+  * for CSS snippets, there's a new option to load the snippet within the block editor. It's located under the "Frontend >> Type of page" conditional. Props to Emmanuel A. for prompting this improvement.
+  * add a note in the module about manually activating safe mode to regain access to wp-admin when a PHP snippet triggers a pervasive fatal error.
+
+* **[IMPROVED in Pro] Admin Interface >> Admin Columns Manager**: 
+  * When all active columns are set to auto width, horizontal scrolling will automatically be disabled in the list table of posts. This ensures that the righ-border-line for the first column will not be displayed in such a scenario.
+  * Add an option to make the column header row sticky (on top) on scroll.
+  * Add an option to set the number of (first) columns to freeze when horizontal scrolling is enabled.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free - Updated Vietnamese, Russian, Portuguese (Brazil), Polish, Norwegian, Dutch (Belgian), Dutch, Bengali (Bangladesh)
+    * ASE Pro - Indonesian, Vietnamese, Polish, Norwegian, Portuguese (Brazil).
 
 ### 8.2.3 (2025.01.19) - ASE Free and Pro
 
 * **[IMPROVED in Free and Pro] Admin Interface >> Admin Menu Organizer**: added an option to make the "Collapse Menu" toggler sticky at the bottom of the admin menu. Props to [@outdoorsdev1](https://wordpress.org/support/users/outdoorsdev1/) for [suggesting this](https://wordpress.org/support/topic/request-make-expand-collapse-menu-item-in-wordpress-admin-navigation-sticky/) and sharing the code snippets this improvement is based upon.
 
 * **[IMPROVED in Pro] Utilities >> File Manager**:
-  * When DISALLOW_FILE_EDIT is set to true, only 'Open' (read-only) and 'Download' actions are available within the plugins and themes folder.
-  * When DISALLOW_FILE_MODS is set to true, only 'Open' (read-only) and 'Download' actions are available across all folders and files.
+  * When DISALLOW_FILE_EDIT is set to true, only 'Open' (read-only) and 'Download' actions are available within the plugins and themes folder. When DISALLOW_FILE_MODS is set to true, only 'Open' (read-only) and 'Download' actions are available across all folders and files. Props to Rob M. for prompting this improvement.
   * 'Open' is now properly hidden in the right-click context menu for non-text files.
   * Main folders and files list has been made more compact and styling polished to make it more useful (more items in view) and more comfortable (less busy look).
   * Fix alphabetical sort of sub-folders on clicking a parent folder in the folder tree navigation.

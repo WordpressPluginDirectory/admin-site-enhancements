@@ -118,6 +118,12 @@ class Admin_Site_Enhancements {
                 );
             }
         }
+        // Media Library Access Control
+        if ( array_key_exists( 'media_files_visibility_control', $options ) && $options['media_files_visibility_control'] ) {
+            $media_files_visibility_control = new ASENHA\Classes\Media_Files_Visibility_Control();
+            add_filter( 'ajax_query_attachments_args', [$media_files_visibility_control, 'filter_attachments_grid'] );
+            add_action( 'pre_get_posts', [$media_files_visibility_control, 'filter_attachments_list'] );
+        }
         // Media Replacement
         if ( array_key_exists( 'enable_media_replacement', $options ) && $options['enable_media_replacement'] ) {
             $media_replacement = new ASENHA\Classes\Media_Replacement();

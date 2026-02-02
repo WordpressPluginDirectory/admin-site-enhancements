@@ -144,6 +144,31 @@ class Common_Methods {
     }
 
     /**
+     * Extract readable text from a string that may contain HTML.
+     *
+     * Unlike strip_html_tags_and_content(), this method keeps the text inside tags,
+     * e.g. it will turn `<span><img ...>Paymattic</span>` into `Paymattic`.
+     *
+     * @since 8.0.2
+     *
+     * @param string|null $html A string that may contain HTML.
+     * @return string Readable plain text (may be empty).
+     */
+    public function extract_readable_text_from_html( $html ) {
+        if ( null === $html ) {
+            return '';
+        }
+        $text = wp_strip_all_tags( (string) $html, true );
+        $charset = get_bloginfo( 'charset' );
+        if ( empty( $charset ) ) {
+            $charset = 'UTF-8';
+        }
+        $text = html_entity_decode( $text, ENT_QUOTES, $charset );
+        $text = preg_replace( '/\\s+/u', ' ', $text );
+        return trim( $text );
+    }
+
+    /**
      * Get menu hidden by toggle
      * 
      * @since 5.1.0

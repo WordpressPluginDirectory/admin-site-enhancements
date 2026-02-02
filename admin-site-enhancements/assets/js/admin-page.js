@@ -209,6 +209,41 @@
          }
       });
 
+      // Clean Up Admin Bar >> Rescan Extra Elements
+      $('#asenha-rescan-extra-admin-bar-elements').on('click', function(e) {
+         e.preventDefault();
+
+         var $button = $(this);
+         var $status = $('.asenha-admin-bar-rescan-status');
+
+         $button.prop('disabled', true);
+         $status.removeClass('is-success is-error').text(adminPageVars.rescanExtraElementsWorkingText).show();
+
+         $.ajax({
+            type: 'POST',
+            url: ajaxurl,
+            data: {
+               action: 'rescan_admin_bar_nodes',
+               nonce: adminPageVars.nonce
+            },
+            success: function(response) {
+               if (response && response.success) {
+                  $status.addClass('is-success').text(adminPageVars.rescanExtraElementsDoneText);
+                  setTimeout(function() {
+                     location.reload();
+                  }, 500);
+               } else {
+                  $status.addClass('is-error').text(adminPageVars.rescanExtraElementsFailedText);
+                  $button.prop('disabled', false);
+               }
+            },
+            error: function() {
+               $status.addClass('is-error').text(adminPageVars.rescanExtraElementsFailedText);
+               $button.prop('disabled', false);
+            }
+         });
+      });
+
       
 
       // Initialize data tables
@@ -242,6 +277,8 @@
       $('.content-order-for').appendTo('.fields-content-management .content-order .asenha-subfields');
       
       
+      $('.media-files-visibility-control').appendTo('.fields-content-management > table > tbody');
+      
       $('.enable-media-replacement').appendTo('.fields-content-management > table > tbody');
       $('.disable-media-replacement-cache-busting').appendTo('.fields-content-management .enable-media-replacement .asenha-subfields');
       $('.enable-svg-upload').appendTo('.fields-content-management > table > tbody');
@@ -250,6 +287,7 @@
       $('.avif-support-status').appendTo('.fields-content-management .enable-avif-upload .asenha-subfields');
       
       $('.enable-external-permalinks').appendTo('.fields-content-management > table > tbody');
+      
       $('.enable-external-permalinks-for').appendTo('.fields-content-management .enable-external-permalinks .asenha-subfields');
       $('.external-links-new-tab').appendTo('.fields-content-management > table > tbody');
       $('.custom-nav-menu-items-new-tab').appendTo('.fields-content-management > table > tbody');
@@ -701,6 +739,8 @@
       subfieldsToggler( 'enable_duplication', 'enable-duplication' );
       subfieldsToggler( 'content_order', 'content-order' );
       
+      subfieldsToggler( 'media_files_visibility_control', 'media-files-visibility-control' );
+      
       subfieldsToggler( 'enable_media_replacement', 'enable-media-replacement' );
       subfieldsToggler( 'enable_svg_upload', 'enable-svg-upload' );
       subfieldsToggler( 'enable_avif_upload', 'enable-avif-upload' );
@@ -819,6 +859,48 @@
       
          subfieldsToggler( 'maintenance_mode', 'maintenance-mode' );
       
+
+      
+
+      // Disable Gutenberg
+      if ( $('input[name="admin_site_enhancements[disable_gutenberg_type]"]:checked').val() == 'all-post-types' ) {
+         $('.asenha-checkbox-item.disable-gutenberg-for').hide();
+         $('.disable-gutenberg-type').removeClass('asenha-th-border-bottom');
+      } else {
+         $('.asenha-checkbox-item.disable-gutenberg-for').show();
+         $('.disable-gutenberg-type').addClass('asenha-th-border-bottom');
+      }
+
+      $('input[name="admin_site_enhancements[disable_gutenberg_type]"]').click(function() {
+         var radioValue = $(this).attr('value');
+         if ( radioValue == 'all-post-types' ) {
+            $('.asenha-checkbox-item.disable-gutenberg-for').hide();
+            $('.disable-gutenberg-type').removeClass('asenha-th-border-bottom');
+         } else {
+            $('.asenha-checkbox-item.disable-gutenberg-for').show();
+            $('.disable-gutenberg-type').addClass('asenha-th-border-bottom');
+         }
+      });
+
+      // Disable Comments
+      if ( $('input[name="admin_site_enhancements[disable_comments_type]"]:checked').val() == 'all-post-types' ) {
+         $('.asenha-checkbox-item.disable-comments-for').hide();
+         $('.disable-comments-type').removeClass('asenha-th-border-bottom');
+      } else {
+         $('.asenha-checkbox-item.disable-comments-for').show();
+         $('.disable-comments-type').addClass('asenha-th-border-bottom');
+      }
+
+      $('input[name="admin_site_enhancements[disable_comments_type]"]').click(function() {
+         var radioValue = $(this).attr('value');
+         if ( radioValue == 'all-post-types' ) {
+            $('.asenha-checkbox-item.disable-comments-for').hide();
+            $('.disable-comments-type').removeClass('asenha-th-border-bottom');
+         } else {
+            $('.asenha-checkbox-item.disable-comments-for').show();
+            $('.disable-comments-type').addClass('asenha-th-border-bottom');
+         }
+      });
 
       
 

@@ -54,6 +54,11 @@ class Settings_Sanitization {
                 }
             }
         }
+        // Media Library Access Control
+        if ( !isset( $options['media_files_visibility_control'] ) ) {
+            $options['media_files_visibility_control'] = false;
+        }
+        $options['media_files_visibility_control'] = ( 'on' == $options['media_files_visibility_control'] ? true : false );
         // Enable Media Replacement
         if ( !isset( $options['enable_media_replacement'] ) ) {
             $options['enable_media_replacement'] = false;
