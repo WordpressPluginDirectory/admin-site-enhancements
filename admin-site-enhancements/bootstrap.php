@@ -63,6 +63,8 @@ class Admin_Site_Enhancements {
         add_action( 'wp_ajax_dismiss_promo_nudge', 'asenha_dismiss_promo_nudge' );
         // Dismiss support nudge (via AJAX)
         add_action( 'wp_ajax_dismiss_support_nudge', 'asenha_dismiss_support_nudge' );
+        // Release login lock (via AJAX)
+        add_action( 'wp_ajax_asenha_release_login_lock', 'asenha_release_login_lock' );
         if ( function_exists( 'bwasenha_fs' ) ) {
             bwasenha_fs()->add_filter( 'plugin_icon', 'fs_custom_optin_icon__premium_only' );
         }

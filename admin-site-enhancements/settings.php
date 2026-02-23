@@ -648,6 +648,21 @@ function asenha_admin_scripts(  $hook_suffix  ) {
         $wp_scripts = wp_scripts();
         $wp_scripts->remove( 'wp-tinymce' );
         wp_register_tinymce_scripts( $wp_scripts, true );
+        $admin_page_script_dependencies = array(
+            'asenha-jsticky',
+            'asenha-jbox',
+            'asenha-js-cookie',
+            'asenha-codemirror-htmlmixed-mode',
+            'asenha-codemirror-xml-mode',
+            'asenha-codemirror-javascript-mode',
+            'asenha-codemirror-css-mode',
+            'asenha-codemirror-markdown-mode',
+            'asenha-datatables',
+            'wp-color-picker',
+            'wp-mediaelement',
+            'wp-tinymce-root',
+            'wp-tinymce'
+        );
         // Main style and script for the admin page
         wp_enqueue_style(
             'asenha-admin-page',
@@ -663,39 +678,22 @@ function asenha_admin_scripts(  $hook_suffix  ) {
         wp_enqueue_script(
             'asenha-admin-page',
             ASENHA_URL . 'assets/js/admin-page.js',
-            array(
-                'asenha-jsticky',
-                'asenha-jbox',
-                'asenha-js-cookie',
-                'asenha-codemirror-htmlmixed-mode',
-                'asenha-codemirror-xml-mode',
-                'asenha-codemirror-javascript-mode',
-                'asenha-codemirror-css-mode',
-                'asenha-codemirror-markdown-mode',
-                'asenha-datatables',
-                'wp-color-picker',
-                'wp-mediaelement',
-                'wp-tinymce-root',
-                'wp-tinymce'
-            ),
+            $admin_page_script_dependencies,
             ASENHA_VERSION,
             false
         );
         $jsvars = array(
-            'nonce'                          => wp_create_nonce( 'asenha-' . get_current_user_id() ),
-            'siteUrl'                        => get_site_url(),
-            'wpcontentUrl'                   => content_url(),
-            'mediaFrameTitle'                => __( 'Select an Image', 'admin-site-enhancements' ),
-            'mediaFrameButtonText'           => __( 'Use Selected Image', 'admin-site-enhancements' ),
-            'resetMenuNonce'                 => wp_create_nonce( 'reset-menu-nonce' ),
-            'sendTestEmailNonce'             => wp_create_nonce( 'send-test-email-nonce_' . get_current_user_id() ),
-            'formBuilderSendTestEmailNonce'  => wp_create_nonce( 'formbuilder_ajax' ),
-            'rescanExtraElementsWorkingText' => __( 'Rescanning…', 'admin-site-enhancements' ),
-            'rescanExtraElementsDoneText'    => __( 'Done. Reloading…', 'admin-site-enhancements' ),
-            'rescanExtraElementsFailedText'  => __( 'Rescan failed. Please try again.', 'admin-site-enhancements' ),
-            'expandText'                     => __( 'Expand', 'admin-site-enhancements' ),
-            'collapseText'                   => __( 'Collapse', 'admin-site-enhancements' ),
-            'dataTable'                      => array(
+            'nonce'                         => wp_create_nonce( 'asenha-' . get_current_user_id() ),
+            'siteUrl'                       => get_site_url(),
+            'wpcontentUrl'                  => content_url(),
+            'mediaFrameTitle'               => __( 'Select an Image', 'admin-site-enhancements' ),
+            'mediaFrameButtonText'          => __( 'Use Selected Image', 'admin-site-enhancements' ),
+            'resetMenuNonce'                => wp_create_nonce( 'reset-menu-nonce' ),
+            'sendTestEmailNonce'            => wp_create_nonce( 'send-test-email-nonce_' . get_current_user_id() ),
+            'formBuilderSendTestEmailNonce' => wp_create_nonce( 'formbuilder_ajax' ),
+            'expandText'                    => __( 'Expand', 'admin-site-enhancements' ),
+            'collapseText'                  => __( 'Collapse', 'admin-site-enhancements' ),
+            'dataTable'                     => array(
                 'emptyTable'   => __( 'No data available in table', 'admin-site-enhancements' ),
                 'info'         => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'admin-site-enhancements' ),
                 'infoEmpty'    => __( 'Showing 0 to 0 of 0 entries', 'admin-site-enhancements' ),
@@ -709,6 +707,10 @@ function asenha_admin_scripts(  $hook_suffix  ) {
                     'next'     => __( 'Next', 'admin-site-enhancements' ),
                     'previous' => __( 'Previous', 'admin-site-enhancements' ),
                 ),
+            ),
+            'limitLoginAttempts'            => array(
+                'releaseLockSuccess' => __( 'Lock released for %s.', 'admin-site-enhancements' ),
+                'releaseLockError'   => __( 'Could not release lock. Please try again.', 'admin-site-enhancements' ),
             ),
         );
         wp_localize_script( 'asenha-admin-page', 'adminPageVars', $jsvars );
@@ -875,11 +877,6 @@ function asenha_admin_scripts(  $hook_suffix  ) {
     if ( array_key_exists( 'hide_admin_notices', $options ) && $options['hide_admin_notices'] ) {
         $hide_for_nonadmins = ( isset( $options['hide_admin_notices_for_nonadmins'] ) ? $options['hide_admin_notices_for_nonadmins'] : false );
         $minimum_capability = 'manage_options';
-        if ( function_exists( 'bwasenha_fs' ) ) {
-            if ( $hide_for_nonadmins && bwasenha_fs()->can_use_premium_code__premium_only() ) {
-                $minimum_capability = 'read';
-            }
-        }
         if ( current_user_can( $minimum_capability ) ) {
             wp_enqueue_style(
                 'asenha-jbox',
@@ -1300,4 +1297,51 @@ function asenha_dismiss_support_nudge() {
             }
         }
     }
+}
+
+/**
+ * Release lock for an IP address in Limit Login Attempts.
+ *
+ * Deletes the IP entry from the failed login attempts table, which immediately
+ * releases the lockout for that IP address.
+ *
+ * @since 8.3.1
+ */
+function asenha_release_login_lock() {
+    if ( !current_user_can( 'manage_options' ) ) {
+        wp_send_json_error( array(
+            'message' => __( 'Insufficient permissions.', 'admin-site-enhancements' ),
+        ) );
+    }
+    if ( !isset( $_REQUEST['nonce'] ) || !isset( $_REQUEST['ip_address'] ) ) {
+        wp_send_json_error( array(
+            'message' => __( 'Missing required data.', 'admin-site-enhancements' ),
+        ) );
+    }
+    $nonce = sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) );
+    if ( !wp_verify_nonce( $nonce, 'asenha-' . get_current_user_id() ) ) {
+        wp_send_json_error( array(
+            'message' => __( 'Invalid security token.', 'admin-site-enhancements' ),
+        ) );
+    }
+    $ip_address = sanitize_text_field( wp_unslash( $_REQUEST['ip_address'] ) );
+    $common_methods = new \ASENHA\Classes\Common_Methods();
+    if ( !$common_methods->is_ip_valid( $ip_address ) ) {
+        wp_send_json_error( array(
+            'message' => __( 'Invalid IP address.', 'admin-site-enhancements' ),
+        ) );
+    }
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'asenha_failed_logins';
+    $deleted = $wpdb->delete( $table_name, array(
+        'ip_address' => $ip_address,
+    ), array('%s') );
+    if ( false === $deleted ) {
+        wp_send_json_error( array(
+            'message' => __( 'Could not release lock.', 'admin-site-enhancements' ),
+        ) );
+    }
+    wp_send_json_success( array(
+        'deleted' => (int) $deleted,
+    ) );
 }

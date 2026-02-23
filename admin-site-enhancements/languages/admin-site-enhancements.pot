@@ -492,6 +492,10 @@ msgstr ""
 msgid "Always show the admin bar for administrators on the frontend. Useful for when an administrator has multiple user roles, and the admin bar is set to be hidden for the other user role(s)."
 msgstr ""
 
+#: classes/class-settings-sections-fields.php:1943
+msgid "Always show the admin bar for administrators on the backend. Useful for when an administrator has multiple user roles, and the admin bar is set to be hidden for the other user role(s)."
+msgstr ""
+
 #: classes/class-settings-sections-fields.php:817
 msgid "The settings above will override the 'Toolbar' settings in the user profile edit screen."
 msgstr ""

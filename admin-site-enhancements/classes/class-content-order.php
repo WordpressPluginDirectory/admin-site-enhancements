@@ -252,7 +252,7 @@ class Content_Order {
         $posts = get_posts( $args );
         if ( !empty( $posts ) ) {
             ?>
-            <ul id="item-list">
+            <ul id="item-list" class="asenha-content-order">
             <?php 
             foreach ( $posts as $post ) {
                 $this->custom_order_single_item_output( $post );

@@ -1,12 +1,73 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **83 _major_ releases** (e.g. 1.1.0 ) and **184 _minor_ releases** (e.g. 4.9.1), for a **total of 267 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **84 _major_ releases** (e.g. 1.1.0 ) and **186 _minor_ releases** (e.g. 4.9.1), for a **total of 270 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 8.3.1 (2025.02.02) - ASE Free and Pro
+### 8.4.1 (2026.02.23) - ASE Free and Pro
+
+* **[SECURITY FIX in Free] Content Management >> Content Duplication**: fixed "Broken Access Control" vulnerability with CVSS severity "Medium (5.4)"" that could cause "Information Disclosure" as responsiblly disclosed by security researcher Jakub Herman via Pathstack. In practical terms, this for example, can allow a logged-in user with contributor role to duplicate (and then view) password-protected content created by an administrator via the admin bar duplication link of the password-protected post in the frontend.
+
+* **[IMPROVED and FIXED in Pro] Utilities >> Form Builder**: 
+  * **Added bulk export / import for forms** via an "Export / Import Forms" button in the forms listing page, which links to the Form Builder section in ASE settings "Export | Import" section. You can choose to export all forms, or manually select which forms to export.
+  * **Added bulk export / import for style templates** via an "Export / Import Style Templates" button in the forms listing page, which links to the Form Builder section in ASE settings "Export | Import" section. You can choose to export all style templates, or manually select which style templates to export.
+  * **Added bulk export for form entries** via an "Export Entries" button in the forms listing page, which links to the Form Builder section in ASE settings "Export | Import" section. You can choose to export entries from a particular form, and customize what entry data will be exported, set the output format (CSV, Excel or JSON) and set a data range to filter by. Props to Uli L., Richard L. and Dave P. for prompting this improvement.
+  * **Security hardening for the upload field** by removing trust in client-sent constraints and enforcing server-side file policy.
+  * **Stop recording IP address** during form submissions.
+  * **Fixed custom CSS classes not being output** for "Display" field types, e.g. HTML field. Props to Yan for reporting the issue.
+
+* **[FIXED in Free and Pro] Content Management >> Content Order**: fixed layout issue in the content order page caused by CSS being overridden by the MetForm Pro plugin's CSS. Props to @once-master for prompting this fix.
+
+* **[FIXED in Pro] Security >> CAPTCHA Protectino >> ALTCHA**: fixed a JS error in Firefox browser related to `@wordpress/interactivity` when an ALTCHA field is included in a form via the Form Builder module. Props to Yan for reporting the issue.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Updated Serbian, Turkish, Spanish (Spain), Portuguese (Brazil), Polish, Persian, Norwegian, Dutch, Danish, Azerbaijani, Albanian
+    * ASE Pro: Updated Norwegian. Completed Serbian (special props to [Igor E.](https://wordpress.org/support/users/igorel/)).
+
+### 8.4.0 (2026.02.16) - ASE Free and Pro
+
+* **[ADDED in Pro] Security >> Two-Factor Authentication**: Add an extra verification step during login for some or all user roles with grace period settings. Supported methods are authenticator app (TOTP), recovery codes and email. Compatible with the Change Login URL, Limit Login Attempts and CAPTCHA Protection modules. Props to Sebastian, Laurent F., Jonathan, Carlos d.A. Silvan L., Luethi, Ramyt I., Ammar, Marcel S., Drijen S., Stefan B., Timothy L. and Cory V. for prompting this addition.
+
+* **[FIXED in Free and Pro] Disable Components >> Disable Gutenberg**: fixed a PHP fatal error that occurs in a certain scenario. Props to [@d79](https://wordpress.org/support/users/d79/) for [reporting](https://wordpress.org/support/topic/bug-disable-gutenberg-%e2%86%92-fatal-error/) this in detail with the error entry log.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: updated Danish, Spanish (Chile), Russian, Portuguese (Brazil), Polish, Persian, German, Dutch (Netherlands), Dutch (Belgium)
+    * ASE Pro: updated Danish, Portuguese (Brazil)
+
+### 8.3.2 (2026.02.09) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Security >> Limit Login Attempts**:
+  * ASE Free: when an IP address is locked out because it's exceeded the allowed failed login attempts amount, there will be a "Release Lock" button shown in a new "Actions" column in the "Failed login attempts" list within the Limit Login Attempts module. This will easily remove the IP address from lockout and allow the user on that IP address to attempt another set of login attempts. Props to [Michael K.](https://wordpress.org/support/users/michoscopic/) for [prompting](https://wordpress.org/support/topic/any-way-to-unblock-user-after-limit-login-attempts/) this improvement.
+  * ASE Pro: in addition to the "Release Lock" button, there will also be a "Whitelist" button that will automatically copy the IP address to the "Never block the following IP addresses" section.
+
+* **[IMPROVED in Free and Pro] Content Management >> SVG Upload**: when an SVG has the width and height attributes at 100%, the width and height is now going to be detected from the viewBox attribute and properly saved in the attachment metadata (width, height, dimensions).
+  
+* **[IMPROVED and FIXED in Pro] Custom Code >> Code Snippets Manager**: 
+  * To date, each revision is saved as a new file in the snippets folder. Going forward snippet creation and update will trigger a process to ensure only one file exists for each snippet and snippet deletion will remove snippet revision files, while ensuring the revisions feature will continue to work. Props to Claudio P. for prompting this improvement.
+  * Fixed an issue in a certain scenario where snippets filtering and search are not working properly. Props to Oliver S. for reporting this.
+
+* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: added `m.d.Y` format, e.g. `12.31.2025` for the date field's output format. This format is commonly used in Germany. Props to Oliver Z. for prompting this improvement.
+
+* **[IMPROVED in Pro] Utilities >> Form Builder**: the date picker now shows the year as a dropdown, making it easier to select a particular year. Props to Richard L. for prompting this improvement. Also improved the UI to remove extra white space on the right hand side of the day numerals.
+
+* **[IMPROVED in Pro] Admin Interface >> Hide Admin Bar**: add a new option to "always show the admin bar for administrators on the backend", which is useful for scenarios when an administrator user is also assigned other roles for which the admin bar is being hidden on the backend. Props to André C. for prompting this improvement via a comprehensive feedback (setup, observed behaviour, expected behaviour) and useful screenshots.
+
+* **[IMPROVED in Pro] Utilities >> Form Builder**:
+  * Improve mechanism to prevent file of the same name being overwritten via the file upload field. Props to Ingo R. for prompting this improvement.
+  * Add a way to choose webhook payload structure so it is more compatible with various requirements. Props to Ingo R. for prompting this imprvement.
+
+* **[FIXED in Pro] Admin Interface >> Admin Logo**: fixed an issue when certain types of SVGs are used for admin menu logo, there are extra-wide spacing at the top and bottom of the logo image. Props to Henry R. for reporting this issue.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free - Update Ukrainian, Spanish (Spain), Portuguese (Brazil), Polish, Norwegian, French, Dutch, Arabic.
+    * ASE Pro - Update Norwegian, Portuguese (Brazil), Polish.
+
+### 8.3.1 (2026.02.02) - ASE Free and Pro
 
 * **[IMPROVED in Free and Pro] Admin Interface >> Hide Admin Notices**: notice/ad from BdThemes Element Pack Pro plugin is now properly moved to the notices panel. Props to Alexander P. for reporting the issue.
 
@@ -33,7 +94,7 @@ Each **_major release_** usually corresponds with the addition of one new module
     * ASE Free - Updated Spanish (Spain), Portuguese (Brazil), Polish, French, Dutch,.
     * ASE Pro - Updated Polish.
 
-### 8.3.0 (2025.01.26) - ASE Free and Pro
+### 8.3.0 (2026.01.26) - ASE Free and Pro
 
 * **[ADDED in Free and Pro] Content Management >> Media Files Visibility Control**: in ASE Free, this module will limit media library in a way that only administrators can see all media files. Non-administrator users will only see media files they uploaded themselves in the media library and in the modal window to add/insert media. ASE Pro adds an option to specify which non-administrator user roles will be limited to only seeing media files they uploaded themselves. 
 
@@ -61,7 +122,7 @@ Each **_major release_** usually corresponds with the addition of one new module
     * ASE Free - Updated Vietnamese, Russian, Portuguese (Brazil), Polish, Norwegian, Dutch (Belgian), Dutch, Bengali (Bangladesh)
     * ASE Pro - Indonesian, Vietnamese, Polish, Norwegian, Portuguese (Brazil).
 
-### 8.2.3 (2025.01.19) - ASE Free and Pro
+### 8.2.3 (2026.01.19) - ASE Free and Pro
 
 * **[IMPROVED in Free and Pro] Admin Interface >> Admin Menu Organizer**: added an option to make the "Collapse Menu" toggler sticky at the bottom of the admin menu. Props to [@outdoorsdev1](https://wordpress.org/support/users/outdoorsdev1/) for [suggesting this](https://wordpress.org/support/topic/request-make-expand-collapse-menu-item-in-wordpress-admin-navigation-sticky/) and sharing the code snippets this improvement is based upon.
 
@@ -90,7 +151,7 @@ Each **_major release_** usually corresponds with the addition of one new module
     * ASE Free - Updated Portuguese (Brazil), Polish, Persian, Danish.
     * ASE Pro - Updated Portuguese (Brazil).
 
-### 8.2.2 (2025.01.12) - ASE Free and Pro
+### 8.2.2 (2026.01.12) - ASE Free and Pro
 
 * **[IMPROVED in Pro] Utilities >> File Manager**:
   * 'Download' a file previous would open the file URL in a new browser tab for several file types. It will now properly initiate a download.
@@ -115,7 +176,7 @@ Each **_major release_** usually corresponds with the addition of one new module
     * ASE Free - Added Azerbaijani, props to [Saeid BGrn](https://profiles.wordpress.org/saeead/), and Dutch (Belgium), props to [Pieterjan D.](https://profiles.wordpress.org/nekojonez/). Updated Spanish (Spain), Portuguese (Brazil), Polish, Persian, Norwegian, Indonesian, German (Formal), Dutch, Arabic.
     * ASE Pro - Updated Indonesian.
 
-### 8.2.1 (2025.01.06) - ASE Free and Pro
+### 8.2.1 (2026.01.06) - ASE Free and Pro
 
 * **[IMPROVED in Pro] Admin Interface >> Admin Logo**: admin logo is now loaded in a way that prevents layout shift in the admin menu panel.
 
@@ -474,7 +535,7 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [34 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: Added Bengali (Bangladesh, completed). Updated German, Polish and Portuguese (Brazil).
+    * ASE Free: Added Bengali (Bangladesh, completed) with special props to [Ruhani R.](https://profiles.wordpress.org/ruhanirabin/) for speedily completing this translation. Updated German, Polish and Portuguese (Brazil).
     * ASE Pro: Added Bengali (Bangladesh, partial). Updated Spanish and Japanese.
 
 ### 7.9.3 (2025.07.28) - ASE Free and Pro

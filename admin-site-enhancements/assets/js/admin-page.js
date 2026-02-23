@@ -160,96 +160,15 @@
          }
       });
 
-      // Form Builder >> Send test email
-      $('#form-builder-send-test-email').click(function(e) {
-         e.preventDefault();
-         var emailTo = $('#form-builder-test-email-to').val();
-         var emailTemplate = $('.form-builder-email-template select').val();
-         if ( emailTo ) {
-            $('#form-builder-ajax-result').show();
-            $('.form-builder-sending-test-email').show();
-            $('.test-email-result').hide();
-            $('#form-builder-test-email-success').hide();
-            $('#form-builder-test-email-failed').hide();
-            $.ajax({
-               type: 'POST',
-               url: ajaxurl,
-               data: {
-                  action: 'formbuilder_test_email_template',
-                  email_template: emailTemplate,
-                  test_email: emailTo,
-                  nonce: adminPageVars.formBuilderSendTestEmailNonce
-               },
-               success:function(data) {
-                  var response = JSON.parse(data);
-                  if ( response.success ) {
-                     setTimeout( function() {
-                        $('.form-builder-sending-test-email').hide();
-                        $('#form-builder-test-email-success').show();
-                     }, 1500);
-                  }
-                  if ( ! response.success ) {
-                     setTimeout( function() {
-                        $('.form-builder-sending-test-email').hide();
-                        $('#form-builder-test-email-failed').show();
-                     }, 1500);                     
-                  }
-               },
-               error:function(errorThrown) {
-                  console.log(errorThrown);
-                  setTimeout( function() {
-                     $('.sending-test-email').hide();
-                     $('.test-email-result').show();
-                     $('#test-email-failed').show();
-                  }, 1500);
-               }
-            });
-         } else {
-            alert( 'Please enter destination email address first.' );
-         }
-      });
-
-      // Clean Up Admin Bar >> Rescan Extra Elements
-      $('#asenha-rescan-extra-admin-bar-elements').on('click', function(e) {
-         e.preventDefault();
-
-         var $button = $(this);
-         var $status = $('.asenha-admin-bar-rescan-status');
-
-         $button.prop('disabled', true);
-         $status.removeClass('is-success is-error').text(adminPageVars.rescanExtraElementsWorkingText).show();
-
-         $.ajax({
-            type: 'POST',
-            url: ajaxurl,
-            data: {
-               action: 'rescan_admin_bar_nodes',
-               nonce: adminPageVars.nonce
-            },
-            success: function(response) {
-               if (response && response.success) {
-                  $status.addClass('is-success').text(adminPageVars.rescanExtraElementsDoneText);
-                  setTimeout(function() {
-                     location.reload();
-                  }, 500);
-               } else {
-                  $status.addClass('is-error').text(adminPageVars.rescanExtraElementsFailedText);
-                  $button.prop('disabled', false);
-               }
-            },
-            error: function() {
-               $status.addClass('is-error').text(adminPageVars.rescanExtraElementsFailedText);
-               $button.prop('disabled', false);
-            }
-         });
-      });
-
       
 
       // Initialize data tables
       var table = $("#login-attempts-log").DataTable({
          pageLength: 10,
          order: [[2, 'desc']],
+         columnDefs: [
+            { targets: 3, orderable: false, searchable: false }
+         ],
          language: {
             emptyTable: adminPageVars.dataTable.emptyTable,
             info: adminPageVars.dataTable.info,
@@ -266,6 +185,118 @@
             },
          }
       });
+
+      // Toast notifications
+      function asenhaShowToast(type, message, duration) {
+         if ( ! message ) {
+            return;
+         }
+
+         // Create toast container if it doesn't exist.
+         var $container = $('#asenha-toast-container');
+         if ( ! $container.length ) {
+            $container = $('<div id="asenha-toast-container"></div>');
+            $('body').append($container);
+         }
+
+         // Create toast element with icon.
+         var iconMap = {
+            success: '✓',
+            error: '✕',
+            warning: '⚠',
+            info: 'ℹ'
+         };
+
+         var toastType = type || 'info';
+         var $toast = $('<div></div>').addClass('asenha-toast asenha-toast-' + toastType);
+         var $icon = $('<span></span>').addClass('asenha-toast-icon').text(iconMap[toastType] || 'ℹ');
+         var $message = $('<span></span>').addClass('asenha-toast-message').text(message);
+         var $close = $('<button></button>')
+            .addClass('asenha-toast-close')
+            .attr('type', 'button')
+            .attr('aria-label', 'Dismiss')
+            .text('×');
+
+         $toast.append($icon, $message, $close);
+         $container.append($toast);
+
+         // Trigger slide-in animation after a brief delay for CSS transition.
+         setTimeout(function() {
+            $toast.addClass('asenha-toast-visible');
+         }, 10);
+
+         // Auto dismiss after specified duration (default 5 seconds).
+         var dismissDuration = duration || 5000;
+         var dismissTimeout = setTimeout(function() {
+            dismissToast($toast);
+         }, dismissDuration);
+
+         // Manual dismiss on close button click.
+         $close.on('click', function() {
+            clearTimeout(dismissTimeout);
+            dismissToast($toast);
+         });
+
+         function dismissToast($el) {
+            $el.removeClass('asenha-toast-visible');
+            setTimeout(function() {
+               $el.remove();
+            }, 300);
+         }
+      }
+
+      // Release lock for an IP address (Limit Login Attempts)
+      $('body').on('click', '.asenha-release-login-lock', function(e) {
+         e.preventDefault();
+
+         var $btn = $(this);
+         var ipAddress = $btn.data('ip-address');
+
+         if ( ! ipAddress ) {
+            return false;
+         }
+
+         $btn.addClass('disabled').attr('aria-disabled', 'true');
+
+         $.ajax({
+            url: ajaxurl,
+            method: 'POST',
+            dataType: 'json',
+            data: {
+               'action': 'asenha_release_login_lock',
+               'nonce': adminPageVars.nonce,
+               'ip_address': ipAddress
+            },
+            success: function(response) {
+               if ( response && response.success ) {
+                  table.row( $btn.closest('tr') ).remove().draw(false);
+
+                  var successTemplate = ( adminPageVars.limitLoginAttempts && adminPageVars.limitLoginAttempts.releaseLockSuccess )
+                     ? adminPageVars.limitLoginAttempts.releaseLockSuccess
+                     : '';
+                  if ( successTemplate ) {
+                     var successMessage = successTemplate.replace('%s', ipAddress);
+                     asenhaShowToast('success', successMessage, 5000);
+                  }
+               } else {
+                  $btn.removeClass('disabled').removeAttr('aria-disabled');
+                  if ( adminPageVars.limitLoginAttempts && adminPageVars.limitLoginAttempts.releaseLockError ) {
+                     asenhaShowToast('error', adminPageVars.limitLoginAttempts.releaseLockError, 5000);
+                  }                  
+               }
+            },
+            error: function() {
+               $btn.removeClass('disabled').removeAttr('aria-disabled');
+               if ( adminPageVars.limitLoginAttempts && adminPageVars.limitLoginAttempts.releaseLockError ) {
+                  asenhaShowToast('error', adminPageVars.limitLoginAttempts.releaseLockError, 5000);
+               }
+            }
+         });
+
+         return false;
+      });
+
+      
 
       // Place fields into the "Content Management" tab
       
@@ -787,6 +818,22 @@
          $('.heartbeat-interval-for-admin-pages .asenha-subfield-select-inner').show();
       }
 
+      // Two-Factor Authentication (2FA) => Show "Email code validity" only when Email codes is enabled.
+      function toggleTwoFactorEmailTokenTtlVisibility() {
+         var emailCodesEnabled = $( '#two_factor_available_providers_email' ).is( ':checked' );
+
+         if ( emailCodesEnabled ) {
+            $( '.two-factor-email-token-ttl' ).show();
+         } else {
+            $( '.two-factor-email-token-ttl' ).hide();
+         }
+      }
+
+      toggleTwoFactorEmailTokenTtlVisibility();
+
+      $( document ).on( 'change', '#two_factor_available_providers_email', toggleTwoFactorEmailTokenTtlVisibility );
+      $( document ).on( 'change', 'input[name="admin_site_enhancements[two_factor_authentication]"]', toggleTwoFactorEmailTokenTtlVisibility );
+
       $('input[name="admin_site_enhancements[heartbeat_control_for_admin_pages]"]').click(function() {
          var radioValue = $(this).attr('value');
          if ( radioValue == 'modify' ) {
@@ -1194,7 +1241,8 @@
                // Iterate through selected elements
                selection.each(function(attachment) {
                   // console.log(attachment);
-                  var url = attachment.attributes.url;
+                  var rawUrl = attachment.attributes.url;
+                  var url = rawUrl;
                   url = url.replace( adminPageVars.wpcontentUrl, '' );
                   theSelector.val(url);
 

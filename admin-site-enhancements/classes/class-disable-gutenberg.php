@@ -114,51 +114,53 @@ class Disable_Gutenberg {
      */
     public function disable_gutenberg_for_post_types_frontend() {
         global $post;
-        if ( !is_null( $post ) ) {
-            if ( property_exists( $post, 'post_type' ) ) {
-                $post_type = $post->post_type;
-                // Assemble single-dimensional array of post types for which Gutenberg should be disabled
-                $options = get_option( ASENHA_SLUG_U );
-                $disable_gutenberg_type = 'only-on';
-                $disable_gutenberg_for = $options['disable_gutenberg_for'];
-                $post_types_for_disable_gutenberg = array();
-                foreach ( $disable_gutenberg_for as $post_type_slug => $is_gutenberg_disabled ) {
-                    if ( $is_gutenberg_disabled ) {
-                        $post_types_for_disable_gutenberg[] = $post_type_slug;
-                    }
-                }
-                // Selectively disable for the selected post types
-                if ( 'only-on' == $disable_gutenberg_type && in_array( $post_type, $post_types_for_disable_gutenberg ) || 'except-on' == $disable_gutenberg_type && !in_array( $post_type, $post_types_for_disable_gutenberg ) || 'all-post-types' == $disable_gutenberg_type ) {
-                    global $wp_styles;
-                    // As needed, exclude some block styles from dequeuing
-                    $keep_enqueued = array();
-                    // e.g. array( 'wp-block-navigation' );
-                    foreach ( $wp_styles->queue as $handle ) {
-                        // For all stye handles that starts with 'wp-block', e.g. 'wp-block-library', 'wp-block-library-theme'
-                        if ( false !== strpos( $handle, 'wp-block' ) ) {
-                            if ( !in_array( $handle, $keep_enqueued ) ) {
-                                wp_dequeue_style( $handle );
-                                wp_deregister_style( $handle );
-                            }
-                        }
-                    }
-                    // Additional dequeuing
-                    wp_dequeue_style( 'core-block-supports' );
-                    wp_deregister_style( 'core-block-supports' );
-                    wp_dequeue_style( 'global-styles' );
-                    // theme.json
-                    wp_deregister_style( 'global-styles' );
-                    // theme.json
-                    wp_dequeue_style( 'classic-theme-styles' );
-                    // classic theme
-                    wp_deregister_style( 'classic-theme-styles' );
-                    // classic theme
-                    wp_dequeue_style( 'wp-block-library' );
-                    wp_deregister_style( 'wp-block-library' );
-                }
-                // wp_deregister_style( 'wp-block-library' );
+        if ( is_numeric( $post ) ) {
+            $post = get_post( (int) $post );
+        }
+        if ( !is_object( $post ) || !property_exists( $post, 'post_type' ) ) {
+            return;
+        }
+        $post_type = $post->post_type;
+        // Assemble single-dimensional array of post types for which Gutenberg should be disabled
+        $options = get_option( ASENHA_SLUG_U );
+        $disable_gutenberg_type = 'only-on';
+        $disable_gutenberg_for = $options['disable_gutenberg_for'];
+        $post_types_for_disable_gutenberg = array();
+        foreach ( $disable_gutenberg_for as $post_type_slug => $is_gutenberg_disabled ) {
+            if ( $is_gutenberg_disabled ) {
+                $post_types_for_disable_gutenberg[] = $post_type_slug;
             }
         }
+        // Selectively disable for the selected post types
+        if ( 'only-on' == $disable_gutenberg_type && in_array( $post_type, $post_types_for_disable_gutenberg ) || 'except-on' == $disable_gutenberg_type && !in_array( $post_type, $post_types_for_disable_gutenberg ) || 'all-post-types' == $disable_gutenberg_type ) {
+            global $wp_styles;
+            // As needed, exclude some block styles from dequeuing
+            $keep_enqueued = array();
+            // e.g. array( 'wp-block-navigation' );
+            foreach ( $wp_styles->queue as $handle ) {
+                // For all stye handles that starts with 'wp-block', e.g. 'wp-block-library', 'wp-block-library-theme'
+                if ( false !== strpos( $handle, 'wp-block' ) ) {
+                    if ( !in_array( $handle, $keep_enqueued ) ) {
+                        wp_dequeue_style( $handle );
+                        wp_deregister_style( $handle );
+                    }
+                }
+            }
+            // Additional dequeuing
+            wp_dequeue_style( 'core-block-supports' );
+            wp_deregister_style( 'core-block-supports' );
+            wp_dequeue_style( 'global-styles' );
+            // theme.json
+            wp_deregister_style( 'global-styles' );
+            // theme.json
+            wp_dequeue_style( 'classic-theme-styles' );
+            // classic theme
+            wp_deregister_style( 'classic-theme-styles' );
+            // classic theme
+            wp_dequeue_style( 'wp-block-library' );
+            wp_deregister_style( 'wp-block-library' );
+        }
+        // wp_deregister_style( 'wp-block-library' );
     }
 
     /**

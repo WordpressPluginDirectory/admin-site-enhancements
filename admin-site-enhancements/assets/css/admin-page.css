@@ -447,6 +447,11 @@ a.asenha-support-nudge-dismiss:hover,
     gap: 40px;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.footer-section.export-import:last-of-type {
+    margin-bottom: 0;
 }
 
 .settings-box {
@@ -1583,6 +1588,10 @@ input[type="search"]#module-search-input.has-text-input {
     display: none;
 }
 
+.wp-core-ui .button.asenha-release-login-lock {
+    margin-bottom: 4px;
+} 
+
 /* Description subfield */
 .asenha-warning {
     display: block;
@@ -1797,6 +1806,145 @@ input[type="search"]#module-search-input.has-text-input {
 #wp-admin-bar-ate-status-bar,
 #wp-admin-bar-WPML_ALS {
     display: none;
+}
+
+/* =====================================================
+   Toast Notifications
+   ===================================================== */
+
+#asenha-toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.asenha-toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: #fff;
+    max-width: 350px;
+    transform: translateX(120%);
+    transition: transform 0.3s ease;
+    pointer-events: auto;
+}
+
+.asenha-toast-visible {
+    transform: translateX(0);
+}
+
+/* Toast type styles */
+.asenha-toast-success {
+    border-left: 4px solid #00a32a;
+}
+
+.asenha-toast-error {
+    border-left: 4px solid #d63638;
+}
+
+.asenha-toast-warning {
+    border-left: 4px solid #dba617;
+}
+
+.asenha-toast-info {
+    border-left: 4px solid #2271b1;
+}
+
+/* Toast icon */
+.asenha-toast-icon {
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.asenha-toast-success .asenha-toast-icon {
+    color: #00a32a;
+}
+
+.asenha-toast-error .asenha-toast-icon {
+    color: #d63638;
+}
+
+.asenha-toast-warning .asenha-toast-icon {
+    color: #dba617;
+}
+
+.asenha-toast-info .asenha-toast-icon {
+    color: #2271b1;
+}
+
+/* Toast message */
+.asenha-toast-message {
+    flex: 1;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #1d2327;
+}
+
+/* Toast close button */
+.asenha-toast-close {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #787c82;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.asenha-toast-close:hover {
+    color: #1d2327;
+}
+
+.asenha-toast-close:focus {
+    outline: 1px dotted #787c82;
+    outline-offset: 1px;
+}
+
+/* Limit Login Attempts: whitelisted indicator */
+.asenha-whitelisted-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: inherit;
+    font-size: 13px;
+    line-height: 1.4;
+    font-weight: 400;
+}
+
+.asenha-whitelisted-indicator .asenha-whitelisted-check,
+.asenha-whitelisted-indicator .asenha-whitelisted-text {
+    color: inherit;
+}
+
+/* Dark mode support for toast */
+@media (prefers-color-scheme: dark) {
+    .asenha-toast {
+        background: #2c3338;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .asenha-toast-message {
+        color: #f0f0f1;
+    }
+
+    .asenha-toast-close {
+        color: #a7aaad;
+    }
+
+    .asenha-toast-close:hover {
+        color: #f0f0f1;
+    }
 }
 
 /* ======================================================= */

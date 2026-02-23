@@ -189,30 +189,13 @@ class SVG_Upload {
 
         if ( get_post_mime_type( $attachment_id ) == 'image/svg+xml' ) {
 
-            // Get SVG dimensions
-            $svg_path = get_attached_file( $attachment_id );
-            $svg = simplexml_load_file( $svg_path );
-            $width = 0;
-            $height = 0;
+            // Get SVG intrinsic dimensions (prefer viewBox when width/height are %).
+            $svg_path       = get_attached_file( $attachment_id );
+            $common_methods = new Common_Methods;
+            $dims           = $common_methods->get_svg_intrinsic_dimensions_from_file( $svg_path );
 
-            if ( $svg ) {
-
-                $attributes = $svg->attributes();
-                if ( isset( $attributes->width, $attributes->height ) ) {
-                    $width = intval( floatval( $attributes->width ) );
-                    $height = intval( floatval( $attributes->height ) );
-                } elseif ( isset( $attributes->viewBox ) ) {
-                    $sizes = explode( ' ', $attributes->viewBox );
-                    if ( isset( $sizes[2], $sizes[3] ) ) {
-                        $width = intval( floatval( $sizes[2] ) );
-                        $height = intval( floatval( $sizes[3] ) );
-                    }
-                }
-
-            }
-
-            $metadata['width'] = $width;
-            $metadata['height'] = $height;
+            $metadata['width']  = isset( $dims['width'] ) ? absint( $dims['width'] ) : 0;
+            $metadata['height'] = isset( $dims['height'] ) ? absint( $dims['height'] ) : 0;
 
             // Get SVG filename
             $svg_url = wp_get_original_image_url( $attachment_id );

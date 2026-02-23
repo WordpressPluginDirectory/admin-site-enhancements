@@ -506,6 +506,172 @@ class Common_Methods {
     }
 
     /**
+     * Get intrinsic width/height dimensions from a local SVG file.
+     *
+     * Some SVGs use percentage width/height attributes (e.g. width="100%" height="100%").
+     * In those cases, a correct aspect ratio should be derived from the viewBox instead.
+     *
+     * @since 9.2.0
+     *
+     * @param string $svg_path Absolute path to a local SVG file.
+     * @return array{width:int,height:int} Intrinsic dimensions if known, otherwise 0/0.
+     */
+    public function get_svg_intrinsic_dimensions_from_file( $svg_path ) {
+        $dims = array(
+            'width'  => 0,
+            'height' => 0,
+        );
+        $svg_path = (string) $svg_path;
+        if ( '' === $svg_path ) {
+            return $dims;
+        }
+        $ext = strtolower( (string) pathinfo( $svg_path, PATHINFO_EXTENSION ) );
+        if ( 'svg' !== $ext ) {
+            return $dims;
+        }
+        if ( !file_exists( $svg_path ) ) {
+            return $dims;
+        }
+        // Safely parse SVG XML without allowing network access.
+        $prev_internal_errors = libxml_use_internal_errors( true );
+        $svg = simplexml_load_file( $svg_path, 'SimpleXMLElement', LIBXML_NONET | LIBXML_NOCDATA );
+        libxml_clear_errors();
+        libxml_use_internal_errors( $prev_internal_errors );
+        if ( false === $svg ) {
+            return $dims;
+        }
+        $attributes = $svg->attributes();
+        $width_raw = ( isset( $attributes->width ) ? trim( (string) $attributes->width ) : '' );
+        $height_raw = ( isset( $attributes->height ) ? trim( (string) $attributes->height ) : '' );
+        $view_box = ( isset( $attributes->viewBox ) ? trim( (string) $attributes->viewBox ) : '' );
+        $length_dims = $this->parse_svg_width_height_pair( $width_raw, $height_raw );
+        if ( $length_dims['width'] > 0 && $length_dims['height'] > 0 ) {
+            return $length_dims;
+        }
+        $vb_dims = $this->parse_svg_viewbox_dimensions( $view_box );
+        if ( $vb_dims['width'] > 0 && $vb_dims['height'] > 0 ) {
+            return $vb_dims;
+        }
+        return $dims;
+    }
+
+    /**
+     * Parse SVG width/height attributes when both values are absolute lengths.
+     *
+     * If either value is percentage-based (contains "%") or otherwise not parseable as an
+     * absolute length, return 0/0 so callers can fall back to viewBox.
+     *
+     * @since 9.2.0
+     *
+     * @param string $width_raw  Raw `width` attribute value.
+     * @param string $height_raw Raw `height` attribute value.
+     * @return array{width:int,height:int}
+     */
+    private function parse_svg_width_height_pair( $width_raw, $height_raw ) {
+        $dims = array(
+            'width'  => 0,
+            'height' => 0,
+        );
+        $width_raw = (string) $width_raw;
+        $height_raw = (string) $height_raw;
+        if ( '' === $width_raw || '' === $height_raw ) {
+            return $dims;
+        }
+        // Percentage sizes are not intrinsic dimensions.
+        if ( false !== strpos( $width_raw, '%' ) || false !== strpos( $height_raw, '%' ) ) {
+            return $dims;
+        }
+        $width_parsed = $this->parse_svg_absolute_length_value( $width_raw );
+        $height_parsed = $this->parse_svg_absolute_length_value( $height_raw );
+        if ( empty( $width_parsed['value'] ) || empty( $height_parsed['value'] ) ) {
+            return $dims;
+        }
+        // Require matching units (treat empty as px) to avoid having to convert.
+        $width_unit = ( isset( $width_parsed['unit'] ) ? (string) $width_parsed['unit'] : '' );
+        $height_unit = ( isset( $height_parsed['unit'] ) ? (string) $height_parsed['unit'] : '' );
+        if ( $width_unit !== $height_unit ) {
+            return $dims;
+        }
+        $w = (float) $width_parsed['value'];
+        $h = (float) $height_parsed['value'];
+        if ( $w <= 0 || $h <= 0 ) {
+            return $dims;
+        }
+        $dims['width'] = (int) round( $w );
+        $dims['height'] = (int) round( $h );
+        return $dims;
+    }
+
+    /**
+     * Parse SVG viewBox dimensions.
+     *
+     * @since 9.2.0
+     *
+     * @param string $view_box Raw `viewBox` attribute value.
+     * @return array{width:int,height:int}
+     */
+    private function parse_svg_viewbox_dimensions( $view_box ) {
+        $dims = array(
+            'width'  => 0,
+            'height' => 0,
+        );
+        $view_box = trim( (string) $view_box );
+        if ( '' === $view_box ) {
+            return $dims;
+        }
+        $parts = preg_split( '/[\\s,]+/', $view_box );
+        if ( !is_array( $parts ) ) {
+            return $dims;
+        }
+        $parts = array_values( array_filter( $parts, 'strlen' ) );
+        if ( count( $parts ) < 4 ) {
+            return $dims;
+        }
+        $vb_w = floatval( $parts[2] );
+        $vb_h = floatval( $parts[3] );
+        if ( $vb_w <= 0 || $vb_h <= 0 ) {
+            return $dims;
+        }
+        $dims['width'] = (int) round( $vb_w );
+        $dims['height'] = (int) round( $vb_h );
+        return $dims;
+    }
+
+    /**
+     * Parse an SVG length attribute as an absolute value and unit.
+     *
+     * Supports unitless values and common absolute units used in SVG. Percentage values
+     * are rejected earlier by the caller.
+     *
+     * @since 9.2.0
+     *
+     * @param string $raw Raw attribute value.
+     * @return array{value:float,unit:string}|array{} Empty array if not parseable.
+     */
+    private function parse_svg_absolute_length_value( $raw ) {
+        $raw = trim( (string) $raw );
+        if ( '' === $raw ) {
+            return array();
+        }
+        if ( !preg_match( '/^\\s*([0-9]*\\.?[0-9]+)\\s*(px|pt|pc|mm|cm|in|q)?\\s*$/i', $raw, $matches ) ) {
+            return array();
+        }
+        $value = floatval( $matches[1] );
+        if ( $value <= 0 ) {
+            return array();
+        }
+        $unit = ( isset( $matches[2] ) ? strtolower( (string) $matches[2] ) : '' );
+        // Normalize empty unit to px (SVG/CSS default).
+        if ( '' === $unit ) {
+            $unit = 'px';
+        }
+        return array(
+            'value' => $value,
+            'unit'  => $unit,
+        );
+    }
+
+    /**
      * Get an image URL from an ASE setting field, which could be an internal relative URL or an external URL
      * 
      * @since 7.2.1

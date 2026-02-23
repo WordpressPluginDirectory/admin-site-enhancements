@@ -4,8 +4,8 @@ Contributors: qriouslad
 Donate link: https://bowo.io/asenha-sp-rdm  
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
-Tested up to: 6.9  
-Stable tag: 8.3.1  
+Tested up to: 6.9.1  
+Stable tag: 8.4.1  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -42,8 +42,8 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### FEATURES & MODULES
 
-**71 modules** in total:  
-**57 free modules** (30 has Pro features) | **14 Pro modules**
+**72 modules** in total:  
+**57 free modules** (30 has Pro features) | **15 Pro modules**
 
 [**See all features >>**](https://www.wpase.com/features/)
 
@@ -122,6 +122,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 * **Limit Login Attempts**. Prevent brute force attacks by limiting the number of failed login attempts allowed per IP address. [ASE Pro](https://www.wpase.com/rdme-to-web) adds IP whitelisting, which is also useful to unblock users.
 **[[ASE Pro](https://www.wpase.com/rdme-to-web)] CAPTCHA Protection**. Support for [ALTCHA](https://altcha.org/) self-hosted version (GDPR-compliant, open source, free), Google reCaptcha v2 and v3, and Cloudflare Turnstile for WordPress default login, password reset, registration and comment forms and WooCommerce login, password reset and registration forms.
+**[[ASE Pro](https://www.wpase.com/rdme-to-web)] Two-Factor Authentication (2FA)**. Add an extra verification step during login for some or all user roles with grace period settings. Supported methods are authenticator app (TOTP), recovery codes and email. Compatible with the Change Login URL, Limit Login Attempts and CAPTCHA Protection modules.
 * **Obfuscate Author Slugs**. Obfuscate publicly exposed author page URLs that shows the user slugs / usernames.
 * **Email Address Obfuscator**. Obfuscate email address to prevent spam bots from harvesting them,. [ASE Pro](https://www.wpase.com/rdme-to-web) enables output of obfuscated mailto: link and also auto-obfuscation of email addresses in post content.
 * **Disable XML-RPC**. Protect your site from brute force, DOS and DDOS attacks via XML-RPC. Also disables trackbacks and pingbacks.
@@ -201,38 +202,32 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **83 _major_ releases** (e.g. 1.1.0 ) and **184 _minor_ releases** (e.g. 4.9.1), for a **total of 267 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **84 _major_ releases** (e.g. 1.1.0 ) and **186 _minor_ releases** (e.g. 4.9.1), for a **total of 270 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 8.3.1 (2025.02.02) - ASE Free and Pro
+### 8.4.1 (2026.02.23) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Admin Interface >> Hide Admin Notices**: notice/ad from BdThemes Element Pack Pro plugin is now properly moved to the notices panel. Props to Alexander P. for reporting the issue.
+* **[SECURITY FIX in Free] Content Management >> Content Duplication**: fixed "Broken Access Control" vulnerability with CVSS severity "Medium (5.4)"" that could cause "Information Disclosure" as responsiblly disclosed by security researcher Jakub Herman via Pathstack. In practical terms, this for example, can allow a logged-in user with contributor role to duplicate (and then view) password-protected content created by an administrator via the admin bar duplication link of the password-protected post in the frontend.
 
-* **[IMPROVED in Pro] Content Management >>  External Permalinks**: add an option to enable the module "only on", "except on" or "on all" post types. Props to Martin S. for prompting this improvement.
+* **[IMPROVED and FIXED in Pro] Utilities >> Form Builder**: 
+  * **Added bulk export / import for forms** via an "Export / Import Forms" button in the forms listing page, which links to the Form Builder section in ASE settings "Export | Import" section. You can choose to export all forms, or manually select which forms to export.
+  * **Added bulk export / import for style templates** via an "Export / Import Style Templates" button in the forms listing page, which links to the Form Builder section in ASE settings "Export | Import" section. You can choose to export all style templates, or manually select which style templates to export.
+  * **Added bulk export for form entries** via an "Export Entries" button in the forms listing page, which links to the Form Builder section in ASE settings "Export | Import" section. You can choose to export entries from a particular form, and customize what entry data will be exported, set the output format (CSV, Excel or JSON) and set a data range to filter by. Props to Uli L., Richard L. and Dave P. for prompting this improvement.
+  * **Security hardening for the upload field** by removing trust in client-sent constraints and enforcing server-side file policy.
+  * **Stop recording IP address** during form submissions.
+  * **Fixed custom CSS classes not being output** for "Display" field types, e.g. HTML field. Props to Yan for reporting the issue.
 
-* **[IMPROVED in Pro] Content Management >> Media Categories**: add an option to disable the media categories features for some or all non-administrator user roles with access to the media library, i.e. user roles with `upload_files` capability.
+* **[FIXED in Free and Pro] Content Management >> Content Order**: fixed layout issue in the content order page caused by CSS being overridden by the MetForm Pro plugin's CSS. Props to @once-master for prompting this fix.
 
-* **[IMPROVED in Pro] Admin Interface >> Admin Logo**: add an option to replace the home icon in the admin bar with the site logo set in "Settings >> General". Props to Martin S. for prompting this improvement.
-
-* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Gropus**: 
-  - add a top sticky bar with title and publish / update button when the custom field group creation / edit screen is scrolled down.
-  - in the custom field groups listing page, for the Placement colum, labels are now added before the raw values, e.g. 'post' becomes "Post (post)".
-  
-* **[IMPROVED in Pro] Optimizations >> Image Upload Control**: when "Only apply resize and conversion to media library and block editor uploads" is checked/enabled, only uploads done directly in the media library or within the context of creating or editing pages and posts will go through conversion (to JPG or WebP). This provides better isolation, so that plugins that incorporates the block editor in creating something, e.g. MailPoet creating newsletter in wp-admin (not frontend form), will no longer have image uploads automatically converting to JPG / WebP, where conversion to WebP may result in blank image in some email clients. Props to Lee B. for prompting this improvement.
-
-* **[FIXED and IMPROVED in Pro] Admin Interface >> Clean Up Admin Bar**: 
-  * fixed an issue where admin bar menu item from the Paymattic plugin is not being properly detected and listed for removal. Props to Maik E. for reporting the issue
-  * add a button to clear and rescan the list of extra admin bar elements that may have piled up over time and no longer reflects the current state of the admin bar.
-
-* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fix category filter not working in the snippets listing page. Props to Mirko S. for reporting the issue.
+* **[FIXED in Pro] Security >> CAPTCHA Protectino >> ALTCHA**: fixed a JS error in Firefox browser related to `@wordpress/interactivity` when an ALTCHA field is included in a form via the Form Builder module. Props to Yan for reporting the issue.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free - Updated Spanish (Spain), Portuguese (Brazil), Polish, French, Dutch,.
-    * ASE Pro - Updated Polish.
+    * ASE Free: Updated Serbian, Turkish, Spanish (Spain), Portuguese (Brazil), Polish, Persian, Norwegian, Dutch, Danish, Azerbaijani, Albanian
+    * ASE Pro: Updated Norwegian. Completed Serbian (special props to [Igor E.](https://wordpress.org/support/users/igorel/)).
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [12 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).

@@ -309,6 +309,9 @@ class Change_Login_URL {
                         // e.g. https://www.example.com/wp-login.php?action=register&customloginslug
                         // Do nothing... allow reset password or registration
                     }
+                } elseif ( isset( $_GET['action'] ) && 'validate_2fa' == $_GET['action'] ) {
+                    // When performing two-factor authentication
+                    // Do nothing. Do not redirect. Allow login.
                 } elseif ( false === strpos( $url_input, $custom_login_slug ) ) {
                     // When landing on the login form /wp-login.php
                     // ...and custom login slug is not in the URL

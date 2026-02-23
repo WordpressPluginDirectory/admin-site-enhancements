@@ -159,6 +159,12 @@ class Settings_Fields_Render {
         $layout = ( !empty( $args['layout'] ) ? $args['layout'] : 'horizontal' );
         $default_value = ( !empty( $args['field_default'] ) ? $args['field_default'] : array() );
         $field_option_value = ( isset( $options[$field_id] ) ? (array) $options[$field_id] : $default_value );
+        // Back-compat: legacy naming for Two-Factor Recovery Codes.
+        if ( 'two_factor_available_providers' === $field_id && is_array( $field_option_value ) ) {
+            $field_option_value = array_map( static function ( $provider_key ) {
+                return ( 'backup_codes' === $provider_key ? 'recovery_codes' : $provider_key );
+            }, $field_option_value );
+        }
         echo '<div class="wrapper-for-checkboxes ' . esc_attr( $layout ) . '">';
         foreach ( $field_options as $option_label => $option_value ) {
             echo '<div>';
@@ -1053,6 +1059,16 @@ class Settings_Fields_Render {
         $table_title = $args['table_title'];
         $table_name = $args['table_name'];
         $field_option_value = ( isset( $options[$args['field_id']] ) ? $options[$args['field_id']] : '' );
+        $login_fails_allowed = ( isset( $options['login_fails_allowed'] ) ? (int) $options['login_fails_allowed'] : 3 );
+        $login_lockout_maxcount = ( isset( $options['login_lockout_maxcount'] ) ? (int) $options['login_lockout_maxcount'] : 3 );
+        $login_fails_allowed = ( $login_fails_allowed > 0 ? $login_fails_allowed : 3 );
+        $login_lockout_maxcount = ( $login_lockout_maxcount > 0 ? $login_lockout_maxcount : 3 );
+        $default_lockout_period = 60 * 15;
+        // 15 minutes in seconds.
+        $extended_lockout_period = 24 * 60 * 60;
+        // 24 hours in seconds.
+        $now = time();
+        $ip_address_whitelist = array();
         ?>
 		<table id="login-attempts-log" class="wp-list-table widefat striped datatable">
 			<thead>
@@ -1066,6 +1082,9 @@ class Settings_Fields_Render {
 					<th class="datatable-th"><?php 
         _e( 'Last Attempt On', 'admin-site-enhancements' );
         ?></th>
+					<th class="datatable-th"><?php 
+        _e( 'Actions', 'admin-site-enhancements' );
+        ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -1075,6 +1094,14 @@ class Settings_Fields_Render {
         $entries = $wpdb->get_results( $sql, ARRAY_A );
         foreach ( $entries as $entry ) {
             $unixtime = $entry['unixtime'];
+            $ip_address = ( isset( $entry['ip_address'] ) ? (string) $entry['ip_address'] : '' );
+            $fail_count = ( isset( $entry['fail_count'] ) ? (int) $entry['fail_count'] : 0 );
+            $lockout_count = ( isset( $entry['lockout_count'] ) ? (int) $entry['lockout_count'] : 0 );
+            $locked_condition = $fail_count > 0 && $fail_count % $login_fails_allowed === 0;
+            $is_extended_lockout = $lockout_count >= $login_lockout_maxcount;
+            $lockout_period = ( $is_extended_lockout ? $extended_lockout_period : $default_lockout_period );
+            $is_locked_out = $locked_condition && $now - (int) $unixtime <= $lockout_period;
+            $is_whitelisted = in_array( $ip_address, $ip_address_whitelist, true );
             if ( function_exists( 'wp_date' ) ) {
                 $date = wp_date( 'F j, Y', $unixtime );
                 $time = wp_date( 'H:i:s', $unixtime );
@@ -1085,14 +1112,14 @@ class Settings_Fields_Render {
             ?>
 			<tr class="datatable-tr">
 				<td class="datatable-td"><?php 
-            echo esc_html( $entry['ip_address'] );
+            echo esc_html( $ip_address );
             ?><br /><?php 
             echo esc_html( $entry['username'] );
             ?></td>
 				<td class="datatable-td"><?php 
-            echo esc_html( $entry['fail_count'] );
+            echo esc_html( $fail_count );
             ?><br /><?php 
-            echo esc_html( $entry['lockout_count'] );
+            echo esc_html( $lockout_count );
             ?></td>
 				<td class="datatable-td"><span class="unixtime"><?php 
             echo esc_html( $entry['unixtime'] );
@@ -1101,6 +1128,21 @@ class Settings_Fields_Render {
             ?><br /><?php 
             echo esc_html( $time );
             ?></td>
+				<td class="datatable-td">
+					<?php 
+            if ( $is_locked_out && !$is_whitelisted ) {
+                ?>
+						<a href="#" class="button button-secondary button-small asenha-release-login-lock" data-ip-address="<?php 
+                echo esc_attr( $ip_address );
+                ?>"><?php 
+                _e( 'Release Lock', 'admin-site-enhancements' );
+                ?></a>
+					<?php 
+            }
+            ?>
+					<?php 
+            ?>
+				</td>
 			</tr>
 			<?php 
         }
