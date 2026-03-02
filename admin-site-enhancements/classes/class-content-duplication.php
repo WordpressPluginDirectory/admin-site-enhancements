@@ -211,7 +211,7 @@ class Content_Duplication {
      */
     public function add_duplication_action_link( $actions, $post ) {
         $duplication_link_locations = $this->get_duplication_link_locations();
-        $allow_duplication = $this->is_user_allowed_to_duplicate_content();
+        $allow_duplication = $this->is_user_allowed_to_duplicate_content( $post );
         $post_type = $post->post_type;
         $post_type_is_duplicable = $this->is_post_type_duplicable( $post_type );
         if ( $allow_duplication && $post_type_is_duplicable ) {

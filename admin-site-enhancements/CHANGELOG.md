@@ -1,10 +1,33 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **84 _major_ releases** (e.g. 1.1.0 ) and **186 _minor_ releases** (e.g. 4.9.1), for a **total of 270 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **84 _major_ releases** (e.g. 1.1.0 ) and **187 _minor_ releases** (e.g. 4.9.1), for a **total of 271 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+
+### 8.4.2 (2026.03.02) - ASE Free and Pro
+
+* **[FIXED in Free] Content Management >> Content Duplication**: fixed missing 'Duplicate' link in post actions row in the post listing screen since v8.4.1 introduced a security fix for this module. Props to st@n, @ilanaw, @michoscopic, @lineadiconfine, @dannyfoo and @webkatdesign for [reporting](https://wordpress.org/support/topic/duplicate-post-page-7-4-1-bug/) the bug.
+
+* **[IMPROVED in Pro] Security >> Two-Factor Authentication (2FA)**: Grace period notice that urges users with the relevant roles to set up 2FA is now excluded from being hidden by the Hide Admin Notices module. This ensures that those users see it when they log in.
+
+* **[FIXED in Pro] Plugin Activation**: fixed a fatal error that occurs in a certain scenario during plugin activation. Props to Alistair W. for reporting the issue and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Content Management >> Media Categories**: fixed a PHP warning that occurs in a certain scenario.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: fixed a fatal error that occurs when trying to edit a Bricks template for a taxonomy archive when a custom field group is attached to that taxonomy and no specific taxonomy term has been selected to preview the archive in the builder. Props to David W. for reporting the issue in detail (with error stack trace) and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Content Management >> Content Order**: Fixed a bug that affects non-hierarchical post types causing duplicating menu_order in pairs of posts, posts occasionally / randomly being nested as child post during drag and dropping, and drag-and-dropping not working reliably when dragging a bit too far to the right hand side in the 'Order' page. Props to Christian S. for reporting the issue in detail, with screen recordings, and facilitating the troubleshooting process further.
+
+* **[FIXED in Pro] Utilities >> File Manager**: fixed a fatal error that occurs in a scenario where mime_content_type() is not available in PHP because magic module is disabled. Props to Bill J. for reporting the issue in detail.
+
+* **[FIXED in Pro] Utilities >> Local User Avatar**: fixed an issue with `get_avatar_url()` override always returning URL for the `thumbnail` size of the avatar and ignoring size parameter. This for example, can break Bricks builder's `{author_avatar:512}` dynamic tag. Props to Martin Ž. for reporting the issue in detail.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Updated Vietnamese, Portuguese (Brazil), Polish, Persian, Norwegian, Arabic.
+    * ASE Pro: Updated Spanish (Spain), Catalan, Hungarian, Vietnamese, Norwegian, Portuguese (Brazil), Danish.
 
 ### 8.4.1 (2026.02.23) - ASE Free and Pro
 
