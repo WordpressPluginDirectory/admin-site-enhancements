@@ -609,6 +609,10 @@ class Settings_Sanitization {
             $options['disable_application_passwords'] = false;
         }
         $options['disable_application_passwords'] = ( 'on' == $options['disable_application_passwords'] ? true : false );
+        if ( !isset( $options['disable_site_admin_email_verification_screen'] ) ) {
+            $options['disable_site_admin_email_verification_screen'] = false;
+        }
+        $options['disable_site_admin_email_verification_screen'] = ( 'on' == $options['disable_site_admin_email_verification_screen'] ? true : false );
         if ( !isset( $options['disable_plugin_theme_editor'] ) ) {
             $options['disable_plugin_theme_editor'] = false;
         }
@@ -651,14 +655,6 @@ class Settings_Sanitization {
             $options['obfuscate_email_address'] = false;
         }
         $options['obfuscate_email_address'] = ( 'on' == $options['obfuscate_email_address'] ? true : false );
-        if ( !isset( $options['obfuscate_email_address_in_content'] ) ) {
-            $options['obfuscate_email_address_in_content'] = false;
-        }
-        $options['obfuscate_email_address_in_content'] = ( 'on' == $options['obfuscate_email_address_in_content'] ? true : false );
-        if ( !isset( $options['obfuscate_email_address_visitor_only'] ) ) {
-            $options['obfuscate_email_address_visitor_only'] = false;
-        }
-        $options['obfuscate_email_address_visitor_only'] = ( 'on' == $options['obfuscate_email_address_visitor_only'] ? true : false );
         // Disable XML-RPC
         if ( !isset( $options['disable_xmlrpc'] ) ) {
             $options['disable_xmlrpc'] = false;

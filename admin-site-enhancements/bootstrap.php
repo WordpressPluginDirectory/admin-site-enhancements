@@ -911,6 +911,9 @@ class Admin_Site_Enhancements {
             if ( array_key_exists( 'disable_application_passwords', $options ) && $options['disable_application_passwords'] ) {
                 add_filter( 'wp_is_application_passwords_available', '__return_false' );
             }
+            if ( array_key_exists( 'disable_site_admin_email_verification_screen', $options ) && $options['disable_site_admin_email_verification_screen'] ) {
+                add_filter( 'admin_email_check_interval', '__return_false' );
+            }
             if ( array_key_exists( 'disable_plugin_theme_editor', $options ) ) {
                 if ( $options['disable_plugin_theme_editor'] ) {
                     add_action( 'admin_init', [$disable_smaller_components, 'disable_plugin_theme_editor'], PHP_INT_MAX );

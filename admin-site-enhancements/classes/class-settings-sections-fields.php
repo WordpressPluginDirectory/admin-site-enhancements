@@ -2457,6 +2457,22 @@ class Settings_Sections_Fields {
                 'class'       => 'asenha-checkbox asenha-hide-th disable-components ' . $field_slug,
             )
         );
+        $field_id = 'disable_site_admin_email_verification_screen';
+        $field_slug = 'disable-site-admin-email-verification-screen';
+        add_settings_field(
+            $field_id,
+            '',
+            [$render_field, 'render_checkbox_plain'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name' => ASENHA_SLUG_U,
+                'field_id'    => $field_id,
+                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_label' => __( 'Disable <strong>site admin email verification screen</strong> that was added since WordPress v5.3.', 'admin-site-enhancements' ),
+                'class'       => 'asenha-checkbox asenha-hide-th disable-components ' . $field_slug,
+            )
+        );
         $field_id = 'disable_plugin_theme_editor';
         $field_slug = 'disable-plugin-theme-editor';
         $is_wpconfig_writeable = $wp_config->wpconfig_file( 'writeability' );

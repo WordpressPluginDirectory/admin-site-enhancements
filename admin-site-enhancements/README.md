@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.9.1  
-Stable tag: 8.4.2  
+Stable tag: 8.5.0  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -43,13 +43,14 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 ### FEATURES & MODULES
 
 **72 modules** in total:  
-**57 free modules** (30 has Pro features) | **15 Pro modules**
+**57 free modules** (30 has Pro features) | **16 Pro modules**
 
 [**See all features >>**](https://www.wpase.com/features/)
 
 ### Content Management
 
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Custom Content Types**. Conveniently register and edit custom post types (CPT), custom taxonomies, custom field groups and options pages that integrates with Bricks, Breakdance, Oxygen and Elementor, and also compatible with Gutenberg and various block themes and plugins. You can also easily create a frontend posting form. This is an alternative for ACF Pro, Meta Box, Toolset, Pods, JetEngine or ACPT.
+* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Post Type Switcher**. Easily switch the post type of one or more posts to a different post type from the classic editor, block editor, quick edit or bulk edit.
 * **Content Duplication**. One-click duplication of pages, posts and CPTs. [ASE Pro](https://www.wpase.com/rdme-to-web) enables duplication only for certain user roles and post types, and adds location option for duplication link.
 * **Content Order**. Enable custom ordering of various post types that are hierarchical or support page attributes, in wp-admin. [ASE Pro](https://www.wpase.com/rdme-to-web) enables ordering of post types that are non-hierarchical and does not support page attributes, including media / attachments. Reordering and changing the parent of child posts is supported. It also enable toggling taxonomy terms and / or excerpt on the ordering page and applying the custom order on the frontend including for adjacent posts navigation.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Terms Order**. Enable custom ordering of terms from various taxonomies in wp-admin and on the frontend.
@@ -116,7 +117,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **Disable Embeds**. Prevent your site content from being embedded on other sites. Prevent embedding of non-whitelisted sites in your site. Disable all, related JavaScript. Removes support for the embed block.
 * **Disable All Updates**. Completely disable core, theme and plugin updates and auto-updates. Will also disable update checks, notices and emails.
 * **Disable Author Archives**. Return 404 (Not Found) error when trying to load author archives. Remove or disable links to author archives. Remove authors archives from the sitemap.
-* **Disable Smaller Components**. Prevent smaller components from running or loading. Those are generator &lt;meta&gt; tag, version number, Windows Live Writer (WLW) manifest &lt;link&gt; tag, Really Simple Discovery (RSD) &lt;link&gt; tag, WordPress shortlink &lt;link&gt; tag in &lt;head&gt;, and also dashicons CSS and JS files, emoji support, jQuery Migrate, block-based widgets settings screen, native lazy load of images, application passwords and plugin / theme editor.
+* **Disable Smaller Components**. Prevent smaller components from running or loading. Those are generator &lt;meta&gt; tag, version number, Windows Live Writer (WLW) manifest &lt;link&gt; tag, Really Simple Discovery (RSD) &lt;link&gt; tag, WordPress shortlink &lt;link&gt; tag in &lt;head&gt;, and also dashicons CSS and JS files, emoji support, jQuery Migrate, block-based widgets settings screen, native lazy load of images, application passwords, site admin email verification screen and plugin / theme editor.
 
 ### Security
 
@@ -208,28 +209,26 @@ Each **_major release_** usually corresponds with the addition of one new module
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 8.4.2 (2026.03.02) - ASE Free and Pro
+### 8.5.0 (2026.03.09) - ASE Free and Pro
 
-* **[FIXED in Free] Content Management >> Content Duplication**: fixed missing 'Duplicate' link in post actions row in the post listing screen since v8.4.1 introduced a security fix for this module. Props to st@n, @ilanaw, @michoscopic, @lineadiconfine, @dannyfoo and @webkatdesign for [reporting](https://wordpress.org/support/topic/duplicate-post-page-7-4-1-bug/) the bug.
+* **[ADDED in Pro] Content Management >> Post Type Switcher**: Easily switch the post type of one or more posts to a different post type from the classic editor, block editor, quick edit or bulk edit. Props to Bas B. Yalcin and Sarah for suggesting this addition.
 
-* **[IMPROVED in Pro] Security >> Two-Factor Authentication (2FA)**: Grace period notice that urges users with the relevant roles to set up 2FA is now excluded from being hidden by the Hide Admin Notices module. This ensures that those users see it when they log in.
+* **[IMPROVED in Free and Pro] Disable Components >> Disable Smaller Components**: Added an option to disable [site admin email verification screen](https://make.wordpress.org/core/2019/10/17/wordpress-5-3-admin-email-verification-screen/) that was added since WordPress v5.3.
 
-* **[FIXED in Pro] Plugin Activation**: fixed a fatal error that occurs in a certain scenario during plugin activation. Props to Alistair W. for reporting the issue and facilitating the troubleshooting process.
+* **[IMPROVED in Pro] Security >> Email Address Obfuscator**: add an option to use "high-compatibility" mode which should help avoid wrongly-ordered email address when the obfuscator shortcode is used in certain widgets / components in page builders, e.g. Elementor Icon Box. Props to Kim N. and Jay T. for prompting this improvement.
 
-* **[FIXED in Pro] Content Management >> Media Categories**: fixed a PHP warning that occurs in a certain scenario.
+* **[IMPROVED in Pro] Content Management >> Terms Order**: 
+  * Enable term drag and dropp between levels. In other words, drag a parent-level term as the child of another parent and vice versa.
+  * Block editor's taxonomy meta boxes now reflects the custom terms order.
 
-* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: fixed a fatal error that occurs when trying to edit a Bricks template for a taxonomy archive when a custom field group is attached to that taxonomy and no specific taxonomy term has been selected to preview the archive in the builder. Props to David W. for reporting the issue in detail (with error stack trace) and facilitating the troubleshooting process.
+* **[FIXED in Pro] Content Management >> Content Order**: terms from non-hierarchical taxonomies are now properly shown when "Show taxonomy terms" is checked. Props to Christian S. for reporting the issue.
 
-* **[FIXED in Pro] Content Management >> Content Order**: Fixed a bug that affects non-hierarchical post types causing duplicating menu_order in pairs of posts, posts occasionally / randomly being nested as child post during drag and dropping, and drag-and-dropping not working reliably when dragging a bit too far to the right hand side in the 'Order' page. Props to Christian S. for reporting the issue in detail, with screen recordings, and facilitating the troubleshooting process further.
-
-* **[FIXED in Pro] Utilities >> File Manager**: fixed a fatal error that occurs in a scenario where mime_content_type() is not available in PHP because magic module is disabled. Props to Bill J. for reporting the issue in detail.
-
-* **[FIXED in Pro] Utilities >> Local User Avatar**: fixed an issue with `get_avatar_url()` override always returning URL for the `thumbnail` size of the avatar and ignoring size parameter. This for example, can break Bricks builder's `{author_avatar:512}` dynamic tag. Props to Martin Ž. for reporting the issue in detail.
+* **[FIXED in Pro] Log In/Out | Register >> Login Page Customizer**: fixed PHP deprecation issue. Props to Bilgi for reporting the issue.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: Updated Vietnamese, Portuguese (Brazil), Polish, Persian, Norwegian, Arabic.
-    * ASE Pro: Updated Spanish (Spain), Catalan, Hungarian, Vietnamese, Norwegian, Portuguese (Brazil), Danish.
+    * ASE Free: Updated Portuguese (Brazil), Polish, Norwegian, German, French, Dutch (Belgium), Danish, Chinese (Taiwan)
+    * ASE Pro: Updated Czech, Spanish (Spain), Norwegian, Portuguese (Brazil)
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [12 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).

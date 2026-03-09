@@ -450,6 +450,7 @@
       $('.disable-block-widgets').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');
       $('.disable-lazy-load').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');
       $('.disable-application-passwords').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');
+      $('.disable-site-admin-email-verification-screen').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');
       $('.disable-plugin-theme-editor').appendTo('.fields-disable-components .disable-smaller-components .asenha-subfields');
 
       // Place fields into "Security" tab

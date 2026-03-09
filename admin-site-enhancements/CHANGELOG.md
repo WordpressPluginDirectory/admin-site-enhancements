@@ -1,10 +1,31 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **84 _major_ releases** (e.g. 1.1.0 ) and **187 _minor_ releases** (e.g. 4.9.1), for a **total of 271 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **85 _major_ releases** (e.g. 1.1.0 ) and **187 _minor_ releases** (e.g. 4.9.1), for a **total of 272 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+
+### 8.5.0 (2026.03.09) - ASE Free and Pro
+
+* **[ADDED in Pro] Content Management >> Post Type Switcher**: Easily switch the post type of one or more posts to a different post type from the classic editor, block editor, quick edit or bulk edit. Props to Bas B. Yalcin and Sarah for suggesting this addition.
+
+* **[IMPROVED in Free and Pro] Disable Components >> Disable Smaller Components**: Added an option to disable [site admin email verification screen](https://make.wordpress.org/core/2019/10/17/wordpress-5-3-admin-email-verification-screen/) that was added since WordPress v5.3.
+
+* **[IMPROVED in Pro] Security >> Email Address Obfuscator**: add an option to use "high-compatibility" mode which should help avoid wrongly-ordered email address when the obfuscator shortcode is used in certain widgets / components in page builders, e.g. Elementor Icon Box. Props to Kim N. and Jay T. for prompting this improvement.
+
+* **[IMPROVED in Pro] Content Management >> Terms Order**: 
+  * Enable term drag and dropp between levels. In other words, drag a parent-level term as the child of another parent and vice versa.
+  * Block editor's taxonomy meta boxes now reflects the custom terms order.
+
+* **[FIXED in Pro] Content Management >> Content Order**: terms from non-hierarchical taxonomies are now properly shown when "Show taxonomy terms" is checked. Props to Christian S. for reporting the issue.
+
+* **[FIXED in Pro] Log In/Out | Register >> Login Page Customizer**: fixed PHP deprecation issue. Props to Bilgi for reporting the issue.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Updated Portuguese (Brazil), Polish, Norwegian, German, French, Dutch (Belgium), Danish, Chinese (Taiwan)
+    * ASE Pro: Updated Czech, Spanish (Spain), Norwegian, Portuguese (Brazil)
 
 ### 8.4.2 (2026.03.02) - ASE Free and Pro
 

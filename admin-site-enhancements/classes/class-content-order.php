@@ -317,16 +317,14 @@ class Content_Order {
         $taxonomies_and_terms = '';
         foreach ( $taxonomies as $taxonomy ) {
             $terms = array();
-            if ( $taxonomy->hierarchical ) {
-                $taxonomy_terms = get_the_terms( $post->ID, $taxonomy->name );
-                if ( is_array( $taxonomy_terms ) && !empty( $taxonomy_terms ) ) {
-                    foreach ( $taxonomy_terms as $term ) {
-                        $terms[] = $term->name;
-                    }
+            $taxonomy_terms = get_the_terms( $post->ID, $taxonomy->name );
+            if ( is_array( $taxonomy_terms ) && !empty( $taxonomy_terms ) ) {
+                foreach ( $taxonomy_terms as $term ) {
+                    $terms[] = $term->name;
                 }
             }
             $terms = implode( ', ', $terms );
-            $taxonomies_and_terms .= ' | ' . $taxonomy->label . ': ' . $terms;
+            $taxonomies_and_terms .= ' | <span class="taxonomy-name">' . $taxonomy->label . '</span>: ' . $terms;
         }
         if ( !empty( $taxonomies_and_terms ) ) {
             $taxonomies_and_terms = '<span class="item-taxonomy-terms">' . $taxonomies_and_terms . '</span>';
