@@ -89,6 +89,78 @@ if ( !isset( $options_extra['admin_menu'] ) ) {
     update_option( ASENHA_SLUG_U, $options, true );
 }
 /**
+ * Get the SMTP password storage status with backward-compatible fallbacks.
+ *
+ * This avoids fatal errors during mixed-version deployments where newer
+ * settings code may temporarily run against an older Email_Delivery class
+ * definition that does not yet provide the newer helper method/constants.
+ *
+ * @since 8.5.1
+ *
+ * @param string|null $stored_password Stored option value.
+ * @return string
+ */
+function asenha_get_smtp_password_status_compat(  $stored_password = null  ) {
+    if ( null === $stored_password ) {
+        $options = asenha_get_option_array( ASENHA_SLUG_U, true );
+        $stored_password = ( isset( $options['smtp_password'] ) ? $options['smtp_password'] : '' );
+    }
+    $email_delivery = new \ASENHA\Classes\Email_Delivery();
+    if ( method_exists( $email_delivery, 'get_smtp_password_status' ) ) {
+        return $email_delivery->get_smtp_password_status( $stored_password );
+    }
+    if ( empty( $stored_password ) ) {
+        return 'empty';
+    }
+    if ( is_string( $stored_password ) && 0 === strpos( $stored_password, 'asenha_encrypted::smtp_password::v1::' ) ) {
+        return 'encrypted_valid';
+    }
+    return 'legacy_plaintext';
+}
+
+/**
+ * Encrypt the SMTP password when the runtime supports the newer helper.
+ *
+ * @since 8.5.1
+ *
+ * @param \ASENHA\Classes\Email_Delivery $email_delivery Email delivery instance.
+ * @param string                         $password       Plaintext SMTP password.
+ * @return string Encrypted payload or empty string when unsupported.
+ */
+function asenha_encrypt_smtp_password_compat(  $email_delivery, $password  ) {
+    if ( !method_exists( $email_delivery, 'encrypt_smtp_password' ) ) {
+        return '';
+    }
+    return $email_delivery->encrypt_smtp_password( $password );
+}
+
+/**
+ * Encrypt legacy SMTP password storage after pluggable functions are available.
+ *
+ * @since 8.5.1
+ */
+function asenha_migrate_legacy_smtp_password_storage() {
+    $options = asenha_get_option_array( ASENHA_SLUG_U, true );
+    if ( empty( $options['smtp_password'] ) ) {
+        return;
+    }
+    $email_delivery = new \ASENHA\Classes\Email_Delivery();
+    if ( 'legacy_plaintext' !== asenha_get_smtp_password_status_compat( $options['smtp_password'] ) ) {
+        return;
+    }
+    $encrypted_smtp_password = asenha_encrypt_smtp_password_compat( $email_delivery, $options['smtp_password'] );
+    if ( !empty( $encrypted_smtp_password ) ) {
+        $options['smtp_password'] = $encrypted_smtp_password;
+        update_option( ASENHA_SLUG_U, $options, true );
+    }
+}
+
+if ( did_action( 'plugins_loaded' ) ) {
+    asenha_migrate_legacy_smtp_password_storage();
+} else {
+    add_action( 'plugins_loaded', 'asenha_migrate_legacy_smtp_password_storage' );
+}
+/**
  * Register admin menu
  *
  * @since 1.0.0
@@ -885,10 +957,10 @@ function asenha_admin_scripts(  $hook_suffix  ) {
             ASENHA_VERSION,
             false
         );
-        wp_localize_script( 'asenha-admin-menu-organizer', 'amoPageVars', array(
-            'saveMenuNonce'  => wp_create_nonce( 'save-menu-nonce' ),
-            'resetMenuNonce' => wp_create_nonce( 'reset-menu-nonce' ),
-        ) );
+        $amo_page_vars = array(
+            'saveMenuNonce' => wp_create_nonce( 'save-menu-nonce' ),
+        );
+        wp_localize_script( 'asenha-custom-admin-menu', 'amoPageVars', $amo_page_vars );
     }
     // Utilities >> Email Delivery Log
     if ( 'tools_page_email-delivery-log' == $hook_suffix ) {

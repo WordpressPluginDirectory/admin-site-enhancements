@@ -381,7 +381,7 @@ class Admin_Site_Enhancements {
                 add_filter( 'menu_order', [$admin_menu_organizer, 'render_custom_menu_order'], PHP_INT_MAX );
             }
             if ( array_key_exists( 'custom_menu_titles', $admin_menu_options ) ) {
-                add_action( 'admin_menu', [$admin_menu_organizer, 'apply_custom_menu_item_titles'], 9999999995 );
+                add_action( 'admin_menu', [$admin_menu_organizer, 'apply_custom_menu_item_titles'], 10000000001 );
                 add_action( 'init', [$admin_menu_organizer, 'apply_custom_title_for_posts_menu'] );
             }
             if ( array_key_exists( 'custom_menu_hidden', $admin_menu_options ) || array_key_exists( 'custom_menu_always_hidden', $admin_menu_options ) ) {
@@ -794,10 +794,12 @@ class Admin_Site_Enhancements {
                 1
             );
         }
-        // Disable Feeds
+        // Disable Embeds
         if ( array_key_exists( 'disable_embeds', $options ) && $options['disable_embeds'] ) {
             $disable_embeds = new ASENHA\Classes\Disable_Embeds();
             add_action( 'init', [$disable_embeds, 'disable_embeds_init'], 9999 );
+            $activation_embeds = new ASENHA\Classes\Activation();
+            add_action( 'init', [$activation_embeds, 'maybe_flush_disable_embeds_rewrite_rules'], 9999 );
         }
         // Disable All Updates
         if ( array_key_exists( 'disable_all_updates', $options ) && $options['disable_all_updates'] ) {
