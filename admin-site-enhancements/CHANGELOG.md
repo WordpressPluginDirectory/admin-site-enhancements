@@ -1,10 +1,42 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **85 _major_ releases** (e.g. 1.1.0 ) and **188 _minor_ releases** (e.g. 4.9.1), for a **total of 273 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **85 _major_ releases** (e.g. 1.1.0 ) and **189 _minor_ releases** (e.g. 4.9.1), for a **total of 274 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+
+### 8.5.2 (2026.03.23) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Disable Components >> Disable Comments**: Kadence galleries (kt_gallery) will no longer be shown as an option to disable comments on, as it can prevent adding new images to a gallery. In ASE Pro, when "Disable on all post types" is selected, kt_gallery will automatically be excluded from processing to prevent the issue. Props to [@totallyminimad](https://wordpress.org/support/users/totallyminimad/) for [reporting the issue](https://wordpress.org/support/topic/possible-conflict-with-new-gallery-image-insert-in-block-editor/) in detail.
+
+* **[IMPROVED and FIXED in Pro] Utilities >> Form Builder**: 
+  * hidden field can now be used to capture the value of URL parameters from the page the form is displayed on. Props to Wilbert S. for prompting this improvement.
+  * fixed PHP warning related to missing `webhook_key`.
+  * add a 'Trash' action button in the entry view page. Props to Jaroslaw K. for prompting this improvement.
+
+* **[IMPROVED in Pro] Optimization >> Revisions Control**: added an option to apply revisions control "only for", "except for" or "for all" post types. Props to Stijn V. for prompting this improvement.
+
+* **[IMPROVED in Pro] Admin Interface >> Admin Menu Organizer**: 
+  * new menu items with target set to "None", i.e. a separator, will now have their sortable highlighted in a different color for easier visual distinctions in the Admin Menu Organizer settings page.
+  * new menu items added via "Add Menu" now renders their icon without FOUC (flash of unstyled content).
+  
+* **[IMPROVED in Pro] Admin Interface >> Hide Admin Notices**: warning notice from the File Manager module is now excluded from hiding.
+
+* **[IMPROVED in Pro] Content Management >> Post Type Switcher**: 
+  * add post type name/slug in the list of post types to switch to.
+  * remove certain WP core and ASE post types that are not relevant as post types to switch to.
+  
+* **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**: added 'Trash' link in the snippet edit screen. Props to Jim R. for prompting this improvement.
+
+* **[IMPROVED in Pro] Security >> Two-Factor Authentication (2FA)**: Added a notice inside the Two-Factor Authentication Options section in user profile edit screen when grace period has passed, or, is set to be non-existent. This notice provides some context as to why users are redirected to that section and is asked to setup 2FA method(s).
+
+* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fixed a PHP warning that occurs in the posts list table.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Updated Spanish (Spain), Portuguese (Brazil), Polish, Norwegian, Korean, Dutch (Netherlands), Dutch (Belgium).
+    * ASE Pro: Chinese (China), Norwegian, Portuguese (Brazil), Polish
 
 ### 8.5.1 (2026.03.16) - ASE Free and Pro
 

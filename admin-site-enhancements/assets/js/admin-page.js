@@ -485,6 +485,7 @@
       
       $('.enable-revisions-control').appendTo('.fields-optimizations > table > tbody');
       $('.revisions-max-number').appendTo('.fields-optimizations .enable-revisions-control .asenha-subfields');
+      
       $('.enable-revisions-control-for').appendTo('.fields-optimizations .enable-revisions-control .asenha-subfields');
       $('.enable-heartbeat-control').appendTo('.fields-optimizations > table > tbody');
       $('.heartbeat-control-for-admin-pages').appendTo('.fields-optimizations .enable-heartbeat-control .asenha-subfields');
@@ -900,6 +901,8 @@
       
       
          subfieldsToggler( 'maintenance_mode', 'maintenance-mode' );
+      
+
       
 
       

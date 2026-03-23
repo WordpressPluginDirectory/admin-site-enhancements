@@ -999,6 +999,8 @@ class Settings_Fields_Render {
                 // Strip tags
                 $menu_item_title = $common_methods->strip_html_tags_and_content( $menu_item_title );
                 $is_custom_menu = 'no';
+                $custom_menu_data = null;
+                $menu_item_handle_classes = 'menu-item-handle';
                 ?>
 			<li id="<?php 
                 echo esc_attr( $menu_item_id );
@@ -1008,7 +1010,9 @@ class Settings_Fields_Render {
                 echo esc_attr( $menu_info[2] );
                 ?>">
 					<div class="menu-item-bar">
-						<div class="menu-item-handle">
+						<div class="<?php 
+                echo esc_attr( $menu_item_handle_classes );
+                ?>">
 							<span class="dashicons dashicons-menu"></span>
 							<div class="item-title">
 								<div class="title-wrapper">

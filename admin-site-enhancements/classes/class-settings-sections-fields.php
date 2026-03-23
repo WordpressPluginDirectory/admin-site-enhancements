@@ -2110,7 +2110,7 @@ class Settings_Sections_Fields {
         if ( is_array( $asenha_public_post_types ) ) {
             foreach ( $asenha_public_post_types as $post_type_slug => $post_type_label ) {
                 // e.g. $post_type_slug is post, $post_type_label is Posts
-                if ( post_type_supports( $post_type_slug, 'comments' ) ) {
+                if ( post_type_supports( $post_type_slug, 'comments' ) && 'kt_gallery' != $post_type_slug ) {
                     add_settings_field(
                         $field_id . '_' . $post_type_slug,
                         '',
@@ -2817,6 +2817,7 @@ class Settings_Sections_Fields {
         );
         $field_id = 'revisions_max_number';
         $field_slug = 'revisions-max-number';
+        $field_suffix = __( 'revisions for:', 'admin-site-enhancements' );
         add_settings_field(
             $field_id,
             '',
@@ -2829,7 +2830,7 @@ class Settings_Sections_Fields {
                 'field_name'        => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_type'        => 'with-prefix-suffix',
                 'field_prefix'      => __( 'Limit to', 'admin-site-enhancements' ),
-                'field_suffix'      => __( 'revisions for:', 'admin-site-enhancements' ),
+                'field_suffix'      => $field_suffix,
                 'field_intro'       => '',
                 'field_placeholder' => '10',
                 'field_min'         => 1,
@@ -3231,9 +3232,9 @@ class Settings_Sections_Fields {
         $field_id = 'smtp_password';
         $field_slug = 'smtp-password';
         $smtp_authentication_enabled = !isset( $options['smtp_authentication'] ) || 'enable' === $options['smtp_authentication'];
-        $smtp_password_status = ( new Email_Delivery() )->get_smtp_password_status( ( isset( $options['smtp_password'] ) ? $options['smtp_password'] : '' ) );
+        $smtp_password_status = \asenha_get_smtp_password_status_compat( ( isset( $options['smtp_password'] ) ? $options['smtp_password'] : '' ) );
         $smtp_password_description = __( 'Leave blank to keep the current password.', 'admin-site-enhancements' );
-        if ( $smtp_authentication_enabled && Email_Delivery::SMTP_PASSWORD_STATUS_ENCRYPTED_INVALID === $smtp_password_status ) {
+        if ( $smtp_authentication_enabled && 'encrypted_invalid' === $smtp_password_status ) {
             $smtp_password_description = __( 'Enter and save a new password to restore SMTP authentication.', 'admin-site-enhancements' );
         }
         add_settings_field(
@@ -3255,7 +3256,7 @@ class Settings_Sections_Fields {
                 'class'             => 'asenha-text with-prefix-suffix with-description wide utilities ' . $field_slug,
             )
         );
-        if ( $smtp_authentication_enabled && Email_Delivery::SMTP_PASSWORD_STATUS_ENCRYPTED_INVALID === $smtp_password_status ) {
+        if ( $smtp_authentication_enabled && 'encrypted_invalid' === $smtp_password_status ) {
             $field_id = 'smtp_password_notice';
             $field_slug = 'smtp-password-notice';
             add_settings_field(

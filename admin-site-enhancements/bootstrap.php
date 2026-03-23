@@ -44,6 +44,8 @@ class Admin_Site_Enhancements {
         // Enqueue admin scripts and styles
         add_action( 'admin_enqueue_scripts', 'asenha_admin_scripts' );
         add_action( 'admin_head', 'asenha_admin_menu_organizer_css' );
+        // Enqueue block editor scripts and styles
+        add_action( 'enqueue_block_editor_assets', 'asenha_block_editor_scripts' );
         // Enqueue public scripts and styles
         add_action( 'wp_enqueue_scripts', 'asenha_public_scripts' );
         // Dequeue scripts that prevents settings page from working

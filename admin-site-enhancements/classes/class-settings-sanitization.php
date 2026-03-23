@@ -527,11 +527,17 @@ class Settings_Sanitization {
         if ( is_array( $asenha_public_post_types ) ) {
             foreach ( $asenha_public_post_types as $post_type_slug => $post_type_label ) {
                 // e.g. $post_type_slug is post, $post_type_label is Posts
+                if ( 'kt_gallery' === $post_type_slug ) {
+                    continue;
+                }
                 if ( !isset( $options['disable_comments_for'][$post_type_slug] ) ) {
                     $options['disable_comments_for'][$post_type_slug] = false;
                 }
                 $options['disable_comments_for'][$post_type_slug] = ( 'on' == $options['disable_comments_for'][$post_type_slug] ? true : false );
             }
+        }
+        if ( isset( $options['disable_comments_for']['kt_gallery'] ) ) {
+            unset($options['disable_comments_for']['kt_gallery']);
         }
         // Disable REST API
         if ( !isset( $options['disable_rest_api'] ) ) {

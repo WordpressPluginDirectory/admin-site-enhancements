@@ -78,10 +78,6 @@
     min-height: 30px;
 }
 
-.parent-menu-item.target-none .menu-item-handle {
-    background: #dddede;
-}
-
 .admin-menu-organizer .title-wrapper {
     display: flex;
     align-items: center;

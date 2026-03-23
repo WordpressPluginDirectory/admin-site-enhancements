@@ -1112,6 +1112,28 @@ function asenha_admin_scripts(  $hook_suffix  ) {
 }
 
 /**
+ * Enqueue block editor scripts and styles.
+ *
+ * Loaded via the `enqueue_block_editor_assets` hook so assets are scoped
+ * strictly to block-editor post-edit screens (post.php / post-new.php).
+ *
+ * @since 7.11.0
+ */
+function asenha_block_editor_scripts() {
+    $current_screen = get_current_screen();
+    // Only load on post edit / new post block editor screens.
+    if ( !$current_screen instanceof \WP_Screen || 'post' !== $current_screen->base || !method_exists( $current_screen, 'is_block_editor' ) || !$current_screen->is_block_editor() ) {
+        return;
+    }
+    wp_enqueue_style(
+        'asenha-wp-block-editor',
+        ASENHA_URL . 'assets/css/wp-block-editor.css',
+        array(),
+        ASENHA_VERSION
+    );
+}
+
+/**
  * Inline CSS for Admin Menu Organizer in all wp-admin pages. Previously loaded externally as part of wp-admin.css file
  * 
  * @since 7.6.11
