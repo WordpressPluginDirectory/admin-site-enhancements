@@ -1046,9 +1046,6 @@ class Admin_Site_Enhancements {
             add_action( 'admin_enqueue_scripts', [$heartbeat_control, 'maybe_disable_heartbeat'], 99 );
             add_action( 'wp_enqueue_scripts', [$heartbeat_control, 'maybe_disable_heartbeat'], 99 );
         }
-        // =================================================================
-        // UTILITIES
-        // =================================================================
         // SMTP Email Delivery
         if ( array_key_exists( 'smtp_email_delivery', $options ) && $options['smtp_email_delivery'] ) {
             $email_delivery = new ASENHA\Classes\Email_Delivery();

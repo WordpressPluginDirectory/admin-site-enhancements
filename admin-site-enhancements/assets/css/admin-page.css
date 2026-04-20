@@ -1377,6 +1377,18 @@ input[type="search"]#module-search-input.has-text-input {
     margin-top: -12px;
 }
 
+.form-table .asenha-subfields tr:not(.datatable-tr).margin-top-m16 {
+    margin-top: -16px;
+}
+
+.form-table .asenha-subfields tr:not(.datatable-tr).margin-top-m20 {
+    margin-top: -20px;
+}
+
+.form-table .asenha-subfields tr:not(.datatable-tr).margin-top-m24 {
+    margin-top: -24px;
+}
+
 .form-table .asenha-subfields tr:not(.datatable-tr).margin-top-8 {
     margin-top: 8px !important;
 }
@@ -1945,6 +1957,60 @@ input[type="search"]#module-search-input.has-text-input {
     .asenha-toast-close:hover {
         color: #f0f0f1;
     }
+}
+
+/* Info icon + hover/focus tooltip (e.g. 2FA checkbox field descriptions) */
+.asenha-info-tooltip-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 4px;
+    vertical-align: middle;
+}
+
+.asenha-info-tooltip-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #2271b1;
+    cursor: help;
+}
+
+.asenha-info-tooltip-toggle .dashicons {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+}
+
+.asenha-info-tooltip-toggle:focus {
+    outline: 2px solid #2271b1;
+    outline-offset: 2px;
+    border-radius: 50%;
+}
+
+.asenha-info-tooltip {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 6px);
+    z-index: 10;
+    display: none;
+    width: 280px;
+    padding: 8px 10px;
+    border-radius: 4px;
+    background: #1d2327;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+    line-height: 1.4;
+}
+
+.asenha-info-tooltip-wrap:hover .asenha-info-tooltip,
+.asenha-info-tooltip-wrap:focus-within .asenha-info-tooltip {
+    display: block;
 }
 
 /* ======================================================= */

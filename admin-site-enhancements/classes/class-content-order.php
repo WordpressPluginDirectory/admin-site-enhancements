@@ -306,29 +306,8 @@ class Content_Order {
             $post_status_label_separator = ' — ';
             $post_status_label = $post_status_object->label;
         }
-        if ( empty( wp_trim_excerpt( $post->post_excerpt, $post ) ) ) {
-            $short_excerpt = '';
-        } else {
-            $excerpt_trimmed = implode( " ", array_slice( explode( " ", wp_trim_excerpt( $post->post_excerpt, $post ) ), 0, 30 ) );
-            $short_excerpt = '<span class="item-excerpt"> | ' . $excerpt_trimmed . '</span>';
-        }
-        $taxonomies = get_object_taxonomies( $post->post_type, 'objects' );
-        // vi( $taxonomies );
+        $short_excerpt = '';
         $taxonomies_and_terms = '';
-        foreach ( $taxonomies as $taxonomy ) {
-            $terms = array();
-            $taxonomy_terms = get_the_terms( $post->ID, $taxonomy->name );
-            if ( is_array( $taxonomy_terms ) && !empty( $taxonomy_terms ) ) {
-                foreach ( $taxonomy_terms as $term ) {
-                    $terms[] = $term->name;
-                }
-            }
-            $terms = implode( ', ', $terms );
-            $taxonomies_and_terms .= ' | <span class="taxonomy-name">' . $taxonomy->label . '</span>: ' . $terms;
-        }
-        if ( !empty( $taxonomies_and_terms ) ) {
-            $taxonomies_and_terms = '<span class="item-taxonomy-terms">' . $taxonomies_and_terms . '</span>';
-        }
         // If WPML plugin is active, let's get the current language
         if ( in_array( 'sitepress-multilingual-cms/sitepress.php', get_option( 'active_plugins', array() ) ) ) {
             $current_language = apply_filters( 'wpml_current_language', null );
@@ -366,7 +345,7 @@ class Content_Order {
                 <div class="row-content">
                     <?php 
             echo '<div class="content-main">
-                                    <span class="dashicons dashicons-menu"></span><a href="' . esc_attr( get_edit_post_link( $post->ID ) ) . '" class="item-title">' . esc_html( $post->post_title ) . '</a><span class="item-status' . esc_attr( $post_status_label_class ) . '">' . esc_html( $post_status_label_separator ) . esc_html( $post_status_label ) . '</span>' . wp_kses_post( $has_child_label ) . wp_kses_post( $taxonomies_and_terms ) . wp_kses_post( $short_excerpt ) . '<div class="fader"></div>
+                                    <span class="dashicons dashicons-menu"></span><a href="' . esc_attr( get_edit_post_link( $post->ID ) ) . '" class="item-title">' . esc_html( $post->post_title ) . '</a><span class="item-status' . esc_attr( $post_status_label_class ) . '">' . esc_html( $post_status_label_separator ) . esc_html( $post_status_label ) . '</span>' . wp_kses_post( $has_child_label ) . '<div class="fader"></div>
                                 </div>';
             if ( !in_array( $post->post_type, array('asenha_code_snippet') ) ) {
                 echo '<div class="content-additional">

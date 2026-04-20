@@ -343,6 +343,7 @@
       $('.hide-ab-howdy').appendTo('.fields-admin-interface .hide-modify-elements .asenha-subfields');
       $('.hide-help-drawer').appendTo('.fields-admin-interface .hide-modify-elements .asenha-subfields');
       
+      
       $('.hide-admin-notices').appendTo('.fields-admin-interface > table > tbody');
       
       $('.disable-dashboard-widgets').appendTo('.fields-admin-interface > table > tbody');
@@ -474,6 +475,7 @@
       $('.obfuscate-email-address').appendTo('.fields-security > table > tbody');
       $('.obfuscate-email-address-description').appendTo('.fields-security .obfuscate-email-address .asenha-subfields');
       
+      $('.obfuscate-email-address-builder-safe-mode').appendTo('.fields-security .obfuscate-email-address .asenha-subfields');
       $('.disable-xmlrpc').appendTo('.fields-security > table > tbody');
 
       // Place fields into "Optimizations" tab
@@ -496,6 +498,7 @@
       $('.heartbeat-interval-for-frontend').appendTo('.fields-optimizations .enable-heartbeat-control .asenha-subfields');
 
       // Place fields into "Utilities" tab
+      
       $('.smtp-email-delivery').appendTo('.fields-utilities > table > tbody');
       $('.smtp-default-from-description').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');
       $('.smtp-default-from-name').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');
@@ -830,19 +833,98 @@
 
       // Two-Factor Authentication (2FA) => Show "Email code validity" only when Email codes is enabled.
       function toggleTwoFactorEmailTokenTtlVisibility() {
+         var twoFactorSettingsMode = $( 'input[name="admin_site_enhancements[two_factor_settings_mode]"]:checked' ).val() || 'same_for_all_roles';
          var emailCodesEnabled = $( '#two_factor_available_providers_email' ).is( ':checked' );
 
-         if ( emailCodesEnabled ) {
+         if ( 'same_for_all_roles' !== twoFactorSettingsMode ) {
+            $( '.two-factor-email-token-ttl' ).hide();
+            $( '.two-factor-email-auto-enable' ).hide();
+         } else if ( emailCodesEnabled ) {
             $( '.two-factor-email-token-ttl' ).show();
+            $( '.two-factor-email-auto-enable' ).show();
          } else {
             $( '.two-factor-email-token-ttl' ).hide();
+            $( '.two-factor-email-auto-enable' ).hide();
          }
       }
 
+      function getTwoFactorSettingsMode() {
+         return $( 'input[name="admin_site_enhancements[two_factor_settings_mode]"]:checked' ).val() || 'same_for_all_roles';
+      }
+
+      function getTwoFactorRoleSlugFromName( fieldName ) {
+         var matches = fieldName.match( /two_factor_role_settings\]\[([^\]]+)\]\[enabled\]/ );
+
+         return matches ? matches[1] : '';
+      }
+
+      function toggleTwoFactorRoleEmailTokenTtlVisibility( roleSlug ) {
+         if ( ! roleSlug ) {
+            return;
+         }
+
+         var emailFieldSelector = 'input[name="admin_site_enhancements[two_factor_role_settings][' + roleSlug + '][available_providers][]"][value="email"]';
+         var emailCodesEnabled = $( emailFieldSelector ).is( ':checked' );
+
+         if ( emailCodesEnabled ) {
+            $( 'tr.two-factor-role-email-token-ttl-' + roleSlug ).show();
+            $( 'tr.two-factor-role-email-auto-enable-' + roleSlug ).show();
+         } else {
+            $( 'tr.two-factor-role-email-token-ttl-' + roleSlug ).hide();
+            $( 'tr.two-factor-role-email-auto-enable-' + roleSlug ).hide();
+         }
+      }
+
+      function toggleTwoFactorRoleSettingsPanels() {
+         var isPerRoleMode = ( 'different_per_role' === getTwoFactorSettingsMode() );
+
+         $( 'tr.two-factor-role-settings-panel' ).hide();
+
+         if ( ! isPerRoleMode ) {
+            return;
+         }
+
+         $( 'input[name^="admin_site_enhancements[two_factor_role_settings]"][name$="[enabled]"]' ).each( function() {
+            var roleSlug = getTwoFactorRoleSlugFromName( $( this ).attr( 'name' ) );
+
+            if ( ! roleSlug || ! $( this ).is( ':checked' ) ) {
+               return;
+            }
+
+            $( 'tr.two-factor-role-settings-panel-' + roleSlug ).show();
+            toggleTwoFactorRoleEmailTokenTtlVisibility( roleSlug );
+         } );
+      }
+
+      function toggleTwoFactorSettingsModeVisibility() {
+         var isPerRoleMode = ( 'different_per_role' === getTwoFactorSettingsMode() );
+
+         if ( isPerRoleMode ) {
+            $( 'tr.two-factor-settings-mode-shared' ).hide();
+            $( 'tr.two-factor-settings-mode-per-role' ).show();
+         } else {
+            $( 'tr.two-factor-settings-mode-shared' ).show();
+            $( 'tr.two-factor-settings-mode-per-role' ).hide();
+         }
+
+         toggleTwoFactorEmailTokenTtlVisibility();
+         toggleTwoFactorRoleSettingsPanels();
+      }
+
       toggleTwoFactorEmailTokenTtlVisibility();
+      toggleTwoFactorSettingsModeVisibility();
 
       $( document ).on( 'change', '#two_factor_available_providers_email', toggleTwoFactorEmailTokenTtlVisibility );
       $( document ).on( 'change', 'input[name="admin_site_enhancements[two_factor_authentication]"]', toggleTwoFactorEmailTokenTtlVisibility );
+      $( document ).on( 'change', 'input[name="admin_site_enhancements[two_factor_settings_mode]"]', toggleTwoFactorSettingsModeVisibility );
+      $( document ).on( 'change', 'input[name^="admin_site_enhancements[two_factor_role_settings]"][name$="[enabled]"]', toggleTwoFactorRoleSettingsPanels );
+      $( document ).on( 'change', 'input[name^="admin_site_enhancements[two_factor_role_settings]"][name*="[available_providers]"]', function() {
+         var matches = $( this ).attr( 'name' ).match( /two_factor_role_settings\]\[([^\]]+)\]\[available_providers\]/ );
+
+         if ( matches && matches[1] ) {
+            toggleTwoFactorRoleEmailTokenTtlVisibility( matches[1] );
+         }
+      } );
 
       $('input[name="admin_site_enhancements[heartbeat_control_for_admin_pages]"]').click(function() {
          var radioValue = $(this).attr('value');
@@ -878,6 +960,8 @@
             $('.heartbeat-interval-for-frontend .asenha-subfield-select-inner').hide();            
          }
       });
+
+      
 
       subfieldsToggler( 'smtp_email_delivery', 'smtp-email-delivery' );
 

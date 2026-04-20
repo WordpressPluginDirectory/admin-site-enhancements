@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.9.4  
-Stable tag: 8.5.2  
+Stable tag: 8.7.0  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -42,8 +42,8 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### FEATURES & MODULES
 
-**72 modules** in total:  
-**57 free modules** (31 has Pro features) | **16 Pro modules**
+**75 modules** in total:  
+**57 free modules** (31 has Pro features) | **18 Pro modules**
 
 [**See all features >>**](https://www.wpase.com/features/)
 
@@ -59,7 +59,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **Media Replacement**. Easily replace any type of media file with a new one while ensuring no existing links will break. [ASE Pro](https://www.wpase.com/rdme-to-web) allows replacing media from the grid view of media library as well.
 * **SVG Upload**. Allow some or all user roles to upload SVG files, which will then be sanitized to keep things secure.
 * **AVIF Upload**. Enable uploading AVIF files in the Media Library.
-* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Public Preview for Drafts**. Enable public preview for draft posts from some or all public post types.
+* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Public Preview for Drafts**. Enable public preview for draft and scheduled posts from some or all public post types.
 * **External Permalinks**. Enable pages, posts and/or custom post types to have permalinks that point to external URLs. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to enable only on / except on certain post types, or on all post types.
 * **Open All External Links in New Tab**. Force all links to external sites to open in new browser tab via target="\_blank" attribute.
 * **Allow Custom Navigation Menu Items to Open in New Tab**. Allow custom navigation menu items to have links that open in new browser tab via target="\_blank" attribute.
@@ -68,12 +68,13 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 ### Admin Interface
 
 * **Clean Up Admin Bar**. Remove various default elements from the admin bar. [ASE Pro](https://www.wpase.com/rdme-to-web) enables removal of admin bar items from other plugins.
+* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Admin Bar Custom Elements**. Add custom menu and submenu items to the admin bar.
 * **Hide Admin Notices**. Clean up admin pages by moving notices into a separate panel easily accessible via the admin bar. [ASE Pro](https://www.wpase.com/rdme-to-web) adds the option to completely hide notices for non-admins.
 * **Disable Dashboard Widgets**. Clean up and speed up the dashboard by completely disabling some or all widgets.
 * **Hide Admin Bar**. Hide admin bar on the frontend for all or some user roles. [ASE Pro](https://www.wpase.com/rdme-to-web) also allows hiding the admin bar on the backend for all or some user roles.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Admin Logo**. White label your admin area by showing your brand logo in the admin bar or the (top of) admin menu.
 * **Wider Admin Menu**. Give the admin menu more room to better accommodate wider items.
-* **Admin Menu Editor / Organizer**. Customize the order of the admin menu and optionally change menu item title or hide some items. [ASE Pro](https://www.wpase.com/rdme-to-web) enables always hiding menu items for some or all user roles, add custom menu and submenu items, and reorder submenu items.
+* **Admin Menu Editor / Organizer**. Customize the order of the admin menu and optionally change menu item title or hide some items. [ASE Pro](https://www.wpase.com/rdme-to-web) enables always hiding menu items for some or all user roles, add custom menu and submenu items, reorder submenu items and always allow eligible users to view and access a menu item.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Admin Columns Manager**. Manage and organize columns in the admin listing for pages, posts and custom post types. Supports columns for ASE, ACF and Meta Box custom fields.
 * **Show Custom Taxonomy Filters**. Show additional filter(s) on list tables for hierarchical, custom taxonomies. [ASE Pro](https://www.wpase.com/rdme-to-web) adds option to show additional filter(s) for non-hierarchical taxonomies.
 * **Enhance List Tables**. Improve the usefulness of listing pages of various post types by adding / removing columns and elements, e.g. featured image, excerpt, last modified, ID, media file size columns.
@@ -122,7 +123,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 * **Limit Login Attempts**. Prevent brute force attacks by limiting the number of failed login attempts allowed per IP address. [ASE Pro](https://www.wpase.com/rdme-to-web) adds IP whitelisting, which is also useful to unblock users.
 **[[ASE Pro](https://www.wpase.com/rdme-to-web)] CAPTCHA Protection**. Support for [ALTCHA](https://altcha.org/) self-hosted version (GDPR-compliant, open source, free), Google reCaptcha v2 and v3, and Cloudflare Turnstile for WordPress and WooCommerce default forms (login, password reset, registration and comment forms).
-**[[ASE Pro](https://www.wpase.com/rdme-to-web)] Two-Factor Authentication (2FA)**. Add an extra verification step during login for some or all user roles with grace period settings. Supported methods are authenticator app (TOTP), recovery codes and email.
+**[[ASE Pro](https://www.wpase.com/rdme-to-web)] Two-Factor Authentication (2FA)**. Add an extra verification step during login for some or all user roles with grace period settings and the option to apply different 2FA settings for each user role. Supported methods are authenticator app (TOTP), recovery codes and email.
 * **Obfuscate Author Slugs**. Obfuscate publicly exposed author page URLs that shows the user slugs / usernames.
 * **Email Address Obfuscator**. Obfuscate email address to prevent spam bots from harvesting them,. [ASE Pro](https://www.wpase.com/rdme-to-web) enables output of obfuscated mailto: link and also auto-obfuscation of email addresses in post content.
 * **Disable XML-RPC**. Protect your site from brute force, DOS and DDOS attacks via XML-RPC. Also disables trackbacks and pingbacks.
@@ -135,6 +136,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### Utilities
 
+* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Site Backup and Migration**. Backup files and database, restore from backups, and migrate or sync to another server.
 * **Email Delivery**. Set custom sender name and email. Optionally use external SMTP service to ensure notification and transactional emails from your site are being delivered to inboxes. [ASE Pro](https://www.wpase.com/rdme-to-web) adds the option to specify a custom reply-to name and email, Bcc address(es), disable authentication and the option to log email delivery.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Form Builder**. Enable the drag-and-drop creation of various types of forms (contact, feedback, booking, application, proposal, admission, support, survey, etc.) on the frontend to collect information from site visitors or users or members. 33 field types are available, including Net Promoter Score (NPS), Likert, Matrix of Uniform and Variable Dropdowns and CAPTCHA fields. Support custom form styles, multi-columns layout, email notification, auto responder, entries management and webhooks for sending submission data to Zapier, n8n, etc.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] File Manager**. A comprehensive file manager for WordPress with folder tree navigation, file and folder operations, and code editing capabilities.
@@ -202,43 +204,35 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **85 _major_ releases** (e.g. 1.1.0 ) and **189 _minor_ releases** (e.g. 4.9.1), for a **total of 274 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **86 _major_ releases** (e.g. 1.1.0 ) and **191 _minor_ releases** (e.g. 4.9.1), for a **total of 277 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 8.5.2 (2026.03.23) - ASE Free and Pro
+### 8.7.0 (2026.04.20) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Disable Components >> Disable Comments**: Kadence galleries (kt_gallery) will no longer be shown as an option to disable comments on, as it can prevent adding new images to a gallery. In ASE Pro, when "Disable on all post types" is selected, kt_gallery will automatically be excluded from processing to prevent the issue. Props to [@totallyminimad](https://wordpress.org/support/users/totallyminimad/) for [reporting the issue](https://wordpress.org/support/topic/possible-conflict-with-new-gallery-image-insert-in-block-editor/) in detail.
+* **[ADDED in Pro] Utilities >> Site Backup and Migration**: Backup site files and database, restore from backups, and migrate or sync to another server. [Find out more >>](https://www.wpase.com/features/site-backup-migration/).
 
-* **[IMPROVED and FIXED in Pro] Utilities >> Form Builder**: 
-  * hidden field can now be used to capture the value of URL parameters from the page the form is displayed on. Props to Wilbert S. for prompting this improvement.
-  * fixed PHP warning related to missing `webhook_key`.
-  * add a 'Trash' action button in the entry view page. Props to Jaroslaw K. for prompting this improvement.
+* **[FIXED in Free and Pro] Log In/Out | Register >> Change Login URL**: fixed a regression that exposes the custom login URL when a certain URL pattern is loaded by a public visitor. Props to @dariobros for reporting the issue.
 
-* **[IMPROVED in Pro] Optimization >> Revisions Control**: added an option to apply revisions control "only for", "except for" or "for all" post types. Props to Stijn V. for prompting this improvement.
+* **[IMPROVED in Pro] Utilities >> File Manager**: add option to put the folder tree on the left side, and another option to add the File Manager as a top-level menu item instead of submenu under Tools. Props to Christian S. for prompting these improvements.
 
-* **[IMPROVED in Pro] Admin Interface >> Admin Menu Organizer**: 
-  * new menu items with target set to "None", i.e. a separator, will now have their sortable highlighted in a different color for easier visual distinctions in the Admin Menu Organizer settings page.
-  * new menu items added via "Add Menu" now renders their icon without FOUC (flash of unstyled content).
+* **[FIXED and IMPROVED in Pro] Custom Code >> Code Snippets Manager**: 
+  * default snippets storage folder to the /wp-content/ root for when there are no snippets created yet.
+  * prevent stripping valid backslashes on saving a snippet and restoring from revision. Props to Martin S. for reporting the issue in detail.
   
-* **[IMPROVED in Pro] Admin Interface >> Hide Admin Notices**: warning notice from the File Manager module is now excluded from hiding.
-
-* **[IMPROVED in Pro] Content Management >> Post Type Switcher**: 
-  * add post type name/slug in the list of post types to switch to.
-  * remove certain WP core and ASE post types that are not relevant as post types to switch to.
+* **[IMPROVED in Pro] Utilities >> Form Builder**:
+  * Enable "Tags" for email notification's "From Name" field, which can be useful if you want to use the "Name" field in a form as the "From Name" of the email notification. Props to Duncan H. for prompting this improvement.
+  * Field labels in "Tags" selector in email notification and auto-responder settings pages now are properly stripped from raw HTML tags.
+  * Hidden fields are no longer included in auto-responder emails.
+  * Add option to customize placeholder for dropdowns in matrix fields (the default is "Choose one"). Props to Uli L. for prompting this improvement.
   
-* **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**: added 'Trash' link in the snippet edit screen. Props to Jim R. for prompting this improvement.
-
-* **[IMPROVED in Pro] Security >> Two-Factor Authentication (2FA)**: Added a notice inside the Two-Factor Authentication Options section in user profile edit screen when grace period has passed, or, is set to be non-existent. This notice provides some context as to why users are redirected to that section and is asked to setup 2FA method(s).
-
-* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fixed a PHP warning that occurs in the posts list table.
+* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fixed an issue where the "Options" toggle is not working for submenu items when the site language is set to 简体中文 (zh_CN) or 繁體中文 (zh_TW). Props to John Y. for reporting this and for facilitating the troubleshooting process.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: Updated Spanish (Spain), Portuguese (Brazil), Polish, Norwegian, Korean, Dutch (Netherlands), Dutch (Belgium).
-    * ASE Pro: Chinese (China), Norwegian, Portuguese (Brazil), Polish
+    * ASE Free: Updated Portuguese (Brazil), Polish, Norwegian.
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [12 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).

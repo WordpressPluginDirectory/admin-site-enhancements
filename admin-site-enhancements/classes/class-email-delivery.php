@@ -237,18 +237,22 @@ class Email_Delivery {
         if ( $smtp_force_from ) {
             $phpmailer->FromName = $smtp_default_from_name;
             $phpmailer->From = $smtp_default_from_email;
-            // WP 6.9 fix. Ref: https://make.wordpress.org/core/2025/11/18/more-reliable-email-in-wordpress-6-9/
+            // WP 6.9: set SMTP envelope (MAIL FROM) using PHPMailer::Sender only.
+            // PHPMailer maintainers treat envelope bounce handling as **Sender**, not a separate ReturnPath property;
+            // receiving MTAs derive Return-Path from the envelope sender.
+            // Ref: https://make.wordpress.org/core/2025/11/18/more-reliable-email-in-wordpress-6-9/
             $phpmailer->Sender = $smtp_default_from_email;
-            $phpmailer->ReturnPath = $smtp_default_from_email;
         } else {
             if ( 'WordPress' === $from_name && !empty( $smtp_default_from_name ) ) {
                 $phpmailer->FromName = $smtp_default_from_name;
             }
             if ( 'wordpress' === $from_email_beginning && !empty( $smtp_default_from_email ) ) {
                 $phpmailer->From = $smtp_default_from_email;
-                // WP 6.9 fix. Ref: https://make.wordpress.org/core/2025/11/18/more-reliable-email-in-wordpress-6-9/
+                // WP 6.9: set SMTP envelope (MAIL FROM) using PHPMailer::Sender only.
+                // PHPMailer maintainers treat envelope bounce handling as **Sender**, not a separate ReturnPath property;
+                // receiving MTAs derive Return-Path from the envelope sender.
+                // Ref: https://make.wordpress.org/core/2025/11/18/more-reliable-email-in-wordpress-6-9/
                 $phpmailer->Sender = $smtp_default_from_email;
-                $phpmailer->ReturnPath = $smtp_default_from_email;
             }
         }
         $smtp_password = $this->get_smtp_password_for_runtime( $smtp_password );

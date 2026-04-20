@@ -22,7 +22,7 @@ class Disable_REST_API {
         if ( empty( $route ) ) {
             // This is when visiting /wp-json root
             $allow_rest_api_access = false;
-        } elseif ( false !== strpos( $route, 'altcha/v1' ) || in_array( 'contact-form-7/wp-contact-form-7.php', get_option( 'active_plugins', array() ) ) && false !== strpos( $route, 'contact-form-7/' ) || in_array( 'the-events-calendar/the-events-calendar.php', get_option( 'active_plugins', array() ) ) && false !== strpos( $route, 'tribe/' ) ) {
+        } elseif ( false !== strpos( $route, 'altcha/v1' ) || false !== strpos( $route, 'two-factor/1.0' ) || in_array( 'contact-form-7/wp-contact-form-7.php', get_option( 'active_plugins', array() ) ) && false !== strpos( $route, 'contact-form-7/' ) || in_array( 'the-events-calendar/the-events-calendar.php', get_option( 'active_plugins', array() ) ) && false !== strpos( $route, 'tribe/' ) ) {
             $allow_rest_api_access = true;
         } else {
         }

@@ -317,7 +317,19 @@ class Hide_Admin_Notices {
                 #wpbody-content > .wrap .dokan-dashboard .updated:not(.inline),
                 #wpbody-content > .wrap .dokan-dashboard .update-nag,
                 /* BdThemes Element Pack Pro */
-                #wpbody-content > .wrap > .biggopti
+                #wpbody-content > .wrap > .biggopti,
+                /* Admin Columns */
+                #wpbody-content > .wrap .ac-admin-page .notice:not(.system-notice,.hidden),
+                #wpbody-content > .wrap .ac-admin-page .notice-error,
+                #wpbody-content > .wrap .ac-admin-page .error:not(.hidden),
+                #wpbody-content > .wrap .ac-admin-page .notice-info,
+                #wpbody-content > .wrap .ac-admin-page .notice-information,
+                #wpbody-content > .wrap .ac-admin-page #message,
+                #wpbody-content > .wrap .ac-admin-page .notice-warning:not(.hidden),
+                #wpbody-content > .wrap .ac-admin-page .notice-success,
+                #wpbody-content > .wrap .ac-admin-page .notice-updated,
+                #wpbody-content > .wrap .ac-admin-page .updated:not(.inline),
+                #wpbody-content > .wrap .ac-admin-page .update-nag 
                 {
                     position: absolute !important;
                     visibility: hidden !important;
