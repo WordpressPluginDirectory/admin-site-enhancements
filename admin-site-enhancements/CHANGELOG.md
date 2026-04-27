@@ -1,10 +1,32 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **86 _major_ releases** (e.g. 1.1.0 ) and **191 _minor_ releases** (e.g. 4.9.1), for a **total of 277 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **86 _major_ releases** (e.g. 1.1.0 ) and **192 _minor_ releases** (e.g. 4.9.1), for a **total of 278 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+
+### 8.7.1 (2026.04.27) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Disable Components >> Disable Smaller Components**: added an option to disable user email notification after password change.
+
+* **[IMPROVED in Pro] Utilities >> Site Backup and Migration**: 
+  * Added "Upload a Backup Archive" and "Transfer a Backup Archive from URL" actions in the emergency restore script.
+  * Added checks in the "Restore" tab and emergency restore's "Upload a Backup Archive" and "Transfer a Backup Archive from URL" actions so archive for another site with different domain will be rejected. Props to David M.C. for prompting this improvement.
+  * Improved the robustness and reliability of sync operation. Props to David M.C. for prompting this improvement.
+  * Scoped media sync: when syncing "Selected post types only", the "Media Library" component now will auto-select a new option "Only files used by selected posts", so there is no need to sync the whole media library for this scenario. Props to David M.C. for prompting this improvement.
+  * Scoped terms sync: when selecting to sync only certain post type posts, it's now possible to also sync only taxonomy terms in use / related to those posts.
+  * Scoped custom field values sync: when selecting to sync only certain post type posts (whose CPT is configured by ASE), it's now possible to also sync only custom field values related to those posts.
+  * Add option to sync all or some custom post type configurations created via ASE's Custom Content Types module in the "Settings >> Custom Post Types" admin page.
+  * Add option to sync all or some custom taxonomy configurations created via ASE's Custom Content Types module in the "Settings >> Custom Taxonomies" admin page.
+  * Add option to sync all or some custom field group configurations created via ASE's Custom Content Types module in the "Settings >> Custom Field Groups" admin page.
+  
+* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: when no specific placement rules have been selected for a custom field group, the associated meta box will no longer show up in unrelated locations, e.g. all post types post edit screen.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Updated Portuguese (Brazil), Polish, Norwegian, Indonesian.
+    * ASE Pro: Updated Arabic, Indonesian, Danish.
 
 ### 8.7.0 (2026.04.20) - ASE Free and Pro
 

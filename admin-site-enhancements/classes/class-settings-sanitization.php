@@ -628,6 +628,10 @@ class Settings_Sanitization {
             $options['disable_plugin_theme_editor'] = false;
         }
         $options['disable_plugin_theme_editor'] = ( 'on' == $options['disable_plugin_theme_editor'] ? true : false );
+        if ( !isset( $options['disable_user_email_notification_after_password_change'] ) ) {
+            $options['disable_user_email_notification_after_password_change'] = false;
+        }
+        $options['disable_user_email_notification_after_password_change'] = ( 'on' == $options['disable_user_email_notification_after_password_change'] ? true : false );
         // =================================================================
         // SECURITY
         // =================================================================

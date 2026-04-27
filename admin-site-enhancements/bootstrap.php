@@ -925,6 +925,9 @@ class Admin_Site_Enhancements {
                     add_action( 'admin_init', [$disable_smaller_components, 'enable_plugin_theme_editor'], PHP_INT_MAX );
                 }
             }
+            if ( array_key_exists( 'disable_user_email_notification_after_password_change', $options ) && $options['disable_user_email_notification_after_password_change'] ) {
+                add_filter( 'send_password_change_email', '__return_false' );
+            }
         }
         // =================================================================
         // SECURITY
