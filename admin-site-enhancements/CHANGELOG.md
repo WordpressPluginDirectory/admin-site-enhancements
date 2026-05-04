@@ -1,10 +1,26 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **86 _major_ releases** (e.g. 1.1.0 ) and **192 _minor_ releases** (e.g. 4.9.1), for a **total of 278 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **86 _major_ releases** (e.g. 1.1.0 ) and **193 _minor_ releases** (e.g. 4.9.1), for a **total of 279 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+
+### 8.7.2 (2026.05.04) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Disable Components >> Disable Smaller Components**: add an option to disable admin email notification after password change by a user.
+
+* **[IMPROVED in Pro] Utilities >> Site Backup and Migration**: 
+  * Backup: Improved the reliability of the high-compatibility mode in both manual backup and policy-run backup. Props to Ian F. for prompting this improvement.
+  * Backup: folders with the name 'cache' but is not /wp-content/cache/ are no longer auto-excluded from the backup archive in backup and migration operations, and also not marked as auto-excluded in sync operation. Props to Denis G.F. for prompting this improvement.
+  * Sync: Added handling for post ID collission in post types scoped sync. If a post ID is already used in the target site, a new ID is created for the synced post, and terms and ASE custom fields data will be associated with the new post ID.
+  
+* **[FIXED in Pro] Utilities >> Form Builder**: fixed selection in the "Submit Button Alignment" field not being properly saved and displayed on page reload when "Center" or "Stretch" is selected. props to Marvin A. for reporting the issue.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Update Portuguese (Brazil), Polish, Norwegian, Dutch, Hungarian.
+    * ASE Pro: Update Romanian, Danish, Norwegian, Hungarian.
 
 ### 8.7.1 (2026.04.27) - ASE Free and Pro
 

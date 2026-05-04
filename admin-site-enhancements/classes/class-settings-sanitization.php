@@ -632,6 +632,10 @@ class Settings_Sanitization {
             $options['disable_user_email_notification_after_password_change'] = false;
         }
         $options['disable_user_email_notification_after_password_change'] = ( 'on' == $options['disable_user_email_notification_after_password_change'] ? true : false );
+        if ( !isset( $options['disable_admin_email_notification_after_password_change'] ) ) {
+            $options['disable_admin_email_notification_after_password_change'] = false;
+        }
+        $options['disable_admin_email_notification_after_password_change'] = ( 'on' == $options['disable_admin_email_notification_after_password_change'] ? true : false );
         // =================================================================
         // SECURITY
         // =================================================================

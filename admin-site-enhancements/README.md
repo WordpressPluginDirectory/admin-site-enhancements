@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.9.4  
-Stable tag: 8.7.1  
+Stable tag: 8.7.2  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -204,33 +204,27 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **86 _major_ releases** (e.g. 1.1.0 ) and **192 _minor_ releases** (e.g. 4.9.1), for a **total of 278 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **86 _major_ releases** (e.g. 1.1.0 ) and **193 _minor_ releases** (e.g. 4.9.1), for a **total of 279 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 8.7.1 (2026.04.27) - ASE Free and Pro
+### 8.7.2 (2026.05.04) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Disable Components >> Disable Smaller Components**: added an option to disable user email notification after password change.
+* **[IMPROVED in Free and Pro] Disable Components >> Disable Smaller Components**: add an option to disable admin email notification after password change by a user.
 
 * **[IMPROVED in Pro] Utilities >> Site Backup and Migration**: 
-  * Added "Upload a Backup Archive" and "Transfer a Backup Archive from URL" actions in the emergency restore script.
-  * Added checks in the "Restore" tab and emergency restore's "Upload a Backup Archive" and "Transfer a Backup Archive from URL" actions so archive for another site with different domain will be rejected. Props to David M.C. for prompting this improvement.
-  * Improved the robustness and reliability of sync operation. Props to David M.C. for prompting this improvement.
-  * Scoped media sync: when syncing "Selected post types only", the "Media Library" component now will auto-select a new option "Only files used by selected posts", so there is no need to sync the whole media library for this scenario. Props to David M.C. for prompting this improvement.
-  * Scoped terms sync: when selecting to sync only certain post type posts, it's now possible to also sync only taxonomy terms in use / related to those posts.
-  * Scoped custom field values sync: when selecting to sync only certain post type posts (whose CPT is configured by ASE), it's now possible to also sync only custom field values related to those posts.
-  * Add option to sync all or some custom post type configurations created via ASE's Custom Content Types module in the "Settings >> Custom Post Types" admin page.
-  * Add option to sync all or some custom taxonomy configurations created via ASE's Custom Content Types module in the "Settings >> Custom Taxonomies" admin page.
-  * Add option to sync all or some custom field group configurations created via ASE's Custom Content Types module in the "Settings >> Custom Field Groups" admin page.
+  * Backup: Improved the reliability of the high-compatibility mode in both manual backup and policy-run backup. Props to Ian F. for prompting this improvement.
+  * Backup: folders with the name 'cache' but is not /wp-content/cache/ are no longer auto-excluded from the backup archive in backup and migration operations, and also not marked as auto-excluded in sync operation. Props to Denis G.F. for prompting this improvement.
+  * Sync: Added handling for post ID collission in post types scoped sync. If a post ID is already used in the target site, a new ID is created for the synced post, and terms and ASE custom fields data will be associated with the new post ID.
   
-* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: when no specific placement rules have been selected for a custom field group, the associated meta box will no longer show up in unrelated locations, e.g. all post types post edit screen.
+* **[FIXED in Pro] Utilities >> Form Builder**: fixed selection in the "Submit Button Alignment" field not being properly saved and displayed on page reload when "Center" or "Stretch" is selected. props to Marvin A. for reporting the issue.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: Updated Portuguese (Brazil), Polish, Norwegian, Indonesian.
-    * ASE Pro: Updated Arabic, Indonesian, Danish.
+    * ASE Free: Update Portuguese (Brazil), Polish, Norwegian, Dutch, Hungarian.
+    * ASE Pro: Update Romanian, Danish, Norwegian, Hungarian.
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [12 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).
