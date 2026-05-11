@@ -455,8 +455,8 @@ class Settings_Sections_Fields {
                 'field_title'            => $field_title,
                 'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
                 'field_description'      => __( 'Force all links to external sites in post content, where <a href="https://developer.wordpress.org/reference/hooks/the_content/" target="_blank">the_content</a> hook is used, to open in new browser tab via target="_blank" attribute. The rel="noopener noreferrer nofollow" attribute will also be added for enhanced security and SEO benefits.', 'admin-site-enhancements' ),
-                'field_options_wrapper'  => false,
-                'field_options_moreless' => false,
+                'field_options_wrapper'  => true,
+                'field_options_moreless' => true,
                 'class'                  => 'asenha-toggle content-management ' . $field_slug,
             )
         );

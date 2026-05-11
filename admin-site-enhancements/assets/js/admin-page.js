@@ -329,6 +329,7 @@
       
       $('.enable-external-permalinks-for').appendTo('.fields-content-management .enable-external-permalinks .asenha-subfields');
       $('.external-links-new-tab').appendTo('.fields-content-management > table > tbody');
+      
       $('.custom-nav-menu-items-new-tab').appendTo('.fields-content-management > table > tbody');
       $('.enable-missed-schedule-posts-auto-publish').appendTo('.fields-content-management > table > tbody');
 
@@ -792,6 +793,7 @@
       subfieldsToggler( 'enable_avif_upload', 'enable-avif-upload' );
       
       subfieldsToggler( 'enable_external_permalinks', 'enable-external-permalinks' );
+      subfieldsToggler( 'external_links_new_tab', 'external-links-new-tab' );
       
       subfieldsToggler( 'enhance_list_tables', 'enhance-list-tables' );
       subfieldsToggler( 'custom_admin_footer_text', 'custom-admin-footer-text' );

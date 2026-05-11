@@ -1,10 +1,29 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **86 _major_ releases** (e.g. 1.1.0 ) and **193 _minor_ releases** (e.g. 4.9.1), for a **total of 279 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **86 _major_ releases** (e.g. 1.1.0 ) and **194 _minor_ releases** (e.g. 4.9.1), for a **total of 280 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+
+### 8.7.3 (2026.05.11) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] PHP 8.5 compatibility**: Fixed a particular type of PHP deprecation when ASE is installed in a site with PHP 8.5. Props to [@skoen](https://wordpress.org/support/users/skoen/) for [reporting](https://wordpress.org/support/topic/case-statements-followed-by-a-semicolon-are-deprecated-2/) this.
+
+* **[IMPROVED in Pro] Security >> Two-Factor Authentication (2FA)**: Added a mechanism to detect invalid stored TOTP key causing fatal error on logging in with the authenticator app 2FA method. Login in such a scenario will no longer result in a fatal error and will now show a custom error message asking user to reset their authenticator app 2FA settings in the profile edit screen. Props to Thorsten H. for reporting the error with the full error stack trace, which was very helpful to diagnose the issue.
+
+* **[IMPROVED in Pro] Content Management >> Open All External Links in New Tab**:
+  * Added an option to exclude links that contain certain domains / subdomains from opening in a new tab. Props to Sunny T. and Julian S. for prompting this improvement.
+  * Added an option to not add `rel="nofollow"` to links that contain certain domains / subdomains. Props to Sunny T. and Stijn V. for prompting this improvement.
+
+* **[FIXED in Pro] Utilities >> Form Builder**: Fixed Cloudflare Turnstile failing to validate on the second submission attempt when a required field was empty on the first submmission and triggerred a validation error. This necessitated a page reload and re-filling all the form field. With the fix, user can fill the empty required field and re-submit immediately. Props to Marcellus J. for reporting the issue and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: Fixed datetime field output formatting in the Bricks builder not following the field settings. Props to David W. for reporting the issue in detail.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Updated Portuguese (Brazil), Polish, Norwegian, Czech.
+    * ASE Pro: Updated Norwegian, Indonesian.
 
 ### 8.7.2 (2026.05.04) - ASE Free and Pro
 

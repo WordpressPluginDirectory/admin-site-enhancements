@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.9.4  
-Stable tag: 8.7.2  
+Stable tag: 8.7.3  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -43,7 +43,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 ### FEATURES & MODULES
 
 **75 modules** in total:  
-**57 free modules** (31 has Pro features) | **18 Pro modules**
+**57 free modules** (32 has Pro features) | **18 Pro modules**
 
 [**See all features >>**](https://www.wpase.com/features/)
 
@@ -61,7 +61,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **AVIF Upload**. Enable uploading AVIF files in the Media Library.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Public Preview for Drafts**. Enable public preview for draft and scheduled posts from some or all public post types.
 * **External Permalinks**. Enable pages, posts and/or custom post types to have permalinks that point to external URLs. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to enable only on / except on certain post types, or on all post types.
-* **Open All External Links in New Tab**. Force all links to external sites to open in new browser tab via target="\_blank" attribute.
+* **Open All External Links in New Tab**. Force all links to external sites to open in new browser tab via target="\_blank" attribute. [ASE Pro](https://www.wpase.com/rdme-to-web) adds the ability to exclude links with certain domains / subdomains from opening in a new tab and from getting the rel="nofollow" attribute.
 * **Allow Custom Navigation Menu Items to Open in New Tab**. Allow custom navigation menu items to have links that open in new browser tab via target="\_blank" attribute.
 * **Auto-Publish Posts with Missed Schedule**. Trigger publishing of scheduled posts marked with "missed schedule", anytime the site is visited.
 
@@ -204,27 +204,30 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **86 _major_ releases** (e.g. 1.1.0 ) and **193 _minor_ releases** (e.g. 4.9.1), for a **total of 279 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **86 _major_ releases** (e.g. 1.1.0 ) and **194 _minor_ releases** (e.g. 4.9.1), for a **total of 280 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 8.7.2 (2026.05.04) - ASE Free and Pro
+### 8.7.3 (2026.05.11) - ASE Free and Pro
 
-* **[IMPROVED in Free and Pro] Disable Components >> Disable Smaller Components**: add an option to disable admin email notification after password change by a user.
+* **[IMPROVED in Free and Pro] PHP 8.5 compatibility**: Fixed a particular type of PHP deprecation when ASE is installed in a site with PHP 8.5. Props to [@skoen](https://wordpress.org/support/users/skoen/) for [reporting](https://wordpress.org/support/topic/case-statements-followed-by-a-semicolon-are-deprecated-2/) this.
 
-* **[IMPROVED in Pro] Utilities >> Site Backup and Migration**: 
-  * Backup: Improved the reliability of the high-compatibility mode in both manual backup and policy-run backup. Props to Ian F. for prompting this improvement.
-  * Backup: folders with the name 'cache' but is not /wp-content/cache/ are no longer auto-excluded from the backup archive in backup and migration operations, and also not marked as auto-excluded in sync operation. Props to Denis G.F. for prompting this improvement.
-  * Sync: Added handling for post ID collission in post types scoped sync. If a post ID is already used in the target site, a new ID is created for the synced post, and terms and ASE custom fields data will be associated with the new post ID.
-  
-* **[FIXED in Pro] Utilities >> Form Builder**: fixed selection in the "Submit Button Alignment" field not being properly saved and displayed on page reload when "Center" or "Stretch" is selected. props to Marvin A. for reporting the issue.
+* **[IMPROVED in Pro] Security >> Two-Factor Authentication (2FA)**: Added a mechanism to detect invalid stored TOTP key causing fatal error on logging in with the authenticator app 2FA method. Login in such a scenario will no longer result in a fatal error and will now show a custom error message asking user to reset their authenticator app 2FA settings in the profile edit screen. Props to Thorsten H. for reporting the error with the full error stack trace, which was very helpful to diagnose the issue.
+
+* **[IMPROVED in Pro] Content Management >> Open All External Links in New Tab**:
+  * Added an option to exclude links that contain certain domains / subdomains from opening in a new tab. Props to Sunny T. and Julian S. for prompting this improvement.
+  * Added an option to not add `rel="nofollow"` to links that contain certain domains / subdomains. Props to Sunny T. and Stijn V. for prompting this improvement.
+
+* **[FIXED in Pro] Utilities >> Form Builder**: Fixed Cloudflare Turnstile failing to validate on the second submission attempt when a required field was empty on the first submmission and triggerred a validation error. This necessitated a page reload and re-filling all the form field. With the fix, user can fill the empty required field and re-submit immediately. Props to Marcellus J. for reporting the issue and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: Fixed datetime field output formatting in the Bricks builder not following the field settings. Props to David W. for reporting the issue in detail.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: Update Portuguese (Brazil), Polish, Norwegian, Dutch, Hungarian.
-    * ASE Pro: Update Romanian, Danish, Norwegian, Hungarian.
+    * ASE Free: Updated Portuguese (Brazil), Polish, Norwegian, Czech.
+    * ASE Pro: Updated Norwegian, Indonesian.
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [12 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).
