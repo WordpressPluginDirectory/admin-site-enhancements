@@ -1153,6 +1153,19 @@ function asenha_admin_scripts(  $hook_suffix  ) {
             );
         }
     }
+    if ( array_key_exists( 'disable_user_account', $options ) && $options['disable_user_account'] && 'users.php' === $pagenow ) {
+        wp_enqueue_script(
+            'asenha-disable-user-account',
+            ASENHA_URL . 'assets/js/disable-user-account.js',
+            array('jquery'),
+            ASENHA_VERSION,
+            true
+        );
+        wp_localize_script( 'asenha-disable-user-account', 'asenhaDisableUserAccount', array(
+            'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+            'nonce'   => wp_create_nonce( 'asenha_user_account_toggle' ),
+        ) );
+    }
     // Utilities >> Multiple User Roles
     if ( array_key_exists( 'multiple_user_roles', $options ) && $options['multiple_user_roles'] ) {
         if ( 'user-edit.php' == $hook_suffix || 'user-new.php' == $hook_suffix ) {

@@ -380,6 +380,11 @@ class Settings_Sanitization {
                 $options['redirect_after_logout_for'][$role_slug] = ( 'on' == $options['redirect_after_logout_for'][$role_slug] ? true : false );
             }
         }
+        // Disable User Account
+        if ( !isset( $options['disable_user_account'] ) ) {
+            $options['disable_user_account'] = false;
+        }
+        $options['disable_user_account'] = ( 'on' == $options['disable_user_account'] ? true : false );
         // Last Login Column
         if ( !isset( $options['enable_last_login_column'] ) ) {
             $options['enable_last_login_column'] = false;

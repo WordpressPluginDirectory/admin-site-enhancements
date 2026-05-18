@@ -609,6 +609,11 @@ class Admin_Site_Enhancements {
                 // add_filter( 'logout_url', [ $redirect_after_logout, 'add_redirect_to_in_logout_url' ], PHP_INT_MAX, 2 );
             }
         }
+        // Disable User Account
+        if ( array_key_exists( 'disable_user_account', $options ) && $options['disable_user_account'] ) {
+            $disable_user_account = new ASENHA\Classes\Disable_User_Account();
+            $disable_user_account->register_hooks();
+        }
         // Enable Custom Admin / Frontend CSS
         if ( array_key_exists( 'enable_custom_admin_css', $options ) && $options['enable_custom_admin_css'] || array_key_exists( 'enable_custom_frontend_css', $options ) && $options['enable_custom_frontend_css'] ) {
             $custom_css = new ASENHA\Classes\Custom_Css();

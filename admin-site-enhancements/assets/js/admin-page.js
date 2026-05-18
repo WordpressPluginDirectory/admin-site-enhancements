@@ -408,6 +408,7 @@
       $('.redirect-after-logout-to-slug').appendTo('.fields-login-logout .redirect-after-logout .asenha-subfields');
       $('.redirect-after-logout-for').appendTo('.fields-login-logout .redirect-after-logout .asenha-subfields');
       
+      $('.disable-user-account').appendTo('.fields-login-logout > table > tbody');
 
       // Place fields into "Custom Code" tab
       
@@ -793,7 +794,6 @@
       subfieldsToggler( 'enable_avif_upload', 'enable-avif-upload' );
       
       subfieldsToggler( 'enable_external_permalinks', 'enable-external-permalinks' );
-      subfieldsToggler( 'external_links_new_tab', 'external-links-new-tab' );
       
       subfieldsToggler( 'enhance_list_tables', 'enhance-list-tables' );
       subfieldsToggler( 'custom_admin_footer_text', 'custom-admin-footer-text' );

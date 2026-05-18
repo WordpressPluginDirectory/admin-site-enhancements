@@ -1614,6 +1614,28 @@ class Settings_Sections_Fields {
                 );
             }
         }
+        // Disable User Account
+        $field_id = 'disable_user_account';
+        $field_slug = 'disable-user-account';
+        $field_title = __( 'Disable User Account', 'admin-site-enhancements' );
+        add_settings_field(
+            $field_id,
+            $field_title,
+            [$render_field, 'render_checkbox_toggle'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'            => ASENHA_SLUG_U,
+                'field_id'               => $field_id,
+                'field_slug'             => $field_slug,
+                'field_title'            => $field_title,
+                'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_description'      => __( 'Allow administrators to disable login for individual users from the Users list and user profile, while preserving their content and display name.', 'admin-site-enhancements' ),
+                'field_options_wrapper'  => true,
+                'field_options_moreless' => true,
+                'class'                  => 'asenha-toggle login-logout ' . $field_slug,
+            )
+        );
         // Enable Custom Admin CSS
         $field_id = 'enable_custom_admin_css';
         $field_slug = 'enable-custom-admin-css';
