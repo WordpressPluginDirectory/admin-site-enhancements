@@ -4,8 +4,8 @@ Contributors: qriouslad
 Donate link: https://bowo.io/asenha-sp-rdm  
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
-Tested up to: 6.9.4  
-Stable tag: 8.8.0  
+Tested up to: 7.0  
+Stable tag: 8.8.1  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -205,29 +205,34 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **86 _major_ releases** (e.g. 1.1.0 ) and **194 _minor_ releases** (e.g. 4.9.1), for a **total of 280 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **87 _major_ releases** (e.g. 1.1.0 ) and **195 _minor_ releases** (e.g. 4.9.1), for a **total of 282 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 8.8.0 (2026.05.18) - ASE Free and Pro
+### 8.8.1 (2026.05.18) - ASE Free and Pro
 
-* **[ADDED in Free and Pro] Log In/Out & Register >> Disable User Account**. Added a new module to allow administrators to disable login for individual users while preserving their content and display name. Props to Jayron C. for suggesting this.
+* **[IMPROVED in Free and Pro] WordPress 7.0 Compatibility and Adjustments**: 
+  * Confirmed compatibility with WordPress 7.0
+  * CSS adjustments across ASE settings page and various module pages / UI components to better align with the new 'Modern' theme introduced with WordPress 7.0. 
 
-* **[IMPROVED in Pro] Utilities >> Site Backup and Migration**:
-  * Added "S3-compatible storage" location. So you can now use Cloudflare R2, Wasabi, etc. Props to Luther H., Måns T., Rajan D., Bas B., Julian W. and Carsten D. for prompting this improvement.
-  * Added WebDAV location. So you can now use pCloud, Nextcloud, Koofr, etc. as a remote backup location. Props to Rodlens H., Kenneth S., Oliver Z. and Zubair for prompting this improvement.
-  * Added handling of BINARY, VARBINARY, and BLOB values when exporting the database during backup and migration operations. Props to Carsten D. for the thorough and detailed reporting of the issue.
-  
-* **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**: Improved attribution of fatal errors to the relevant PHP snippets. This also help prevents safe mode to falsely get activated if a fatal error does not originate from a PHP snippet. Props to Wence W. for reporting the issue and facilitating the troubleshooting process.
+* **[IMPROVED in Free and Pro] Disable Components >> Disable REST API**:
+  * [ASE Free] Improved the fidelity of error type and message returned when trying to access REST API route/endpoint. Props to Kris H. for prompting this improvement.
+  * [ASE Pro] Improved normalization of whitelisted routes, so the inclusion of 'wp-json' in front of the route no longer silently fails. Props to Kris H. for prompting this improvement.
 
-* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fixed a type of fatal error that occurs in a certain scenario. Props to Nick S. for reporting the issue complete with the error stack trace and facilitating the troubleshooting.
+* **[FIXED in Free and Pro] Log In/Out & Register >> Disable User Account**: Fixed an issue where browser's "Leave site?" dialog is triggerred when navigating away from the profile edit screen after marking the account as disabled. Props to Jayron C. for reporting the issue in detail with a screen recording.
+
+* **[IMPROVED in Pro] Admin Interface >> Hide Admin Bar**: add an option for user roles the admin bar is not always hidden for, to auto-hide it on the frontend on first page load and add an arrow icon to toggle the visibility. Props to Richard S. for prompting this improvement.
+
+* **[IMPROVED in Pro] Utilities >> Site Backup and Migration**: improved the UX when adding or editing a backup location, so there is little to no chance that a location is not being tested and connected properly. Props to Kenneth S. for prompting this improvement.
+
+* **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**: fixed an issue where admin heartbeat repeatedly performs unnecessary attempt at syncing capabilities related to the Code Snippets Editor role. Props to Timothy L. for reporting the issue in detail.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: Updated Slovak, Portuguese (Brazil), Polish, Norwegian, Korean, German (Formal), Chinese (Taiwan).
-    * ASE Pro: Updated Slovak, Portuguese (Brazil), Polish, Danish. Special props to [Dominik K.](https://profiles.wordpress.org/dominokozmali/) for taking Slovak to 100% translated, including the new (and huge) Site Backup and Migration module with it's 1,500+ strings to translate!
+    * ASE Free: Updated Turkish, Swedish, Romanian, Portuguese (Brazil), Polish, Norwegian, Dutch (Netherlands), Dutch (Belgium), Catalan, Azerbaijani.
+    * ASE Pro: Updated Norwegian, Danish, Polish.
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [12 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).

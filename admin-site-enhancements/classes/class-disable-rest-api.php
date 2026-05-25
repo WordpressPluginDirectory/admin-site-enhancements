@@ -10,15 +10,23 @@ use WP_Error;
  */
 class Disable_REST_API {
     /**
-     * Disable REST API for non-authenticated users. This is for WP v4.7 or later.
+     * REST API access gate (runs after core authentication handlers).
      *
      * @since 2.9.0
+     *
+     * @param WP_Error|null|true $errors Prior filter value from rest_authentication_errors.
+     * @return WP_Error|null|true
      */
     public function disable_rest_api( $errors ) {
+        // Respect prior filter callbacks — e.g. core incorrect_password or rest_cookie_invalid_nonce.
+        if ( is_wp_error( $errors ) ) {
+            return $errors;
+        }
         $allow_rest_api_access = false;
         // Get the REST API route being requested,e.g. wp/v2/posts | altcha/v1/challenge (without preceding slash /)
         // Ref: https://developer.wordpress.org/reference/hooks/rest_authentication_errors/#comment-6463
         $route = ltrim( $GLOBALS['wp']->query_vars['rest_route'], '/' );
+        $route = rtrim( $route, '/' );
         if ( empty( $route ) ) {
             // This is when visiting /wp-json root
             $allow_rest_api_access = false;
@@ -34,6 +42,8 @@ class Disable_REST_API {
                 'status' => rest_authorization_required_code(),
             ));
         }
+        // Allow path: pass through unchanged so core's `true` is preserved.
+        return $errors;
     }
 
 }

@@ -119,6 +119,10 @@ a.item-title:hover {
 .wp-core-ui .button.item-view-link {
 	font-weight: normal;
 	box-shadow: 0 0 8px 8px #fff6e5;
+	height: 30px;
+	max-height: 30px;
+	min-height: 30px;
+	line-height: 28px;
 }
 .has-child-label {
 }

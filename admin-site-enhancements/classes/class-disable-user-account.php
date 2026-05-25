@@ -337,14 +337,6 @@ class Disable_User_Account {
 
 		$disabled = $this->is_user_disabled( $user_id );
 
-		wp_enqueue_script(
-			'asenha-disable-user-account-profile',
-			ASENHA_URL . 'assets/js/disable-user-account-profile.js',
-			array( 'jquery' ),
-			ASENHA_VERSION,
-			true
-		);
-
 		$row_html  = '<tr class="asenha-disable-user-account-wrap">';
 		$row_html .= '<th scope="row">' . esc_html__( 'Disable User Account', 'admin-site-enhancements' ) . '</th>';
 		$row_html .= '<td>';
@@ -353,13 +345,81 @@ class Disable_User_Account {
 		$row_html .= ' ' . esc_html__( 'Disable login for this account.', 'admin-site-enhancements' );
 		$row_html .= '</label></td></tr>';
 
+		// Inject before user-profile.js snapshots the form (avoids false "Leave site?" warnings).
+		wp_enqueue_script( 'user-profile' );
+
 		wp_localize_script(
-			'asenha-disable-user-account-profile',
+			'user-profile',
 			'asenhaDisableUserAccountProfile',
 			array(
 				'rowHtml' => $row_html,
 			)
 		);
+
+		wp_add_inline_script(
+			'user-profile',
+			$this->get_profile_row_injection_script(),
+			'before'
+		);
+	}
+
+	/**
+	 * Inline JS to place the disable-account row before user-profile.js captures form state.
+	 *
+	 * @since 8.8.0
+	 *
+	 * @return string
+	 */
+	private function get_profile_row_injection_script() {
+		return <<<'JS'
+( function ( $ ) {
+	'use strict';
+
+	$( function () {
+		if (
+			typeof asenhaDisableUserAccountProfile === 'undefined' ||
+			! asenhaDisableUserAccountProfile.rowHtml
+		) {
+			return;
+		}
+
+		var $table = $( 'table.form-table' )
+			.filter( function () {
+				return $( this ).find( '#password' ).length > 0;
+			} )
+			.first();
+
+		if ( ! $table.length ) {
+			return;
+		}
+
+		var $rows = $(
+			$.parseHTML(
+				asenhaDisableUserAccountProfile.rowHtml,
+				document,
+				true
+			)
+		);
+
+		var $sessions = $table.find( 'tr.user-sessions-wrap' ).first();
+		if ( $sessions.length ) {
+			$sessions.before( $rows );
+			return;
+		}
+
+		var $reset = $table.find( 'tr.user-generate-reset-link-wrap' ).first();
+		if ( $reset.length ) {
+			$reset.after( $rows );
+			return;
+		}
+
+		var $pwWeak = $table.find( 'tr.pw-weak' ).first();
+		if ( $pwWeak.length ) {
+			$pwWeak.after( $rows );
+		}
+	} );
+} )( jQuery );
+JS;
 	}
 
 	/**

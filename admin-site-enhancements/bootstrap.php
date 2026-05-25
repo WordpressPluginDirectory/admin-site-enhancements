@@ -742,7 +742,7 @@ class Admin_Site_Enhancements {
         if ( array_key_exists( 'disable_rest_api', $options ) && $options['disable_rest_api'] ) {
             if ( version_compare( get_bloginfo( 'version' ), '4.7', '>=' ) ) {
                 $disable_rest_api = new ASENHA\Classes\Disable_REST_API();
-                add_filter( 'rest_authentication_errors', [$disable_rest_api, 'disable_rest_api'] );
+                add_filter( 'rest_authentication_errors', [$disable_rest_api, 'disable_rest_api'], 200 );
             } else {
                 // REST API 1.x
                 add_filter( 'json_enabled', '__return_false' );
