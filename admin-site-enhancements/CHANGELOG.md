@@ -1,10 +1,34 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **87 _major_ releases** (e.g. 1.1.0 ) and **195 _minor_ releases** (e.g. 4.9.1), for a **total of 282 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **87 _major_ releases** (e.g. 1.1.0 ) and **196 _minor_ releases** (e.g. 4.9.1), for a **total of 283 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+
+### 8.8.2 (2026.05.25) - ASE Free and Pro
+
+* **[IMPROVED in Pro] Disable Components >> Disable REST API**: Fixed a regression that caused a logged-in user with eligible user role(s) who tries to perform a standard GET request in the browser to get the `rest_api_authentication_required` error.
+
+* **[IMPROVED and FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: 
+  * `update_cf()` now works with custom fields placed on taxonomy terms. Please read the [documentation](https://www.wpase.com/documentation/custom-field-types/#update_cf) for details. Props to Matteo C. for prompting this improvement.
+  * Custom field values can now be exposed in the REST API when they are placed on taxonomy terms. They can also be updated via the REST API. Please read the [documentation](https://www.wpase.com/documentation/custom-field-types/#rest-api) for details. Props to Matteo C. for prompting this improvement.
+  * added a mechanism to ensure the `asenha_cfgroup_values` and `asenha_cfgroup_sessions` tables exist / are being created so saving custom field values will properly work. Props to Matteo C. for reporting a related issue and prompting this improvement.
+  * Added "Visual | Code" tabs for WYSIWYG field. Props to Stéphane N. for prompting this improvement.
+  * Enable rich-text for field instructions. Props to Stéphane N. for prompting this improvement.
+  * Added "Add Media" button/feature to the WYSIWYG field when the custom field group is placed on taxonomy terms.
+  * Fixed an error related to loading the WYSIWYG field in the block editor when on a WordPress sub-folder install. Props to David G. for reporting the issue in detail, with a great clue at the source of the problem.
+  * Fixed WYSIWYG field's toolbar button color becoming white on click/focus.
+  * Fixed PHP deprecation that occurs in certain scenarios when rendering the text (oembed) field.
+  
+* **[IMPROVED in Pro] Utilities >> Site Backup and Migration**:
+  * Improve the robustness and reliability of backup operation when there are volatile files involved, i.e. files that got updated and changed their size, temporary files that got deleted, or problematic files that can not be reliably read. These files are now listed properly in the backup logs and to a certain treshold, will no longer cause the backup to fail. Props to Duncan H. for prompting this improvement.
+  * Improve the robustness and reliability of restore operation from remote locations (Amazon S3, S3-compatible storage, Google Drive, Dropbox, WebDAV, SFTP, WP Site). Props to @melisgs for prompting this improvement.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Updated Vietnamese, Swedish, Spanish, Romanian, Portuguese (Brazil), Norwegian, Dutch
+    * ASE Pro: Updated Portuguese (Brazil). Special props to [Valdemir M.](https://profiles.wordpress.org/valdemirmaran/) for completing the translation to Portuguese (Brazil) of the Site Backup and Migration module with 1,900+ strings!
 
 ### 8.8.1 (2026.05.18) - ASE Free and Pro
 
