@@ -1,12 +1,32 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **87 _major_ releases** (e.g. 1.1.0 ) and **196 _minor_ releases** (e.g. 4.9.1), for a **total of 283 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **87 _major_ releases** (e.g. 1.1.0 ) and **197 _minor_ releases** (e.g. 4.9.1), for a **total of 284 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 8.8.2 (2026.05.25) - ASE Free and Pro
+### 8.8.3 (2026.06.08) - ASE Free and Pro
+
+* **[FIXED in Free and Pro] Security >> Limit Login Attempts**: fixed an error related to failed cron execution for scheduled clean up of the failed log attempts log table. Props to [DJABHipHop](https://wordpress.org/support/users/pressthemes1/) for [reporting](https://wordpress.org/support/topic/the-scheduled-event-asenha_failed_login_attempts_log_cleanup_by_amount-failed/) this.
+
+* **[FIXED in Free and Pro] Content Management >> Media Replacement**: fix an issue where Media Replacement outputs media library Underscore templates (#tmpl-media-frame, #tmpl-media-modal, #tmpl-uploader-inline, etc.) in the frontend in a certain scenario. Props to Corey M. for reporting this in detail.
+
+* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fixed missing "Source Code" button since WordPress 7.0 in the snippet description toolbar. Props to Elmira T. for reporting the issue along with the code fix for it!
+
+* **[IMPROVED and FIXED in Pro] Content Management >> Custom Content Types**: 
+  * In the custom field group feature, implemented conditional display for custom fields when inputting values in post / term screens and frontend forms. Props to Henry R., Eric, Ben T. and Himanshu A. for prompting this improvement. 
+  * Fixed PHP fatal error that occurs in MasterStudy LMS analytics pages when the Custom Content Types module is enabled. Props to George N. for reporting the issue in detail and facilitating the troubleshooting process.
+
+* **[IMPROVED in Pro] Content Management >> Public Preview for Drafts**:
+  * Preview link expiry is now tied to individual posts and in the post edit screen, a reset button has been added next to the "Public Preview" button/link to reset the expiry to the max days set in the module settings. Props to Greg F. for prompting the following improvements.
+  * Additionally, in the post edit screen, added a button to copy the preview link to the clipboard and also added an "Expires in..." note below the "Public Preview" button/link to check the remaining time before the preview link expires.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Added Estonian, props to [Aleksander K.](https://profiles.wordpress.org/itagentuur/). Updated Turkish, Serbian, Portuguese (Brazil), Polish, Persian, Norwegian, German, Norwegian.
+
+### 8.8.2 (2026.06.01) - ASE Free and Pro
 
 * **[IMPROVED in Pro] Disable Components >> Disable REST API**: Fixed a regression that caused a logged-in user with eligible user role(s) who tries to perform a standard GET request in the browser to get the `rest_api_authentication_required` error.
 
@@ -30,7 +50,7 @@ Each **_major release_** usually corresponds with the addition of one new module
     * ASE Free: Updated Vietnamese, Swedish, Spanish, Romanian, Portuguese (Brazil), Norwegian, Dutch
     * ASE Pro: Updated Portuguese (Brazil). Special props to [Valdemir M.](https://profiles.wordpress.org/valdemirmaran/) for completing the translation to Portuguese (Brazil) of the Site Backup and Migration module with 1,900+ strings!
 
-### 8.8.1 (2026.05.18) - ASE Free and Pro
+### 8.8.1 (2026.05.25) - ASE Free and Pro
 
 * **[IMPROVED in Free and Pro] WordPress 7.0 Compatibility and Adjustments**: 
   * Confirmed compatibility with WordPress 7.0

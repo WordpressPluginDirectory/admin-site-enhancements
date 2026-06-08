@@ -915,6 +915,7 @@ function asenha_admin_scripts(  $hook_suffix  ) {
     if ( $current_screen->base == 'upload' || $current_screen->id == 'attachment' ) {
         // wp_enqueue_style( 'asenha-jbox', ASENHA_URL . 'assets/css/jBox.all.min.css', array(), ASENHA_VERSION );
         // wp_enqueue_script( 'asenha-jbox', ASENHA_URL . 'assets/js/jBox.all.min.js', array(), ASENHA_VERSION, false );
+        wp_enqueue_media();
         wp_enqueue_style(
             'asenha-media-replace',
             ASENHA_URL . 'assets/css/media-replace.css',
@@ -924,7 +925,7 @@ function asenha_admin_scripts(  $hook_suffix  ) {
         wp_enqueue_script(
             'asenha-media-replace',
             ASENHA_URL . 'assets/js/media-replace.js',
-            array(),
+            array('media-editor'),
             ASENHA_VERSION,
             false
         );
@@ -1394,16 +1395,6 @@ function asenha_public_scripts(  $hook_suffix  ) {
         wp_enqueue_style(
             'asenha-media-categories-frontend',
             ASENHA_URL . 'assets/css/media-categories-frontend.css',
-            array(),
-            ASENHA_VERSION
-        );
-    }
-    // Media Replacement
-    $enable_media_replacement = ( array_key_exists( 'enable_media_replacement', $options ) ? $options['enable_media_replacement'] : false );
-    if ( $enable_media_replacement && !is_admin() && is_user_logged_in() ) {
-        wp_enqueue_style(
-            'asenha-media-replace-frontend',
-            ASENHA_URL . 'assets/css/media-replace-frontend.css',
             array(),
             ASENHA_VERSION
         );
