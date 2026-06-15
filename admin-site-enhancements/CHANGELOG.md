@@ -1,10 +1,31 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **87 _major_ releases** (e.g. 1.1.0 ) and **197 _minor_ releases** (e.g. 4.9.1), for a **total of 284 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **87 _major_ releases** (e.g. 1.1.0 ) and **198 _minor_ releases** (e.g. 4.9.1), for a **total of 285 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
+
+### 8.8.4 (2026.06.15) - ASE Free and Pro
+
+* **[SECURITY FIX in Free and Pro] View Admin as Role**: fixed "Unauthenticated Administrator-Role Restoration" vulnerability responsibly disclosed by Revanth Hari Narayana Matte via WPScan Security.
+
+* **[FIXED in Free and Pro] ASE Settings page:** Fixed visual regression for buttons and toggles (enabled / on) on ASE settings page being invisible when on WordPress less than 7.0. Props to Kim T.R. for reporting the issue.
+
+* **[IMPROVED in Pro] Content Management >> Custom Content Types**: 
+  * Added integration with [WPML](https://wpml.org/) so you can now use the CCT module to create multilingual site with WPML. Tested to work with block theme (FSE), Elementor Pro and Bricks builder. Props to Dong L., Othma F., Luigi P., Piero B., and Stéphane N. for prompting this improvement.
+  * In the block editor, a custom field group's field labels and field controls are now aligned on the left with the field group title. Field labels are also made less bold to improve aesthetics.
+  
+* **[IMPROVED in Pro] Utilities >> Site Backup and Migration**: added the ability to add/edit rich-text notes for manual backups and individual backup archives. Props to Curt M. for prompting this improvement.
+
+* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fixed link editor popup not being properly displayed and usable.
+
+* **[FIXED in Pro] Utilities >> Maintenance Mode**: fixed a PHP fatal error that occurs in a certain scenario.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Updated Indonesian, Portuguese (Brazil), Polish, Norwegian, Catalan.
+    * ASE Pro: Added and completed Estonian (special props to [Aleksander K.](https://profiles.wordpress.org/itagentuur/) for the herculean effort to translate 4K+ strings!). Completed Indonesian (special props to [Wawan S.](https://profiles.wordpress.org/ahmad-rafiansyah/) for plowing through 2K+ strings!). Updated Polish and Portuguese (Brazil).
 
 ### 8.8.3 (2026.06.08) - ASE Free and Pro
 

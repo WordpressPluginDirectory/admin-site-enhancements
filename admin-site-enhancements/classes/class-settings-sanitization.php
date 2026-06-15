@@ -831,10 +831,19 @@ class Settings_Sanitization {
         }
         $options['password_protection_password'] = ( !empty( $options['password_protection_password'] ) ? $options['password_protection_password'] : 'secret' );
         // Maintenance Mode
+        $maintenance_mode_was_enabled = !empty( $existing_options['maintenance_mode'] );
         if ( !isset( $options['maintenance_mode'] ) ) {
             $options['maintenance_mode'] = false;
         }
         $options['maintenance_mode'] = ( 'on' == $options['maintenance_mode'] ? true : false );
+        $maintenance_mode_just_enabled = $options['maintenance_mode'] && !$maintenance_mode_was_enabled;
+        if ( $options['maintenance_mode'] ) {
+            if ( empty( $options['maintenance_mode_bypass_key'] ) || $maintenance_mode_just_enabled ) {
+                $options['maintenance_mode_bypass_key'] = wp_hash_password( site_url() );
+            }
+        } else {
+            $options['maintenance_mode_bypass_key'] = '';
+        }
         if ( !isset( $options['maintenance_page_heading'] ) ) {
             $options['maintenance_page_heading'] = 'We\'ll be back soon.';
         }

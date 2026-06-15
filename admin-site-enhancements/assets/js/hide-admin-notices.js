@@ -266,6 +266,9 @@
 			+ '#wpbody-content > .wrap .ac-admin-page .update-nag'
 			);
 
+			// Keep the View Admin as Role recovery URL notice visible in place.
+			noticesToMove = noticesToMove.not('.asenha-view-admin-as-role-recovery-notice,#asenha-view-admin-as-role-recovery-notice');
+
 			
 
 			noticesToMove.not(':hidden').detach()

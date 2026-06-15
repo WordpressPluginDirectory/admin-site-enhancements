@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 7.0  
-Stable tag: 8.8.3  
+Stable tag: 8.8.4  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -49,7 +49,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### Content Management
 
-* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Custom Content Types**. Register custom post types (CPT), custom taxonomies, custom field groups and options pages that integrates with Bricks, Breakdance, Oxygen and Elementor, and compatible with various block themes and plugins. An alternative for ACF Pro, Meta Box, Toolset, Pods, JetEngine or ACPT.
+* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Custom Content Types**. Register custom post types (CPT), custom taxonomies, custom field groups and options pages that integrates with Bricks, Breakdance, Oxygen and Elementor, and compatible with various block themes and plugins. Also integrates with WPML and works with TranslatePress to create multilingual sites. An alternative for ACF Pro, Meta Box, Toolset, Pods, JetEngine or ACPT.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Post Type Switcher**. Switch the post type of one or more posts to a different post type.
 * **Content Duplication**. Duplicate pages, posts and public CPTs. [ASE Pro](https://www.wpase.com/rdme-to-web) enables duplication only for certain user roles and certain public and non-public post types, and adds location option for duplication links.
 * **Content Order**. Drag-and-drop custom ordering of hierarchical post types. [ASE Pro](https://www.wpase.com/rdme-to-web) enables ordering of non-hierarchical post types, including media / attachments, reordering and changing the parent of child posts is supported, as well as applying the custom order on the frontend.
@@ -205,31 +205,32 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **87 _major_ releases** (e.g. 1.1.0 ) and **197 _minor_ releases** (e.g. 4.9.1), for a **total of 284 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **87 _major_ releases** (e.g. 1.1.0 ) and **198 _minor_ releases** (e.g. 4.9.1), for a **total of 285 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 8.8.3 (2026.06.08) - ASE Free and Pro
+### 8.8.4 (2026.06.15) - ASE Free and Pro
 
-* **[FIXED in Free and Pro] Security >> Limit Login Attempts**: fixed an error related to failed cron execution for scheduled clean up of the failed log attempts log table. Props to [DJABHipHop](https://wordpress.org/support/users/pressthemes1/) for [reporting](https://wordpress.org/support/topic/the-scheduled-event-asenha_failed_login_attempts_log_cleanup_by_amount-failed/) this.
+* **[SECURITY FIX in Free and Pro] View Admin as Role**: fixed "Unauthenticated Administrator-Role Restoration" vulnerability responsibly disclosed by Revanth Hari Narayana Matte via WPScan Security.
 
-* **[FIXED in Free and Pro] Content Management >> Media Replacement**: fix an issue where Media Replacement outputs media library Underscore templates (#tmpl-media-frame, #tmpl-media-modal, #tmpl-uploader-inline, etc.) in the frontend in a certain scenario. Props to Corey M. for reporting this in detail.
+* **[FIXED in Free and Pro] ASE Settings page:** Fixed visual regression for buttons and toggles (enabled / on) on ASE settings page being invisible when on WordPress less than 7.0. Props to Kim T.R. for reporting the issue.
 
-* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fixed missing "Source Code" button since WordPress 7.0 in the snippet description toolbar. Props to Elmira T. for reporting the issue along with the code fix for it!
+* **[IMPROVED in Pro] Content Management >> Custom Content Types**: 
+  * Added integration with [WPML](https://wpml.org/) so you can now use the CCT module to create multilingual site with WPML. Tested to work with block theme (FSE), Elementor Pro and Bricks builder. Props to Dong L., Othma F., Luigi P., Piero B., and Stéphane N. for prompting this improvement.
+  * In the block editor, a custom field group's field labels and field controls are now aligned on the left with the field group title. Field labels are also made less bold to improve aesthetics.
+  
+* **[IMPROVED in Pro] Utilities >> Site Backup and Migration**: added the ability to add/edit rich-text notes for manual backups and individual backup archives. Props to Curt M. for prompting this improvement.
 
-* **[IMPROVED and FIXED in Pro] Content Management >> Custom Content Types**: 
-  * In the custom field group feature, implemented conditional display for custom fields when inputting values in post / term screens and frontend forms. Props to Henry R., Eric, Ben T. and Himanshu A. for prompting this improvement. 
-  * Fixed PHP fatal error that occurs in MasterStudy LMS analytics pages when the Custom Content Types module is enabled. Props to George N. for reporting the issue in detail and facilitating the troubleshooting process.
+* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fixed link editor popup not being properly displayed and usable.
 
-* **[IMPROVED in Pro] Content Management >> Public Preview for Drafts**:
-  * Preview link expiry is now tied to individual posts and in the post edit screen, a reset button has been added next to the "Public Preview" button/link to reset the expiry to the max days set in the module settings. Props to Greg F. for prompting the following improvements.
-  * Additionally, in the post edit screen, added a button to copy the preview link to the clipboard and also added an "Expires in..." note below the "Public Preview" button/link to check the remaining time before the preview link expires.
+* **[FIXED in Pro] Utilities >> Maintenance Mode**: fixed a PHP fatal error that occurs in a certain scenario.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: Added Estonian, props to [Aleksander K.](https://profiles.wordpress.org/itagentuur/). Updated Turkish, Serbian, Portuguese (Brazil), Polish, Persian, Norwegian, German, Norwegian.
+    * ASE Free: Updated Indonesian, Portuguese (Brazil), Polish, Norwegian, Catalan.
+    * ASE Pro: Added and completed Estonian (special props to [Aleksander K.](https://profiles.wordpress.org/itagentuur/) for the herculean effort to translate 4K+ strings!). Completed Indonesian (special props to [Wawan S.](https://profiles.wordpress.org/ahmad-rafiansyah/) for plowing through 2K+ strings!). Updated Polish and Portuguese (Brazil).
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [39 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).
@@ -270,6 +271,6 @@ Each **_major release_** usually corresponds with the addition of one new module
   * **[Greek](https://translate.wordpress.org/locale/el/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed) and Pro (completed). Props to [Stelio C.](https://profiles.wordpress.org/scprojectsgr/). Current status: [38 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/el/default/?filters%5Bstatus%5D=untranslated).
   * **[Dutch (Belgium)](https://translate.wordpress.org/locale/nl-be/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed). Props to [Pieterjan D.](https://profiles.wordpress.org/nekojonez/). Current status, [0 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/nl-be/default/?filters%5Bstatus%5D=untranslated).
   * **[Azerbaijani](https://translate.wordpress.org/locale/az/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed). Props to [Saeid BGrn](https://profiles.wordpress.org/saeead/). Current status, [1 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/az/default/?filters%5Bstatus%5D=untranslated).
-  * **[Estonian](https://translate.wordpress.org/locale/et/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed). Props to [Aleksander K.](https://profiles.wordpress.org/itagentuur/). Current status, [0 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/et/default/?filters%5Bstatus%5D=untranslated).
+  * **[Estonian](https://translate.wordpress.org/locale/et/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed) and Pro (completed). Props to [Aleksander K.](https://profiles.wordpress.org/itagentuur/). Current status, [0 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/et/default/?filters%5Bstatus%5D=untranslated).
 
 [**See the full changelog >>**](https://www.wpase.com/documentation/changelog/)

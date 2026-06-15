@@ -1084,8 +1084,17 @@ class Admin_Site_Enhancements {
             // Priority 8 so it is next to username section
             add_action( 'init', [$view_admin_as_role, 'role_switcher_to_view_admin_as'] );
             add_action( 'profile_update', [$view_admin_as_role, 'maybe_prevent_switchback_to_administrator'], 20 );
+            add_action(
+                'set_user_role',
+                [$view_admin_as_role, 'maybe_clear_view_admin_as_on_external_role_change'],
+                20,
+                3
+            );
             // add_action( 'wp_die_handler', [ $view_admin_as_role, 'custom_error_page_on_switch_failure' ] );
             add_action( 'admin_footer', [$view_admin_as_role, 'add_floating_reset_button'] );
+            add_action( 'admin_notices', [$view_admin_as_role, 'maybe_show_recovery_url_refreshed_notice'] );
+            add_action( 'admin_enqueue_scripts', [$view_admin_as_role, 'enqueue_recovery_url_refreshed_notice_script'] );
+            add_action( 'wp_ajax_asenha_dismiss_view_admin_as_recovery_notice', [$view_admin_as_role, 'dismiss_recovery_url_refreshed_notice'] );
         }
         // Password Protection
         if ( array_key_exists( 'enable_password_protection', $options ) && $options['enable_password_protection'] ) {
@@ -1103,6 +1112,7 @@ class Admin_Site_Enhancements {
         }
         // Maintenance Mode
         if ( array_key_exists( 'maintenance_mode', $options ) && $options['maintenance_mode'] ) {
+            add_action( 'plugins_loaded', ['ASENHA\\Classes\\Maintenance_Mode', 'ensure_bypass_key_on_load'], 1 );
             $maintenance_mode = new ASENHA\Classes\Maintenance_Mode();
             add_action( 'send_headers', [$maintenance_mode, 'maintenance_mode_redirect'] );
             add_action( 'plugins_loaded', [$maintenance_mode, 'show_maintenance_mode_admin_bar_icon'] );

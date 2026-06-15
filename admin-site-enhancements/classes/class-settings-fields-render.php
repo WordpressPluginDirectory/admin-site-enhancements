@@ -320,6 +320,24 @@ class Settings_Fields_Render {
     }
 
     /**
+     * Render View Admin as Role recovery URL description at display time.
+     *
+     * @since 8.8.5
+     * @param array $args Settings field arguments.
+     * @return void
+     */
+    function render_view_admin_as_role_recovery_description( $args ) {
+        $view_admin_as_role = new View_Admin_As_Role();
+        $recovery_url = $view_admin_as_role->get_recovery_url_for_settings( get_current_user_id() );
+        $field_description = '<div class="asenha-warning"><strong>' . sprintf( 
+            /* translators: %s is the secret recovery URL or instructional text */
+            __( 'If something goes wrong</strong> and you need to regain access to your account as an administrator, please visit the following URL: <br /><strong>%s</strong><br /><br />If you use <strong>Ninja Firewall</strong>, please uncheck "Block attempts to gain administrative privileges" in the Firewall Policies settings before you try to view as a non-admin user role to <strong>prevent being locked out</strong> of your admin account.', 'admin-site-enhancements' ),
+            esc_html( $recovery_url )
+         ) . '<br /><br />' . __( 'In any case, please also <strong>create at least one backup admin user</strong> as a last resort should your primary admin user fails to properly login as admin. With this second admin user, you can also restore the admin role for your primary admin user.', 'admin-site-enhancements' ) . '</div>';
+        echo '<div class="asenha-subfield-description">' . wp_kses( $field_description, get_kses_with_style_src_svg_ruleset() ) . '</div>';
+    }
+
+    /**
      * Render heading for sub-fields of a toggle/switcher checkbox
      *
      * @since 5.0.0
