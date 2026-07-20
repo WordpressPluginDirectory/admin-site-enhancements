@@ -1305,6 +1305,21 @@ input[type="search"]#module-search-input.has-text-input {
     width: 240px;
 }
 
+.asenha-subfield-password-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.asenha-subfield-password-wrapper .asenha-smtp-password-description {
+    margin-top: 4px;
+}
+
+.asenha-subfield-password-wrapper .asenha-smtp-password-warning {
+    margin-top: 4px;
+    width: 100%;
+}
+
 .full-width .asenha-subfield-text,
 .full-width .asenha-subfield-password {
     width: 100%;

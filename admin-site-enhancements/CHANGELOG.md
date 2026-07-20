@@ -1,14 +1,151 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **87 _major_ releases** (e.g. 1.1.0 ) and **198 _minor_ releases** (e.g. 4.9.1), for a **total of 285 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **89 _major_ releases** (e.g. 1.1.0 ) and **202 _minor_ releases** (e.g. 4.9.1), for a **total of 291 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 8.8.4 (2026.06.15) - ASE Free and Pro
+### 8.9.0 (2026.07.20) - ASE Free and Pro
 
-* **[SECURITY FIX in Free and Pro] View Admin as Role**: fixed "Unauthenticated Administrator-Role Restoration" vulnerability responsibly disclosed by Revanth Hari Narayana Matte via WPScan Security.
+* **[ADDED in Free and Pro] Admin Interface >> Navigation Menu Duplicator**. Added a new module to duplicate a navigation menu with one click from Appearance → Menus.
+
+* **[IMPROVED in Free and Pro] Log In/Out & Register >> Change Login URL**: Improved handling of a URL pattern that may reveal the custom login URL when ASE is installed on WordPress site hosted with NGINX that implements a certain pattern of NGINX URL mapping. Props to Bram for reporting the issue in great detail.
+
+* **[IMPROVED in Pro] Content Management >> Content Order**: Added compatibility with WPML plugin so that reordering results in sequential menu_order of posts in the primary language while respecting WPML's post order syncing. Also added a new (checkbox) option to allow independent reordering of posts in each language, which will suppress WPML's post order syncing. Props to Stijn V. for prompting this improvement.
+
+* **[IMPROVED in Pro] Content Management >> Terms Order**: add an 'Order' button on taxonomy terms listing page, linking to the custom terms ordering page for that taxonomy. Props to Stijn V. for prompting this improvement.
+
+* **[IMPROVED in Pro] Utilities >> Form Builder**: 
+  * Added two new "Layout" fields: Section Start and Section End, to group together multiple fields. Conditional logic can then be applied to the Section Start field to show / hide the grouped fields at once. Nesting sections is also supported. Props to Roland T. for prompting this improvement.
+  * Added **multi-step form** feature via a new "Layout" field called Page Break. In the "Form" tab, there's also a dedicated section to configure the multi-step behaviour, including step titles, progress indicator type (progress bar or clickable steps), steps styles (pills, circles, squares, tabs, chevrons), and whether to enable saving progress and emailing a URL to resume form-filling. Props to Fabio R. for prompting this improvement.
+
+* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: Fixed PHP warnings on posts listing page that occurs when a stale/deleted/non-existent taxonomy has a lingering admin column on the listing page. Props to Ignazio D.M. for reporting the issue in detail with a screen recording.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Updated Spanish (Spain), Portuguese (Brazil), Polish, Dutch (Netherlands).
+
+### 8.8.8 (2026.07.13) - ASE Free and Pro
+
+* **[FIXED in Free and Pro] Utilities >> Multiple User Roles**: Fixed an issue of unable to remove an extra role from an administrator's own profile edit screen. Props to Igor E. for reporting the issue in detail, with a screen recording.
+
+* **[FIXED in Free and Pro] ASE Settings**: Fixed a CSS issue affecting module title styling when the Voxel theme is active.
+
+* **[IMPROVED in Pro] Utilities >> Form Builder**: Implemented conditional logic to show / hide fields based on the value of other fields. Props to Cadence, Leon S., José Antonio C.S., Chee S.C. and Roland T. for prompting this improvement.
+
+* **[IMPROVED in Pro] Content Management >> Content Order**: Improved robustness of drag and drop within and between parent posts when ordering hierarchical posts. Props to Janette C. for reporting the issue with a screencast and facilitating the troubleshooting process.
+
+* **[FIXED and IMPROVED in Pro] Utilities >> Site Backup and Migration**:
+  * Fixed fatal error related to object cache flushing that occurs after completion of restore operation. Props to Benjamin N. for reporting the issue in detail, complete with the error stack trace.
+  * Improved error message and logging when connecting to a WP Site backup location. Props to Benjamin N. for prompting this improvement.
+
+* **[IMPROVED in Pro] Disable Components >> Disable REST API**: REST API endpoint in use for connecting to a remote WP Site location in the Site Backup and Migration module is automatically whitelisted. This ensures connecting to the remote WP Site location will not be blocked. Props to Benjamin N. for prompting this improvement.
+
+* **[FIXED and IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: 
+  * Fixed an issue where conditional logic is not properly showing/hiding repeater sub-fields. Props to Stijn V. for reporting the issue.
+  * Fixed WYSIWYG field layout issue when adding a new repeater row with a WYSIWYG field. Props to Stijn V. for reporting the issue.
+  * Fixed vertical misalignment issue with conditional logic controls and fields. Props to Stijn V. for reporting the issue.
+  * Added numeral fraction to column widths, e.g. "Quarter" becomes "Quarter (1/4)", to improve accessibility for users with dyslexia. Props to Stijn V. for prompting this improvement.
+  * Added option to specify allowed file extensions for file field, which will also pre-filter the media library frame to the allowed file extensions. Props to Stijn V. for prompting this improvement.
+  * Add support for custom date time format for date time field in Bricks builder. e.g. {ase__movie_premiere_datetime:F j, Y - g:i a} to set a custom date time format. Props to David W. for prompting this improvement.
+
+* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: Fixed a fatal error that occurs in a certain scenario when loading the snippets listing page. Props to John R. for reporting the issue complete with the error stack trace and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Admin Interface >> Admin Bar Custom Elements & Admin Menu Organizer**: Fixed a javascript error caused by conflict with Voxeler Messages plugin. 
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Updated Indonesian, Spanish (Chile), Slovak, Russian, Portuguese (Brazil), Polish, Norwegian.
+    * ASE Pro: Updated Slovak, Indonesian.
+
+### 8.8.7 (2026.07.06) - ASE Free and Pro
+
+* **[FIXED and IMPROVED in Free and Pro] Utilities >> Email Delivery**: 
+  * Improved mechanism to (also) trigger the update of encryption version/method of SMTP password during ASE (plugin) update. This should help resolve an issue reported by Bas B. and @VisedFAQ. Please double check the Email Delivery module in your sites and try sending a test email. If test fails, re-enter and re-save the password to ensure proper encryption and delivery.
+  * Fixed a bug where password status under the password field is showing incorrect status. Props to [@VisedFAQ](https://wordpress.org/support/users/visedfaq/) for [reporting](https://wordpress.org/support/topic/smtp-module-bugs/) this.
+
+* **[IMPROVED in Pro] Admin Interface >> Admin Menu Organizer**: added mechanism to speed up the saving process of admin menu changes, which should help with timeout issues on sites where admin-ajax.php response is very slow, e.g. low-resource, shared hosting. Props to @SPARKS! W.T. for reporting the issue.
+
+* **[IMPROVED in Pro] Utilities >> Site Backup and Migration**: 
+  * In the "Backup" tab, the total storage will now be updated immediately after creating a new backup or deleting an existing one. Props to Stijn V. for prompting this improvement.
+  * When performing a restore from an encrypted backup archive, entering the wrong password now will re-open the restore popover with instructions to enter the correct password and allows to retry the restore operation without the need to reload the page. Props to Massimo V. for prompting this improvement.
+
+* **[FIXED in Pro] Admin Interface >> Admin Bar Custom Elements (ABCE) & Admin Menu Organizer (AMO):** fixed a conflict with Gravity Forms that causes a javascript error on the ABCE & AMO admin pages.
+
+* **[FIXED in Pro] Content Management >> Media Categories**: fixed a conflict on Download Monitor's add/edit download screen that prevents successful upload of files. Props to Jeroen Z. for reporting the issue in detail.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Updated Portuguese (Brazil), Polish, Persian, Dutch (Netherlands), Dutch (Belgium).
+    * ASE Pro: Updated Portuguese (Brazil).
+
+### 8.8.6 (2026.06.29) - ASE Free and Pro
+
+* **[SECURITY FIX in Pro] ASE Settings >> Export | Import**: fixed a Cross Site Scripting (XSS) vulnerability during import of ASE settings JSON. Props to Nguyen Ba Khanh for responsibly disclosing this via Pathstack.
+
+* **[IMPROVED in Free and Pro] Content Management >> External Permalinks**:
+  * To improve accessibility, external permalinks now opens in the same browser tab by default. Props to [@boxcarstudio](https://wordpress.org/support/topic/remove-target_blank-from-external-permalinks-option/) for prompting this improvement.
+  * In the "External Permalink" meta box in post add/edit screen, there is a new checkbox with ASE Pro to allow opening the link in a new tab.
+  * Added a new option in ASE Pro to exclude links containing certain domains from getting the rel="nofollow" attribute.
+  * The small frontend javascript is now inlined to reduce HTTP requests.
+
+* **[IMPROVED and FIXED in Pro] Utilities >> Site Backup and Migration**:
+  * Fixed restore operation failure from remote, multi-part archive (Cloudflare R2 location). Props to Massimo V. for reporting the issue in detail.
+  * Backup log is now properly preserved during a restore operation, and the result/status of the restore operation is now properly logged. Props to Massimo V. for prompting this improvement.
+  * Improved mechanism to deliver policy-run backup failure notice email to prevent repetitive deliveries, especially when a retry mechanism has successfully completed the backup or the backup policy is already deleted. Props to Duncan H. for prompting this improvement.
+  * Improved mechanism to ensure policy-run backup failure notice email is properly logged by the Email Delivery module when email logging is enabled.
+  
+* **[IMPROVED in Pro] Utilities >> Email Delivery**: added a mechanism to ensure every email sent is being properly logged. For example, there were cases where backup failure notice email from the Site Backup and Migration module is not being properly logged.
+
+* **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**: 
+  * When a PHP snippet triggers a fatal error, safe mode is no longer auto enabled. Only the PHP snippet causing the fatal error is now deactivated, allowing all other PHP snippets to remain active. Props to David K. for prompting this improvement.
+  * Fixed PHP fatal error caused by PSR-16 `CacheInterface` signature incompatibility when another plugin loads an older `psr/simple-cache` interface. Props to Killian S. for reporting the issue in detail.
+
+* **[IMPROVED in Pro] Custom Code >> Admin Columns Manager**: 
+  * Changed admin submenu title from "Admin Columns Manager" to "Admin Columns" so it is in the same style as "Admin Menu" (Organizer). Props to Stijn V. for prompting this change.
+  * Added option to use em or rem unit for the column width. Props to Stijn V. for prompting this improvement.
+  * Yoast SEO admin columns will not get the "width: auto !important;" CSS by default. Only specific width settings in pixels or percentage will modify the default width of those columns. Props to Stijn V. for prompting this improvement.
+  * Admin columns coming from plugins, snippets and/or themes will now use their original label by default, which can be an icon and not text, e.g. Yoast SEO's "SEO Score" column which uses traffic light icon as the column label/title. This will be effective for when Admin Columns Manager is enabled for the first time, or after admin columns settings is reset for a post type. This will not affect existing settings. You can always disable the original label/title and type in a custom text label/title.
+
+* **[IMPROVED and FIXED in Pro] Content Management >> Custom Content Types**: 
+  * Custom Field Groups: add a "Year Only" option for the date field, which will render per-decade year picker instead of the default date picker, and will output year-only by default. Props to Henry R. for prompting this improvement.
+  * Custom Field Groups: add min-max settings for the number field. Props to Stijn V. for prompting this improvement.
+  * Custom Field Groups: Field validation in the block and classic editors should now work more properly and reliably, including when the field with erroneous input value is inside a non-active tab.
+  * Custom Post Types: Fixed a regression introduced in v8.8.4 that causes the Featured Image meta box to go missing in the classic editor. Props to Henry R. and Thomas L. for reporting the issue.
+  * Custom Post Types: Fixed a regression introduced in v8.8.4 that causes custom archive slug/page for a CPT returning 404 "Page not found" error. Props to Stijn V. and Matthew R. for reporting the issue in great detail.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Updated Spanish (Spain), Slovak, Russian, Portuguese (Brazil), Norwegian, Korean, Dutch (Netherlands), Dutch (Belgium) and Chinese (Taiwan).
+    * ASE Pro: Updated Danish.
+
+### 8.8.5 (2026.06.22) - ASE Free and Pro
+
+* **[IMPROVED/FIXED in Free and Pro] Admin Interface >> Wider Admin Menu**: fixed an issue where the wider admin menu is overlapping Fluent Support admin pages. Props to [Diiamo](https://wordpress.org/support/users/luislu/) for [reporting](https://wordpress.org/support/topic/wider-admin-menu-issue/) this with a screenshot.
+
+* **[IMPROVED/FIXED in Free and Pro] Utilities >> Email Delivery**: improved mechanism for encrypting SMTP password to no longer rely on WP salts, which can change in certain scenarios, causing silent email delivery failure. Props to someone from @rocket.ch for reporting the issue.
+
+* **[FIXED in Free and Pro] Admin Interface >> Admin Menu Organizer**: fixed several PHP warnings in PHP 8.4.
+
+* **[IMPROVED and FIXED in Pro] Utilities >> Site Backup and Migration**:
+  * Improved the reliability of database export during backups. Props to Uli L. for prompting this improvement.
+  * Improved the reliability of how the "Download" button works for local and remote backup archives. Props to Dominik K. for reporting a related issue that prompted this improvement.
+  * Storage folder (from the 'Storage' tab/feature) by default is no longer included when creating a backup archive. Props to Fellipe R.d.V. for prompting this change.
+  * Added a new option in the module settings to include the storage folder in backup, restore and migration operations. May be useful if you want to have extra redundancy for the WP site you are using as a storage location for backing up your other WP sites. For example, in that storage WP site's backup policy, you can opt to send a backup to Amazon S3, Dropbox, etc., thus creating redundancies for the backup archives of your other WP sites in one go.
+  * Added backup archive note viewer inside the emergency restore script.
+  * Fixed JS error related to the archive note when initiating manual backup.
+  
+* **[FIXED in Pro] Content Management >> Custom Content Types**: fixed PHP warning in PHP 8.4 related to the new WPML integration. Props to Niels S. for reporting the issue in detail.
+
+* **[FIXED in Pro] Log In/Out & Register >> Redirect After Login**: fixed a bug where 2FA is being bypassed when this module is enabled. Props to Danny V. for reporting the issue in detail, with screenshots and a screen recording.
+
+* **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
+  * **Added new/improved translation** for:
+    * ASE Free: Updated Slovak, Portuguese (Brazil), Polish, Norwegian, Dutch (Netherlands), Dutch (Belgium).
+    * ASE Pro: Updated Greek, Polish, Slovak.
+
+### 8.8.4 (2026.06.15) - ASE Free and Pro
 
 * **[FIXED in Free and Pro] ASE Settings page:** Fixed visual regression for buttons and toggles (enabled / on) on ASE settings page being invisible when on WordPress less than 7.0. Props to Kim T.R. for reporting the issue.
 
@@ -687,6 +824,8 @@ Each **_major release_** usually corresponds with the addition of one new module
     * ASE Pro: Updated Portuguese (Brazil), Norwegian, Danish.
 
 ### 8.0.5 (2025.11.03) - ASE Free and Pro
+
+* **[SECURITY FIX] Utilities >> View Admin as Role**: fixed "Unauthenticated Administrator-Role Restoration" vulnerability responsibly disclosed by Revanth Hari Narayana Matte via WPScan.
 
 * **[FIXED in Free and Pro] Content Management >> Media Replacement**: fixed a fatal error that occurs in a certain scenario. Props to [@zadine](https://wordpress.org/support/users/zadine/) for [reporting the issue](https://wordpress.org/support/topic/fatal-error-4934/) complete with the debug.log entry details, including the stack trace.
 

@@ -110,6 +110,34 @@
          }
 
       });
+
+      /**
+       * Update the SMTP password status label and inline warning from AJAX responses.
+       *
+       * @param {Object} response Test-email AJAX response payload.
+       */
+      function asenhaUpdateSmtpPasswordUiState( response ) {
+         if ( ! response || typeof response !== 'object' ) {
+            return;
+         }
+
+         if ( typeof response.smtp_password_description !== 'undefined' ) {
+            $('.asenha-smtp-password-description').text( response.smtp_password_description );
+         }
+
+         var $warning = $('.asenha-smtp-password-warning');
+         if ( typeof response.smtp_password_warning !== 'undefined' ) {
+            if ( response.smtp_password_warning ) {
+               $warning.empty().append(
+                  $('<div class="notice notice-warning inline"></div>').append(
+                     $('<p></p>').text( response.smtp_password_warning )
+                  )
+               ).show();
+            } else {
+               $warning.empty().hide();
+            }
+         }
+      }
       
       // Email Delivery >> Send test email
       $('#send-test-email').click(function(e) {
@@ -133,6 +161,7 @@
                },
                success:function(data) {
                   var response = data;
+                  asenhaUpdateSmtpPasswordUiState( response );
                   if ( response.status == 'success' ) {
                      setTimeout( function() {
                         $('.sending-test-email').hide();
@@ -328,6 +357,7 @@
       $('.enable-external-permalinks').appendTo('.fields-content-management > table > tbody');
       
       $('.enable-external-permalinks-for').appendTo('.fields-content-management .enable-external-permalinks .asenha-subfields');
+      
       $('.external-links-new-tab').appendTo('.fields-content-management > table > tbody');
       
       $('.custom-nav-menu-items-new-tab').appendTo('.fields-content-management > table > tbody');
@@ -361,6 +391,7 @@
       $('.admin-menu-width').appendTo('.fields-admin-interface .wider-admin-menu .asenha-subfields');
       $('.customize-admin-menu').appendTo('.fields-admin-interface > table > tbody');
       $('.admin-menu-organizer-sticky-collapse-menu').appendTo('.fields-admin-interface .customize-admin-menu .asenha-subfields');
+      $('.navigation-menu-duplicator').appendTo('.fields-admin-interface > table > tbody');
       
       $('.show-custom-taxonomy-filters').appendTo('.fields-admin-interface > table > tbody');
       

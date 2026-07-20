@@ -385,6 +385,40 @@ class Settings_Fields_Render {
     }
 
     /**
+     * Render SMTP password field with live storage status and inline warning.
+     *
+     * @since 8.8.7
+     *
+     * @param array $args Field registration arguments.
+     * @return void
+     */
+    function render_smtp_password_subfield( $args ) {
+        $option_name = ( isset( $args['option_name'] ) ? $args['option_name'] : ASENHA_SLUG_U );
+        $field_name = $args['field_name'];
+        $placeholder = ( isset( $args['field_placeholder'] ) ? $args['field_placeholder'] : '' );
+        if ( function_exists( '\\asenha_get_option_array' ) ) {
+            $options = \asenha_get_option_array( $option_name, true );
+        } else {
+            $options = get_option( $option_name, array() );
+        }
+        $email_delivery = new Email_Delivery();
+        $ui_state = ( method_exists( $email_delivery, 'get_smtp_password_ui_state' ) ? $email_delivery->get_smtp_password_ui_state( $options ) : array(
+            'description'     => __( 'Leave blank to keep the current password.', 'admin-site-enhancements' ),
+            'show_warning'    => false,
+            'warning_message' => '',
+        ) );
+        echo '<div class="asenha-subfield-password-wrapper">';
+        echo '<input type="password" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-password" name="' . esc_attr( $field_name ) . '" placeholder="' . esc_attr( $placeholder ) . '" size="24" autocomplete="off" value="">';
+        echo '<label for="' . esc_attr( $field_name ) . '" class="asenha-subfield-description asenha-smtp-password-description">' . esc_html( $ui_state['description'] ) . '</label>';
+        echo '<div class="asenha-smtp-password-warning"' . (( empty( $ui_state['show_warning'] ) ? ' style="display:none;"' : '' )) . '>';
+        if ( !empty( $ui_state['show_warning'] ) && !empty( $ui_state['warning_message'] ) ) {
+            echo '<div class="notice notice-warning inline"><p>' . esc_html( $ui_state['warning_message'] ) . '</p></div>';
+        }
+        echo '</div>';
+        echo '</div>';
+    }
+
+    /**
      * Render number field as sub-field of a toggle/switcher checkbox
      *
      * @since 1.4.0

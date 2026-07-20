@@ -163,3 +163,12 @@ a.item-title:hover {
 	color: green;
 	margin-right: 4px;
 }
+
+#item-list.asenha-content-order--saving .row-content {
+	cursor: not-allowed;
+}
+
+.updating-order-notice.asenha-content-order-notice--error {
+	border-color: #d63638;
+	color: #8a2424;
+}

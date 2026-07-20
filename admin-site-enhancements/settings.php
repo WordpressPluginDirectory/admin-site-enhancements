@@ -46,6 +46,128 @@ function asenha_get_option_array(  $option_name, $autoload = null  ) {
     return $normalized_value;
 }
 
+/**
+ * Whether an object-cache property can be read without triggering a visibility fatal.
+ *
+ * @since 8.4.3
+ *
+ * @param object $object   Object cache instance.
+ * @param string $property Property name.
+ * @return bool
+ */
+function asenha_object_cache_property_is_readable(  $object, $property  ) {
+    if ( !is_object( $object ) || !is_string( $property ) || '' === $property ) {
+        return false;
+    }
+    if ( !property_exists( $object, $property ) ) {
+        return false;
+    }
+    if ( method_exists( $object, '__get' ) ) {
+        return true;
+    }
+    try {
+        $ref = new ReflectionProperty($object, $property);
+        return $ref->isPublic();
+    } catch ( ReflectionException $e ) {
+        return false;
+    }
+}
+
+/**
+ * Whether an object-cache property can be written without triggering a visibility fatal.
+ *
+ * @since 8.4.3
+ *
+ * @param object $object   Object cache instance.
+ * @param string $property Property name.
+ * @return bool
+ */
+function asenha_object_cache_property_is_writable(  $object, $property  ) {
+    if ( !is_object( $object ) || !is_string( $property ) || '' === $property ) {
+        return false;
+    }
+    if ( !property_exists( $object, $property ) ) {
+        return false;
+    }
+    if ( method_exists( $object, '__set' ) ) {
+        return true;
+    }
+    try {
+        $ref = new ReflectionProperty($object, $property);
+        return $ref->isPublic();
+    } catch ( ReflectionException $e ) {
+        return false;
+    }
+}
+
+/**
+ * Best-effort clear of cache groups from in-process object-cache arrays.
+ *
+ * Only touches cache internals when they are safely accessible. Private
+ * properties without magic accessors are skipped to avoid fatals.
+ *
+ * @since 8.4.3
+ *
+ * @param array $groups Cache group names to clear.
+ */
+function asenha_clear_accessible_object_cache_groups(  array $groups  ) {
+    global $wp_object_cache;
+    if ( !is_object( $wp_object_cache ) || empty( $groups ) ) {
+        return;
+    }
+    foreach ( array('local_cache', 'cache') as $property ) {
+        try {
+            if ( !asenha_object_cache_property_is_readable( $wp_object_cache, $property ) ) {
+                continue;
+            }
+            $value = $wp_object_cache->{$property};
+            if ( !is_array( $value ) ) {
+                continue;
+            }
+            foreach ( $groups as $group ) {
+                if ( !is_string( $group ) || '' === $group ) {
+                    continue;
+                }
+                if ( isset( $value[$group] ) ) {
+                    unset($value[$group]);
+                }
+            }
+            if ( !asenha_object_cache_property_is_writable( $wp_object_cache, $property ) ) {
+                continue;
+            }
+            $wp_object_cache->{$property} = $value;
+        } catch ( Throwable $e ) {
+            // Best-effort only; wp_cache_flush() already ran.
+        }
+    }
+}
+
+/**
+ * Best-effort clear of the options group from in-process object-cache arrays.
+ *
+ * @since 8.4.3
+ */
+function asenha_clear_accessible_object_cache_options_group() {
+    asenha_clear_accessible_object_cache_groups( array('options') );
+}
+
+/**
+ * Aggressively invalidate WordPress options object-cache layers.
+ *
+ * @since 8.4.3
+ */
+function asenha_invalidate_options_object_cache_layers() {
+    wp_cache_delete( 'alloptions', 'options' );
+    wp_cache_delete( 'notoptions', 'options' );
+    if ( function_exists( 'wp_cache_flush' ) ) {
+        wp_cache_flush();
+    }
+    if ( function_exists( 'wp_cache_flush_group' ) ) {
+        wp_cache_flush_group( 'options' );
+    }
+    asenha_clear_accessible_object_cache_groups( array('options') );
+}
+
 if ( false === get_option( ASENHA_SLUG_U ) ) {
     global $wpdb;
     // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
@@ -59,22 +181,7 @@ if ( false === get_option( ASENHA_SLUG_U ) ) {
         );
     } else {
         // Option exists in DB but cache returned false (stale persistent cache).
-        // Aggressively invalidate all cache layers including local in-process caches
-        // that some Redis/Memcached backends maintain separately from the external store.
-        wp_cache_delete( 'alloptions', 'options' );
-        wp_cache_delete( 'notoptions', 'options' );
-        if ( function_exists( 'wp_cache_flush' ) ) {
-            wp_cache_flush();
-        }
-        global $wp_object_cache;
-        if ( is_object( $wp_object_cache ) ) {
-            if ( property_exists( $wp_object_cache, 'local_cache' ) && is_array( $wp_object_cache->local_cache ) ) {
-                unset($wp_object_cache->local_cache['options']);
-            }
-            if ( property_exists( $wp_object_cache, 'cache' ) && is_array( $wp_object_cache->cache ) ) {
-                unset($wp_object_cache->cache['options']);
-            }
-        }
+        asenha_invalidate_options_object_cache_layers();
     }
 }
 if ( false === get_option( ASENHA_SLUG_U . '_stats' ) ) {
@@ -90,21 +197,7 @@ if ( false === get_option( ASENHA_SLUG_U . '_stats' ) ) {
         );
     } else {
         // Option exists in DB but cache returned false (stale persistent cache).
-        // Aggressively invalidate all cache layers including local in-process caches.
-        wp_cache_delete( 'alloptions', 'options' );
-        wp_cache_delete( 'notoptions', 'options' );
-        if ( function_exists( 'wp_cache_flush' ) ) {
-            wp_cache_flush();
-        }
-        global $wp_object_cache;
-        if ( is_object( $wp_object_cache ) ) {
-            if ( property_exists( $wp_object_cache, 'local_cache' ) && is_array( $wp_object_cache->local_cache ) ) {
-                unset($wp_object_cache->local_cache['options']);
-            }
-            if ( property_exists( $wp_object_cache, 'cache' ) && is_array( $wp_object_cache->cache ) ) {
-                unset($wp_object_cache->cache['options']);
-            }
-        }
+        asenha_invalidate_options_object_cache_layers();
     }
 }
 if ( false === get_option( ASENHA_SLUG_U . '_extra' ) ) {
@@ -120,21 +213,7 @@ if ( false === get_option( ASENHA_SLUG_U . '_extra' ) ) {
         );
     } else {
         // Option exists in DB but cache returned false (stale persistent cache).
-        // Aggressively invalidate all cache layers including local in-process caches.
-        wp_cache_delete( 'alloptions', 'options' );
-        wp_cache_delete( 'notoptions', 'options' );
-        if ( function_exists( 'wp_cache_flush' ) ) {
-            wp_cache_flush();
-        }
-        global $wp_object_cache;
-        if ( is_object( $wp_object_cache ) ) {
-            if ( property_exists( $wp_object_cache, 'local_cache' ) && is_array( $wp_object_cache->local_cache ) ) {
-                unset($wp_object_cache->local_cache['options']);
-            }
-            if ( property_exists( $wp_object_cache, 'cache' ) && is_array( $wp_object_cache->cache ) ) {
-                unset($wp_object_cache->cache['options']);
-            }
-        }
+        asenha_invalidate_options_object_cache_layers();
     }
 }
 // Bugfix in v7.1.2 for Custom Content Type module
@@ -179,8 +258,11 @@ function asenha_get_smtp_password_status_compat(  $stored_password = null  ) {
     if ( empty( $stored_password ) ) {
         return 'empty';
     }
-    if ( is_string( $stored_password ) && 0 === strpos( $stored_password, 'asenha_encrypted::smtp_password::v1::' ) ) {
-        return 'encrypted_valid';
+    if ( is_string( $stored_password ) && (0 === strpos( $stored_password, 'asenha_encrypted::smtp_password::v1::' ) || 0 === strpos( $stored_password, 'asenha_encrypted::smtp_password::v2::' )) ) {
+        return 'encrypted_invalid';
+    }
+    if ( is_string( $stored_password ) && 0 === strpos( $stored_password, 'asenha_encrypted::smtp_password::' ) ) {
+        return 'encrypted_invalid';
     }
     return 'legacy_plaintext';
 }
@@ -202,31 +284,152 @@ function asenha_encrypt_smtp_password_compat(  $email_delivery, $password  ) {
 }
 
 /**
- * Encrypt legacy SMTP password storage after pluggable functions are available.
+ * Migrate SMTP password storage to the current encrypted format.
+ *
+ * Upgrades legacy plaintext and decryptable v1 ciphertext to v2 automatically.
  *
  * @since 8.5.1
  */
-function asenha_migrate_legacy_smtp_password_storage() {
+function asenha_migrate_smtp_password_storage() {
     $options = asenha_get_option_array( ASENHA_SLUG_U, true );
     if ( empty( $options['smtp_password'] ) ) {
         return;
     }
     $email_delivery = new \ASENHA\Classes\Email_Delivery();
-    if ( 'legacy_plaintext' !== asenha_get_smtp_password_status_compat( $options['smtp_password'] ) ) {
+    $stored_password = $options['smtp_password'];
+    if ( method_exists( $email_delivery, 'is_smtp_password_storage_version_v2' ) && $email_delivery->is_smtp_password_storage_version_v2() && method_exists( $email_delivery, 'is_smtp_password_v2_encrypted' ) && $email_delivery->is_smtp_password_v2_encrypted( $stored_password ) ) {
         return;
     }
-    $encrypted_smtp_password = asenha_encrypt_smtp_password_compat( $email_delivery, $options['smtp_password'] );
-    if ( !empty( $encrypted_smtp_password ) ) {
-        $options['smtp_password'] = $encrypted_smtp_password;
+    $updated = false;
+    if ( method_exists( $email_delivery, 'is_smtp_password_v2_encrypted' ) && $email_delivery->is_smtp_password_v2_encrypted( $stored_password ) ) {
+        $plaintext_password = ( method_exists( $email_delivery, 'unwrap_smtp_password_to_plaintext' ) ? $email_delivery->unwrap_smtp_password_to_plaintext( $stored_password ) : false );
+        if ( false !== $plaintext_password && method_exists( $email_delivery, 'is_probable_smtp_ciphertext' ) && !$email_delivery->is_probable_smtp_ciphertext( $plaintext_password ) ) {
+            $email_delivery->mark_smtp_password_storage_version_v2();
+            return;
+        }
+        if ( false === $plaintext_password || method_exists( $email_delivery, 'is_probable_smtp_ciphertext' ) && $email_delivery->is_probable_smtp_ciphertext( $plaintext_password ) ) {
+            $email_delivery->set_smtp_password_unavailable_flag();
+            return;
+        }
+    } elseif ( method_exists( $email_delivery, 'is_smtp_password_v1_encrypted' ) && $email_delivery->is_smtp_password_v1_encrypted( $stored_password ) ) {
+        $plaintext_password = $email_delivery->decrypt_smtp_password( $stored_password );
+        if ( false !== $plaintext_password && method_exists( $email_delivery, 'is_probable_smtp_ciphertext' ) && !$email_delivery->is_probable_smtp_ciphertext( $plaintext_password ) ) {
+            $encrypted_smtp_password = asenha_encrypt_smtp_password_compat( $email_delivery, $plaintext_password );
+            if ( !empty( $encrypted_smtp_password ) ) {
+                $options['smtp_password'] = $encrypted_smtp_password;
+                $updated = true;
+            }
+        } elseif ( false !== $plaintext_password && method_exists( $email_delivery, 'is_probable_smtp_ciphertext' ) && $email_delivery->is_probable_smtp_ciphertext( $plaintext_password ) ) {
+            $email_delivery->set_smtp_password_unavailable_flag();
+            return;
+        }
+    } elseif ( method_exists( $email_delivery, 'is_probable_smtp_ciphertext' ) && $email_delivery->is_probable_smtp_ciphertext( $stored_password ) ) {
+        $email_delivery->set_smtp_password_unavailable_flag();
+        return;
+    } else {
+        $encrypted_smtp_password = asenha_encrypt_smtp_password_compat( $email_delivery, $stored_password );
+        if ( !empty( $encrypted_smtp_password ) ) {
+            $options['smtp_password'] = $encrypted_smtp_password;
+            $updated = true;
+        }
+    }
+    if ( $updated ) {
         update_option( ASENHA_SLUG_U, $options, true );
+        if ( method_exists( $email_delivery, 'mark_smtp_password_storage_version_v2' ) ) {
+            $email_delivery->mark_smtp_password_storage_version_v2();
+        }
+    }
+}
+
+/**
+ * Repair nested SMTP password storage after migration.
+ *
+ * @since 8.8.6
+ */
+function asenha_repair_nested_smtp_password_storage() {
+    $email_delivery = new \ASENHA\Classes\Email_Delivery();
+    if ( method_exists( $email_delivery, 'repair_nested_smtp_password_storage' ) ) {
+        $email_delivery->repair_nested_smtp_password_storage();
+    }
+}
+
+/**
+ * Run SMTP password storage migration and nested repair.
+ *
+ * @since 8.8.6
+ */
+function asenha_run_smtp_password_storage_upgrades() {
+    asenha_migrate_smtp_password_storage();
+    asenha_repair_nested_smtp_password_storage();
+}
+
+/**
+ * Check whether an upgrader-reported plugin basename belongs to ASE.
+ *
+ * Supports free, pro, and local development folder names while still requiring
+ * the canonical ASE main plugin file.
+ *
+ * @since 8.8.6
+ *
+ * @param string $plugin_basename Plugin basename from upgrader hook data.
+ * @return bool
+ */
+function asenha_is_ase_plugin_update(  $plugin_basename  ) {
+    if ( !is_string( $plugin_basename ) || '' === $plugin_basename ) {
+        return false;
+    }
+    if ( 'admin-site-enhancements.php' !== wp_basename( $plugin_basename ) ) {
+        return false;
+    }
+    $plugin_dirname = dirname( $plugin_basename );
+    if ( '.' === $plugin_dirname || '' === $plugin_dirname ) {
+        return false;
+    }
+    return false !== strpos( $plugin_dirname, 'admin-site-enhancements' );
+}
+
+/**
+ * Run SMTP password storage upgrades when ASE is updated via WordPress upgrader.
+ *
+ * @since 8.8.6
+ *
+ * @param \WP_Upgrader $upgrader   WordPress upgrader instance.
+ * @param array        $hook_extra Upgrader hook context.
+ * @return void
+ */
+function asenha_maybe_run_smtp_password_storage_upgrades_on_update(  $upgrader, $hook_extra  ) {
+    if ( !is_array( $hook_extra ) || empty( $hook_extra['action'] ) || 'update' !== $hook_extra['action'] || empty( $hook_extra['type'] ) || 'plugin' !== $hook_extra['type'] ) {
+        return;
+    }
+    $updated_plugins = array();
+    if ( !empty( $hook_extra['plugin'] ) && is_string( $hook_extra['plugin'] ) ) {
+        $updated_plugins[] = $hook_extra['plugin'];
+    }
+    if ( !empty( $hook_extra['plugins'] ) && is_array( $hook_extra['plugins'] ) ) {
+        $updated_plugins = array_merge( $updated_plugins, $hook_extra['plugins'] );
+    }
+    if ( empty( $updated_plugins ) ) {
+        return;
+    }
+    foreach ( array_unique( $updated_plugins ) as $updated_plugin ) {
+        if ( asenha_is_ase_plugin_update( $updated_plugin ) ) {
+            asenha_run_smtp_password_storage_upgrades();
+            return;
+        }
     }
 }
 
 if ( did_action( 'plugins_loaded' ) ) {
-    asenha_migrate_legacy_smtp_password_storage();
+    asenha_run_smtp_password_storage_upgrades();
 } else {
-    add_action( 'plugins_loaded', 'asenha_migrate_legacy_smtp_password_storage' );
+    add_action( 'plugins_loaded', 'asenha_run_smtp_password_storage_upgrades' );
 }
+add_action(
+    'upgrader_process_complete',
+    'asenha_maybe_run_smtp_password_storage_upgrades_on_update',
+    10,
+    2
+);
 /**
  * Register admin menu
  *
@@ -1169,7 +1372,7 @@ function asenha_admin_scripts(  $hook_suffix  ) {
     }
     // Utilities >> Multiple User Roles
     if ( array_key_exists( 'multiple_user_roles', $options ) && $options['multiple_user_roles'] ) {
-        if ( 'user-edit.php' == $hook_suffix || 'user-new.php' == $hook_suffix ) {
+        if ( 'user-edit.php' == $hook_suffix || 'user-new.php' == $hook_suffix || 'profile.php' == $hook_suffix ) {
             // Only replace roles dropdown with checkboxes for users that can assign roles to other users, e.g. administrators
             if ( current_user_can( 'promote_users', get_current_user_id() ) ) {
                 wp_enqueue_script(
@@ -1327,12 +1530,14 @@ function asenha_admin_menu_organizer_css() {
 }
 
 /**
- * Dequeue scripts that prevents ASE settings page from working properly. Usually from plugins.
+ * Dequeue scripts and styles that prevents ASE settings page from working properly. Usually from plugins and themes.
  * 
  * @since 6.3.3
  */
 function asenha_dequeue_scritps() {
     if ( is_asenha() ) {
+        // Voxel theme — backend.css overrides ASE .form-table module title styling
+        wp_dequeue_style( 'vx:backend.css' );
         // https://wordpress.org/plugins/user-activity-log/
         wp_dequeue_script( 'chats-js' );
         wp_dequeue_script( 'custom_wp_admin_js' );
@@ -1368,6 +1573,116 @@ function asenha_dequeue_scritps() {
 }
 
 /**
+ * Check whether a script or style handle belongs to Gravity Forms.
+ *
+ * @since 8.8.7
+ *
+ * @param string          $handle    Script or style handle.
+ * @param WP_Scripts|WP_Styles $wp_assets WordPress scripts or styles registry.
+ * @return bool
+ */
+function asenha_is_gravity_forms_asset_handle(  $handle, $wp_assets  ) {
+    if ( 0 === strpos( $handle, 'gform_' ) ) {
+        return true;
+    }
+    if ( isset( $wp_assets->registered[$handle] ) ) {
+        $src = $wp_assets->registered[$handle]->src;
+        if ( is_string( $src ) && false !== strpos( $src, 'gravityforms' ) ) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Check whether a script handle belongs to Glossary by Codeat admin.js.
+ *
+ * @since 8.8.8
+ *
+ * @param string     $handle     Script handle.
+ * @param WP_Scripts $wp_scripts WordPress scripts registry.
+ * @return bool
+ */
+function asenha_is_glossary_admin_asset_handle(  $handle, $wp_scripts  ) {
+    if ( 'glossary-admin-script' === $handle ) {
+        return true;
+    }
+    if ( isset( $wp_scripts->registered[$handle] ) ) {
+        $src = $wp_scripts->registered[$handle]->src;
+        if ( is_string( $src ) && false !== strpos( $src, 'glossary-by-codeat' ) && false !== strpos( $src, '/assets/js/admin.js' ) ) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Dequeue conflicting scripts and styles on ASE custom admin interface pages.
+ *
+ * Prevents jQuery UI conflicts from Gravity Forms, and JS errors from plugins
+ * that enqueue global admin scripts on Admin Menu Organizer and Admin Bar Custom Elements.
+ *
+ * @since 8.8.7
+ */
+function asenha_dequeue_conflicting_assets_on_custom_admin_pages() {
+    if ( !is_asenha_custom_admin_interface_page() ) {
+        return;
+    }
+    global $wp_scripts, $wp_styles;
+    foreach ( array($wp_scripts, $wp_styles) as $wp_assets ) {
+        if ( !is_object( $wp_assets ) || !isset( $wp_assets->queue ) ) {
+            continue;
+        }
+        foreach ( (array) $wp_assets->queue as $handle ) {
+            if ( asenha_is_gravity_forms_asset_handle( $handle, $wp_assets ) ) {
+                $wp_assets->dequeue( $handle );
+            }
+        }
+    }
+    // Voxeler Messages — admin script expects DOM nodes absent on AMO/ABCE
+    wp_dequeue_script( 'voxeler-messages-admin-scripts' );
+    $screen = get_current_screen();
+    if ( $screen && 'settings_page_admin-menu-organizer' === $screen->base ) {
+        foreach ( (array) $wp_scripts->queue as $handle ) {
+            if ( asenha_is_glossary_admin_asset_handle( $handle, $wp_scripts ) ) {
+                $wp_scripts->dequeue( $handle );
+            }
+        }
+        wp_deregister_script( 'glossary-admin-script' );
+    }
+}
+
+/**
+ * Block Glossary admin.js script tag output on Admin Menu Organizer.
+ *
+ * Last-resort gate when dequeue hooks run before a late plugin re-enqueue.
+ *
+ * @since 8.8.8
+ *
+ * @param string $tag    Script tag HTML.
+ * @param string $handle Script handle.
+ * @param string $src    Script source URL.
+ * @return string
+ */
+function asenha_block_glossary_admin_script_on_amo(  $tag, $handle, $src  ) {
+    if ( !is_asenha_custom_admin_interface_page() ) {
+        return $tag;
+    }
+    $screen = get_current_screen();
+    if ( !$screen || 'settings_page_admin-menu-organizer' !== $screen->base ) {
+        return $tag;
+    }
+    global $wp_scripts;
+    if ( asenha_is_glossary_admin_asset_handle( $handle, $wp_scripts ) ) {
+        return '';
+    }
+    if ( is_string( $src ) && false !== strpos( $src, 'glossary-by-codeat' ) && false !== strpos( $src, '/assets/js/admin.js' ) ) {
+        return '';
+    }
+    return $tag;
+}
+
+/**
  * Enqueue public scripts
  *
  * @since 3.9.0
@@ -1378,16 +1693,16 @@ function asenha_public_scripts(  $hook_suffix  ) {
     // External Permalinks
     $enable_external_permalinks = ( array_key_exists( 'enable_external_permalinks', $options ) ? $options['enable_external_permalinks'] : false );
     if ( $enable_external_permalinks ) {
-        wp_enqueue_script(
-            'asenha-public',
-            ASENHA_URL . 'assets/js/external-permalinks.js',
+        $external_permalinks = new ASENHA\Classes\External_Permalinks();
+        wp_register_script(
+            'asenha-external-permalinks',
+            false,
             array(),
             ASENHA_VERSION,
             false
         );
-        wp_localize_script( 'asenha-public', 'phpVars', array(
-            'externalPermalinksEnabled' => $enable_external_permalinks,
-        ) );
+        wp_enqueue_script( 'asenha-external-permalinks' );
+        wp_add_inline_script( 'asenha-external-permalinks', $external_permalinks->get_frontend_inline_script_for_options( $options ) );
     }
     // Media Categories
     $enable_media_categories = ( array_key_exists( 'enable_media_categories', $options ) ? $options['enable_media_categories'] : false );
@@ -1469,6 +1784,24 @@ function is_asenha() {
         return false;
         // Nope, this is NOT the plugin's page
     }
+}
+
+/**
+ * Check if current screen is an ASE custom admin interface page.
+ *
+ * @since 8.8.7
+ *
+ * @return bool
+ */
+function is_asenha_custom_admin_interface_page() {
+    if ( !is_admin() || !function_exists( 'get_current_screen' ) ) {
+        return false;
+    }
+    $screen = get_current_screen();
+    if ( !$screen ) {
+        return false;
+    }
+    return in_array( $screen->base, array('settings_page_admin-menu-organizer', 'settings_page_asenha-admin-bar'), true );
 }
 
 /**

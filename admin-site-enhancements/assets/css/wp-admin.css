@@ -109,6 +109,10 @@
 	margin-top: 4px;
 }
 
+.external-permalink-new-tab {
+	margin: 4px 0 0;
+}
+
 /* Utilities >> Multiple User Roles */
 #adduser .form-field input[type="checkbox"], #createuser .form-field input[type="checkbox"] {
 	width: 1rem;
@@ -145,4 +149,8 @@
 	z-index: 999999;
 	box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
+
+
+
+
 

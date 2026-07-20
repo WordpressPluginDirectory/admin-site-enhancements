@@ -53,6 +53,19 @@ class Admin_Site_Enhancements {
         add_action( 'admin_print_footer_scripts', 'asenha_dequeue_scritps', PHP_INT_MAX );
         add_action( 'admin_enqueue_scripts-tools_page_admin-site-enhancements', 'asenha_dequeue_scritps', PHP_INT_MAX );
         add_action( 'admin_print_scripts-tools_page_admin-site-enhancements', 'asenha_dequeue_scritps', PHP_INT_MAX );
+        add_action( 'admin_print_styles-tools_page_admin-site-enhancements', 'asenha_dequeue_scritps', PHP_INT_MAX );
+        add_action( 'admin_enqueue_scripts-settings_page_admin-menu-organizer', 'asenha_dequeue_conflicting_assets_on_custom_admin_pages', PHP_INT_MAX );
+        add_action( 'admin_enqueue_scripts-settings_page_asenha-admin-bar', 'asenha_dequeue_conflicting_assets_on_custom_admin_pages', PHP_INT_MAX );
+        add_action( 'admin_print_scripts-settings_page_admin-menu-organizer', 'asenha_dequeue_conflicting_assets_on_custom_admin_pages', PHP_INT_MAX );
+        add_action( 'admin_print_scripts-settings_page_asenha-admin-bar', 'asenha_dequeue_conflicting_assets_on_custom_admin_pages', PHP_INT_MAX );
+        add_action( 'admin_print_footer_scripts', 'asenha_dequeue_conflicting_assets_on_custom_admin_pages', PHP_INT_MAX );
+        add_action( 'admin_footer', 'asenha_dequeue_conflicting_assets_on_custom_admin_pages', PHP_INT_MAX );
+        add_filter(
+            'script_loader_tag',
+            'asenha_block_glossary_admin_script_on_amo',
+            PHP_INT_MAX,
+            3
+        );
         // Add admin bar inline styles
         add_action( 'admin_head', 'asenha_admin_bar_item_js_css' );
         add_action( 'wp_head', 'asenha_admin_bar_item_js_css' );
@@ -388,6 +401,12 @@ class Admin_Site_Enhancements {
             }
             add_action( 'wp_ajax_save_admin_menu', [$admin_menu_organizer, 'save_admin_menu'] );
         }
+        // Navigation Menu Duplicator
+        if ( array_key_exists( 'enable_navigation_menu_duplicator', $options ) && $options['enable_navigation_menu_duplicator'] ) {
+            $navigation_menu_duplicator = new ASENHA\Classes\Navigation_Menu_Duplicator();
+            add_action( 'admin_enqueue_scripts', [$navigation_menu_duplicator, 'enqueue_scripts'] );
+            add_action( 'admin_init', [$navigation_menu_duplicator, 'maybe_handle_duplicate_request'] );
+        }
         // Show Custom Taxonomy Filters
         if ( array_key_exists( 'show_custom_taxonomy_filters', $options ) && $options['show_custom_taxonomy_filters'] ) {
             $show_custom_taxonomy_filters = new ASENHA\Classes\Show_Custom_Taxonomy_Filters();
@@ -586,6 +605,12 @@ class Admin_Site_Enhancements {
                     [$redirect_after_login, 'redirect_after_login'],
                     5,
                     2
+                );
+                add_filter(
+                    'login_redirect',
+                    [$redirect_after_login, 'filter_login_redirect'],
+                    10,
+                    3
                 );
             }
         }
@@ -1049,8 +1074,12 @@ class Admin_Site_Enhancements {
             add_action( 'wp_enqueue_scripts', [$heartbeat_control, 'maybe_disable_heartbeat'], 99 );
         }
         // SMTP Email Delivery
+        $email_delivery = new ASENHA\Classes\Email_Delivery();
+        ASENHA\Classes\Email_Delivery::set_runtime_instance( $email_delivery );
+        add_action( 'admin_notices', [$email_delivery, 'maybe_show_smtp_password_admin_notice'] );
+        add_action( 'admin_enqueue_scripts', [$email_delivery, 'enqueue_smtp_password_notice_script'] );
+        add_action( 'wp_ajax_asenha_dismiss_smtp_password_notice', [$email_delivery, 'dismiss_smtp_password_admin_notice'] );
         if ( array_key_exists( 'smtp_email_delivery', $options ) && $options['smtp_email_delivery'] ) {
-            $email_delivery = new ASENHA\Classes\Email_Delivery();
             add_action( 'phpmailer_init', [$email_delivery, 'deliver_email_via_smtp'], 99999 );
             add_action( 'wp_ajax_send_test_email', [$email_delivery, 'send_test_email'] );
         }

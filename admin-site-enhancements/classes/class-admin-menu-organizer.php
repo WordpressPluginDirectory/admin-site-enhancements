@@ -9,6 +9,24 @@ namespace ASENHA\Classes;
  */
 class Admin_Menu_Organizer {
     /**
+     * Cached user objects for the current AMO save request.
+     *
+     * @since 8.8.6
+     *
+     * @var array
+     */
+    private $amo_save_user_object_cache__premium_only = array();
+
+    /**
+     * Cached user capability checks for the current AMO save request.
+     *
+     * @since 8.8.6
+     *
+     * @var array
+     */
+    private $amo_save_user_capability_cache__premium_only = array();
+
+    /**
      * Make the "Collapse Menu" toggler sticky at the bottom of the admin menu
      * 
      * @since 8.2.3

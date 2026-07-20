@@ -482,17 +482,19 @@ class Common_Methods {
      * @since 7.0.0
      */
     public function is_color_dark( $hex ) {
-        $hex = str_replace( '#', '', trim( $hex ) );
-        $r = hexdec( $hex[0] . $hex[1] );
-        $g = hexdec( $hex[2] . $hex[3] );
-        $b = hexdec( $hex[4] . $hex[5] );
-        $lightness = (max( $r, $g, $b ) + min( $r, $g, $b )) / 510.0;
-        // HSL algorithm
-        if ( $lightness > 0.8 ) {
-            return false;
-        } else {
+        $hex = str_replace( '#', '', trim( (string) $hex ) );
+        if ( 3 === strlen( $hex ) ) {
+            $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+        }
+        if ( 6 !== strlen( $hex ) || !ctype_xdigit( $hex ) ) {
             return true;
         }
+        $r = hexdec( substr( $hex, 0, 2 ) );
+        $g = hexdec( substr( $hex, 2, 2 ) );
+        $b = hexdec( substr( $hex, 4, 2 ) );
+        $lightness = (max( $r, $g, $b ) + min( $r, $g, $b )) / 510.0;
+        // HSL algorithm
+        return $lightness <= 0.8;
     }
 
     /**

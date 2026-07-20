@@ -262,19 +262,31 @@ class Change_Login_URL {
                 exit;
             }
         } elseif ( !is_user_logged_in() ) {
-            // Non-empty query on path ending in /wp-admin or /admin only (not e.g. /wp-admin/admin.php?...). Must be a single boolean so the next elseif is not skipped by a broad "any query" condition.
-            $bare_wp_admin_or_admin_with_query = false;
-            $bare_admin_request_query = wp_parse_url( $url_input, PHP_URL_QUERY );
-            if ( is_string( $bare_admin_request_query ) && '' !== $bare_admin_request_query ) {
-                $bare_admin_request_path = wp_parse_url( $url_input, PHP_URL_PATH );
-                if ( is_string( $bare_admin_request_path ) && '' !== $bare_admin_request_path ) {
-                    $bare_admin_path_segments = array_values( array_filter( explode( '/', trim( $bare_admin_request_path, '/' ) ) ) );
-                    $bare_admin_last_segment = ( !empty( $bare_admin_path_segments ) ? end( $bare_admin_path_segments ) : '' );
-                    if ( 'wp-admin' === $bare_admin_last_segment || 'admin' === $bare_admin_last_segment ) {
-                        $bare_wp_admin_or_admin_with_query = true;
-                    }
+            // Block default login/admin paths when any path segment matches (not only the first).
+            // Covers /wp-admin/, /prefix/wp-admin/, /wp-admin/network/, /admin/, /login/, etc.
+            // Prevents auth_redirect() + login_url filter from exposing the custom login slug.
+            // wp-login.php / login.php are handled by the dedicated branch below (custom slug allow/deny).
+            $blocked_login_path_segments = array(
+                'admin',
+                'wp-admin',
+                'login',
+                'wp-login'
+            );
+            $request_path = wp_parse_url( $url_input, PHP_URL_PATH );
+            $request_path_segments = array();
+            if ( is_string( $request_path ) && '' !== $request_path ) {
+                $request_path_segments = array_values( array_filter( explode( '/', trim( $request_path, '/' ) ) ) );
+            }
+            $has_blocked_login_path_segment = false;
+            foreach ( $request_path_segments as $path_segment ) {
+                if ( in_array( $path_segment, $blocked_login_path_segments, true ) ) {
+                    $has_blocked_login_path_segment = true;
+                    break;
                 }
             }
+            // Login page CSS/JS loaders must remain reachable under /wp-admin/.
+            $last_path_segment = ( !empty( $request_path_segments ) ? end( $request_path_segments ) : '' );
+            $is_allowed_wp_admin_asset = in_array( $last_path_segment, array('load-styles.php', 'load-scripts.php'), true );
             // WHen trying to access /wp-signup.php without the ?custom_login_slug, redirect to the redriect_slug
             if ( isset( $url_input_parts[1] ) && 'wp-signup.php' == $url_input_parts[1] && false === strpos( $url_input, $custom_login_slug ) ) {
                 // Redirect to /not_found/
@@ -282,17 +294,7 @@ class Change_Login_URL {
                 exit;
             } elseif ( false !== strpos( $url_input, 'wp-admin/admin-post.php' ) ) {
                 // Do nothing. i.e. do not redirect to /not_found/
-            } elseif ( $bare_wp_admin_or_admin_with_query ) {
-                wp_safe_redirect( home_url( $redirect_slug . '/' ), 302 );
-                exit;
-            } elseif ( isset( $url_input_parts[1] ) && in_array( $url_input_parts[1], array(
-                'admin',
-                'wp-admin',
-                'login',
-                'wp-login',
-                'wp-login.php',
-                'login.php'
-            ) ) && (!isset( $url_input_parts[2] ) || isset( $url_input_parts[2] ) && empty( $url_input_parts[2] ) || isset( $url_input_parts[2] ) && false !== strpos( $url_input_parts[2], '.php' )) ) {
+            } elseif ( $has_blocked_login_path_segment && !$is_allowed_wp_admin_asset ) {
                 // Redirect to /not_found/ or custom redirect slug
                 wp_safe_redirect( home_url( $redirect_slug . '/' ), 302 );
                 exit;
