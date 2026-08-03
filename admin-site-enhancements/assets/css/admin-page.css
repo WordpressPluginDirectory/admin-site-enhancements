@@ -1049,10 +1049,6 @@ input[type="search"]#module-search-input.has-text-input {
     padding: 0;
 }
 
-.form-table .asenha-subfields .padding-left-20 td:not(.datatable-td) {
-    padding-left: 20px;
-}
-
 .form-table .asenha-toggle .asenha-radio-buttons td:not(.datatable-td) {
     display: flex;
     flex-direction: column;
@@ -1500,6 +1496,30 @@ input[type="search"]#module-search-input.has-text-input {
 
 .form-table .asenha-subfields tr:not(.datatable-tr).padding-bottom-20 {
     padding-bottom: 20px !important;
+}
+
+.form-table .asenha-subfields tr:not(.datatable-tr).padding-left-4 {
+    padding-left: 4px !important;
+}
+
+.form-table .asenha-subfields tr:not(.datatable-tr).padding-left-8 {
+    padding-left: 8px !important;
+}
+
+.form-table .asenha-subfields tr:not(.datatable-tr).padding-left-10 {
+    padding-left: 10px !important;
+}
+
+.form-table .asenha-subfields tr:not(.datatable-tr).padding-left-12 {
+    padding-left: 12px !important;
+}
+
+.form-table .asenha-subfields tr:not(.datatable-tr).padding-left-16 {
+    padding-left: 16px !important;
+}
+
+.form-table .asenha-subfields tr:not(.datatable-tr).padding-left-20 {
+    padding-left: 20px !important;
 }
 
 .form-table .asenha-subfields tr:not(.datatable-tr).top-border {

@@ -1047,15 +1047,16 @@ function asenha_admin_scripts(  $hook_suffix  ) {
             'wp-tinymce'
         );
         // Main style and script for the admin page
+        $admin_page_style_dependencies = array(
+            'asenha-jbox',
+            'asenha-codemirror',
+            'asenha-datatables',
+            'wp-color-picker'
+        );
         wp_enqueue_style(
             'asenha-admin-page',
             ASENHA_URL . 'assets/css/admin-page.css',
-            array(
-                'asenha-jbox',
-                'asenha-codemirror',
-                'asenha-datatables',
-                'wp-color-picker'
-            ),
+            $admin_page_style_dependencies,
             ASENHA_VERSION
         );
         wp_enqueue_script(

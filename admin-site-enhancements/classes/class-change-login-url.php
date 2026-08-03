@@ -202,6 +202,28 @@ class Change_Login_URL {
         if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
             return;
         }
+        // Skip REST API requests. REST_REQUEST is not defined yet on wp_loaded
+        // (set later in rest_api_loaded during parse_request), so also detect by URL.
+        // Prevents blocking plugin auth endpoints whose path contains a "login" segment,
+        // e.g. /wp-json/storeengine/v1/auth/login.
+        if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+            return;
+        }
+        if ( isset( $_GET['rest_route'] ) ) {
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only route detection
+            return;
+        }
+        $request_uri_for_rest = ( isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '' );
+        $request_path_for_rest = (string) wp_parse_url( $request_uri_for_rest, PHP_URL_PATH );
+        $rest_prefix = trim( rest_get_url_prefix(), '/' );
+        // typically 'wp-json'
+        if ( '' !== $rest_prefix && '' !== $request_path_for_rest ) {
+            $rest_prefix_slash = '/' . $rest_prefix . '/';
+            $rest_prefix_exact = '/' . $rest_prefix;
+            if ( false !== strpos( $request_path_for_rest, $rest_prefix_slash ) || $rest_prefix_exact === rtrim( $request_path_for_rest, '/' ) ) {
+                return;
+            }
+        }
         $options = get_option( ASENHA_SLUG_U );
         $custom_login_slug = $options['custom_login_slug'];
         // e.g. backend

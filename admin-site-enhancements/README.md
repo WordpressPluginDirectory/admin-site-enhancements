@@ -4,8 +4,8 @@ Contributors: qriouslad
 Donate link: https://bowo.io/asenha-sp-rdm  
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
-Tested up to: 7.0  
-Stable tag: 8.9.0  
+Tested up to: 7.0.2  
+Stable tag: 8.9.2  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -52,8 +52,8 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Custom Content Types**. Register custom post types (CPT), custom taxonomies, custom field groups and options pages that integrates with Bricks, Breakdance, Oxygen and Elementor, and compatible with various block themes and plugins. Also integrates with WPML and works with TranslatePress to create multilingual sites. An alternative for ACF Pro, Meta Box, Toolset, Pods, JetEngine or ACPT.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Post Type Switcher**. Switch the post type of one or more posts to a different post type.
 * **Content Duplication**. Duplicate pages, posts and public CPTs. [ASE Pro](https://www.wpase.com/rdme-to-web) enables duplication only for certain user roles and certain public and non-public post types, and adds location option for duplication links.
-* **Content Order**. Drag-and-drop custom ordering of hierarchical post types. [ASE Pro](https://www.wpase.com/rdme-to-web) enables ordering of non-hierarchical post types, including media / attachments, reordering and changing the parent of child posts is supported, as well as applying the custom order on the frontend.
-* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Terms Order**. Drag-and-drop custom ordering of terms and child terms from various taxonomies and apply the custom order on the frontend.
+* **Content Order**. Drag-and-drop custom ordering of hierarchical post types. [ASE Pro](https://www.wpase.com/rdme-to-web) enables ordering of non-hierarchical post types, including media / attachments, reordering and changing the parent of child posts is supported, as well as applying the custom order on the frontend. Also WPML compatible.
+* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Terms Order**. Drag-and-drop custom ordering of terms and child terms from various taxonomies and apply the custom order on the frontend. WPML compatible.
 * **Media Files Visibility Control**: Limit media files visibility so only administrators can see all media files. Non-administrator users will only see media files they uploaded themselves. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to specify which non-administrator user roles will have such limitation. 
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Media Categories**. Hierarchical categories for the media library with drag-and-drop categorization.
 * **Media Replacement**. Replace any type of media file with a new one while ensuring no existing links will break. [ASE Pro](https://www.wpase.com/rdme-to-web) allows replacing media from the grid view of media library.
@@ -112,7 +112,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### Disable Components
 
-* **Disable Gutenberg** for some or all applicable post types. Optionally disable frontend block assets. [ASE Pro](https://www.wpase.com/rdme-to-web) allows disabling only on / except on certain post types, or on all post types.
+* **Disable Gutenberg** for some or all applicable post types. Optionally disable frontend block assets. [ASE Pro](https://www.wpase.com/rdme-to-web) allows disabling only on / except on certain post types, or on all post types, and adds optional always disable/enable on certain posts.
 * **Disable Comments**. Disable comments for some or all public post types. [ASE Pro](https://www.wpase.com/rdme-to-web) allows disabling only on / except on certain post types, or on all post types.
 * **Disable REST API**. Disable REST API access for non-authenticated users and remove URL traces from &lt;head&gt;, HTTP headers and WP RSD endpoint. [ASE Pro](https://www.wpase.com/rdme-to-web) allows enabling access only for some, authenticated user roles, and adds a way to exclude certain API routes.
 * **Disable Feeds**. Disable all RSS, Atom and RDF feeds.
@@ -206,31 +206,42 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **89 _major_ releases** (e.g. 1.1.0 ) and **202 _minor_ releases** (e.g. 4.9.1), for a **total of 291 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **89 _major_ releases** (e.g. 1.1.0 ) and **204 _minor_ releases** (e.g. 4.9.1), for a **total of 293 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 8.9.0 (2026.07.20) - ASE Free and Pro
+### 8.9.2 (2026.08.03) - ASE Free and Pro
 
-* **[ADDED in Free and Pro] Admin Interface >> Navigation Menu Duplicator**. Added a new module to duplicate a navigation menu with one click from Appearance → Menus.
+* **[FIXED in Free and Pro] Optimizations >> Heartbeat Control**: fixed interval settings still showing after selecting "Disable" and saving changes. Props to Jayron C. for reporting the issue in detail.
 
-* **[IMPROVED in Free and Pro] Log In/Out & Register >> Change Login URL**: Improved handling of a URL pattern that may reveal the custom login URL when ASE is installed on WordPress site hosted with NGINX that implements a certain pattern of NGINX URL mapping. Props to Bram for reporting the issue in great detail.
+* **[FIXED in Free and Pro] Admin Interface >> Clean Up Admin Bar**: fixed a conflict between ASE's and Divi Assistant's "remove howdy" feature when both are enabled, which causes admin bar layout issues. Props to Carmine M. for reporting the issue in detail, with a screenshot, and facilitating the troubleshooting process.
 
-* **[IMPROVED in Pro] Content Management >> Content Order**: Added compatibility with WPML plugin so that reordering results in sequential menu_order of posts in the primary language while respecting WPML's post order syncing. Also added a new (checkbox) option to allow independent reordering of posts in each language, which will suppress WPML's post order syncing. Props to Stijn V. for prompting this improvement.
+* **[IMPROVED and FIXED in Pro] Utilities >> File Manager**: 
+  * fixed an error when opening wp-config.php in a certain scenario. Props to Jayron C. for reporting the issue and facilitating the troubleshooting process.
+  * added support for opening/editing SVG files in text mode. Props to Lucian P. for prompting this improvement.
 
-* **[IMPROVED in Pro] Content Management >> Terms Order**: add an 'Order' button on taxonomy terms listing page, linking to the custom terms ordering page for that taxonomy. Props to Stijn V. for prompting this improvement.
+* **[IMPROVED and FIXED in Pro] Utilities >> Site Backup and Migration**:
+  * Added mechanisms to improve the reliability of restore and migration operations.
+  * Fixed database collation error when migrating from a site with MySQL 8.0 to a site with MySQL < 8.0 or MariaDB.
+  * Fixed an issue where /upgrade/ folder inside plugins, e.g. Elementor and Elementor Pro, were not being included in the backup archive because it was mistakenly regarded as the /wp-content/upgrade/ which WP core uses for upgrade operations. This can result in fatal error after restore or migration operation completes and the site is loaded for the first time. Props to Benjamin N. for reporting the fatal error in great detail and facilitating the troubleshooting process.
 
-* **[IMPROVED in Pro] Utilities >> Form Builder**: 
-  * Added two new "Layout" fields: Section Start and Section End, to group together multiple fields. Conditional logic can then be applied to the Section Start field to show / hide the grouped fields at once. Nesting sections is also supported. Props to Roland T. for prompting this improvement.
-  * Added **multi-step form** feature via a new "Layout" field called Page Break. In the "Form" tab, there's also a dedicated section to configure the multi-step behaviour, including step titles, progress indicator type (progress bar or clickable steps), steps styles (pills, circles, squares, tabs, chevrons), and whether to enable saving progress and emailing a URL to resume form-filling. Props to Fabio R. for prompting this improvement.
+* **[IMPROVED and FIXED in Pro] Content Management >> Custom Content Types**:
+  * Custom Field Group: Added a new field type, Map, which supports OpenStreetMap and Google Maps. The Map field is integrated with Elementor, Bricks, Breakdance and Oxygen (classic) via text widget/element, as URL dynamic data source, via native map widget/element (Bricks), and via an "ASE Map" widget/element (Elementor, Breakdance, Oxygen Classic). The map field also supports being queried inside a loop, e.g. posts and repeaters, across the four page buidlers. Props to Stijn V. for prompting this improvement.
+  * Custom Field Group: Fields can now be included in Quick Edit and Bulk Edit. All field types except repeater and layout fields are supported. Props to Rodlens H. for prompting this improvement.
+  * Custom Field Group: Added "ASE Repeater" element in Oxygen Classic, it' snow possible to work with a repeater field's sub-fields values directly in Oxygen Classic.
+  * Custom Field Groups: Fixed an issue that causes newly added fields that are added after a nested repeater field and without repositioning before clicking "Update", are getting their order scrambled upon successful save.
+  * Custom Field Group: the fullscreen button in WYSIWYG field is now hidden when in the block editor as it's very challenging to get fullscreen view right within the iframe environment of the block editor.
+  
+* **[IMPROVED and Fixed in Pro] Admin Interface >> Admin Columns Manager**: added support for rendering ASE map field value for both OpenStreetMap and Google Maps in an admin column.
 
-* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: Fixed PHP warnings on posts listing page that occurs when a stale/deleted/non-existent taxonomy has a lingering admin column on the listing page. Props to Ignazio D.M. for reporting the issue in detail with a screen recording.
+* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fixed an issue where orphaned hide settings from Elementor v3 is still being applied in Elementor v4, causing certain admin pages, e.g. Fonts, Code, to be blocked from access. Props to Benjamin N. for reporting the issue and facilitating the troubleshooting process.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: Updated Spanish (Spain), Portuguese (Brazil), Polish, Dutch (Netherlands).
+    * ASE Free: Updated Portuguese (Brazil), Norwegian, Hebrew.
+    * ASE Pro: Updated Chinese (China), Norwegian.
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [39 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).
@@ -272,5 +283,6 @@ Each **_major release_** usually corresponds with the addition of one new module
   * **[Dutch (Belgium)](https://translate.wordpress.org/locale/nl-be/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed). Props to [Pieterjan D.](https://profiles.wordpress.org/nekojonez/). Current status, [0 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/nl-be/default/?filters%5Bstatus%5D=untranslated).
   * **[Azerbaijani](https://translate.wordpress.org/locale/az/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed). Props to [Saeid BGrn](https://profiles.wordpress.org/saeead/). Current status, [1 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/az/default/?filters%5Bstatus%5D=untranslated).
   * **[Estonian](https://translate.wordpress.org/locale/et/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed) and Pro (completed). Props to [Aleksander K.](https://profiles.wordpress.org/itagentuur/). Current status, [0 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/et/default/?filters%5Bstatus%5D=untranslated).
-
+  * **[Hebrew](https://translate.wordpress.org/locale/he/default/wp-plugins/admin-site-enhancements/)**: ASE Free (completed). Props to [@sufti](https://profiles.wordpress.org/sufti/). Current status, [1 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/he/default/?filters%5Bstatus%5D=untranslated).
+  
 [**See the full changelog >>**](https://www.wpase.com/documentation/changelog/)

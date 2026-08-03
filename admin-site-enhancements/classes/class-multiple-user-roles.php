@@ -28,6 +28,15 @@ class Multiple_User_Roles {
             $user_roles = array();
         }
 
+        $is_self = (
+            is_object( $user )
+            && is_object( $current_user )
+            && isset( $user->ID )
+            && isset( $current_user->ID )
+            && (int) $user->ID === (int) $current_user->ID
+        );
+        $user_is_administrator = is_object( $user ) && in_array( 'administrator', (array) $user->roles, true );
+
         // Only show roles checkboxes for users that can assign roles to other users
         if ( current_user_can( 'promote_users', get_current_user_id() ) ) {
 
@@ -50,20 +59,15 @@ class Multiple_User_Roles {
                                     $checked = '';
                                 }
                                 
-                                // We disable the 'Administrator' checkbox so it could not be unchecked and cause user to lose administrator priviledges without a way to restore it
+                                // On own profile: lock Administrator checkbox. Only emit a hidden retain field when
+                                // the user already has administrator — never force-grant it to non-admins.
                                 $disabled = '';
-                                $is_own_profile_admin = false;
+                                $lock_own_administrator = false;
 
-                                if ( 'administrator' == $role_slug 
-                                    && is_object( $user )
-                                    && is_object( $current_user )
-                                ) {
-                                    if ( property_exists( $user, 'ID' )
-                                    && property_exists( $current_user, 'ID' )
-                                    && $user->ID == $current_user->ID
-                                    ) {
-                                        $disabled = 'disabled ';
-                                        $is_own_profile_admin = true;
+                                if ( 'administrator' === $role_slug && $is_self ) {
+                                    $disabled = 'disabled ';
+                                    if ( $user_is_administrator ) {
+                                        $lock_own_administrator = true;
                                     }
                                 }
                                 
@@ -71,7 +75,7 @@ class Multiple_User_Roles {
                                 ?>
                                 <label for="<?php esc_attr_e( $checkbox_id ); ?>"><input type="checkbox" id="<?php esc_attr_e( $checkbox_id ); ?>" value="<?php esc_attr_e( $role_slug ); ?>" name="asenha_assigned_roles[]" <?php esc_attr_e( $checked ); ?> <?php esc_attr_e( $disabled ); ?>/> <?php esc_html_e( $role_name ); ?></label><br />
                                 <?php
-                                if ( $is_own_profile_admin ) {
+                                if ( $lock_own_administrator ) {
                                     ?>
                                     <input type="hidden" name="asenha_assigned_roles[]" value="administrator" />
                                     <?php
@@ -131,10 +135,18 @@ class Multiple_User_Roles {
         // Make sure only valid roles are processed
         $assigned_roles = array_intersect( $assigned_roles, array_keys( $roles ) );
 
-        // Self-edit: always retain administrator role
-        if ( (int) $user->ID === (int) $current_user->ID ) {
-            $assigned_roles[] = 'administrator';
-            $assigned_roles = array_unique( $assigned_roles );
+        // Self-edit: retain administrator only if already held; otherwise strip it
+        // so non-admins with promote_users cannot self-escalate via POST.
+        $is_self               = ( (int) $user->ID === (int) $current_user->ID );
+        $user_is_administrator = in_array( 'administrator', (array) $user->roles, true );
+
+        if ( $is_self ) {
+            if ( $user_is_administrator ) {
+                $assigned_roles[] = 'administrator';
+                $assigned_roles   = array_unique( $assigned_roles );
+            } else {
+                $assigned_roles = array_values( array_diff( $assigned_roles, array( 'administrator' ) ) );
+            }
         }
 
         // Identify and remove roles not present in the newly assigned roles

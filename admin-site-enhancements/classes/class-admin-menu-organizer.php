@@ -395,18 +395,26 @@ class Admin_Menu_Organizer {
      */
     public function hide_menu_items() {
         global $menu;
+        if ( !is_array( $menu ) ) {
+            return;
+        }
         $common_methods = new Common_Methods();
+        $menu_always_hidden = array();
         $menu_hidden_by_toggle = $common_methods->get_menu_hidden_by_toggle();
         // indexed array
+        $yoast_alias_slugs_to_remove = array();
         foreach ( $menu as $menu_key => $menu_info ) {
+            $menu_slug = ( isset( $menu_info[2] ) ? $menu_info[2] : '' );
             if ( false !== strpos( $menu_info[4], 'wp-menu-separator' ) ) {
                 $menu_item_id = $menu_info[2];
             } else {
-                $menu_item_id = $menu_info[5];
+                $menu_item_id = ( isset( $menu_info[5] ) ? $menu_info[5] : '' );
             }
-            // Append 'hidden' class to hide menu item until toggled
-            if ( in_array( $menu_item_id, $menu_hidden_by_toggle ) ) {
-                $menu[$menu_key][4] = $menu_info[4] . ' hidden asenha_hidden_menu';
+            // Append 'hidden' class to hide menu item until toggled (match CSS ID or Yoast slug aliases).
+            if ( in_array( $menu_item_id, $menu_hidden_by_toggle, true ) || '' !== $menu_slug && in_array( $menu_slug, $menu_hidden_by_toggle, true ) ) {
+                if ( false === strpos( $menu[$menu_key][4], 'asenha_hidden_menu' ) ) {
+                    $menu[$menu_key][4] = $menu_info[4] . ' hidden asenha_hidden_menu';
+                }
             }
         }
     }

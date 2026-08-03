@@ -342,7 +342,8 @@ class Admin_Site_Enhancements {
             $cleanup_admin_bar = new ASENHA\Classes\Cleanup_Admin_Bar();
             // Priority 5 to execute earlier than the normal 10. This is for removing default items.
             add_filter( 'admin_bar_menu', [$cleanup_admin_bar, 'modify_admin_bar_menu'], 5 );
-            add_filter( 'admin_bar_menu', [$cleanup_admin_bar, 'remove_howdy'], PHP_INT_MAX - 100 );
+            // Priority 100: after third-party Howdy removers on this hook (e.g. Divi Assistant at 10).
+            add_action( 'wp_before_admin_bar_render', [$cleanup_admin_bar, 'remove_howdy'], 100 );
             if ( array_key_exists( 'hide_help_drawer', $options ) && $options['hide_help_drawer'] ) {
                 add_action( 'admin_head', [$cleanup_admin_bar, 'hide_help_drawer'] );
             }
@@ -700,14 +701,23 @@ class Admin_Site_Enhancements {
         // =================================================================
         // Disable Gutenberg
         if ( array_key_exists( 'disable_gutenberg', $options ) && $options['disable_gutenberg'] ) {
+            $load_disable_gutenberg = false;
             if ( array_key_exists( 'disable_gutenberg_for', $options ) && !empty( $options['disable_gutenberg_for'] ) ) {
+                $load_disable_gutenberg = true;
+            }
+            $disable_gutenberg = null;
+            if ( $load_disable_gutenberg ) {
                 $disable_gutenberg = new ASENHA\Classes\Disable_Gutenberg();
                 if ( !class_exists( 'Classic_Editor' ) ) {
                     require_once ASENHA_PATH . 'includes/empty-class-classic-editor.php';
                 }
                 add_action( 'admin_init', [$disable_gutenberg, 'disable_gutenberg_for_post_types_admin'] );
                 add_action( 'admin_print_styles', [$disable_gutenberg, 'safari_18_fix'] );
+                $load_disable_gutenberg_frontend_styles = false;
                 if ( array_key_exists( 'disable_gutenberg_frontend_styles', $options ) && $options['disable_gutenberg_frontend_styles'] ) {
+                    $load_disable_gutenberg_frontend_styles = true;
+                }
+                if ( $load_disable_gutenberg_frontend_styles ) {
                     add_action( 'wp_enqueue_scripts', [$disable_gutenberg, 'disable_gutenberg_for_post_types_frontend'], 999999 );
                     add_action( 'wp_footer', [$disable_gutenberg, 'disable_gutenberg_for_post_types_frontend'] );
                 }
