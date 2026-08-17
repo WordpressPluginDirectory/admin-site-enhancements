@@ -209,7 +209,7 @@
 			+ '#wpbody-content > .bwfan_header > .notice-updated,'
 			+ '#wpbody-content > .bwfan_header > .updated:not(.inline),'
 			+ '#wpbody-content > .bwfan_header > .update-nag,'
-			+ '#wpbody-content > .notice:not(.otgs-notice,.wcml-notice,#asenha-smtp-password-notice),' // LearnDash, WPML WooCommerce Multilingual
+			+ '#wpbody-content > .notice:not(.otgs-notice,.wcml-notice,#asenha-smtp-password-notice,#asenha-wpml-stale-job-notice),' // LearnDash, WPML WooCommerce Multilingual
 			+ '#wpbody-content > .update-nag,' // LearnDash
 			+ '#wpbody-content > .jp-connection-banner,' // Jetpack
 			+ '#wpbody-content > .jitm-banner,' // Jetpack

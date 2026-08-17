@@ -47,11 +47,24 @@ class Login_ID_Type {
      *
      * @param WP_User|Mixed $user user object if authenticated.
      * @param String        $username username.
+     * @param String        $password password or authentication token.
      * @return WP_User|Mixed authenticated user or error.
      * @link https://plugins.trac.wordpress.org/browser/xo-security/tags/3.7.1/inc/class-xo-security.php
      * @since 6.8.0
      */
-    public function authenticate_email( $user, $username ) {
+    public function authenticate_email( $user, $username, $password = '' ) {
+        if ( null !== $user && ! is_wp_error( $user ) &&
+            class_exists( '\WordfenceLS\Controller_Passkey' ) &&
+            method_exists( '\WordfenceLS\Controller_Passkey', 'shared' ) &&
+            method_exists( '\WordfenceLS\Controller_Passkey', 'is_verified_authentication_request' )
+        ) {
+            $passkey = \WordfenceLS\Controller_Passkey::shared();
+
+            if ( $passkey->is_verified_authentication_request( $username, $password ) ) {
+                return $user;
+            }
+        }
+
         if ( null !== $user && ! is_wp_error( $user ) && strtolower( $user->user_email ) !== strtolower( $username ) ) {
             $user = new WP_Error( 'invalid_username', __( '<strong>Error:</strong> Invalid email or incorrect password.', 'admin-site-enhancements' ) );
         }

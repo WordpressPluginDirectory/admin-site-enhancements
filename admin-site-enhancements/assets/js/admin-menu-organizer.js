@@ -55,7 +55,30 @@
          });
       });
 
-      
+      // Reset admin menu via AJAX
+      $('#reset-menu').click(function(e) {
+         e.preventDefault();
+         $('.reset-menu-spinner').show();
+         $.ajax({
+            type: "post",
+            url: ajaxurl,
+            data: {
+               'action':'reset_admin_menu',
+               'nonce': amoPageVars.resetMenuNonce
+            },
+            success:function(data) {
+               var data = data.slice(0,-1); // remove strange trailing zero in string returned by AJAX call
+               var response = JSON.parse(data);
+
+               if ( response.status == 'success' ) {
+                  document.location.reload(true);
+               }
+            },
+            error:function(errorThrown) {
+               console.log(errorThrown);
+            }
+         });
+      });
 
    }); // END OF $(document).ready()
 

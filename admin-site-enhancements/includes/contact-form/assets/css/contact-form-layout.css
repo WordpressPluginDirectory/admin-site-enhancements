@@ -1,0 +1,199 @@
+.asenha-contact-form {
+	display: block;
+	width: 100%;
+}
+
+.asenha-contact-form .asenha-cf-field {
+	display: block;
+	margin-bottom: 1em;
+}
+
+.asenha-contact-form .asenha-cf-field label {
+	display: block;
+	text-align: left;
+	margin-bottom: 0.35em;
+}
+
+.asenha-contact-form .asenha-cf-field input,
+.asenha-contact-form .asenha-cf-field textarea {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.asenha-contact-form .asenha-cf-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1em;
+	margin-bottom: 0.75em;
+}
+
+.asenha-contact-form .asenha-cf-field--full {
+	width: 100%;
+}
+
+.asenha-contact-form .asenha-cf-field--half {
+	flex: 1 1 calc(50% - 0.5em);
+	min-width: 12rem;
+}
+
+.asenha-contact-form .asenha-cf-honeypot {
+	position: absolute;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
+.asenha-contact-form .asenha-cf-messages {
+	scroll-margin-top: 1rem;
+}
+
+.asenha-contact-form .asenha-cf-success-msg {
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	margin: 0 0 1em;
+	padding: 0.75em 1em;
+	background: #edfaef;
+	border: 1px solid #00a32a;
+	border-radius: 3px;
+	color: #1e1e1e;
+}
+
+.asenha-contact-form .asenha-cf-success-icon {
+	display: inline-flex;
+	flex-shrink: 0;
+	color: #008a20;
+	line-height: 0;
+}
+
+.asenha-contact-form .asenha-cf-success-icon svg {
+	width: 1.25em;
+	height: 1.25em;
+}
+
+.asenha-contact-form .asenha-cf-success-text {
+	flex: 1 1 auto;
+}
+
+.asenha-contact-form .asenha-cf-error-msg {
+	margin: 0 0 1em;
+}
+
+.asenha-contact-form .asenha-cf-field-error input,
+.asenha-contact-form .asenha-cf-field-error textarea {
+	outline: 1px solid #b32d2e;
+}
+
+.asenha-contact-form .asenha-cf-field-error-message {
+	color: #b32d2e;
+	font-size: 0.9em;
+	margin-top: 0.35em;
+}
+
+.asenha-contact-form .asenha-cf-submit-wrap {
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	justify-content: flex-start;
+}
+
+.asenha-contact-form.asenha-cf-button-pos--right .asenha-cf-submit-wrap {
+	justify-content: flex-end;
+}
+
+.asenha-contact-form .asenha-cf-submit-spinner {
+	display: none;
+	width: 16px;
+	height: 16px;
+	border: 2px solid rgba(0, 0, 0, 0.15);
+	border-top-color: currentColor;
+	border-radius: 50%;
+	animation: asenha-cf-spin 0.8s linear infinite;
+	flex-shrink: 0;
+}
+
+.asenha-contact-form .asenha-cf-submit-button.is-loading + .asenha-cf-submit-spinner {
+	display: inline-block;
+}
+
+.asenha-contact-form .asenha-cf-submit-button.is-loading {
+	opacity: 0.7;
+	pointer-events: none;
+}
+
+@keyframes asenha-cf-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/* Layout: Stacked — Name and Email each occupy full width */
+.asenha-contact-form.asenha-cf-layout--stacked .asenha-cf-row {
+	flex-direction: column;
+	gap: 0;
+}
+
+.asenha-contact-form.asenha-cf-layout--stacked .asenha-cf-field--half {
+	flex: 1 1 100%;
+	min-width: 0;
+}
+
+/* Label position (applies only when stacked) — keeps inputs aligned */
+.asenha-contact-form.asenha-cf-layout--stacked.asenha-cf-label-pos--left .asenha-cf-field:not(.asenha-cf-submit-wrap) {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	gap: 0.75rem;
+}
+
+.asenha-contact-form.asenha-cf-layout--stacked.asenha-cf-label-pos--right .asenha-cf-field:not(.asenha-cf-submit-wrap) {
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+	gap: 0.75rem;
+}
+
+.asenha-contact-form.asenha-cf-layout--stacked .asenha-cf-field:not(.asenha-cf-submit-wrap) label {
+	flex: 0 0 8rem;
+	margin-bottom: 0;
+	word-break: break-word;
+}
+
+.asenha-contact-form.asenha-cf-layout--stacked.asenha-cf-label-pos--left .asenha-cf-field:not(.asenha-cf-submit-wrap) label {
+	text-align: left;
+	line-height: 44px;
+}
+
+.asenha-contact-form.asenha-cf-layout--stacked.asenha-cf-label-pos--right .asenha-cf-field:not(.asenha-cf-submit-wrap) label {
+	text-align: right;
+}
+
+.asenha-contact-form.asenha-cf-layout--stacked .asenha-cf-field:not(.asenha-cf-submit-wrap) input,
+.asenha-contact-form.asenha-cf-layout--stacked .asenha-cf-field:not(.asenha-cf-submit-wrap) textarea {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+@media (max-width: 782px) {
+	.asenha-contact-form.asenha-cf-layout--stacked.asenha-cf-label-pos--left .asenha-cf-field:not(.asenha-cf-submit-wrap),
+	.asenha-contact-form.asenha-cf-layout--stacked.asenha-cf-label-pos--right .asenha-cf-field:not(.asenha-cf-submit-wrap) {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.asenha-contact-form.asenha-cf-layout--stacked .asenha-cf-field:not(.asenha-cf-submit-wrap) label {
+		flex-basis: auto;
+		text-align: left;
+	}
+
+	.asenha-contact-form.asenha-cf-layout--stacked.asenha-cf-label-pos--right .asenha-cf-field:not(.asenha-cf-submit-wrap) label {
+		text-align: left;
+	}
+}
+
+@media (max-width: 600px) {
+	.asenha-contact-form .asenha-cf-field--half {
+		flex-basis: 100%;
+	}
+}

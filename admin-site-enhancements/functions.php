@@ -170,14 +170,52 @@ function get_kses_with_style_src_svg_ruleset() {
  */
 function get_kses_with_custom_html_ruleset() {
     $kses_defaults = wp_kses_allowed_html( 'post' );
+    $span_attrs = ( isset( $kses_defaults['span'] ) ? $kses_defaults['span'] : array() );
+    $span_attrs['hidden'] = true;
     $custom_html_args = array(
-        'input' => array(
+        'input'  => array(
             'type'  => true,
             'id'    => true,
             'class' => true,
             'name'  => true,
             'value' => true,
             'style' => true,
+        ),
+        'button' => array(
+            'type'                => true,
+            'class'               => true,
+            'aria-label'          => true,
+            'data-clipboard-text' => true,
+            'title'               => true,
+        ),
+        'span'   => $span_attrs,
+        'svg'    => array(
+            'class'           => true,
+            'aria-hidden'     => true,
+            'aria-labelledby' => true,
+            'role'            => true,
+            'xmlns'           => true,
+            'width'           => true,
+            'height'          => true,
+            'viewbox'         => true,
+            'viewBox'         => true,
+            'focusable'       => true,
+        ),
+        'g'      => array(
+            'fill'            => true,
+            'fill-rule'       => true,
+            'stroke'          => true,
+            'stroke-linejoin' => true,
+            'stroke-width'    => true,
+            'stroke-linecap'  => true,
+        ),
+        'path'   => array(
+            'd'               => true,
+            'fill'            => true,
+            'stroke'          => true,
+            'stroke-linejoin' => true,
+            'stroke-width'    => true,
+            'stroke-linecap'  => true,
         ),
     );
     return array_merge( $kses_defaults, $custom_html_args );

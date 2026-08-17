@@ -71,6 +71,114 @@ class SVG_Upload {
 
     }
 
+    /**
+     * Whether a file path and/or mime type represents an SVG.
+     *
+     * @since 9.0.1
+     *
+     * @param string $file_path Absolute file path or filename.
+     * @param string $mime_type Optional mime type.
+     * @return bool
+     */
+    public function is_svg_file( $file_path, $mime_type = '' ) {
+        if ( 'image/svg+xml' === $mime_type ) {
+            return true;
+        }
+
+        if ( empty( $file_path ) ) {
+            return false;
+        }
+
+        $extension = strtolower( pathinfo( $file_path, PATHINFO_EXTENSION ) );
+
+        return 'svg' === $extension;
+    }
+
+    /**
+     * Check whether an XML document has an SVG root element.
+     *
+     * This is a deliberately small preflight check. The bundled sanitizer
+     * performs its own XML parsing, but version 0.15.4 throws a LogicException
+     * for a valid XML document whose root is not SVG.
+     *
+     * @since 9.0.1
+     *
+     * @param string $svg_contents SVG file contents.
+     * @return bool
+     */
+    private function has_svg_root( $svg_contents ) {
+        $previous_internal_errors = libxml_use_internal_errors( true );
+
+        try {
+            $document = new \DOMDocument();
+            $loaded   = $document->loadXML( $svg_contents, LIBXML_NONET );
+
+            if ( ! $loaded || ! $document->documentElement ) {
+                return false;
+            }
+
+            $root_name = $document->documentElement->localName;
+            if ( empty( $root_name ) ) {
+                $root_name = $document->documentElement->nodeName;
+            }
+
+            return 'svg' === strtolower( $root_name );
+        } catch ( \Throwable $e ) {
+            return false;
+        } finally {
+            libxml_clear_errors();
+            libxml_use_internal_errors( $previous_internal_errors );
+        }
+    }
+
+    /**
+     * Sanitize an SVG file in place.
+     *
+     * Writes sanitised markup back to the same path on success. Does not write
+     * when sanitisation fails, so a malicious original is never replaced with
+     * an empty/false value.
+     *
+     * @since 9.0.1
+     *
+     * @param string $file_path Absolute path to the SVG file.
+     * @return bool True if sanitised and written, false on failure.
+     */
+    public function sanitize_svg_file( $file_path ) {
+        if ( empty( $file_path ) || ! is_readable( $file_path ) ) {
+            return false;
+        }
+
+        $original_svg = file_get_contents( $file_path );
+
+        if ( false === $original_svg ) {
+            return false;
+        }
+
+        $previous_internal_errors = libxml_use_internal_errors( true );
+
+        try {
+            if ( ! $this->has_svg_root( $original_svg ) ) {
+                return false;
+            }
+
+            $sanitizer     = $this->get_svg_sanitizer();
+            $sanitized_svg = $sanitizer->sanitize( $original_svg );
+
+            if ( false === $sanitized_svg || ! is_string( $sanitized_svg ) || '' === $sanitized_svg ) {
+                return false;
+            }
+
+            $bytes_written = file_put_contents( $file_path, $sanitized_svg, LOCK_EX );
+
+            return false !== $bytes_written && strlen( $sanitized_svg ) === $bytes_written;
+        } catch ( \Throwable $e ) {
+            return false;
+        } finally {
+            libxml_clear_errors();
+            libxml_use_internal_errors( $previous_internal_errors );
+        }
+    }
+
     /** 
      * Sanitize the SVG file and maybe allow upload based on the result
      *
@@ -86,22 +194,54 @@ class SVG_Upload {
         $file_type_ext = wp_check_filetype_and_ext( $file_tmp_name, $file_name );
         $file_type = ! empty( $file_type_ext['type'] ) ? $file_type_ext['type'] : '';
 
-        if ( 'image/svg+xml' === $file_type ) {
-            $original_svg = file_get_contents( $file_tmp_name );
+        if ( ! $this->is_svg_file( $file_name, $file_type ) ) {
+            return $file;
+        }
 
-            $sanitizer = $this->get_svg_sanitizer();
-            $sanitized_svg = $sanitizer->sanitize( $original_svg ); // boolean
-
-            if ( false === $sanitized_svg ) {
-
-                $file['error'] = 'This SVG file could not be sanitized, so, was not uploaded for security reasons.';
-
-            }
-
-            file_put_contents( $file_tmp_name, $sanitized_svg );
+        if ( ! $this->sanitize_svg_file( $file_tmp_name ) ) {
+            $file['error'] = 'This SVG file could not be sanitized, so, was not uploaded for security reasons.';
         }
 
         return $file;
+    }
+
+    /**
+     * Sanitize SVG files at write time.
+     *
+     * Covers wp_upload_bits() used by XML-RPC, which does not fire
+     * wp_handle_upload_prefilter. Runs before mw_newMediaObject() may
+     * return 401 on an unauthorised post_id, so the file on disk is
+     * sanitised even when no attachment record is created.
+     *
+     * @since 9.0.1
+     *
+     * @param array  $upload  {
+     *     Upload data.
+     *
+     *     @type string $file Filename of the newly-uploaded file.
+     *     @type string $url  URL of the uploaded file.
+     *     @type string $type Mime type of the newly-uploaded file.
+     * }
+     * @param string $context Upload context: 'upload' or 'sideload'.
+     * @return array Upload data, possibly with an error when sanitisation fails.
+     */
+    public function sanitize_svg_on_handle_upload( $upload, $context ) {
+        if ( empty( $upload['file'] ) ) {
+            return $upload;
+        }
+
+        $mime_type = isset( $upload['type'] ) ? $upload['type'] : '';
+
+        if ( ! $this->is_svg_file( $upload['file'], $mime_type ) ) {
+            return $upload;
+        }
+
+        if ( ! $this->sanitize_svg_file( $upload['file'] ) ) {
+            wp_delete_file( $upload['file'] );
+            $upload['error'] = 'This SVG file could not be sanitized, so, was not uploaded for security reasons.';
+        }
+
+        return $upload;
     }
     
     /**
@@ -111,19 +251,19 @@ class SVG_Upload {
      * @since 7.9.8
      */
     public function sanitize_xmlrpc_svg_upload( $_media_item, $media_item ) {
-        if ( is_object( $media_item ) ) {
-            if ( property_exists( $media_item, 'ID' ) ) {
-                $file_path = get_attached_file( $media_item->ID );
-                $original_svg = file_get_contents( $file_path );
+        if ( ! is_object( $media_item ) || ! property_exists( $media_item, 'ID' ) ) {
+            return $_media_item;
+        }
 
-                $sanitizer = $this->get_svg_sanitizer();                
-                $sanitized_svg = $sanitizer->sanitize( $original_svg ); // boolean
+        $file_path = get_attached_file( $media_item->ID );
+        $mime_type = isset( $media_item->post_mime_type ) ? $media_item->post_mime_type : get_post_mime_type( $media_item->ID );
 
-                if ( false !== $sanitized_svg ) {
-                    // Sanitization was a success, let's write the result back to the file
-                    file_put_contents( $file_path, $sanitized_svg );
-                }
-            }
+        if ( ! $this->is_svg_file( $file_path, $mime_type ) ) {
+            return $_media_item;
+        }
+
+        if ( ! $this->sanitize_svg_file( $file_path ) ) {
+            wp_delete_file( $file_path );
         }
 
         return $_media_item;
@@ -135,20 +275,19 @@ class SVG_Upload {
      * @since 7.5.2
      */
     public function sanitize_after_upload( $attachment, $request, $creating ) {
-        // Let's sanitize SVG upon creation/insertion in the media library.
-        if ( $creating ) {
-            if ( $attachment instanceof WP_Post ) {
-                $file_path = get_attached_file( $attachment->ID );
-                $original_svg = file_get_contents( $file_path );
+        if ( ! $creating || ! ( $attachment instanceof \WP_Post ) ) {
+            return;
+        }
 
-                $sanitizer = $this->get_svg_sanitizer();                
-                $sanitized_svg = $sanitizer->sanitize( $original_svg ); // boolean
-                
-                if ( false !== $sanitized_svg ) {
-                    // Sanitization was a success, let's write the result back to the file
-                    file_put_contents( $file_path, $sanitized_svg );
-                }
-            }
+        $file_path = get_attached_file( $attachment->ID );
+        $mime_type = isset( $attachment->post_mime_type ) ? $attachment->post_mime_type : get_post_mime_type( $attachment->ID );
+
+        if ( ! $this->is_svg_file( $file_path, $mime_type ) ) {
+            return;
+        }
+
+        if ( ! $this->sanitize_svg_file( $file_path ) ) {
+            wp_delete_attachment( $attachment->ID, true );
         }
     }
     

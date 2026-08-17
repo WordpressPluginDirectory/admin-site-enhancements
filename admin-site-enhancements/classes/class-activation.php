@@ -199,6 +199,44 @@ class Activation {
     }
 
     /**
+     * Create submissions table for the Contact Form module.
+     *
+     * @since 8.9.0
+     */
+    public function create_contact_form_submissions_table() {
+        global $wpdb;
+
+        $table_name = $wpdb->prefix . 'asenha_contact_form_submissions';
+
+        $charset_collation_sql = '';
+
+        if ( ! empty( $wpdb->charset ) ) {
+            $charset_collation_sql = "DEFAULT CHARACTER SET $wpdb->charset";
+        }
+
+        if ( ! empty( $wpdb->collate ) ) {
+            $charset_collation_sql .= " COLLATE $wpdb->collate";
+        }
+
+        $sql = "CREATE TABLE {$table_name} (
+            id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+            subject varchar(255) NOT NULL DEFAULT '',
+            message longtext NOT NULL,
+            name varchar(255) NOT NULL DEFAULT '',
+            email varchar(255) NOT NULL DEFAULT '',
+            created_at datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+            PRIMARY KEY (id),
+            KEY created_at (created_at)
+        ) {$charset_collation_sql}";
+
+        require_once ABSPATH . '/wp-admin/includes/upgrade.php';
+
+        dbDelta( $sql );
+
+        return true;
+    }
+
+    /**
      * Part of Disable Embeds module
      * Remove embeds rewrite rules on plugin activation.
      *

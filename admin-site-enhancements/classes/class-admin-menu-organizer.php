@@ -533,4 +533,52 @@ class Admin_Menu_Organizer {
         }
     }
 
+    /**
+     * Reset admin menu via AJAX
+     *
+     * Free resets order, titles, and hide keys. Pro also resets Pro-only organizer keys.
+     * 
+     * @since 6.3.1
+     */
+    public function reset_admin_menu() {
+        if ( isset( $_REQUEST ) ) {
+            if ( check_ajax_referer( 'reset-menu-nonce', 'nonce', false ) ) {
+                if ( !current_user_can( 'manage_options' ) ) {
+                    echo wp_json_encode( array(
+                        'status' => 'failed',
+                    ) );
+                    return;
+                }
+                $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
+                $admin_menu = ( isset( $options_extra['admin_menu'] ) ? $options_extra['admin_menu'] : array() );
+                // vi( $admin_menu, '', 'menu before reset' );
+                if ( !empty( $admin_menu ) ) {
+                    // Free (and Pro) organizer keys.
+                    unset($admin_menu['custom_menu_order']);
+                    unset($admin_menu['custom_menu_titles']);
+                    unset($admin_menu['custom_menu_hidden']);
+                    // vi( $admin_menu, '', 'menu after reset' );
+                    $options_extra['admin_menu'] = $admin_menu;
+                    // vi( $options_extra, '', 'reset menu' );
+                    $updated = update_option( ASENHA_SLUG_U . '_extra', $options_extra, true );
+                    // vi( $updated );
+                    if ( $updated ) {
+                        $response = array(
+                            'status' => 'success',
+                        );
+                    } else {
+                        $response = array(
+                            'status' => 'failed',
+                        );
+                    }
+                } else {
+                    $response = array(
+                        'status' => 'success',
+                    );
+                }
+                echo wp_json_encode( $response );
+            }
+        }
+    }
+
 }

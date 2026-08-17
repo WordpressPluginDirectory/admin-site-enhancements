@@ -822,6 +822,102 @@ class Settings_Sanitization {
             $options['smtp_debug'] = false;
         }
         $options['smtp_debug'] = ( 'on' == $options['smtp_debug'] ? true : false );
+        // Contact Form
+        if ( !isset( $options['contact_form'] ) ) {
+            $options['contact_form'] = false;
+        }
+        $options['contact_form'] = ( 'on' == $options['contact_form'] ? true : false );
+        $contact_form_label_fields = array(
+            'contact_form_label_subject' => __( 'Subject', 'admin-site-enhancements' ),
+            'contact_form_label_message' => __( 'Message', 'admin-site-enhancements' ),
+            'contact_form_label_name'    => __( 'Name', 'admin-site-enhancements' ),
+            'contact_form_label_email'   => __( 'Email', 'admin-site-enhancements' ),
+        );
+        foreach ( $contact_form_label_fields as $label_field_id => $label_default ) {
+            if ( !isset( $options[$label_field_id] ) ) {
+                $options[$label_field_id] = '';
+            }
+            $options[$label_field_id] = sanitize_text_field( $options[$label_field_id] );
+            if ( empty( $options[$label_field_id] ) ) {
+                $options[$label_field_id] = $label_default;
+            }
+        }
+        if ( !isset( $options['contact_form_submit_button_label'] ) ) {
+            $options['contact_form_submit_button_label'] = '';
+        }
+        $options['contact_form_submit_button_label'] = sanitize_text_field( $options['contact_form_submit_button_label'] );
+        if ( empty( $options['contact_form_submit_button_label'] ) ) {
+            $options['contact_form_submit_button_label'] = __( 'Send Message', 'admin-site-enhancements' );
+        }
+        $contact_form_feedback_messages = array(
+            'contact_form_success_message' => __( 'Thank you. Your message has been sent.', 'admin-site-enhancements' ),
+            'contact_form_error_message'   => __( 'Unable to send your message. Please try again later.', 'admin-site-enhancements' ),
+        );
+        foreach ( $contact_form_feedback_messages as $message_field_id => $message_default ) {
+            if ( !isset( $options[$message_field_id] ) ) {
+                $options[$message_field_id] = '';
+            }
+            $options[$message_field_id] = sanitize_text_field( $options[$message_field_id] );
+            if ( empty( $options[$message_field_id] ) ) {
+                $options[$message_field_id] = $message_default;
+            }
+        }
+        if ( !isset( $options['contact_form_notification_email'] ) ) {
+            $options['contact_form_notification_email'] = '';
+        }
+        if ( !class_exists( __NAMESPACE__ . '\\Contact_Form', false ) ) {
+            require_once ASENHA_PATH . 'includes/contact-form/classes/class-contact-form.php';
+        }
+        $notification_emails = Contact_Form::parse_notification_emails( $options['contact_form_notification_email'] );
+        if ( empty( $notification_emails ) ) {
+            $options['contact_form_notification_email'] = get_option( 'admin_email' );
+        } else {
+            $options['contact_form_notification_email'] = implode( ', ', $notification_emails );
+        }
+        if ( !isset( $options['contact_form_disable_antispam'] ) ) {
+            $options['contact_form_disable_antispam'] = false;
+        }
+        $options['contact_form_disable_antispam'] = ( 'on' == $options['contact_form_disable_antispam'] ? true : false );
+        // Style
+        if ( !isset( $options['contact_form_layout'] ) ) {
+            $options['contact_form_layout'] = 'default';
+        }
+        $options['contact_form_layout'] = ( in_array( $options['contact_form_layout'], array('default', 'stacked'), true ) ? $options['contact_form_layout'] : 'default' );
+        if ( !isset( $options['contact_form_label_position'] ) ) {
+            $options['contact_form_label_position'] = 'left';
+        }
+        $options['contact_form_label_position'] = ( in_array( $options['contact_form_label_position'], array('left', 'right'), true ) ? $options['contact_form_label_position'] : 'left' );
+        if ( !isset( $options['contact_form_field_style'] ) ) {
+            $options['contact_form_field_style'] = 'box';
+        }
+        $options['contact_form_field_style'] = ( in_array( $options['contact_form_field_style'], array('box', 'underline'), true ) ? $options['contact_form_field_style'] : 'box' );
+        if ( !isset( $options['contact_form_corner_style'] ) ) {
+            $options['contact_form_corner_style'] = 'rounded';
+        }
+        $options['contact_form_corner_style'] = ( in_array( $options['contact_form_corner_style'], array('rounded', 'sharp'), true ) ? $options['contact_form_corner_style'] : 'rounded' );
+        if ( !isset( $options['contact_form_color_scheme'] ) ) {
+            $options['contact_form_color_scheme'] = 'dark';
+        }
+        $options['contact_form_color_scheme'] = ( in_array( $options['contact_form_color_scheme'], array('dark', 'light'), true ) ? $options['contact_form_color_scheme'] : 'dark' );
+        if ( !isset( $options['contact_form_button_position'] ) ) {
+            $options['contact_form_button_position'] = 'left';
+        }
+        $options['contact_form_button_position'] = ( in_array( $options['contact_form_button_position'], array('left', 'right'), true ) ? $options['contact_form_button_position'] : 'left' );
+        if ( !isset( $options['contact_form_submit_button_style'] ) ) {
+            $options['contact_form_submit_button_style'] = 'solid';
+        }
+        $options['contact_form_submit_button_style'] = ( in_array( $options['contact_form_submit_button_style'], array('solid', 'outline'), true ) ? $options['contact_form_submit_button_style'] : 'solid' );
+        if ( !isset( $options['contact_form_submit_button_color'] ) ) {
+            $options['contact_form_submit_button_color'] = '';
+        }
+        $options['contact_form_submit_button_color'] = sanitize_hex_color( $options['contact_form_submit_button_color'] );
+        if ( null === $options['contact_form_submit_button_color'] ) {
+            $options['contact_form_submit_button_color'] = '';
+        }
+        if ( !isset( $options['contact_form_use_theme_styles'] ) ) {
+            $options['contact_form_use_theme_styles'] = false;
+        }
+        $options['contact_form_use_theme_styles'] = ( 'on' == $options['contact_form_use_theme_styles'] ? true : false );
         // Multiple User Roles
         if ( !isset( $options['multiple_user_roles'] ) ) {
             $options['multiple_user_roles'] = false;

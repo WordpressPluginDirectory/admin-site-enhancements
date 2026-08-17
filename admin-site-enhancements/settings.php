@@ -1077,6 +1077,7 @@ function asenha_admin_scripts(  $hook_suffix  ) {
             'formBuilderSendTestEmailNonce' => wp_create_nonce( 'formbuilder_ajax' ),
             'expandText'                    => __( 'Expand', 'admin-site-enhancements' ),
             'collapseText'                  => __( 'Collapse', 'admin-site-enhancements' ),
+            'contactFormShortcodeCopied'    => __( 'Shortcode copied!', 'admin-site-enhancements' ),
             'dataTable'                     => array(
                 'emptyTable'   => __( 'No data available in table', 'admin-site-enhancements' ),
                 'info'         => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'admin-site-enhancements' ),
@@ -1230,8 +1231,9 @@ function asenha_admin_scripts(  $hook_suffix  ) {
             false
         );
         $amo_page_vars = array(
-            'saveMenuNonce' => wp_create_nonce( 'save-menu-nonce' ),
-            'strings'       => array(
+            'saveMenuNonce'  => wp_create_nonce( 'save-menu-nonce' ),
+            'resetMenuNonce' => wp_create_nonce( 'reset-menu-nonce' ),
+            'strings'        => array(
                 'saveChangesError' => __( 'Unable to save changes. Please reload the page and try again.', 'admin-site-enhancements' ),
             ),
         );

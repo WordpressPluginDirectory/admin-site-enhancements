@@ -212,6 +212,12 @@ class Admin_Site_Enhancements {
             add_filter( 'wp_handle_sideload_prefilter', [$svg_upload, 'sanitize_and_maybe_allow_svg_upload'] );
             add_filter( 'wp_handle_upload_prefilter', [$svg_upload, 'sanitize_and_maybe_allow_svg_upload'] );
             add_filter(
+                'wp_handle_upload',
+                [$svg_upload, 'sanitize_svg_on_handle_upload'],
+                10,
+                2
+            );
+            add_filter(
                 'xmlrpc_prepare_media_item',
                 [$svg_upload, 'sanitize_xmlrpc_svg_upload'],
                 10,
@@ -401,6 +407,7 @@ class Admin_Site_Enhancements {
                 add_action( 'admin_enqueue_scripts', [$admin_menu_organizer, 'enqueue_toggle_hidden_menu_script'] );
             }
             add_action( 'wp_ajax_save_admin_menu', [$admin_menu_organizer, 'save_admin_menu'] );
+            add_action( 'wp_ajax_reset_admin_menu', [$admin_menu_organizer, 'reset_admin_menu'] );
         }
         // Navigation Menu Duplicator
         if ( array_key_exists( 'enable_navigation_menu_duplicator', $options ) && $options['enable_navigation_menu_duplicator'] ) {
@@ -542,7 +549,7 @@ class Admin_Site_Enhancements {
                             'authenticate',
                             [$login_id_type, 'authenticate_email'],
                             20,
-                            2
+                            3
                         );
                         add_filter(
                             'gettext',
@@ -1092,6 +1099,10 @@ class Admin_Site_Enhancements {
         if ( array_key_exists( 'smtp_email_delivery', $options ) && $options['smtp_email_delivery'] ) {
             add_action( 'phpmailer_init', [$email_delivery, 'deliver_email_via_smtp'], 99999 );
             add_action( 'wp_ajax_send_test_email', [$email_delivery, 'send_test_email'] );
+        }
+        // Contact Form
+        if ( array_key_exists( 'contact_form', $options ) && $options['contact_form'] ) {
+            require_once ASENHA_PATH . 'includes/contact-form/contact-form.php';
         }
         // Multiple User Roles
         if ( array_key_exists( 'multiple_user_roles', $options ) && $options['multiple_user_roles'] ) {

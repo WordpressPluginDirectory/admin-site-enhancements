@@ -4,8 +4,8 @@ Contributors: qriouslad
 Donate link: https://bowo.io/asenha-sp-rdm  
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
-Tested up to: 7.0.2  
-Stable tag: 8.9.2  
+Tested up to: 7.0.4  
+Stable tag: 9.0.1  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -43,7 +43,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 ### FEATURES & MODULES
 
 **76 modules** in total:  
-**58 free modules** (32 has Pro features) | **18 Pro modules**
+**59 free modules** (32 has Pro features) | **18 Pro modules**
 
 [**See all features >>**](https://www.wpase.com/features/)
 
@@ -55,7 +55,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **Content Order**. Drag-and-drop custom ordering of hierarchical post types. [ASE Pro](https://www.wpase.com/rdme-to-web) enables ordering of non-hierarchical post types, including media / attachments, reordering and changing the parent of child posts is supported, as well as applying the custom order on the frontend. Also WPML compatible.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Terms Order**. Drag-and-drop custom ordering of terms and child terms from various taxonomies and apply the custom order on the frontend. WPML compatible.
 * **Media Files Visibility Control**: Limit media files visibility so only administrators can see all media files. Non-administrator users will only see media files they uploaded themselves. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to specify which non-administrator user roles will have such limitation. 
-* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Media Categories**. Hierarchical categories for the media library with drag-and-drop categorization.
+* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Media Categories**. Hierarchical categories for the media library with drag-and-drop categorization. Compatible with WPML.
 * **Media Replacement**. Replace any type of media file with a new one while ensuring no existing links will break. [ASE Pro](https://www.wpase.com/rdme-to-web) allows replacing media from the grid view of media library.
 * **SVG Upload**. Allow some or all user roles to upload SVG files with sanitization to keep things secure.
 * **AVIF Upload**. Enable uploading AVIF files in the Media Library.
@@ -140,6 +140,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Site Backup and Migration**. Backup files and database, restore from backups, and migrate or sync to another server.
 * **Email Delivery**. Set custom sender name and email. Optionally use external SMTP service to ensure notification and transactional emails from your site are being delivered to inboxes. [ASE Pro](https://www.wpase.com/rdme-to-web) adds the option to specify a custom reply-to name and email, Bcc address(es), disable authentication and the option to log email delivery.
+* **Contact Form**. A simple, customizable contact form (shortcode and block) with AJAX submission, built-in spam protection layers, submission entries management and notification email.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Form Builder**. Enable the drag-and-drop creation of various types of forms (contact, feedback, booking, application, proposal, admission, support, survey, etc.) on the frontend to collect information from site visitors or users or members. 33 field types are available, including Net Promoter Score (NPS), Likert, Matrix of Uniform and Variable Dropdowns and CAPTCHA fields. Support custom form styles, multi-columns layout, conditional logic, multi-step with saving progress, email notification, auto responder, entries management and webhooks for sending submission data to Zapier, n8n, etc.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] File Manager**. A comprehensive file manager with folder tree navigation, file and folder operations, and code editing capabilities.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Local User Avatar**. Enable usage of any image from the media library as user avatars.
@@ -206,42 +207,38 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **89 _major_ releases** (e.g. 1.1.0 ) and **204 _minor_ releases** (e.g. 4.9.1), for a **total of 293 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **90 _major_ releases** (e.g. 1.1.0 ) and **205 _minor_ releases** (e.g. 4.9.1), for a **total of 295 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 8.9.2 (2026.08.03) - ASE Free and Pro
+### 9.0.1 (2026.08.17) - ASE Free and Pro
 
-* **[FIXED in Free and Pro] Optimizations >> Heartbeat Control**: fixed interval settings still showing after selecting "Disable" and saving changes. Props to Jayron C. for reporting the issue in detail.
+* **[SECURITY FIX in Free and Pro] Content Management >> SVG Upload**: 
+  * Fixed a bypass of the CVE-2025-9487 Stored XSS fix in v7.9.8, where a user with SVG upload privilege could store an unsanitised SVG via XML-RPC by supplying a `post_id` they cannot edit. The request still returns 401, but the file is sanitized before that capability check. Props to Mohammed Abd Alrahman for responsibly disclosing the vulnerability via WPScan Security.
+  * SVG sanitizer exceptions are now caught and failed destination files, which may be script-bearing and served as image/svg+xml, are deleted instead of remaining on disk. Props WPScan Security for the responsible disclosure.
 
-* **[FIXED in Free and Pro] Admin Interface >> Clean Up Admin Bar**: fixed a conflict between ASE's and Divi Assistant's "remove howdy" feature when both are enabled, which causes admin bar layout issues. Props to Carmine M. for reporting the issue in detail, with a screenshot, and facilitating the troubleshooting process.
+* **[IMPROVED in Free] Admin Interface >> Admin Menu Organizer**: added a "Reset Menu" link/feature that let's you start fresh.
 
-* **[IMPROVED and FIXED in Pro] Utilities >> File Manager**: 
-  * fixed an error when opening wp-config.php in a certain scenario. Props to Jayron C. for reporting the issue and facilitating the troubleshooting process.
-  * added support for opening/editing SVG files in text mode. Props to Lucian P. for prompting this improvement.
+* **[IMPROVED in Free and Pro] Utilities >> Contact Form**: added form styling customization options which includes layout (default vs stacked), label position (left vs right), field style (box vs underline), color scheme (dark vs light), button position (left vs right) and button color.
 
-* **[IMPROVED and FIXED in Pro] Utilities >> Site Backup and Migration**:
-  * Added mechanisms to improve the reliability of restore and migration operations.
-  * Fixed database collation error when migrating from a site with MySQL 8.0 to a site with MySQL < 8.0 or MariaDB.
-  * Fixed an issue where /upgrade/ folder inside plugins, e.g. Elementor and Elementor Pro, were not being included in the backup archive because it was mistakenly regarded as the /wp-content/upgrade/ which WP core uses for upgrade operations. This can result in fatal error after restore or migration operation completes and the site is loaded for the first time. Props to Benjamin N. for reporting the fatal error in great detail and facilitating the troubleshooting process.
+* **[FIXED in Free and Pro] Log In/Out | Register >> Login ID Type**: fixed a conflict with Wordfence 9.0.0 new passkey authentication when Login ID Type is set to "Email address only", which caused passkey authentication error, i.e. failed login. Props to Maan D. for reporting the issue and proposing the code fix that this fix is based on.
 
-* **[IMPROVED and FIXED in Pro] Content Management >> Custom Content Types**:
-  * Custom Field Group: Added a new field type, Map, which supports OpenStreetMap and Google Maps. The Map field is integrated with Elementor, Bricks, Breakdance and Oxygen (classic) via text widget/element, as URL dynamic data source, via native map widget/element (Bricks), and via an "ASE Map" widget/element (Elementor, Breakdance, Oxygen Classic). The map field also supports being queried inside a loop, e.g. posts and repeaters, across the four page buidlers. Props to Stijn V. for prompting this improvement.
-  * Custom Field Group: Fields can now be included in Quick Edit and Bulk Edit. All field types except repeater and layout fields are supported. Props to Rodlens H. for prompting this improvement.
-  * Custom Field Group: Added "ASE Repeater" element in Oxygen Classic, it' snow possible to work with a repeater field's sub-fields values directly in Oxygen Classic.
-  * Custom Field Groups: Fixed an issue that causes newly added fields that are added after a nested repeater field and without repositioning before clicking "Update", are getting their order scrambled upon successful save.
-  * Custom Field Group: the fullscreen button in WYSIWYG field is now hidden when in the block editor as it's very challenging to get fullscreen view right within the iframe environment of the block editor.
-  
-* **[IMPROVED and Fixed in Pro] Admin Interface >> Admin Columns Manager**: added support for rendering ASE map field value for both OpenStreetMap and Google Maps in an admin column.
+* **[IMPROVED in Pro] Utilities >> Site Backup and Migration**: allow custom start date selection when backup policy uses "Once every 2 weeks", "Once every week" or "Once every 3 days" frequencies. Props to Benjamin N. for prompting this improvement.
 
-* **[FIXED in Pro] Admin Interface >> Admin Menu Organizer**: fixed an issue where orphaned hide settings from Elementor v3 is still being applied in Elementor v4, causing certain admin pages, e.g. Fonts, Code, to be blocked from access. Props to Benjamin N. for reporting the issue and facilitating the troubleshooting process.
+* **[IMPROVED in Pro] Utilities >> File Manager**: when compressing a single folder or a single file, the folder/file name will now be used for the resulting archive/zip file.
+
+* **[IMPROVED in Pro] Security >> Two-Factor Authentication (2FA)**: when using `two_factor_token_email_message` filter hook, you can now use HTML and it will be rendered as such, not as raw HTML. The outgoing email now is sent with the 'Content-Type: text/html; charset=UTF-8' header by default. Props to Jayron C. for prompting this improvement.
+
+* **[FIXED and IMPROVED in Pro] Security >> CAPTCHA Protection**: 
+  * Fixed a conflict with plugins that combines javascript files, e.g. SiteGround Speed Optimizer, when ALTCHA is enabled. This, for example, caused the ALTCHA widget to not render and function properly on the login screen/form at wp-login.php, and ended up blocking first-round login attempts. Props to Jenny L. for reporting the isssue and facilitating the troubleshooting process.
+  * Turnstile, reCAPTCHA and ALTCHA widgets now only verifies ASE’s own WordPress login, password-reset, and registration forms, so third-party forms that reuse the same CAPTCHA fields are no longer double-verified or blocked. Props to Tony B. for reporting the issue in detail along with proposing spot-on solutions.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: Updated Portuguese (Brazil), Norwegian, Hebrew.
-    * ASE Pro: Updated Chinese (China), Norwegian.
+    * ASE Free: Updated Swedish, Spanish (Spain), Spanish (Chile), Portuguese (Brazil), Polish, Norwegian, German (Formal), Dutch, Chinese (Taiwan).
+    * ASE Pro: Updated Polish.
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [39 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).

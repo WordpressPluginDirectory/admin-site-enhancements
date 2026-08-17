@@ -3417,6 +3417,408 @@ class Settings_Sections_Fields {
                 'class'             => 'asenha-description utilities ' . $field_slug,
             )
         );
+        // Contact Form
+        $field_id = 'contact_form';
+        $field_slug = 'contact-form';
+        $field_title = __( 'Contact Form', 'admin-site-enhancements' );
+        $contact_form_description = sprintf( 
+            /* translators: %s: link to the Contact Form Submissions admin page */
+            __( 'Add a lightweight contact form via shortcode or block, with built-in anti-spam to block bots and junk submissions. Submissions are stored in the database and can be managed from the %s page under the Dashboard menu.', 'admin-site-enhancements' ),
+            '<a href="' . esc_url( admin_url( 'admin.php?page=asenha-contact-form-submissions' ) ) . '">' . esc_html__( 'Contact Form Submissions', 'admin-site-enhancements' ) . '</a>'
+         );
+        add_settings_field(
+            $field_id,
+            $field_title,
+            [$render_field, 'render_checkbox_toggle'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'            => ASENHA_SLUG_U,
+                'field_id'               => $field_id,
+                'field_slug'             => $field_slug,
+                'field_title'            => $field_title,
+                'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_description'      => $contact_form_description,
+                'field_options_wrapper'  => true,
+                'field_options_moreless' => true,
+                'class'                  => 'asenha-toggle utilities ' . $field_slug,
+            )
+        );
+        $field_id = 'contact_form_shortcode';
+        $field_slug = 'contact-form-shortcode';
+        $contact_form_shortcode = '[asenha_contact_form]';
+        $contact_form_shortcode_html = '<div class="asenha-contact-form-shortcode-wrapper">';
+        $contact_form_shortcode_html .= '<code class="asenha-contact-form-shortcode-text">' . esc_html( $contact_form_shortcode ) . '</code>';
+        $contact_form_shortcode_html .= '<button type="button" class="button-link asenha-contact-form-copy-shortcode" data-clipboard-text="' . esc_attr( $contact_form_shortcode ) . '" aria-label="' . esc_attr__( 'Copy shortcode', 'admin-site-enhancements' ) . '">';
+        $contact_form_shortcode_html .= '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="#8C8F94" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"><path d="M16 3H4v13"/><path d="M8 7h12v12a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2z"/></g></svg>';
+        $contact_form_shortcode_html .= '</button>';
+        $contact_form_shortcode_html .= '<span class="asenha-contact-form-shortcode-copied" hidden>' . esc_html__( 'Shortcode copied!', 'admin-site-enhancements' ) . '</span>';
+        $contact_form_shortcode_html .= '</div>';
+        $contact_form_shortcode_html .= '<p class="description">' . esc_html__( 'Also available as the "Contact Form" block in the block editor.', 'admin-site-enhancements' ) . '</p>';
+        add_settings_field(
+            $field_id,
+            __( '<span class="field-sublabel sublabel-wide">Shortcode</span>', 'admin-site-enhancements' ),
+            [$render_field, 'render_custom_html'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'html'  => $contact_form_shortcode_html,
+                'class' => 'asenha-html wide utilities flex-column full-width ' . $field_slug,
+            )
+        );
+        $field_id = 'contact_form_notification_email';
+        $field_slug = 'contact-form-notification-email';
+        add_settings_field(
+            $field_id,
+            __( '<span class="field-sublabel sublabel-wide">Notification email</span>', 'admin-site-enhancements' ),
+            [$render_field, 'render_text_subfield'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'       => ASENHA_SLUG_U,
+                'field_id'          => $field_id,
+                'field_name'        => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_type'        => '',
+                'field_prefix'      => '',
+                'field_suffix'      => '',
+                'field_placeholder' => get_option( 'admin_email' ),
+                'field_description' => __( 'Separate with comma for multiple emails', 'admin-site-enhancements' ),
+                'class'             => 'asenha-text with-prefix-suffix with-description full-width flex-column margin-top-8 margin-bottom-8 utilities ' . $field_slug,
+            )
+        );
+        // Style heading
+        $field_id = 'heading_for_contact_form_style';
+        $field_slug = 'heading-for-contact-form-style';
+        add_settings_field(
+            $field_id,
+            '',
+            [$render_field, 'render_subfields_heading'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'subfields_heading' => __( 'Form style', 'admin-site-enhancements' ),
+                'class'             => 'asenha-heading margin-top-8 margin-bottom-8 utilities ' . $field_slug,
+            )
+        );
+        $field_id = 'contact_form_layout';
+        $field_slug = 'contact-form-layout';
+        add_settings_field(
+            $field_id,
+            __( '<span class="field-sublabel sublabel-wide">Layout</span>', 'admin-site-enhancements' ),
+            [$render_field, 'render_radio_buttons_subfield'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'   => ASENHA_SLUG_U,
+                'field_id'      => $field_id,
+                'field_name'    => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_radios'  => array(
+                    __( 'Default', 'admin-site-enhancements' ) => 'default',
+                    __( 'Stacked', 'admin-site-enhancements' ) => 'stacked',
+                ),
+                'field_default' => 'default',
+                'class'         => 'asenha-radio-buttons with-prefix-suffix utilities ' . $field_slug,
+            )
+        );
+        $field_id = 'contact_form_label_position';
+        $field_slug = 'contact-form-label-position';
+        add_settings_field(
+            $field_id,
+            __( '<span class="field-sublabel sublabel-wide">Label position</span>', 'admin-site-enhancements' ),
+            [$render_field, 'render_radio_buttons_subfield'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'   => ASENHA_SLUG_U,
+                'field_id'      => $field_id,
+                'field_name'    => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_radios'  => array(
+                    __( 'Left', 'admin-site-enhancements' )  => 'left',
+                    __( 'Right', 'admin-site-enhancements' ) => 'right',
+                ),
+                'field_default' => 'left',
+                'class'         => 'asenha-radio-buttons with-prefix-suffix utilities ' . $field_slug,
+            )
+        );
+        $field_id = 'contact_form_button_position';
+        $field_slug = 'contact-form-button-position';
+        add_settings_field(
+            $field_id,
+            __( '<span class="field-sublabel sublabel-wide">Button position</span>', 'admin-site-enhancements' ),
+            [$render_field, 'render_radio_buttons_subfield'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'   => ASENHA_SLUG_U,
+                'field_id'      => $field_id,
+                'field_name'    => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_radios'  => array(
+                    __( 'Left', 'admin-site-enhancements' )  => 'left',
+                    __( 'Right', 'admin-site-enhancements' ) => 'right',
+                ),
+                'field_default' => 'left',
+                'class'         => 'asenha-radio-buttons with-prefix-suffix utilities ' . $field_slug,
+            )
+        );
+        $field_id = 'contact_form_field_style';
+        $field_slug = 'contact-form-field-style';
+        add_settings_field(
+            $field_id,
+            __( '<span class="field-sublabel sublabel-wide">Field style</span>', 'admin-site-enhancements' ),
+            [$render_field, 'render_radio_buttons_subfield'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'   => ASENHA_SLUG_U,
+                'field_id'      => $field_id,
+                'field_name'    => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_radios'  => array(
+                    __( 'Box', 'admin-site-enhancements' )       => 'box',
+                    __( 'Underline', 'admin-site-enhancements' ) => 'underline',
+                ),
+                'field_default' => 'box',
+                'class'         => 'asenha-radio-buttons with-prefix-suffix utilities ' . $field_slug,
+            )
+        );
+        $field_id = 'contact_form_corner_style';
+        $field_slug = 'contact-form-corner-style';
+        add_settings_field(
+            $field_id,
+            __( '<span class="field-sublabel sublabel-wide">Corner style</span>', 'admin-site-enhancements' ),
+            [$render_field, 'render_radio_buttons_subfield'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'   => ASENHA_SLUG_U,
+                'field_id'      => $field_id,
+                'field_name'    => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_radios'  => array(
+                    __( 'Rounded', 'admin-site-enhancements' ) => 'rounded',
+                    __( 'Sharp', 'admin-site-enhancements' )   => 'sharp',
+                ),
+                'field_default' => 'rounded',
+                'class'         => 'asenha-radio-buttons with-prefix-suffix utilities ' . $field_slug,
+            )
+        );
+        $field_id = 'contact_form_color_scheme';
+        $field_slug = 'contact-form-color-scheme';
+        add_settings_field(
+            $field_id,
+            __( '<span class="field-sublabel sublabel-wide">Color scheme</span>', 'admin-site-enhancements' ),
+            [$render_field, 'render_radio_buttons_subfield'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'   => ASENHA_SLUG_U,
+                'field_id'      => $field_id,
+                'field_name'    => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_radios'  => array(
+                    __( 'Dark', 'admin-site-enhancements' )  => 'dark',
+                    __( 'Light', 'admin-site-enhancements' ) => 'light',
+                ),
+                'field_default' => 'dark',
+                'class'         => 'asenha-radio-buttons with-prefix-suffix utilities ' . $field_slug,
+            )
+        );
+        $field_id = 'contact_form_submit_button_style';
+        $field_slug = 'contact-form-submit-button-style';
+        add_settings_field(
+            $field_id,
+            __( '<span class="field-sublabel sublabel-wide">Button style</span>', 'admin-site-enhancements' ),
+            [$render_field, 'render_radio_buttons_subfield'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'   => ASENHA_SLUG_U,
+                'field_id'      => $field_id,
+                'field_name'    => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_radios'  => array(
+                    __( 'Solid', 'admin-site-enhancements' )   => 'solid',
+                    __( 'Outline', 'admin-site-enhancements' ) => 'outline',
+                ),
+                'field_default' => 'solid',
+                'class'         => 'asenha-radio-buttons with-prefix-suffix utilities ' . $field_slug,
+            )
+        );
+        $field_id = 'contact_form_submit_button_color';
+        $field_slug = 'contact-form-submit-button-color';
+        add_settings_field(
+            $field_id,
+            __( '<span class="field-sublabel sublabel-wide">Button color</span>', 'admin-site-enhancements' ),
+            [$render_field, 'render_color_picker_subfield'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'         => ASENHA_SLUG_U,
+                'field_id'            => $field_id,
+                'field_slug'          => $field_slug,
+                'field_name'          => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_intro'         => '',
+                'field_description'   => '',
+                'field_default_value' => '',
+                'class'               => 'asenha-color-picker with-prefix-suffix utilities ' . $field_slug,
+            )
+        );
+        $field_id = 'contact_form_use_theme_styles';
+        $field_slug = 'contact-form-use-theme-styles';
+        add_settings_field(
+            $field_id,
+            '',
+            [$render_field, 'render_checkbox_plain'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name' => ASENHA_SLUG_U,
+                'field_id'    => $field_id,
+                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_label' => __( 'Use styling from the active theme or page builder', 'admin-site-enhancements' ) . ' <span class="faded">(' . esc_html__( 'Disables ASE built-in form styles.', 'admin-site-enhancements' ) . ')</span>',
+                'class'       => 'asenha-checkbox asenha-hide-th margin-top-8 utilities ' . $field_slug,
+            )
+        );
+        $field_id = 'contact_form_advanced_toggler';
+        $field_slug = 'contact-form-advanced-toggler';
+        add_settings_field(
+            $field_id,
+            '',
+            [$render_field, 'render_content_toggler'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'field_id'         => $field_id,
+                'field_slug'       => $field_slug,
+                'show_text'        => __( 'Advanced Options', 'admin-site-enhancements' ),
+                'hide_text'        => __( 'Advanced Options', 'admin-site-enhancements' ),
+                'content_selector' => '.contact-form-advanced-wrapper',
+            )
+        );
+        $field_id = 'contact_form_advanced_wrapper';
+        $field_slug = 'contact-form-advanced-wrapper';
+        add_settings_field(
+            $field_id,
+            '',
+            [$render_field, 'render_custom_html'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'html' => '<div class="subfields-container subfields-in-column full-width-div contact-form-advanced-wrapper" style="display: none;"></div>',
+            )
+        );
+        $field_id = 'heading_for_contact_form_form_labels';
+        $field_slug = 'heading-for-contact-form-form-labels';
+        add_settings_field(
+            $field_id,
+            '',
+            [$render_field, 'render_subfields_heading'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'subfields_heading' => __( 'Form labels', 'admin-site-enhancements' ),
+                'class'             => 'asenha-heading margin-bottom-8 utilities ' . $field_slug,
+            )
+        );
+        $contact_form_label_fields = array(
+            'contact_form_label_subject'       => array(
+                'slug'    => 'contact-form-label-subject',
+                'label'   => __( 'Subject', 'admin-site-enhancements' ),
+                'default' => __( 'Subject', 'admin-site-enhancements' ),
+            ),
+            'contact_form_label_message'       => array(
+                'slug'    => 'contact-form-label-message',
+                'label'   => __( 'Message', 'admin-site-enhancements' ),
+                'default' => __( 'Message', 'admin-site-enhancements' ),
+            ),
+            'contact_form_label_name'          => array(
+                'slug'    => 'contact-form-label-name',
+                'label'   => __( 'Name', 'admin-site-enhancements' ),
+                'default' => __( 'Name', 'admin-site-enhancements' ),
+            ),
+            'contact_form_label_email'         => array(
+                'slug'    => 'contact-form-label-email',
+                'label'   => __( 'Email', 'admin-site-enhancements' ),
+                'default' => __( 'Email', 'admin-site-enhancements' ),
+            ),
+            'contact_form_submit_button_label' => array(
+                'slug'    => 'contact-form-submit-button-label',
+                'label'   => __( 'Submit button', 'admin-site-enhancements' ),
+                'default' => __( 'Send Message', 'admin-site-enhancements' ),
+            ),
+            'contact_form_success_message'     => array(
+                'slug'    => 'contact-form-success-message',
+                'label'   => __( 'Success message', 'admin-site-enhancements' ),
+                'default' => __( 'Thank you. Your message has been sent.', 'admin-site-enhancements' ),
+            ),
+            'contact_form_error_message'       => array(
+                'slug'    => 'contact-form-error-message',
+                'label'   => __( 'Error message', 'admin-site-enhancements' ),
+                'default' => __( 'Unable to send your message. Please try again later.', 'admin-site-enhancements' ),
+            ),
+        );
+        foreach ( $contact_form_label_fields as $field_id => $field_config ) {
+            add_settings_field(
+                $field_id,
+                '<span class="field-sublabel sublabel-wide">' . esc_html( $field_config['label'] ) . '</span>',
+                [$render_field, 'render_text_subfield'],
+                ASENHA_SLUG,
+                'main-section',
+                array(
+                    'option_name'       => ASENHA_SLUG_U,
+                    'field_id'          => $field_id,
+                    'field_name'        => ASENHA_SLUG_U . '[' . $field_id . ']',
+                    'field_type'        => '',
+                    'field_prefix'      => '',
+                    'field_suffix'      => '',
+                    'field_placeholder' => '',
+                    'field_description' => '<span class="faded">' . esc_html( sprintf( 
+                        /* translators: %s: default label text */
+                        __( 'Default: %s', 'admin-site-enhancements' ),
+                        $field_config['default']
+                     ) ) . '</span>',
+                    'class'             => 'asenha-text with-prefix-suffix with-description wide utilities ' . $field_config['slug'],
+                )
+            );
+        }
+        $field_id = 'heading_for_contact_form_test_mode';
+        $field_slug = 'heading-for-contact-form-test-mode';
+        add_settings_field(
+            $field_id,
+            '',
+            [$render_field, 'render_subfields_heading'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'subfields_heading' => __( 'Test Mode', 'admin-site-enhancements' ),
+                'class'             => 'asenha-heading utilities ' . $field_slug,
+            )
+        );
+        $field_id = 'contact_form_disable_antispam';
+        $field_slug = 'contact-form-disable-antispam';
+        add_settings_field(
+            $field_id,
+            '',
+            [$render_field, 'render_checkbox_plain'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name' => ASENHA_SLUG_U,
+                'field_id'    => $field_id,
+                'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_label' => __( 'Disable anti-spam measures to perform submission tests', 'admin-site-enhancements' ),
+                'class'       => 'asenha-checkbox asenha-hide-th utilities ' . $field_slug,
+            )
+        );
+        $field_id = 'contact_form_test_mode_description';
+        $field_slug = 'contact-form-test-mode-description';
+        add_settings_field(
+            $field_id,
+            '',
+            [$render_field, 'render_description_subfield'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'field_description' => '<div class="asenha-warning">' . __( 'Only enable this while testing. Disable it on production sites to restore spam protection.', 'admin-site-enhancements' ) . '</div>',
+                'class'             => 'asenha-description margin-top-m8 margin-bottom-4 utilities ' . $field_slug,
+            )
+        );
         // Multiple User Roles
         $field_id = 'multiple_user_roles';
         $field_slug = 'multiple-user-roles';

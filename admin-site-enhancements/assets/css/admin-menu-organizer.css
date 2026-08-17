@@ -178,3 +178,36 @@ li[id^="separator"] .menu-item-title {
     position: relative;
 }
 
+.admin-menu-actions-wrapper {
+    width: 600px;
+    margin-top: -4px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.reset-menu-wrapper {
+    display: flex;
+    width: 120px;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-left: auto;
+}
+
+.reset-menu-wrapper a {
+    text-decoration: none;
+    transition: .25s;
+}
+
+.reset-menu-wrapper a:hover {
+    text-decoration: underline;
+}
+
+.reset-menu-spinner {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+}
+

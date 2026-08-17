@@ -554,6 +554,33 @@
       $('.smtp-send-test-email-description').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');
       $('.smtp-send-test-email-to').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');
       $('.smtp-send-test-email-result').appendTo('.fields-utilities .smtp-email-delivery .asenha-subfields');
+      $('.contact-form').appendTo('.fields-utilities > table > tbody');
+      $('.contact-form-shortcode').appendTo('.fields-utilities .contact-form .asenha-subfields');
+      $('.contact-form-notification-email').appendTo('.fields-utilities .contact-form .asenha-subfields');
+      $('.heading-for-contact-form-style').appendTo('.fields-utilities .contact-form .asenha-subfields');
+      $('.contact-form-layout').appendTo('.fields-utilities .contact-form .asenha-subfields');
+      $('.contact-form-label-position').appendTo('.fields-utilities .contact-form .asenha-subfields');
+      $('.contact-form-button-position').appendTo('.fields-utilities .contact-form .asenha-subfields');
+      $('.contact-form-field-style').appendTo('.fields-utilities .contact-form .asenha-subfields');
+      $('.contact-form-corner-style').appendTo('.fields-utilities .contact-form .asenha-subfields');
+      $('.contact-form-color-scheme').appendTo('.fields-utilities .contact-form .asenha-subfields');
+      $('.contact-form-submit-button-style').appendTo('.fields-utilities .contact-form .asenha-subfields');
+      $('.contact-form-submit-button-color').appendTo('.fields-utilities .contact-form .asenha-subfields');
+      $('#contact-form-submit-button-color.color-picker').wpColorPicker();
+      $('.contact-form-use-theme-styles').appendTo('.fields-utilities .contact-form .asenha-subfields');
+      $('.contact-form-advanced-wrapper').appendTo('.fields-utilities .contact-form .asenha-subfields');
+      $('.contact-form-advanced-toggler').appendTo('.fields-utilities .contact-form .asenha-subfields');
+      $('.heading-for-contact-form-form-labels').appendTo('.contact-form-advanced-wrapper');
+      $('.contact-form-label-subject').appendTo('.contact-form-advanced-wrapper');
+      $('.contact-form-label-message').appendTo('.contact-form-advanced-wrapper');
+      $('.contact-form-label-name').appendTo('.contact-form-advanced-wrapper');
+      $('.contact-form-label-email').appendTo('.contact-form-advanced-wrapper');
+      $('.contact-form-submit-button-label').appendTo('.contact-form-advanced-wrapper');
+      $('.contact-form-success-message').appendTo('.contact-form-advanced-wrapper');
+      $('.contact-form-error-message').appendTo('.contact-form-advanced-wrapper');
+      $('.heading-for-contact-form-test-mode').appendTo('.contact-form-advanced-wrapper');
+      $('.contact-form-disable-antispam').appendTo('.contact-form-advanced-wrapper');
+      $('.contact-form-test-mode-description').appendTo('.contact-form-advanced-wrapper');
       
       $('.multiple-user-roles').appendTo('.fields-utilities > table > tbody');
       $('.image-sizes-panel').appendTo('.fields-utilities > table > tbody');
@@ -1006,6 +1033,82 @@
       
 
       subfieldsToggler( 'smtp_email_delivery', 'smtp-email-delivery' );
+      subfieldsToggler( 'contact_form', 'contact-form' );
+
+      function toggleCfLabelPosition() {
+         var stacked = $('input[name="admin_site_enhancements[contact_form_layout]"]:checked').val() === 'stacked';
+         $('.contact-form-label-position').toggle(stacked);
+      }
+      toggleCfLabelPosition();
+      $('input[name="admin_site_enhancements[contact_form_layout]"]').on('change', toggleCfLabelPosition);
+
+      function toggleCfCornerStyle() {
+         var isBox = $('input[name="admin_site_enhancements[contact_form_field_style]"]:checked').val() === 'box';
+         var useTheme = $('input[name="admin_site_enhancements[contact_form_use_theme_styles]"]').is(':checked');
+         $('.contact-form-corner-style').toggle(isBox && !useTheme);
+      }
+
+      function toggleCfThemeDependentRows() {
+         var useTheme = $('input[name="admin_site_enhancements[contact_form_use_theme_styles]"]').is(':checked');
+         $('.contact-form-field-style, .contact-form-color-scheme, .contact-form-submit-button-style, .contact-form-submit-button-color').toggle(!useTheme);
+         toggleCfCornerStyle();
+      }
+      toggleCfThemeDependentRows();
+      toggleCfCornerStyle();
+      $('input[name="admin_site_enhancements[contact_form_field_style]"]').on('change', toggleCfCornerStyle);
+      $('input[name="admin_site_enhancements[contact_form_use_theme_styles]"]').on('change', toggleCfThemeDependentRows);
+
+      function copyContactFormShortcode(text) {
+         if (navigator.clipboard && navigator.clipboard.writeText) {
+            return navigator.clipboard.writeText(text);
+         }
+
+         return new Promise(function(resolve, reject) {
+            var textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.setAttribute('readonly', '');
+            textarea.style.position = 'absolute';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+
+            try {
+               var copied = document.execCommand('copy');
+               document.body.removeChild(textarea);
+               if (copied) {
+                  resolve();
+               } else {
+                  reject();
+               }
+            } catch (error) {
+               document.body.removeChild(textarea);
+               reject(error);
+            }
+         });
+      }
+
+      $(document).on('click', '.asenha-contact-form-copy-shortcode', function() {
+         var $button = $(this);
+         var text = $button.attr('data-clipboard-text') || '';
+         var $wrapper = $button.closest('.asenha-contact-form-shortcode-wrapper');
+         var $copied = $wrapper.find('.asenha-contact-form-shortcode-copied');
+
+         if (!text) {
+            return;
+         }
+
+         copyContactFormShortcode(text).then(function() {
+            if (typeof adminPageVars !== 'undefined' && adminPageVars.contactFormShortcodeCopied) {
+               $copied.text(adminPageVars.contactFormShortcodeCopied);
+            }
+
+            $copied.removeAttr('hidden');
+
+            window.setTimeout(function() {
+               $copied.attr('hidden', 'hidden');
+            }, 1500);
+         });
+      });
 
       
       

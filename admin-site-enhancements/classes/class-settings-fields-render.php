@@ -216,8 +216,8 @@ class Settings_Fields_Render {
         $field_name = $args['field_name'];
         $field_width_classname = ( isset( $args['field_width_classname'] ) ? $args['field_width_classname'] : '' );
         $field_type = $args['field_type'];
-        $field_prefix = $args['field_prefix'];
-        $field_suffix = $args['field_suffix'];
+        $field_prefix = ( isset( $args['field_prefix'] ) ? $args['field_prefix'] : '' );
+        $field_suffix = ( isset( $args['field_suffix'] ) ? $args['field_suffix'] : '' );
         $field_is_read_only = ( isset( $args['read_only'] ) ? $args['read_only'] : false );
         $field_is_read_only_output = ( $field_is_read_only ? ' readonly="readonly"' : '' );
         $field_placeholder = ( isset( $args['field_placeholder'] ) ? $args['field_placeholder'] : '' );
@@ -261,7 +261,9 @@ class Settings_Fields_Render {
             $field_classname .= ' ' . $field_width_classname;
         }
         echo wp_kses_post( $field_prefix ) . '<input type="text" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-text' . esc_attr( $field_classname ) . '" name="' . esc_attr( $field_name ) . '" placeholder="' . esc_attr( $field_placeholder ) . '" value="' . esc_attr( $field_option_value ) . '"' . esc_html( $field_is_read_only_output ) . '>' . wp_kses_post( $field_suffix );
-        echo '<label for="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox-label">' . esc_html( $field_description ) . '</label>';
+        if ( !empty( $field_description ) ) {
+            echo '<label for="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox-label">' . wp_kses_post( $field_description ) . '</label>';
+        }
     }
 
     /**
@@ -1202,6 +1204,19 @@ class Settings_Fields_Render {
         }
         ?>
 		</ul>
+		<?php 
+        ?>
+		<div class="admin-menu-actions-wrapper">
+			<?php 
+        ?>
+			<div class="reset-menu-wrapper">
+				<img src="<?php 
+        echo esc_attr( ASENHA_URL );
+        ?>assets/img/oval.svg" class="reset-menu-spinner" style="display: none;" /><a href="#" id="reset-menu"><?php 
+        echo esc_html__( 'Reset Menu', 'admin-site-enhancements' );
+        ?></a>
+			</div>
+		</div>
 		<?php 
         // Hidden input field to store custom menu order (from options as is, or sortupdate) upon clicking Save Changes.
         $field_id = 'custom_menu_order';
