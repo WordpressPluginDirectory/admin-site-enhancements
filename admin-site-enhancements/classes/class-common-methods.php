@@ -890,4 +890,26 @@ class Common_Methods {
         return $asenha_public_post_types;
     }
 
+    /**
+     * Mask a sensitive key for settings UI display (asterisks + trailing visible chars).
+     *
+     * @since 9.0.3
+     *
+     * @param string $key     Full key value.
+     * @param int    $visible Number of trailing characters to leave visible. Default 5.
+     * @return string Masked key, or empty string when $key is empty.
+     */
+    public function asenha_mask_sensitive_key( $key, $visible = 5 ) {
+        $key = (string) $key;
+        $len = strlen( $key );
+        if ( 0 === $len ) {
+            return '';
+        }
+        $visible = \absint( $visible );
+        if ( $len <= $visible ) {
+            return str_repeat( '*', $len );
+        }
+        return str_repeat( '*', $len - $visible ) . substr( $key, -$visible );
+    }
+
 }

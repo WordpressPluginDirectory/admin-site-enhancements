@@ -906,6 +906,31 @@ function asenha_suppress_generic_notices() {
 }
 
 /**
+ * Restrict TinyMCE external plugins on the ASE settings page to ASE-owned scripts only.
+ *
+ * Third-party plugins register TinyMCE scripts via mce_external_plugins. When those
+ * URLs contain words like "affiliate" or "ads", browser ad blockers can block them and
+ * TinyMCE shows a "Failed to load plugin url" alert. ASE Custom Admin Footer editors do
+ * not need those plugins.
+ *
+ * @since 9.0.2
+ * @param array $plugins Map of TinyMCE plugin name => script URL.
+ * @return array Filtered plugins map.
+ */
+function asenha_settings_page_mce_external_plugins(  $plugins  ) {
+    if ( !is_array( $plugins ) || empty( $plugins ) ) {
+        return array();
+    }
+    $asenha_plugins = array();
+    foreach ( $plugins as $name => $url ) {
+        if ( is_string( $url ) && 0 === strpos( $url, ASENHA_URL ) ) {
+            $asenha_plugins[$name] = $url;
+        }
+    }
+    return $asenha_plugins;
+}
+
+/**
  * Enqueue admin scripts
  *
  * @since 1.0.0
@@ -1031,6 +1056,10 @@ function asenha_admin_scripts(  $hook_suffix  ) {
         $wp_scripts = wp_scripts();
         $wp_scripts->remove( 'wp-tinymce' );
         wp_register_tinymce_scripts( $wp_scripts, true );
+        // Prevent third-party TinyMCE external plugins (e.g. ThirstyAffiliates, Advanced Ads) from loading on the
+        // ASE settings page. Ad blockers often block URLs containing "affiliate" / "ads", which causes TinyMCE to
+        // show "Failed to load plugin url" alerts for Custom Admin Footer editors that do not need those plugins.
+        add_filter( 'mce_external_plugins', 'asenha_settings_page_mce_external_plugins', PHP_INT_MAX );
         $admin_page_script_dependencies = array(
             'asenha-jsticky',
             'asenha-jbox',
@@ -1137,6 +1166,28 @@ function asenha_admin_scripts(  $hook_suffix  ) {
         $media_replace = array(
             'selectMediaText'        => __( 'Select New Media File', 'admin-site-enhancements' ),
             'performReplacementText' => __( 'Perform Replacement', 'admin-site-enhancements' ),
+            'nonce'                  => wp_create_nonce( 'asenha_media_replace_nonce' ),
+            'confirmTitle'           => __( 'Confirm Media Replacement', 'admin-site-enhancements' ),
+            'mimeTypeWarning'        => __( 'The selected image is of a different type than the image to replace. Please choose an image with the same type.', 'admin-site-enhancements' ),
+            'analyzingText'          => __( 'Analyzing replacement...', 'admin-site-enhancements' ),
+            'errorAnalyzing'         => __( 'Error analyzing replacement.', 'admin-site-enhancements' ),
+            'errorServer'            => __( 'Error communicating with server.', 'admin-site-enhancements' ),
+            'warningLabel'           => __( 'Warning', 'admin-site-enhancements' ),
+            'currentImageLabel'      => __( 'Current:', 'admin-site-enhancements' ),
+            'replacementImageLabel'  => __( 'Replacement:', 'admin-site-enhancements' ),
+            'specialUsageLabel'      => __( 'Special Usage Detected', 'admin-site-enhancements' ),
+            'filesToReplaceLabel'    => __( 'Files to be replaced', 'admin-site-enhancements' ),
+            'replacementFilesLabel'  => __( 'Replacement files', 'admin-site-enhancements' ),
+            'postsUsingMediaLabel'   => __( 'Used in:', 'admin-site-enhancements' ),
+            'noPostsLabel'           => __( 'No posts currently use this media file.', 'admin-site-enhancements' ),
+            'editLabel'              => __( 'Edit', 'admin-site-enhancements' ),
+            'cancelLabel'            => __( 'Cancel', 'admin-site-enhancements' ),
+            'confirmLabel'           => __( 'Confirm Replacement', 'admin-site-enhancements' ),
+            'preserveFilenameLabel'  => __( 'Preserve the current filename(s). Just change the media content.', 'admin-site-enhancements' ),
+            'updatePostTitleLabel'   => __( 'Update post_title and post_name', 'admin-site-enhancements' ),
+            'afterReplacementLabel'  => __( 'After replacement:', 'admin-site-enhancements' ),
+            'postTitleLabel'         => __( 'Title (post_title):', 'admin-site-enhancements' ),
+            'postNameLabel'          => __( 'Permalink slug (post_name):', 'admin-site-enhancements' ),
         );
         wp_localize_script( 'asenha-media-replace', 'mediaReplace', $media_replace );
     }

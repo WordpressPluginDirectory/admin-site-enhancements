@@ -506,6 +506,10 @@
       $('.limit-login-attempts-header-override').appendTo('.fields-security .limit-login-attempts .asenha-subfields');
       $('.limit-login-attempts-header-override-description').appendTo('.fields-security .limit-login-attempts .asenha-subfields');
       $('.login-attempts-log-table').appendTo('.fields-security .limit-login-attempts .asenha-subfields');
+      $('.password-policy').appendTo('.fields-security > table > tbody');
+      $('.password-policy-min-length').appendTo('.fields-security .password-policy .asenha-subfields');
+      $('.password-policy-min-unique-chars').appendTo('.fields-security .password-policy .asenha-subfields');
+      $('.password-policy-require').appendTo('.fields-security .password-policy .asenha-subfields');
       
       $('.obfuscate-author-slugs').appendTo('.fields-security > table > tbody');
       $('.obfuscate-email-address').appendTo('.fields-security > table > tbody');
@@ -882,6 +886,7 @@
       
       subfieldsToggler( 'disable_smaller_components', 'disable-smaller-components' );
       subfieldsToggler( 'limit_login_attempts', 'limit-login-attempts' );
+      subfieldsToggler( 'password_policy', 'password-policy' );
       
       subfieldsToggler( 'obfuscate_email_address', 'obfuscate-email-address' );
       subfieldsToggler( 'image_upload_control', 'image-upload-control' );
@@ -1323,32 +1328,15 @@
          }
       });
 
-      function field_value_initial_sync( originSelector, targetSelector ) {
-         if ( $(originSelector).val() != '' ) {
-            $(targetSelector).val($(originSelector).val());
+      // Clear masked sensitive keys on focus so a replacement value can be pasted.
+      // Readonly fields (ALTCHA, Form Builder mirrors) are excluded via missing data attribute.
+      $('.asenha-body').on('focus', 'input[data-asenha-sensitive-key="1"]', function() {
+         var $input = $(this);
+         var currentValue = String($input.val() || '');
+         if (/^\*+/.test(currentValue)) {
+            $input.val('');
          }
-      }
-
-      function field_value_live_sync( originSelector, targetSelector ) {
-         $('.asenha-body').on('input', originSelector, function() {
-            var originValue = $(this).val();
-            $(targetSelector).val(originValue);
-         });
-      }
-      
-      function field_value_syncing( originSelector, targetSelector ) {
-         field_value_initial_sync( originSelector, targetSelector );
-         field_value_live_sync( originSelector, targetSelector );
-      }
-
-      // Form Builder site and secret keys syncing
-      field_value_syncing('input[name="admin_site_enhancements[altcha_secret_key]"]', 'input[name="admin_site_enhancements[form_builder_altcha_secret_key]"]');
-      field_value_syncing('input[name="admin_site_enhancements[recaptcha_site_key_v2_checkbox]"]', 'input[name="admin_site_enhancements[form_builder_recaptcha_site_key_v2_checkbox]"]');
-      field_value_syncing('input[name="admin_site_enhancements[recaptcha_secret_key_v2_checkbox]"]', 'input[name="admin_site_enhancements[form_builder_recaptcha_secret_key_v2_checkbox]"]');
-      field_value_syncing('input[name="admin_site_enhancements[recaptcha_site_key_v3_invisible]"]', 'input[name="admin_site_enhancements[form_builder_recaptcha_site_key_v3_invisible]"]');
-      field_value_syncing('input[name="admin_site_enhancements[recaptcha_secret_key_v3_invisible]"]', 'input[name="admin_site_enhancements[form_builder_recaptcha_secret_key_v3_invisible]"]');
-      field_value_syncing('input[name="admin_site_enhancements[turnstile_site_key]"]', 'input[name="admin_site_enhancements[form_builder_turnstile_site_key]"]');
-      field_value_syncing('input[name="admin_site_enhancements[turnstile_secret_key]"]', 'input[name="admin_site_enhancements[form_builder_turnstile_secret_key]"]');
+      });
       
       // Maintenance Mode => Use a customizable page vs Use an existing page      
       if ( $('input[name="admin_site_enhancements[maintenance_page_type]"]:checked').val() == 'custom' ) {

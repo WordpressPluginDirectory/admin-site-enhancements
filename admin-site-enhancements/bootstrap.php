@@ -976,6 +976,7 @@ class Admin_Site_Enhancements {
         // =================================================================
         // Limit Login Attempts — failed-login log cleanup cron (always registered so orphans are cleared)
         $limit_login_attempts = new ASENHA\Classes\Limit_Login_Attempts();
+        add_action( 'plugins_loaded', [$limit_login_attempts, 'maybe_upgrade_failed_logins_log_table'], 5 );
         add_action( 'added_option', [$limit_login_attempts, 'trigger_clear_or_schedule_log_clean_up_by_amount'] );
         add_action( 'updated_option', [$limit_login_attempts, 'trigger_clear_or_schedule_log_clean_up_by_amount'] );
         add_action( 'plugins_loaded', [$limit_login_attempts, 'clear_or_schedule_log_clean_up_by_amount'] );
@@ -999,6 +1000,38 @@ class Admin_Site_Enhancements {
             add_action( 'wp_login_failed', [$limit_login_attempts, 'log_failed_login'], 5 );
             // Higher priority than one in Change Login URL
             add_action( 'wp_login', [$limit_login_attempts, 'clear_failed_login_log'] );
+        }
+        // Password Policy
+        if ( array_key_exists( 'password_policy', $options ) && $options['password_policy'] ) {
+            $password_policy = new ASENHA\Classes\Password_Policy();
+            add_filter(
+                'registration_errors',
+                [$password_policy, 'validate_registration'],
+                10,
+                3
+            );
+            add_action(
+                'user_profile_update_errors',
+                [$password_policy, 'validate_profile_update'],
+                10,
+                3
+            );
+            add_action(
+                'validate_password_reset',
+                [$password_policy, 'validate_password_reset'],
+                10,
+                2
+            );
+            add_filter( 'wpmu_validate_user_signup', [$password_policy, 'validate_mu_signup'] );
+            add_filter(
+                'rest_pre_insert_user',
+                [$password_policy, 'validate_rest_user'],
+                10,
+                2
+            );
+            add_filter( 'password_hint', [$password_policy, 'filter_password_hint'] );
+            add_action( 'admin_enqueue_scripts', [$password_policy, 'enqueue_admin_password_hint'] );
+            add_action( 'admin_notices', [$password_policy, 'maybe_show_conflict_notice'] );
         }
         // Obfuscate Author Slugs
         if ( array_key_exists( 'obfuscate_author_slugs', $options ) && $options['obfuscate_author_slugs'] ) {
@@ -1174,7 +1207,6 @@ class Admin_Site_Enhancements {
         }
         // Display System Summary
         if ( array_key_exists( 'display_system_summary', $options ) && $options['display_system_summary'] ) {
-            // require_once ASENHA_PATH . 'includes/premium/display-system-summary/ignore-directories.php';
             $display_system_summary = new ASENHA\Classes\Display_System_Summary();
             add_action( 'rightnow_end', [$display_system_summary, 'display_system_summary'] );
         }

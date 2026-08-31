@@ -168,45 +168,85 @@ class Disable_Smaller_Components {
     }
     
     /**
-     * Disable plugin and theme editor
-     * 
+     * Whether ASE owns the current DISALLOW_FILE_EDIT=true write in wp-config.
+     *
+     * @since 7.4.5
+     * @return bool
+     */
+    private function get_disallow_file_edit_managed_by_ase() {
+        $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
+
+        return ! empty( $options_extra['disallow_file_edit_managed_by_ase'] );
+    }
+
+    /**
+     * Persist whether ASE owns DISALLOW_FILE_EDIT in wp-config.
+     *
+     * @since 7.4.5
+     * @param bool $managed Whether ASE manages the constant.
+     */
+    private function set_disallow_file_edit_managed_by_ase( $managed ) {
+        $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
+        $options_extra['disallow_file_edit_managed_by_ase'] = (bool) $managed;
+        update_option( ASENHA_SLUG_U . '_extra', $options_extra, true );
+    }
+
+    /**
+     * Disable plugin and theme editor.
+     *
+     * When DISALLOW_FILE_EDIT is already true in wp-config (external hardening),
+     * leave it alone and do not claim ownership. When absent or false, write true
+     * if wp-config is writable and mark ASE ownership.
+     *
      * @since 7.4.5
      */
     public function disable_plugin_theme_editor() {
         if ( wp_doing_ajax() || wp_doing_cron() ) {
             return;
         }
-        
+
         if ( ! current_user_can( 'manage_options' ) ) {
             return;
         }
 
         $wp_config = new WP_Config_Transformer;
+        $wp_config_options = array(
+            'add'       => true,
+            'raw'       => true,
+            'normalize' => false,
+        );
+
+        if ( $wp_config->exists( 'constant', 'DISALLOW_FILE_EDIT' ) ) {
+            $value = $wp_config->get_value( 'constant', 'DISALLOW_FILE_EDIT' );
+
+            // External or already true: do not rewrite; do not claim ownership if flag unset.
+            if ( 'true' === $value ) {
+                return;
+            }
+        }
+
+        if ( $wp_config->wpconfig_file( 'writeability' ) ) {
+            try {
+                $updated = $wp_config->update( 'constant', 'DISALLOW_FILE_EDIT', 'true', $wp_config_options );
+                if ( $updated ) {
+                    $this->set_disallow_file_edit_managed_by_ase( true );
+                }
+            } catch ( \Exception $e ) {
+                // Leave ownership unchanged if wp-config could not be updated.
+            }
+        }
 
         if ( ! defined( 'DISALLOW_FILE_EDIT' ) ) {
             define( 'DISALLOW_FILE_EDIT', true );
-        } else {
-            $is_wpconfig_writeable = $wp_config->wpconfig_file( 'writeability' );
-            
-            if ( $is_wpconfig_writeable ) {
-                $disallow_file_edit = $wp_config->get_value( 'constant', 'DISALLOW_FILE_EDIT' );
-
-                if ( 'false' == $disallow_file_edit ) {
-                    $wp_config_options = array(
-                        'add'       => true, // Add the config if missing.
-                        'raw'       => true, // Display value in raw format without quotes.
-                        'normalize' => false, // Normalize config output using WP Coding Standards.
-                    );
-
-                    $update_success = $wp_config->update( 'constant', 'DISALLOW_FILE_EDIT', 'true', $wp_config_options );                    
-                }
-            }
         }
     }
 
     /**
-     * Enable plugin and theme editor
-     * 
+     * Re-enable plugin and theme editor when ASE owns DISALLOW_FILE_EDIT.
+     *
+     * Only writes false when ASE previously set the constant to true. Manual or
+     * third-party true values are never changed.
+     *
      * @since 7.4.5
      */
     public function enable_plugin_theme_editor() {
@@ -218,26 +258,34 @@ class Disable_Smaller_Components {
             return;
         }
 
+        if ( ! $this->get_disallow_file_edit_managed_by_ase() ) {
+            return;
+        }
+
         $wp_config = new WP_Config_Transformer;
 
-        if ( ! defined( 'DISALLOW_FILE_EDIT' ) ) {
-            define( 'DISALLOW_FILE_EDIT', false );            
-        } else {
-            $is_wpconfig_writeable = $wp_config->wpconfig_file( 'writeability' );
-            
-            if ( $is_wpconfig_writeable ) {
-                $disallow_file_edit = $wp_config->get_value( 'constant', 'DISALLOW_FILE_EDIT' );
-
-                if ( 'true' == $disallow_file_edit ) {
-                    $wp_config_options = array(
-                        'add'       => true, // Add the config if missing.
-                        'raw'       => true, // Display value in raw format without quotes.
-                        'normalize' => false, // Normalize config output using WP Coding Standards.
-                    );
-
-                    $update_success = $wp_config->update( 'constant', 'DISALLOW_FILE_EDIT', 'false', $wp_config_options );
-                }
-            }
+        if ( ! $wp_config->exists( 'constant', 'DISALLOW_FILE_EDIT' ) ) {
+            $this->set_disallow_file_edit_managed_by_ase( false );
+            return;
         }
-    }    
+
+        if ( ! $wp_config->wpconfig_file( 'writeability' ) ) {
+            return;
+        }
+
+        $wp_config_options = array(
+            'add'       => false,
+            'raw'       => true,
+            'normalize' => false,
+        );
+
+        try {
+            $updated = $wp_config->update( 'constant', 'DISALLOW_FILE_EDIT', 'false', $wp_config_options );
+            if ( $updated ) {
+                $this->set_disallow_file_edit_managed_by_ase( false );
+            }
+        } catch ( \Exception $e ) {
+            // Keep ownership flag so a later writable request can still reverse ASE's write.
+        }
+    }
 }

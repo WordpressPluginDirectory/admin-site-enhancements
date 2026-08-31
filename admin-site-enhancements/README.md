@@ -4,8 +4,8 @@ Contributors: qriouslad
 Donate link: https://bowo.io/asenha-sp-rdm  
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
-Tested up to: 7.0.4  
-Stable tag: 9.0.1  
+Tested up to: 7.1  
+Stable tag: 9.1.0  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -42,8 +42,8 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### FEATURES & MODULES
 
-**76 modules** in total:  
-**59 free modules** (32 has Pro features) | **18 Pro modules**
+**78 modules** in total:  
+**60 free modules** (32 has Pro features) | **18 Pro modules**
 
 [**See all features >>**](https://www.wpase.com/features/)
 
@@ -56,7 +56,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Terms Order**. Drag-and-drop custom ordering of terms and child terms from various taxonomies and apply the custom order on the frontend. WPML compatible.
 * **Media Files Visibility Control**: Limit media files visibility so only administrators can see all media files. Non-administrator users will only see media files they uploaded themselves. [ASE Pro](https://www.wpase.com/rdme-to-web) adds an option to specify which non-administrator user roles will have such limitation. 
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Media Categories**. Hierarchical categories for the media library with drag-and-drop categorization. Compatible with WPML.
-* **Media Replacement**. Replace any type of media file with a new one while ensuring no existing links will break. [ASE Pro](https://www.wpase.com/rdme-to-web) allows replacing media from the grid view of media library.
+* **Media Replacement**. Replace any type of media file with a new one while ensuring no existing links will break. [ASE Pro](https://www.wpase.com/rdme-to-web) allows replacing media from the grid view of media library, replacing with a different file type and file name and replacing sub-sizes of image files inside posts and options.
 * **SVG Upload**. Allow some or all user roles to upload SVG files with sanitization to keep things secure.
 * **AVIF Upload**. Enable uploading AVIF files in the Media Library.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Public Preview for Drafts**. Public preview for draft and scheduled posts from some or all public post types.
@@ -124,6 +124,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 ### Security
 
 * **Limit Login Attempts**. Prevent brute force attacks by limiting the number of failed login attempts allowed per IP address. [ASE Pro](https://www.wpase.com/rdme-to-web) adds IP whitelisting, which is also useful to unblock users.
+* **Password Policy**. Enforce a minimum length and optional complexity rules (uppercase, lowercase, digits, special characters, unique characters) when users register, reset, or update their password.
 **[[ASE Pro](https://www.wpase.com/rdme-to-web)] CAPTCHA Protection**. Support for [ALTCHA](https://altcha.org/) self-hosted version (GDPR-compliant, open source, free), Google reCaptcha v2 and v3, and Cloudflare Turnstile for WordPress and WooCommerce default forms (login, password reset, registration and comment forms).
 **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Two-Factor Authentication (2FA)**. Apply 2FA for some or all user roles with grace period settings and the option to apply different 2FA settings for each user role. Supported methods are authenticator app (TOTP), recovery codes and email.
 * **Obfuscate Author Slugs**. Obfuscate publicly exposed author page URLs that shows the user slugs / usernames.
@@ -207,38 +208,30 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **90 _major_ releases** (e.g. 1.1.0 ) and **205 _minor_ releases** (e.g. 4.9.1), for a **total of 295 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **91 _major_ releases** (e.g. 1.1.0 ) and **206 _minor_ releases** (e.g. 4.9.1), for a **total of 297 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 9.0.1 (2026.08.17) - ASE Free and Pro
+### 9.1.0 (2026.08.31) - ASE Free and Pro
 
-* **[SECURITY FIX in Free and Pro] Content Management >> SVG Upload**: 
-  * Fixed a bypass of the CVE-2025-9487 Stored XSS fix in v7.9.8, where a user with SVG upload privilege could store an unsanitised SVG via XML-RPC by supplying a `post_id` they cannot edit. The request still returns 401, but the file is sanitized before that capability check. Props to Mohammed Abd Alrahman for responsibly disclosing the vulnerability via WPScan Security.
-  * SVG sanitizer exceptions are now caught and failed destination files, which may be script-bearing and served as image/svg+xml, are deleted instead of remaining on disk. Props WPScan Security for the responsible disclosure.
+* **[ADDED in Free and Pro] Security >> Password Policy**: enforce a minimum length and optional complexity rules (uppercase, lowercase, digits, special characters, unique characters) when users register, reset, or update their password. Props to Francois G., David M.C. and Marv D. for prompting this addition.
 
-* **[IMPROVED in Free] Admin Interface >> Admin Menu Organizer**: added a "Reset Menu" link/feature that let's you start fresh.
+* **[FIXED in Free and Pro] Admin Interface >> Wider Admin Menu**: 
+  * Fixed menu-wide, left-side whitespace/gap in block editor on smaller screen (< 961 pixels). Props to Martin Ž. for reporting the issue.
+  * Fixed wider admin menu overlapping Elementor's Cookie Consent plugin's admin pages. Props to [Diiamo](https://wordpress.org/support/users/luislu/) for [reporting](https://wordpress.org/support/topic/wider-admin-menu-issue/#post-19003147) this.
 
-* **[IMPROVED in Free and Pro] Utilities >> Contact Form**: added form styling customization options which includes layout (default vs stacked), label position (left vs right), field style (box vs underline), color scheme (dark vs light), button position (left vs right) and button color.
+* **[FIXED in Free and Pro] Admin Interface >> Admin Menu Organizer**: Sticky "Collapse Menu" now works in SureCart Products page. Props to Kenneth S. for reporting the issue in details (with screenshots).
 
-* **[FIXED in Free and Pro] Log In/Out | Register >> Login ID Type**: fixed a conflict with Wordfence 9.0.0 new passkey authentication when Login ID Type is set to "Email address only", which caused passkey authentication error, i.e. failed login. Props to Maan D. for reporting the issue and proposing the code fix that this fix is based on.
+* **[IMPROVED in Pro] Utilities >> Display System Summary**: Added async, background process with cron fallback to calculate the various directory / component sizes. This helps prevents slow down / time out / critical error when opening the dashboard of a very large site. Props to Carsten D. for prompting this improvement.
 
-* **[IMPROVED in Pro] Utilities >> Site Backup and Migration**: allow custom start date selection when backup policy uses "Once every 2 weeks", "Once every week" or "Once every 3 days" frequencies. Props to Benjamin N. for prompting this improvement.
-
-* **[IMPROVED in Pro] Utilities >> File Manager**: when compressing a single folder or a single file, the folder/file name will now be used for the resulting archive/zip file.
-
-* **[IMPROVED in Pro] Security >> Two-Factor Authentication (2FA)**: when using `two_factor_token_email_message` filter hook, you can now use HTML and it will be rendered as such, not as raw HTML. The outgoing email now is sent with the 'Content-Type: text/html; charset=UTF-8' header by default. Props to Jayron C. for prompting this improvement.
-
-* **[FIXED and IMPROVED in Pro] Security >> CAPTCHA Protection**: 
-  * Fixed a conflict with plugins that combines javascript files, e.g. SiteGround Speed Optimizer, when ALTCHA is enabled. This, for example, caused the ALTCHA widget to not render and function properly on the login screen/form at wp-login.php, and ended up blocking first-round login attempts. Props to Jenny L. for reporting the isssue and facilitating the troubleshooting process.
-  * Turnstile, reCAPTCHA and ALTCHA widgets now only verifies ASE’s own WordPress login, password-reset, and registration forms, so third-party forms that reuse the same CAPTCHA fields are no longer double-verified or blocked. Props to Tony B. for reporting the issue in detail along with proposing spot-on solutions.
+* **[IMPROVED in Pro] Security >> CAPTCHA Protection**: Site and secret keys will now be obfuscated in the module settings and in HTML. Props to Matt D. for prompting this improvement.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: Updated Swedish, Spanish (Spain), Spanish (Chile), Portuguese (Brazil), Polish, Norwegian, German (Formal), Dutch, Chinese (Taiwan).
-    * ASE Pro: Updated Polish.
+    * ASE Free: Updated Spanish (Spain), Portuguese (Brazil), Polish, Norwegian, German (Formal), Dutch (Netherlands)
+    * ASE Pro: Updated Indonesian, Portuguese (Brazil), Polish
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [39 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).

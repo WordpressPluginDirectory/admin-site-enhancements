@@ -77,7 +77,12 @@ class Settings_Fields_Render {
         } else {
             $inline_style = '';
         }
-        echo '<input type="checkbox" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox" style="' . esc_attr( $inline_style ) . '" name="' . esc_attr( $field_name ) . '" ' . checked( $field_option_value, true, false ) . '>';
+        $field_disabled = !empty( $args['field_disabled'] );
+        // Disabled checkboxes are omitted from POST; preserve a checked value so save does not wipe it.
+        if ( $field_disabled && $field_option_value ) {
+            echo '<input type="hidden" name="' . esc_attr( $field_name ) . '" value="on">';
+        }
+        echo '<input type="checkbox" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox" style="' . esc_attr( $inline_style ) . '" name="' . esc_attr( $field_name ) . '" ' . checked( $field_option_value, true, false ) . ' ' . disabled( $field_disabled, true, false ) . '>';
         echo '<label for="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox-label" style="' . esc_attr( $inline_style ) . '">' . wp_kses_post( $field_label ) . '</label>';
     }
 
@@ -242,11 +247,7 @@ class Settings_Fields_Render {
                 $field_option_value = $options[$field_id];
             }
         } else {
-            if ( 'altcha_secret_key' == $field_id ) {
-                $field_option_value = '';
-            } else {
-                $field_option_value = '';
-            }
+            $field_option_value = '';
         }
         if ( !empty( $field_prefix ) && !empty( $field_suffix ) ) {
             $field_classname = ' with-prefix with-suffix';
@@ -261,6 +262,62 @@ class Settings_Fields_Render {
             $field_classname .= ' ' . $field_width_classname;
         }
         echo wp_kses_post( $field_prefix ) . '<input type="text" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-text' . esc_attr( $field_classname ) . '" name="' . esc_attr( $field_name ) . '" placeholder="' . esc_attr( $field_placeholder ) . '" value="' . esc_attr( $field_option_value ) . '"' . esc_html( $field_is_read_only_output ) . '>' . wp_kses_post( $field_suffix );
+        if ( !empty( $field_description ) ) {
+            echo '<label for="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox-label">' . wp_kses_post( $field_description ) . '</label>';
+        }
+    }
+
+    /**
+     * Render a sensitive key subfield with a mostly masked value (asterisks + trailing chars).
+     *
+     * Full keys are never echoed into the HTML value attribute. Editable fields clear the
+     * mask on focus via admin-page.js so a replacement key can be pasted.
+     *
+     * @since 9.0.3
+     *
+     * @param array $args Settings field arguments.
+     * @return void
+     */
+    function render_sensitive_key_subfield( $args ) {
+        $option_name = ( isset( $args['option_name'] ) ? $args['option_name'] : ASENHA_SLUG_U );
+        if ( !empty( $option_name ) ) {
+            $options = get_option( $option_name, array() );
+        } else {
+            $options = get_option( ASENHA_SLUG_U, array() );
+        }
+        $field_id = $args['field_id'];
+        $field_name = $args['field_name'];
+        $field_width_classname = ( isset( $args['field_width_classname'] ) ? $args['field_width_classname'] : '' );
+        $field_prefix = ( isset( $args['field_prefix'] ) ? $args['field_prefix'] : '' );
+        $field_suffix = ( isset( $args['field_suffix'] ) ? $args['field_suffix'] : '' );
+        $field_placeholder = ( isset( $args['field_placeholder'] ) ? $args['field_placeholder'] : '' );
+        $field_description = ( isset( $args['field_description'] ) ? $args['field_description'] : '' );
+        $field_is_read_only = ( isset( $args['read_only'] ) ? (bool) $args['read_only'] : false );
+        $stored_value = ( isset( $options[$field_id] ) ? (string) $options[$field_id] : '' );
+        $common_methods = new Common_Methods();
+        $display_value = $common_methods->asenha_mask_sensitive_key( $stored_value );
+        if ( !empty( $field_prefix ) && !empty( $field_suffix ) ) {
+            $field_classname = ' with-prefix with-suffix';
+        } elseif ( !empty( $field_prefix ) && empty( $field_suffix ) ) {
+            $field_classname = ' with-prefix';
+        } elseif ( empty( $field_prefix ) && !empty( $field_suffix ) ) {
+            $field_classname = ' with-suffix';
+        } else {
+            $field_classname = '';
+        }
+        if ( !empty( $field_width_classname ) ) {
+            $field_classname .= ' ' . $field_width_classname;
+        }
+        $field_classname .= ' asenha-sensitive-key';
+        echo wp_kses_post( $field_prefix );
+        echo '<input type="text" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-text' . esc_attr( $field_classname ) . '" name="' . esc_attr( $field_name ) . '" placeholder="' . esc_attr( $field_placeholder ) . '" value="' . esc_attr( $display_value ) . '" autocomplete="off"';
+        if ( $field_is_read_only ) {
+            echo ' readonly="readonly"';
+        } else {
+            echo ' data-asenha-sensitive-key="1"';
+        }
+        echo '>';
+        echo wp_kses_post( $field_suffix );
         if ( !empty( $field_description ) ) {
             echo '<label for="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox-label">' . wp_kses_post( $field_description ) . '</label>';
         }

@@ -10,50 +10,124 @@ namespace ASENHA\Classes;
 class Activation {
 
 	/**
+	 * Target schema version for the failed logins log table.
+	 *
+	 * @since 9.0.2
+	 */
+	const FAILED_LOGINS_DB_VERSION = '1.1.0';
+
+	/**
 	 * Create failed login log table for Limit Login Attempts feature
 	 *
 	 * @since 2.5.0
+	 * @param bool $recreate When true, drop and recreate the table (plugin activation). When false, create only if missing.
 	 */
-	public function create_failed_logins_log_table() {
+	public function create_failed_logins_log_table( $recreate = true ) {
         global $wpdb;
 
         // Limit Login Attempts Log Table
 
         $table_name = $wpdb->prefix . 'asenha_failed_logins';
 
+        $charset_collation_sql = '';
+
         if ( ! empty( $wpdb->charset ) ) {
-            $charset_collation_sql = "DEFAULT CHARACTER SET $wpdb->charset";         
+            $charset_collation_sql = "DEFAULT CHARACTER SET $wpdb->charset";
         }
 
         if ( ! empty( $wpdb->collate ) ) {
-            $charset_collation_sql .= " COLLATE $wpdb->collate";         
+            $charset_collation_sql .= " COLLATE $wpdb->collate";
         }
 
-        // Drop table if already exists
-        $wpdb->query("DROP TABLE IF EXISTS `". $table_name ."`");
+        if ( $recreate ) {
+            // Drop table if already exists
+            $wpdb->query( "DROP TABLE IF EXISTS `" . $table_name . "`" );
+        } else {
+            $query = $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $table_name ) );
+
+            if ( $wpdb->get_var( $query ) === $table_name ) {
+                return true;
+            }
+        }
 
         // Create database table. This procedure may also be called
-        $sql = 
+        $sql =
         "CREATE TABLE {$table_name} (
             id int(6) unsigned NOT NULL auto_increment,
             ip_address varchar(40) NOT NULL DEFAULT '',
-            username varchar(24) NOT NULL DEFAULT '',
+            username varchar(255) NOT NULL DEFAULT '',
             fail_count int(10) NOT NULL DEFAULT '0',
             lockout_count int(10) NOT NULL DEFAULT '0',
-            request_uri varchar(24) NOT NULL DEFAULT '',
+            request_uri varchar(255) NOT NULL DEFAULT '',
             unixtime int(10) NOT NULL DEFAULT '0',
             datetime_wp varchar(36) NOT NULL DEFAULT '',
-            -- datetime_utc datetime NULL DEFAULT CURRENT_TIMESTAMP,
             info varchar(64) NOT NULL DEFAULT '',
             UNIQUE (ip_address),
             PRIMARY KEY (id)
         ) {$charset_collation_sql}";
-		
+
 		require_once ABSPATH . '/wp-admin/includes/upgrade.php';
 
         dbDelta( $sql );
 
+        update_option( 'asenha_failed_logins_db_version', self::FAILED_LOGINS_DB_VERSION, false );
+
         return true;
+	}
+
+	/**
+	 * Upgrade failed logins log table schema for existing installs.
+	 *
+	 * @since 9.0.2
+	 */
+	public function maybe_upgrade_failed_logins_log_table() {
+		global $wpdb;
+
+		$version_key  = 'asenha_failed_logins_db_version';
+		$target       = self::FAILED_LOGINS_DB_VERSION;
+		$current      = get_option( $version_key, '' );
+		$table_name   = $wpdb->prefix . 'asenha_failed_logins';
+		$query        = $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $table_name ) );
+		$table_exists = ( $wpdb->get_var( $query ) === $table_name );
+
+		if ( $current === $target && $table_exists ) {
+			return;
+		}
+
+		if ( ! $table_exists ) {
+			$this->create_failed_logins_log_table( false );
+			return;
+		}
+
+		$columns = $wpdb->get_results( "SHOW FULL COLUMNS FROM `{$table_name}`", ARRAY_A );
+
+		if ( empty( $columns ) ) {
+			return;
+		}
+
+		$column_lengths = array();
+
+		foreach ( $columns as $column ) {
+			if ( ! isset( $column['Field'], $column['Type'] ) ) {
+				continue;
+			}
+
+			if ( preg_match( '/varchar\((\d+)\)/i', $column['Type'], $matches ) ) {
+				$column_lengths[ $column['Field'] ] = (int) $matches[1];
+			}
+		}
+
+		if ( isset( $column_lengths['username'] ) && $column_lengths['username'] < 255 ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->query( "ALTER TABLE `{$table_name}` MODIFY username varchar(255) NOT NULL DEFAULT ''" );
+		}
+
+		if ( isset( $column_lengths['request_uri'] ) && $column_lengths['request_uri'] < 255 ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->query( "ALTER TABLE `{$table_name}` MODIFY request_uri varchar(255) NOT NULL DEFAULT ''" );
+		}
+
+		update_option( $version_key, $target, false );
 	}
 
     /**

@@ -12,6 +12,55 @@ use WP_Error;
 class Limit_Login_Attempts {
 
     /**
+     * Maximum length for varchar columns written to the failed logins table.
+     *
+     * @since 9.0.2
+     */
+    const FAILED_LOGINS_VARCHAR_MAX = 255;
+
+    /**
+     * Ensure failed logins log table schema is up to date.
+     *
+     * @since 9.0.2
+     */
+    public function maybe_upgrade_failed_logins_log_table() {
+        $activation = new Activation();
+        $activation->maybe_upgrade_failed_logins_log_table();
+    }
+
+    /**
+     * Truncate a string to fit failed logins table varchar columns.
+     *
+     * @since 9.0.2
+     * @param string $value Value to truncate.
+     * @return string
+     */
+    private function truncate_failed_login_db_string( $value ) {
+        $value = (string) $value;
+
+        if ( function_exists( 'mb_substr' ) ) {
+            return mb_substr( $value, 0, self::FAILED_LOGINS_VARCHAR_MAX );
+        }
+
+        return substr( $value, 0, self::FAILED_LOGINS_VARCHAR_MAX );
+    }
+
+    /**
+     * Log failed logins table write errors when debugging is enabled.
+     *
+     * @since 9.0.2
+     * @param string $operation Database operation that failed.
+     */
+    private function maybe_log_failed_login_db_error( $operation ) {
+        global $wpdb;
+
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG && ! empty( $wpdb->last_error ) ) {
+            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+            error_log( 'ASE Limit Login Attempts: ' . $operation . ' failed. ' . $wpdb->last_error );
+        }
+    }
+
+    /**
      * Maybe allow login if not locked out. Should return WP_Error object if not allowed to login.
      *
      * @since 2.5.0
@@ -21,14 +70,16 @@ class Limit_Login_Attempts {
 
         $table_name = $wpdb->prefix . 'asenha_failed_logins';
 
+        $this->maybe_upgrade_failed_logins_log_table();
+
         // Maybe create table if it does not exist yet, e.g. upgraded from previous version of plugin, so, no activation methods are fired
         $query = $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $table_name ) );
 
         if ( $wpdb->get_var( $query ) === $table_name ) {
             // Table already exists, do nothing.
         } else {
-            $activation = new Activation;
-            $activation->create_failed_logins_log_table();
+            $activation = new Activation();
+            $activation->create_failed_logins_log_table( false );
         }
 
         // Get values from options needed to do various checks
@@ -345,10 +396,15 @@ class Limit_Login_Attempts {
 
         $table_name = $wpdb->prefix . 'asenha_failed_logins';
 
+        $this->maybe_upgrade_failed_logins_log_table();
+
         $ip_address = isset( $asenha_limit_login['ip_address'] ) ? $asenha_limit_login['ip_address'] : '';
         $request_uri = isset( $asenha_limit_login['request_uri'] ) ? $asenha_limit_login['request_uri'] : '';
         $login_fails_allowed = isset( $asenha_limit_login['login_fails_allowed'] ) ? $asenha_limit_login['login_fails_allowed'] : 3;
         $login_lockout_maxcount = isset( $asenha_limit_login['login_lockout_maxcount'] ) ? $asenha_limit_login['login_lockout_maxcount'] : 3;
+
+        $username = $this->truncate_failed_login_db_string( $username );
+        $request_uri = $this->truncate_failed_login_db_string( $request_uri );
         
         // Check if the IP address has been used in a failed login attempt before, i.e. has it been recorded in the database?
         $sql = $wpdb->prepare( "SELECT * FROM `" . $table_name . "` WHERE `ip_address` = %s", $ip_address );
@@ -412,11 +468,15 @@ class Limit_Login_Attempts {
         if ( $result_count == 0 ) {
 
             // Insert into the database
-            $result = $wpdb->insert(
+            $db_result = $wpdb->insert(
                 $table_name,
                 $data,
                 $data_format
             );
+
+            if ( false === $db_result ) {
+                $this->maybe_log_failed_login_db_error( 'insert' );
+            }
 
         } else {
 
@@ -454,13 +514,17 @@ class Limit_Login_Attempts {
                     if ( $lockout_count < $login_lockout_maxcount ) {
 
                         // Update existing data in the database
-                        $wpdb->update(
+                        $db_result = $wpdb->update(
                             $table_name,
                             $data,
                             $where,
                             $data_format,
                             $where_format
                         );
+
+                        if ( false === $db_result ) {
+                            $this->maybe_log_failed_login_db_error( 'update' );
+                        }
 
                     }
 
@@ -469,13 +533,17 @@ class Limit_Login_Attempts {
             } else {
 
                 // Update existing data in the database
-                $wpdb->update(
+                $db_result = $wpdb->update(
                     $table_name,
                     $data,
                     $where,
                     $data_format,
                     $where_format
                 );
+
+                if ( false === $db_result ) {
+                    $this->maybe_log_failed_login_db_error( 'update' );
+                }
 
             }
 
@@ -567,8 +635,8 @@ class Limit_Login_Attempts {
         if ( $wpdb->get_var( $query ) === $table_name ) {
             // Table already exists, do nothing.
         } else {
-            $activation = new Activation;
-            $activation->create_failed_logins_log_table();
+            $activation = new Activation();
+            $activation->create_failed_logins_log_table( false );
         }
         
         $wpdb->query( "DELETE failed_login_entries FROM " . $table_name . " 

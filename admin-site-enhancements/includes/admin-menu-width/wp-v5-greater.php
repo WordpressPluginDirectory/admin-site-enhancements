@@ -43,9 +43,15 @@ $fluent_cart_inner_wrapper = (string) $fluent_cart_inner_wrapper . 'px';
 	}	
 }
 
-/* Gutenberg / Block Editor fix */
-.auto-fold .interface-interface-skeleton {
-	<?php echo esc_html( $position ); ?>: <?php echo esc_html( $custom_width ); ?>;	
+/* Gutenberg / Block Editor fix — only when admin menu is fully expanded */
+@media (min-width: 961px) {
+	.auto-fold .interface-interface-skeleton {
+		<?php echo esc_html( $position ); ?>: <?php echo esc_html( $custom_width ); ?>;
+	}
+
+	.folded .interface-interface-skeleton {
+		<?php echo esc_html( $position ); ?>: 36px;
+	}
 }
 
 /* ASE Form Builder */
@@ -95,6 +101,30 @@ body.toplevel_page_gf_edit_forms .gform-form-toolbar {
 .fs_setup .fs_sticky_footer,
 .fframe_body .fs_reports_wrapper {
 	left: <?php echo esc_html( esc_html( $custom_width ) ); ?> !important;
+}
+
+/* Elementor Cookie Consent (Cookiez) */
+#cookiez-app {
+	inset-inline-start: <?php echo esc_html( $custom_width ); ?> !important;
+	margin-inline-start: 0 !important;
+}
+
+.folded #cookiez-app {
+	inset-inline-start: 36px !important;
+	margin-inline-start: 0 !important;
+}
+
+@media (max-width: 960px) {
+	#cookiez-app {
+		inset-inline-start: 36px !important;
+		margin-inline-start: 0 !important;
+	}
+}
+
+@media (max-width: 782px) {
+	#cookiez-app {
+		inset-inline-start: 0 !important;
+	}
 }
 
 </style>

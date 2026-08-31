@@ -1861,7 +1861,7 @@ input[type="search"]#module-search-input.has-text-input {
 }
 
 .warning-text {
-    color: var(--ase-accent-warning);
+    color: #996800; /* WP admin notice-warning text; muted amber, distinct from body #1d2327 */
 }
 
 .full-width-div {

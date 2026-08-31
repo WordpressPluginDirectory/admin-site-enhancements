@@ -674,6 +674,38 @@ class Settings_Sanitization {
             $options['failed_login_attempts_log_schedule_cleanup_by_amount'] = false;
         }
         $options['failed_login_attempts_log_schedule_cleanup_by_amount'] = ( 'on' == $options['limit_login_attempts'] ? true : false );
+        // Password Policy
+        if ( !isset( $options['password_policy'] ) ) {
+            $options['password_policy'] = false;
+        }
+        $options['password_policy'] = ( 'on' == $options['password_policy'] ? true : false );
+        if ( !isset( $options['password_policy_min_length'] ) || '' === $options['password_policy_min_length'] ) {
+            $options['password_policy_min_length'] = 8;
+        }
+        $options['password_policy_min_length'] = absint( $options['password_policy_min_length'] );
+        if ( $options['password_policy_min_length'] < 1 ) {
+            $options['password_policy_min_length'] = 1;
+        }
+        if ( $options['password_policy_min_length'] > 256 ) {
+            $options['password_policy_min_length'] = 256;
+        }
+        $allowed_password_policy_require = array(
+            'uppercase',
+            'lowercase',
+            'digit',
+            'special'
+        );
+        if ( !isset( $options['password_policy_require'] ) || !is_array( $options['password_policy_require'] ) ) {
+            $options['password_policy_require'] = array();
+        }
+        $options['password_policy_require'] = array_values( array_intersect( $options['password_policy_require'], $allowed_password_policy_require ) );
+        if ( !isset( $options['password_policy_min_unique_chars'] ) || '' === $options['password_policy_min_unique_chars'] ) {
+            $options['password_policy_min_unique_chars'] = 0;
+        }
+        $options['password_policy_min_unique_chars'] = absint( $options['password_policy_min_unique_chars'] );
+        if ( $options['password_policy_min_unique_chars'] > 256 ) {
+            $options['password_policy_min_unique_chars'] = 256;
+        }
         // Obfuscate Author Slugs
         if ( !isset( $options['obfuscate_author_slugs'] ) ) {
             $options['obfuscate_author_slugs'] = false;

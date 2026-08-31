@@ -32,8 +32,61 @@ class Admin_Menu_Organizer {
      * @since 8.2.3
      */
     public function make_collapse_menu_item_sticky() {
+        $screen = ( function_exists( 'get_current_screen' ) ? get_current_screen() : null );
+        $screen_id = ( $screen && isset( $screen->id ) ? $screen->id : '' );
+        /**
+         * Admin screens that need a fixed #adminmenuwrap scrollport for sticky Collapse Menu.
+         *
+         * @since 9.0.3
+         *
+         * @param string[] $fixed_scrollport_screens Screen IDs.
+         */
+        $fixed_scrollport_screens = apply_filters( 'asenha_amo_sticky_collapse_fixed_scrollport_screens', array('surecart_page_sc-products') );
+        $use_fixed_scrollport = in_array( $screen_id, $fixed_scrollport_screens, true );
         ?>
         <style>
+            <?php 
+        if ( $use_fixed_scrollport ) {
+            ?>
+            #adminmenuwrap {
+                position: fixed;
+                top: 32px;
+                bottom: 0;
+                height: auto !important;
+                overflow-x: hidden;
+                overflow-y: auto;
+                transform: none !important;
+                display: flex;
+                flex-direction: column;
+            }
+            @media screen and (max-width: 782px) {
+                #adminmenuwrap {
+                    top: 46px;
+                }
+            }
+            #adminmenu {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                margin: 12px 0 0;
+            }
+            #adminmenu #collapse-menu {
+                position: sticky;
+                bottom: 0;
+                flex-shrink: 0;
+                background: #1d2327;
+                z-index: 100;
+                box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+                border-top: 1px solid #3c4349;
+            }
+            .folded #adminmenu #collapse-menu {
+                position: sticky;
+                bottom: 0;
+                background: #1d2327;
+            }
+            <?php 
+        } else {
+            ?>
             #adminmenu #collapse-menu {
                 position: sticky;
                 bottom: 0;
@@ -58,6 +111,9 @@ class Admin_Menu_Organizer {
                 bottom: 0;
                 background: #1d2327;
             }
+            <?php 
+        }
+        ?>
         </style>
         <?php 
     }

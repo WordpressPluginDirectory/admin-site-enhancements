@@ -51,20 +51,56 @@ function replaceMedia(originalAttachmentId,oldImageMimeType) {
 	// Open the "Upload files" tab on load
 	mediaFrameEl.find('#menu-item-upload').click();
 	
-	// When an image is selected
-	mediaFrameEl.on('click', 'li.attachment', function(e) {
-		var mimeTypeWarning = '<div class="mime-type-warning">The selected image is of a different type than the image to replace. Please choose an image with the same type.</div>';
-		var selectedAttachment = mediaFrame.state().get('selection').first().toJSON();
+	// Function to check and display mime type warning/notice
+	function checkMimeType() {
+		var selection = mediaFrame.state().get('selection');
+		
+		// Check if there's a selection
+		if (!selection || selection.length === 0) {
+			return;
+		}
+		
+		var selectedAttachment = selection.first().toJSON();
 		var selectedAttachmentMimeType = selectedAttachment.mime;
+		
+		// Always remove all existing notices first to prevent duplicates
+		jQuery('.media-frame-toolbar .media-toolbar-primary .mime-type-warning').remove();
+		
 
 		if ( oldImageMimeType != selectedAttachmentMimeType ) {
-			jQuery('.media-frame-toolbar .media-toolbar-primary .mime-type-warning').remove();
+			// Different mime type detected
+			var mimeTypeWarning = '<div class="mime-type-warning">'+mediaReplace.mimeTypeWarning+'</div>';
 			jQuery('.media-frame-toolbar .media-toolbar-primary').prepend(mimeTypeWarning);
 			jQuery('.media-frame-toolbar .media-toolbar-primary .media-button-select').prop('disabled', true);
+			
 		} else {
-			jQuery('.media-frame-toolbar .media-toolbar-primary .mime-type-warning').remove();
+			// Same mime type - enable button
 			jQuery('.media-frame-toolbar .media-toolbar-primary .media-button-select').prop('disabled', false);
 		}
+	}
+	
+	// When an image is selected by clicking
+	mediaFrameEl.on('click', 'li.attachment', function(e) {
+		checkMimeType();
+	});
+	
+	// When selection changes (including after upload)
+	mediaFrame.on('selection:toggle', function() {
+		checkMimeType();
+	});
+	
+	// When selection is added (after upload auto-select)
+	mediaFrame.on('selection:add', function() {
+		checkMimeType();
+	});
+	
+	// When toolbar is created/rendered (handles upload completion)
+	mediaFrame.on('toolbar:create:select', function() {
+		checkMimeType();
+	});
+	
+	mediaFrame.on('toolbar:render:select', function() {
+		checkMimeType();
 	});
 	
 	// Make sure the "Drop files to upload" blue overlay is closed after dropping one or more files
@@ -79,13 +115,16 @@ function replaceMedia(originalAttachmentId,oldImageMimeType) {
 		var attachment = mediaFrame.state().get('selection').first().toJSON();
 		var newImageMimeType = attachment.mime;
 		
+		
+		
+		// Free version: Simple direct replacement for same type only
 		if ( oldImageMimeType == newImageMimeType ) {
 
 			// Send the attachment id of the replacement / new image to our hidden input
 			jQuery('#new-attachment-id-'+originalAttachmentId).val(attachment.id);
 
 			if (jQuery('#new-attachment-id-'+originalAttachmentId).closest('.media-modal').length) {
-			    
+				// For media library grid view - this code won't run in Pro due to early return above
 			} else {
 				// For media library list view
 				// "Perform Replacement" button has been clicked. Submit the edit form, which includes 'new-attachment-id'
@@ -97,3 +136,4 @@ function replaceMedia(originalAttachmentId,oldImageMimeType) {
 	});
 
 }
+
