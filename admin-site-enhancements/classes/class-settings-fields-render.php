@@ -102,7 +102,11 @@ class Settings_Fields_Render {
         $field_label = $args['field_label'];
         $parent_field_id = ( isset( $args['parent_field_id'] ) ? $args['parent_field_id'] : '' );
         $sub_field_id = ( isset( $args['sub_field_id'] ) ? $args['sub_field_id'] : '' );
-        if ( in_array( $parent_field_id, array('enable_duplication_for', 'enable_rest_api_for') ) ) {
+        $field_id = ( isset( $args['field_id'] ) ? $args['field_id'] : '' );
+        if ( 'image_upload_control_client_side_processing' === $field_id ) {
+            // Default on for WP 7.1+ when the option has never been saved.
+            $default_value = true;
+        } elseif ( in_array( $parent_field_id, array('enable_duplication_for', 'enable_rest_api_for') ) ) {
             // Default is true/enabled. Usually for options introduced at a later date where the previous default is true/enabled.
             $default_value = true;
         } else {
@@ -375,7 +379,7 @@ class Settings_Fields_Render {
      */
     function render_description_subfield( $args ) {
         $field_description = $args['field_description'];
-        echo '<div class="asenha-subfield-description">' . wp_kses( $field_description, get_kses_with_style_src_svg_ruleset() ) . '</div>';
+        echo '<div class="asenha-subfield-description">' . wp_kses_post( $field_description ) . '</div>';
     }
 
     /**
@@ -393,7 +397,7 @@ class Settings_Fields_Render {
             __( 'If something goes wrong</strong> and you need to regain access to your account as an administrator, please visit the following URL: <br /><strong>%s</strong><br /><br />If you use <strong>Ninja Firewall</strong>, please uncheck "Block attempts to gain administrative privileges" in the Firewall Policies settings before you try to view as a non-admin user role to <strong>prevent being locked out</strong> of your admin account.', 'admin-site-enhancements' ),
             esc_html( $recovery_url )
          ) . '<br /><br />' . __( 'In any case, please also <strong>create at least one backup admin user</strong> as a last resort should your primary admin user fails to properly login as admin. With this second admin user, you can also restore the admin role for your primary admin user.', 'admin-site-enhancements' ) . '</div>';
-        echo '<div class="asenha-subfield-description">' . wp_kses( $field_description, get_kses_with_style_src_svg_ruleset() ) . '</div>';
+        echo '<div class="asenha-subfield-description">' . wp_kses_post( $field_description ) . '</div>';
     }
 
     /**
@@ -571,7 +575,7 @@ class Settings_Fields_Render {
         $field_description = $args['field_description'];
         $parent_field_id = ( isset( $args['parent_field_id'] ) ? $args['parent_field_id'] : '' );
         $sub_field_id = ( isset( $args['sub_field_id'] ) ? $args['sub_field_id'] : '' );
-        if ( !empty( $field_select_default ) ) {
+        if ( isset( $field_select_default ) && false !== $field_select_default && '' !== $field_select_default ) {
             $default_value = $field_select_default;
         } else {
             $default_value = false;
@@ -962,7 +966,7 @@ class Settings_Fields_Render {
                                 }
                                 ?>
 													<input type="text" value="<?php 
-                                echo wp_kses_post( wp_unslash( $menu_item_title ) );
+                                echo esc_attr( $menu_item_title );
                                 ?>" class="menu-item-custom-title" data-menu-item-id="<?php 
                                 echo esc_attr( $menu_item_id );
                                 ?>">
@@ -1084,7 +1088,7 @@ class Settings_Fields_Render {
                         } else {
                             ?>
 													<input type="text" value="<?php 
-                            echo wp_kses_post( wp_unslash( $menu_item_title ) );
+                            echo esc_attr( $menu_item_title );
                             ?>" class="menu-item-custom-title" data-menu-item-id="<?php 
                             echo esc_attr( $menu_item_id );
                             ?>">
@@ -1197,7 +1201,7 @@ class Settings_Fields_Render {
                     } else {
                         ?>
 											<input type="text" value="<?php 
-                        echo wp_kses_post( wp_unslash( $menu_item_title ) );
+                        echo esc_attr( $menu_item_title );
                         ?>" class="menu-item-custom-title" data-menu-item-id="<?php 
                         echo esc_attr( $menu_item_id );
                         ?>">

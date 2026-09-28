@@ -106,10 +106,6 @@ class Contact_Form_Spam {
 		$name    = sanitize_text_field( Contact_Form::get_post_string( $post_data, 'asenha_cf_name' ) );
 		$email   = sanitize_email( Contact_Form::get_post_string( $post_data, 'asenha_cf_email' ) );
 
-		if ( self::is_rate_limited( $email ) ) {
-			return self::neutral_failure();
-		}
-
 		if ( self::is_duplicate_submission( $subject, $message, $email ) ) {
 			return self::neutral_failure();
 		}
@@ -126,7 +122,6 @@ class Contact_Form_Spam {
 			return self::neutral_failure();
 		}
 
-		self::record_rate_limit( $email );
 		self::record_duplicate_submission( $subject, $message, $email );
 
 		return array(
@@ -255,53 +250,123 @@ class Contact_Form_Spam {
 	}
 
 	/**
-	 * Check whether the request is rate limited.
+	 * Atomically increment a rate counter and return the post-increment count.
 	 *
-	 * @param string $email Submitter email.
-	 * @return bool
+	 * Writes directly to the options table under transient-style keys so the
+	 * increment is atomic even without a persistent object cache: the unique
+	 * option_name index serializes concurrent requests on a row lock, closing
+	 * the read-modify-write race that let parallel submissions bypass the limit.
+	 *
+	 * @since 9.1.2
+	 * @param string $counter_key Transient-style key suffix, e.g. asenha_cf_rl_ip_{hash}.
+	 * @return int Post-increment count for the current window.
 	 */
-	private static function is_rate_limited( $email ) {
-		$ip_hash    = self::get_ip_hash();
-		$email_hash = self::hash_value( strtolower( $email ) );
+	private static function increment_rate_counter( $counter_key ) {
+		global $wpdb;
 
-		if ( ! empty( $ip_hash ) ) {
-			$ip_count = (int) get_transient( 'asenha_cf_rl_ip_' . $ip_hash );
-			if ( $ip_count >= self::RATE_LIMIT_IP ) {
-				return true;
-			}
+		$value_option   = '_transient_' . $counter_key;
+		$timeout_option = '_transient_timeout_' . $counter_key;
+		$now            = time();
+
+		// Reset the counter when its window has expired (row locks serialize this).
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$wpdb->query(
+			$wpdb->prepare(
+				"UPDATE {$wpdb->options} v INNER JOIN {$wpdb->options} t ON t.option_name = %s
+				 SET v.option_value = '0', t.option_value = %d
+				 WHERE v.option_name = %s AND CAST(t.option_value AS UNSIGNED) <= %d",
+				$timeout_option,
+				$now + HOUR_IN_SECONDS,
+				$value_option,
+				$now
+			)
+		);
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$wpdb->query(
+			$wpdb->prepare(
+				"INSERT INTO {$wpdb->options} (option_name, option_value, autoload) VALUES (%s, '1', 'off')
+				 ON DUPLICATE KEY UPDATE option_value = CAST(option_value AS UNSIGNED) + 1",
+				$value_option
+			)
+		);
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$wpdb->query(
+			$wpdb->prepare(
+				"INSERT IGNORE INTO {$wpdb->options} (option_name, option_value, autoload) VALUES (%s, %d, 'off')",
+				$timeout_option,
+				$now + HOUR_IN_SECONDS
+			)
+		);
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return (int) $wpdb->get_var( $wpdb->prepare( "SELECT option_value FROM {$wpdb->options} WHERE option_name = %s", $value_option ) );
+	}
+
+	/**
+	 * Increment the IP and email counters and report whether either exceeds its limit.
+	 *
+	 * Runs for every field-valid submission, even when disable_antispam is on:
+	 * rate limiting protects server resources, not just spam quality.
+	 *
+	 * @since 9.1.2
+	 * @param string $email Submitter email.
+	 * @return bool True when the submission is over limit.
+	 */
+	public static function rate_limit_exceeded( $email ) {
+		$ip_hash = self::get_ip_hash();
+
+		if ( ! empty( $ip_hash ) && self::increment_rate_counter( 'asenha_cf_rl_ip_' . $ip_hash ) > self::RATE_LIMIT_IP ) {
+			return true;
 		}
 
-		if ( ! empty( $email_hash ) ) {
-			$email_count = (int) get_transient( 'asenha_cf_rl_email_' . $email_hash );
-			if ( $email_count >= self::RATE_LIMIT_EMAIL ) {
-				return true;
-			}
+		$email_hash = self::hash_value( strtolower( $email ) );
+
+		if ( ! empty( $email_hash ) && self::increment_rate_counter( 'asenha_cf_rl_email_' . $email_hash ) > self::RATE_LIMIT_EMAIL ) {
+			return true;
 		}
 
 		return false;
 	}
 
 	/**
-	 * Record a successful submission for rate limiting.
+	 * Atomically claim a signed form payload so it cannot be replayed.
 	 *
-	 * @param string $email Submitter email.
-	 * @return void
+	 * INSERT IGNORE returns 1 only for the request that creates the marker row,
+	 * so concurrent replays of the same payload are claimed exactly once.
+	 *
+	 * @since 9.1.2
+	 * @param string $encoded_payload Base64 payload from the form.
+	 * @return bool True when this request claimed the payload; false if already used.
 	 */
-	private static function record_rate_limit( $email ) {
-		$ip_hash    = self::get_ip_hash();
-		$email_hash = self::hash_value( strtolower( $email ) );
+	public static function claim_payload( $encoded_payload ) {
+		global $wpdb;
 
-		if ( ! empty( $ip_hash ) ) {
-			$key   = 'asenha_cf_rl_ip_' . $ip_hash;
-			$count = (int) get_transient( $key );
-			set_transient( $key, $count + 1, HOUR_IN_SECONDS );
+		$marker = 'asenha_cf_used_' . hash( 'sha256', $encoded_payload );
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$claimed = $wpdb->query(
+			$wpdb->prepare(
+				"INSERT IGNORE INTO {$wpdb->options} (option_name, option_value, autoload) VALUES (%s, '1', 'off')",
+				'_transient_' . $marker
+			)
+		);
+
+		if ( 1 !== (int) $claimed ) {
+			return false;
 		}
 
-		if ( ! empty( $email_hash ) ) {
-			$key   = 'asenha_cf_rl_email_' . $email_hash;
-			$count = (int) get_transient( $key );
-			set_transient( $key, $count + 1, HOUR_IN_SECONDS );
-		}
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$wpdb->query(
+			$wpdb->prepare(
+				"INSERT IGNORE INTO {$wpdb->options} (option_name, option_value, autoload) VALUES (%s, %d, 'off')",
+				'_transient_timeout_' . $marker,
+				time() + self::MAX_FORM_AGE_SECONDS
+			)
+		);
+
+		return true;
 	}
 
 	/**

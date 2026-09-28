@@ -12,6 +12,27 @@ class Image_Upload_Control {
     public $png_is_transparent;
 
     /**
+     * Per-request cache of PNG transparency checks, keyed by file path.
+     *
+     * @since 9.1.2
+     *
+     * @var array
+     */
+    private $png_transparency_cache;
+
+    /**
+     * Last readable PNG path seen by `image_editor_output_format` in this request.
+     *
+     * WordPress calls the filter with the source path first, then again with
+     * an empty or not-yet-written destination when generating intermediate sizes.
+     *
+     * @since 9.1.2
+     *
+     * @var string
+     */
+    private $png_source_file;
+
+    /**
      * Array storing the file names that were processed, as keys.
      *
      * @since 7.5.0
@@ -42,6 +63,8 @@ class Image_Upload_Control {
      */
     function __construct() {
         $this->png_is_transparent = false;
+        $this->png_transparency_cache = array();
+        $this->png_source_file = '';
         $this->orientation_fixed = array();
         $this->previous_meta = array();
     }
@@ -53,6 +76,14 @@ class Image_Upload_Control {
      */
     public function image_upload_handler( $upload ) {
         $options = get_option( ASENHA_SLUG_U, array() );
+        if ( $this->is_client_side_processing_enabled( $options ) && $this->is_client_side_upload_request() ) {
+            $disable_image_conversion = false;
+            // wasm-vips does not handle BMP; keep server-side conversion on the original upload.
+            if ( !$disable_image_conversion && isset( $upload['type'], $upload['file'] ) && ('image/bmp' === $upload['type'] || 'image/x-ms-bmp' === $upload['type']) && false === strpos( $upload['file'], '-nr.' ) ) {
+                return $this->maybe_convert_image( 'bmp', $upload );
+            }
+            return $upload;
+        }
         $applicable_mime_types = array(
             'image/bmp',
             'image/x-ms-bmp',
@@ -121,66 +152,19 @@ class Image_Upload_Control {
      * @since 4.3.0
      */
     public function maybe_convert_image( $file_extension, $upload ) {
-        $image_object = null;
-        // Get image object from uploaded BMP/PNG
-        if ( 'bmp' === $file_extension ) {
-            if ( is_file( $upload['file'] ) ) {
-                // Generate image object from BMP for conversion to JPG later
-                if ( function_exists( 'imagecreatefrombmp' ) ) {
-                    // PHP >= v7.2
-                    $image_object = \imagecreatefrombmp( $upload['file'] );
-                } else {
-                    // PHP < v7.2
-                    require_once ASENHA_PATH . 'includes/bmp-to-image-object.php';
-                    $image_object = bmp_to_image_object( $upload['file'] );
-                }
-            }
-        }
+        $image_object = false;
+        // Get image object from uploaded BMP/PNG. imagecreatefromstring() accepts
+        // any raster type GD supports, so a valid image with a mismatched
+        // extension (common in demo imports) is still converted.
         if ( 'png' === $file_extension ) {
-            // Detect alpha/transparency in PNG
-            $this->png_is_transparent = false;
-            if ( is_file( $upload['file'] ) ) {
-                if ( function_exists( 'imagecreatefrompng' ) ) {
-                    // GD library is present, so 'imagecreatefrompng' function is available
-                    // Generate image object from PNG for potential conversion to JPG later.
-                    $image_object = \imagecreatefrompng( $upload['file'] );
-                    // Get image dimension
-                    list( $width, $height ) = getimagesize( $upload['file'] );
-                    // Run through pixels until transparent pixel is found
-                    if ( false !== $image_object ) {
-                        for ($x = 0; $x < $width; $x++) {
-                            for ($y = 0; $y < $height; $y++) {
-                                $pixel_color_index = \imagecolorat( $image_object, $x, $y );
-                                $pixel_rgba = \imagecolorsforindex( $image_object, $pixel_color_index );
-                                // array of red, green, blue and alpha values
-                                if ( $pixel_rgba['alpha'] > 0 ) {
-                                    // a pixel with alpha/transparency has been found
-                                    // alpha value range from 0 (completely opaque) to 127 (fully transparent).
-                                    // Ref: https://www.php.net/manual/en/function.imagecolorallocatealpha.php
-                                    $this->png_is_transparent = true;
-                                    break 2;
-                                    // Break both 'for' loops
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    if ( class_exists( 'Imagick' ) ) {
-                        $imagick = new Imagick();
-                        $imagick->readImage( $upload['file'] );
-                        // Ref: https://stackoverflow.com/a/52295997
-                        // Ref: https://www.php.net/manual/en/imagick.getimagechannelrange.php
-                        // If the channel is defined, and has any transparent areas across any frame, then maxima will always be greater then minima.
-                        // If the channel is NOT defined, then minima will be Inf placeholder, and maxima will be -Inf placeholder, so the above check will still work.
-                        $alpha_range = $imagick->getImageChannelRange( Imagick::CHANNEL_ALPHA );
-                        $this->png_is_transparent = $alpha_range['minima'] < $alpha_range['maxima'];
-                    }
-                }
-            }
-            // Do not convert PNG with alpha/transparency
+            $this->png_is_transparent = $this->png_has_transparency( $upload['file'] );
+            // Do not convert PNG with alpha/transparency, or a file that could not be decoded.
             if ( $this->png_is_transparent ) {
                 return $upload;
             }
+        }
+        if ( 'bmp' === $file_extension || 'png' === $file_extension ) {
+            $image_object = $this->load_gd_image_from_file( $upload['file'] );
         }
         // Let's convert BMP and non-transparent PNG into JPG
         $converted_to_jpg = false;
@@ -198,26 +182,39 @@ class Image_Upload_Control {
         }
         // Prefer GD when JPEG encode is available. Some custom PHP builds ship GD with PNG
         // support but without imagejpeg(); guard that case and fall back to Imagick below.
-        if ( is_object( $image_object ) && function_exists( 'imagejpeg' ) ) {
+        if ( is_gd_image( $image_object ) && function_exists( 'imagejpeg' ) ) {
             // When conversion from BMP/PNG to JPG is successful using GD. Last parameter is JPG quality (0-100).
             if ( \imagejpeg( $image_object, $wp_uploads['path'] . '/' . $new_filename, 90 ) ) {
                 $converted_to_jpg = true;
             }
         }
+        $this->destroy_gd_image( $image_object );
         // Fall back to Imagick when GD image object creation failed, imagejpeg() is unavailable,
         // or GD JPEG encode returned false.
         if ( !$converted_to_jpg && class_exists( 'Imagick' ) ) {
-            $imagick = new Imagick();
-            $imagick->readImage( $upload['file'] );
-            $imagick->setImageCompressionQuality( 90 );
-            $imagick->setImageFormat( 'jpg' );
-            // $imagick->setFormat( 'jpg' );
-            if ( $imagick->writeImage( $wp_uploads['path'] . '/' . $new_filename ) ) {
-                $converted_to_jpg = true;
+            try {
+                $imagick = new Imagick();
+                $imagick->readImage( $upload['file'] );
+                $imagick->setImageCompressionQuality( 90 );
+                $imagick->setImageFormat( 'jpg' );
+                // $imagick->setFormat( 'jpg' );
+                if ( $imagick->writeImage( $wp_uploads['path'] . '/' . $new_filename ) ) {
+                    $converted_to_jpg = true;
+                }
+                $imagick->clear();
+                $imagick->destroy();
+            } catch ( \Exception $e ) {
+                $converted_to_jpg = false;
+                if ( isset( $imagick ) && $imagick instanceof Imagick ) {
+                    try {
+                        $imagick->clear();
+                        $imagick->destroy();
+                    } catch ( \Exception $cleanup_exception ) {
+                        unset($cleanup_exception);
+                    }
+                }
+                unset($e);
             }
-            // Clear the Imagick object
-            $imagick->clear();
-            $imagick->destroy();
         }
         if ( $converted_to_jpg ) {
             // Delete original BMP / PNG
@@ -233,9 +230,166 @@ class Image_Upload_Control {
     }
 
     /**
-     * Generate image object from PNG/JPG with GD library
-     * 
+     * Load a raster image into a GD object from file bytes.
+     *
+     * Modeled on WP_Image_Editor_GD::load(). imagecreatefromstring() detects
+     * the format from the binary signature, so a valid JPEG, GIF, WebP, or BMP
+     * stored with a .png name still becomes an image. The silence matches core:
+     * a non-image sideloaded by a demo importer must not emit a warning.
+     *
+     * @since 9.2.0
+     *
+     * @param string $file Absolute path to the image file.
+     * @return GdImage|resource|false GD image on success, false otherwise.
+     */
+    private function load_gd_image_from_file( $file ) {
+        if ( !is_string( $file ) || '' === $file || !is_file( $file ) || !is_readable( $file ) ) {
+            return false;
+        }
+        if ( !function_exists( 'imagecreatefromstring' ) ) {
+            return false;
+        }
+        if ( function_exists( 'wp_raise_memory_limit' ) ) {
+            wp_raise_memory_limit( 'image' );
+        }
+        // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+        $contents = file_get_contents( $file );
+        if ( !is_string( $contents ) || '' === $contents ) {
+            return false;
+        }
+        // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- See method docblock. Matches WP_Image_Editor_GD::load().
+        $image = @imagecreatefromstring( $contents );
+        if ( !is_gd_image( $image ) ) {
+            return false;
+        }
+        return $image;
+    }
+
+    /**
+     * Free a GD image created while inspecting or converting an upload.
+     *
+     * @since 9.2.0
+     *
+     * @param mixed $image GD image, or false when loading failed.
+     */
+    private function destroy_gd_image( $image ) {
+        if ( is_gd_image( $image ) && function_exists( 'imagedestroy' ) ) {
+            imagedestroy( $image );
+        }
+    }
+
+    /**
+     * Whether a PNG file has at least one transparent / alpha pixel.
+     *
+     * Results are cached per file path for the current request because
+     * `image_editor_output_format` can run once per intermediate size.
+     *
+     * A file that GD and Imagick cannot decode returns true. Callers treat
+     * true as "do not convert", so an undecodable demo file is left as uploaded
+     * instead of being treated as an opaque PNG.
+     *
+     * @since 9.1.2
+     *
+     * @param string $file Absolute path to the PNG file.
+     * @return bool True when a transparent pixel is found, or the file cannot be decoded.
+     */
+    private function png_has_transparency( $file ) {
+        if ( array_key_exists( $file, $this->png_transparency_cache ) ) {
+            return $this->png_transparency_cache[$file];
+        }
+        $is_transparent = false;
+        $image_object = $this->load_gd_image_from_file( $file );
+        if ( is_gd_image( $image_object ) ) {
+            $width = \imagesx( $image_object );
+            $height = \imagesy( $image_object );
+            // Run through pixels until a transparent pixel is found.
+            if ( $width > 0 && $height > 0 ) {
+                for ($x = 0; $x < $width; $x++) {
+                    for ($y = 0; $y < $height; $y++) {
+                        $pixel_color_index = \imagecolorat( $image_object, $x, $y );
+                        $pixel_rgba = \imagecolorsforindex( $image_object, $pixel_color_index );
+                        if ( $pixel_rgba['alpha'] > 0 ) {
+                            // Alpha value range from 0 (completely opaque) to 127 (fully transparent).
+                            // Ref: https://www.php.net/manual/en/function.imagecolorallocatealpha.php
+                            $is_transparent = true;
+                            break 2;
+                        }
+                    }
+                }
+            }
+            $this->destroy_gd_image( $image_object );
+        } elseif ( class_exists( 'Imagick' ) ) {
+            try {
+                $imagick = new Imagick();
+                $imagick->readImage( $file );
+                // Ref: https://stackoverflow.com/a/52295997
+                // Ref: https://www.php.net/manual/en/imagick.getimagechannelrange.php
+                $alpha_range = $imagick->getImageChannelRange( Imagick::CHANNEL_ALPHA );
+                $is_transparent = $alpha_range['minima'] < $alpha_range['maxima'];
+                $imagick->clear();
+                $imagick->destroy();
+            } catch ( \Exception $e ) {
+                $is_transparent = true;
+                if ( isset( $imagick ) && $imagick instanceof Imagick ) {
+                    try {
+                        $imagick->clear();
+                        $imagick->destroy();
+                    } catch ( \Exception $cleanup_exception ) {
+                        unset($cleanup_exception);
+                    }
+                }
+                unset($e);
+            }
+        } elseif ( is_file( $file ) ) {
+            $is_transparent = true;
+        }
+        $this->png_transparency_cache[$file] = $is_transparent;
+        return $is_transparent;
+    }
+
+    /**
+     * Whether PNG should be mapped to JPEG in `image_editor_output_format`.
+     *
+     * WordPress calls this filter with the source path first, then again with
+     * an empty filename (`make_subsize`) or a destination path that does not
+     * exist yet. Remember the last readable PNG and inspect that file when
+     * the current path cannot be read. Fail closed (keep PNG) when no source
+     * is available — empty filename must not imply PNG→JPEG.
+     *
+     * @since 9.1.2
+     *
+     * @param string $filename  Path passed to the output format filter.
+     * @param string $mime_type Source mime type passed to the filter.
+     * @return bool
+     */
+    private function should_convert_png_to_jpeg( $filename, $mime_type ) {
+        $inspect = $filename;
+        $is_png = 'image/png' === $mime_type || '' !== $filename && 'png' === strtolower( pathinfo( $filename, PATHINFO_EXTENSION ) );
+        if ( '' !== $filename && is_readable( $filename ) && $is_png ) {
+            $this->png_source_file = $filename;
+        } elseif ( '' === $filename || !is_readable( $filename ) ) {
+            $inspect = $this->png_source_file;
+        }
+        if ( '' === $inspect || !is_readable( $inspect ) ) {
+            return false;
+        }
+        $inspect_is_png = 'image/png' === $mime_type || 'png' === strtolower( pathinfo( $inspect, PATHINFO_EXTENSION ) );
+        if ( $inspect_is_png && $this->png_has_transparency( $inspect ) ) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Generate a WebP image from a PNG or JPEG file with GD.
+     *
      * @since 6.9.11
+     *
+     * @param string $file                     Absolute path to the source image.
+     * @param string $file_extension           Source extension: png, jpg, or jpeg.
+     * @param string $webp_path                Destination path for the WebP file.
+     * @param int    $webp_conversion_quality  WebP quality from 0 to 100.
+     * @return bool True when the WebP file was written.
      */
     public function gd_generate_webp(
         $file,
@@ -243,21 +397,20 @@ class Image_Upload_Control {
         $webp_path,
         $webp_conversion_quality
     ) {
-        $image_object = null;
-        if ( 'png' == $file_extension && function_exists( 'imagecreatefrompng' ) ) {
-            $image_object = \imagecreatefrompng( $file );
-            if ( false !== $image_object && $this->png_is_transparent && function_exists( 'imagepalettetotruecolor' ) ) {
-                \imagepalettetotruecolor( $image_object );
-            }
+        $image_object = $this->load_gd_image_from_file( $file );
+        if ( !is_gd_image( $image_object ) ) {
+            return false;
         }
-        if ( ('jpg' == $file_extension || 'jpeg' == $file_extension) && function_exists( 'imagecreatefromjpeg' ) ) {
-            $image_object = \imagecreatefromjpeg( $file );
+        if ( 'png' == $file_extension && $this->png_is_transparent && function_exists( 'imagepalettetotruecolor' ) ) {
+            \imagepalettetotruecolor( $image_object );
         }
-        // When creation of image object from PNG/JPG is successful. let's generate WebP image
+        $created = false;
         // Second parameter is file path, last parameter is WebP quality (0-100).
-        if ( !is_null( $image_object ) && is_object( $image_object ) && function_exists( 'imagewebp' ) ) {
-            \imagewebp( $image_object, $webp_path, $webp_conversion_quality );
+        if ( function_exists( 'imagewebp' ) ) {
+            $created = \imagewebp( $image_object, $webp_path, $webp_conversion_quality );
         }
+        $this->destroy_gd_image( $image_object );
+        return (bool) $created;
     }
 
     /**
@@ -276,6 +429,9 @@ class Image_Upload_Control {
      * @return array An array of data for a single file.
      */
     public function prefilter_maybe_fix_image_orientation( $file ) {
+        if ( $this->is_client_side_processing_enabled() && $this->is_client_side_upload_request() ) {
+            return $file;
+        }
         // Get the file extension
         // $suffix = substr( $file['name'], strrpos( $file['name'], '.', -1 ) + 1 );
         $suffix = pathinfo( $file['name'], PATHINFO_EXTENSION );
@@ -307,6 +463,9 @@ class Image_Upload_Control {
      * @return array Array of upload data.
      */
     public function maybe_fix_image_orientation( $file ) {
+        if ( $this->is_client_side_processing_enabled() && $this->is_client_side_upload_request() ) {
+            return $file;
+        }
         $suffix = substr( $file['file'], strrpos( $file['file'], '.', -1 ) + 1 );
         if ( in_array( strtolower( $suffix ), array('jpg', 'jpeg', 'tiff'), true ) ) {
             $this->fix_image_orientation( $file['file'] );
@@ -482,6 +641,223 @@ class Image_Upload_Control {
             return $meta;
         }
         return $meta;
+    }
+
+    /**
+     * Whether browser-based libvips processing is enabled for Image Upload Control.
+     *
+     * Absent option defaults to true on WordPress 7.1+.
+     *
+     * @since 9.2.0
+     *
+     * @param array|null $options Optional cached plugin options.
+     * @return bool
+     */
+    public function is_client_side_processing_enabled( $options = null ) {
+        if ( !function_exists( 'wp_is_client_side_media_processing_enabled' ) ) {
+            return false;
+        }
+        if ( null === $options ) {
+            $options = get_option( ASENHA_SLUG_U, array() );
+        }
+        if ( !is_array( $options ) || !array_key_exists( 'image_upload_control_client_side_processing', $options ) ) {
+            return true;
+        }
+        return (bool) $options['image_upload_control_client_side_processing'];
+    }
+
+    /**
+     * Disable Core client-side media processing when the ASE checkbox is off.
+     *
+     * @since 9.2.0
+     *
+     * @param bool $enabled Whether Core client-side processing is enabled.
+     * @return bool
+     */
+    public function maybe_disable_client_side_media_processing( $enabled ) {
+        if ( !$this->is_client_side_processing_enabled() ) {
+            return false;
+        }
+        return $enabled;
+    }
+
+    /**
+     * Map ASE max dimensions onto Core's longest-side threshold for wasm-vips.
+     *
+     * @since 9.2.0
+     *
+     * @param int|bool $threshold Current big image size threshold.
+     * @return int|bool
+     */
+    public function maybe_set_big_image_size_threshold( $threshold ) {
+        if ( !$this->is_client_side_processing_enabled() ) {
+            return $threshold;
+        }
+        if ( !$this->should_map_client_side_filters() ) {
+            return $threshold;
+        }
+        $options = get_option( ASENHA_SLUG_U, array() );
+        $max_width = ( isset( $options['image_max_width'] ) ? intval( $options['image_max_width'] ) : 1920 );
+        $max_height = ( isset( $options['image_max_height'] ) ? intval( $options['image_max_height'] ) : 1920 );
+        if ( $max_width < 1 ) {
+            $max_width = 1920;
+        }
+        if ( $max_height < 1 ) {
+            $max_height = 1920;
+        }
+        return max( $max_width, $max_height );
+    }
+
+    /**
+     * Map ASE conversion settings onto Core's output format filter for wasm-vips.
+     *
+     * @since 9.2.0
+     *
+     * @param array  $formats   Mime-type conversion map.
+     * @param string $filename  Path to the image being converted, if known.
+     * @param string $mime_type Source mime type, if known.
+     * @return array
+     */
+    public function maybe_set_image_editor_output_format( $formats, $filename = '', $mime_type = '' ) {
+        if ( !is_array( $formats ) ) {
+            $formats = array();
+        }
+        if ( !$this->is_client_side_processing_enabled() ) {
+            return $formats;
+        }
+        if ( !$this->should_map_client_side_filters() ) {
+            return $formats;
+        }
+        $options = get_option( ASENHA_SLUG_U, array() );
+        $disable_image_conversion = false;
+        if ( $disable_image_conversion ) {
+            return $formats;
+        }
+        if ( $this->should_convert_png_to_jpeg( (string) $filename, (string) $mime_type ) ) {
+            $formats['image/png'] = 'image/jpeg';
+        }
+        return $formats;
+    }
+
+    /**
+     * Map ASE quality settings onto Core's editor quality filter for wasm-vips.
+     *
+     * @since 9.2.0
+     *
+     * @param int    $quality    Quality on a 1-100 scale.
+     * @param string $mime_type  Output mime type.
+     * @param array  $size       Size data from Core.
+     * @return int
+     */
+    public function maybe_set_editor_quality( $quality, $mime_type = '', $size = array() ) {
+        if ( !$this->is_client_side_processing_enabled() ) {
+            return $quality;
+        }
+        return $quality;
+    }
+
+    /**
+     * Map ASE JPEG quality onto the legacy jpeg_quality filter.
+     *
+     * @since 9.2.0
+     *
+     * @param int $quality Quality on a 1-100 scale.
+     * @return int
+     */
+    public function maybe_set_jpeg_quality( $quality ) {
+        return $this->maybe_set_editor_quality( $quality, 'image/jpeg' );
+    }
+
+    /**
+     * Delete Core's oversized original after client-side finalize.
+     *
+     * Matches Image Upload Control's "delete originally uploaded files" behavior.
+     *
+     * @since 9.2.0
+     *
+     * @param array  $metadata      Attachment metadata.
+     * @param int    $attachment_id Attachment ID.
+     * @param string $context       Filter context: create or update.
+     * @return array
+     */
+    public function maybe_delete_original_image_after_client_side_processing( $metadata, $attachment_id, $context = 'create' ) {
+        if ( 'update' !== $context ) {
+            return $metadata;
+        }
+        if ( !$this->is_client_side_processing_enabled() ) {
+            return $metadata;
+        }
+        if ( !$this->is_client_side_upload_request() ) {
+            return $metadata;
+        }
+        if ( empty( $metadata['original_image'] ) ) {
+            return $metadata;
+        }
+        $original_basename = $metadata['original_image'];
+        if ( false !== strpos( $original_basename, '-nr.' ) ) {
+            return $metadata;
+        }
+        $attached_file = get_attached_file( $attachment_id );
+        if ( $attached_file && false !== strpos( $attached_file, '-nr.' ) ) {
+            return $metadata;
+        }
+        $original_path = wp_get_original_image_path( $attachment_id );
+        if ( $original_path && file_exists( $original_path ) ) {
+            wp_delete_file( $original_path );
+        }
+        unset($metadata['original_image']);
+        return $metadata;
+    }
+
+    /**
+     * Whether ASE settings should be mapped onto Core client-side filters.
+     *
+     * @since 9.2.0
+     *
+     * @param array|null $options Optional cached plugin options.
+     * @return bool
+     */
+    private function should_map_client_side_filters( $options = null ) {
+        return true;
+    }
+
+    /**
+     * Detect a Core client-side media REST request.
+     *
+     * @since 9.2.0
+     *
+     * @return bool
+     */
+    private function is_client_side_upload_request() {
+        if ( !defined( 'REST_REQUEST' ) || !REST_REQUEST ) {
+            return false;
+        }
+        $generate_sub_sizes = null;
+        if ( isset( $_POST['generate_sub_sizes'] ) ) {
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
+            $generate_sub_sizes = wp_unslash( $_POST['generate_sub_sizes'] );
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        } elseif ( isset( $_REQUEST['generate_sub_sizes'] ) ) {
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            $generate_sub_sizes = wp_unslash( $_REQUEST['generate_sub_sizes'] );
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        }
+        if ( null !== $generate_sub_sizes && false === rest_sanitize_boolean( $generate_sub_sizes ) ) {
+            return true;
+        }
+        $route = '';
+        if ( isset( $_GET['rest_route'] ) ) {
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            $route = (string) wp_unslash( $_GET['rest_route'] );
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        } elseif ( isset( $_SERVER['REQUEST_URI'] ) ) {
+            $route = (string) wp_unslash( $_SERVER['REQUEST_URI'] );
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        }
+        if ( '' !== $route && preg_match( '#/media/\\d+/(sideload|finalize)(?:/|\\?|$)#', $route ) ) {
+            return true;
+        }
+        return false;
     }
 
 }

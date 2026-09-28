@@ -15,10 +15,26 @@ defined( 'ABSPATH' ) || exit;
 class Contact_Form {
 
 	/**
+	 * Retention value that skips storing new submissions.
+	 *
+	 * @since 9.1.2
+	 */
+	const SUBMISSION_RETENTION_DO_NOT_STORE = -1;
+
+	/**
+	 * Retention value that keeps all submissions.
+	 *
+	 * @since 9.1.2
+	 */
+	const SUBMISSION_RETENTION_FOREVER = 0;
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'maybe_create_table' ) );
+		add_action( 'init', array( $this, 'maybe_schedule_submission_purge' ) );
+		add_action( 'asenha_contact_form_daily_purge', array( $this, 'purge_old_submissions' ) );
 		// Register on init so the handle exists before block themes render content
 		// (which can run before wp_enqueue_scripts and break wp_localize_script).
 		add_action( 'init', array( $this, 'register_frontend_assets' ) );
@@ -27,6 +43,49 @@ class Contact_Form {
 		new Contact_Form_Block();
 		new Contact_Form_Handler();
 		new Contact_Form_Admin();
+	}
+
+	/**
+	 * Schedule the daily submission purge if it is not scheduled yet (self-healing).
+	 *
+	 * @since 9.1.2
+	 * @return void
+	 */
+	public function maybe_schedule_submission_purge() {
+		if ( ! wp_next_scheduled( 'asenha_contact_form_daily_purge' ) ) {
+			wp_schedule_event( time(), 'daily', 'asenha_contact_form_daily_purge' );
+		}
+	}
+
+	/**
+	 * Delete submissions past the configured retention window and purge expired
+	 * rate-counter / used-payload rows left by the anti-spam gates.
+	 *
+	 * @since 9.1.2
+	 * @return void
+	 */
+	public function purge_old_submissions() {
+		$settings = self::get_settings();
+		$days     = (int) apply_filters( 'asenha_contact_form_submission_retention_days', $settings['submission_retention_days'] );
+
+		if ( $days > 0 ) {
+			Contact_Form_Submission::delete_older_than( $days );
+		}
+
+		// Always sweep expired anti-spam rows (rate counters and used-payload
+		// markers), even when retention is set to Forever.
+		global $wpdb;
+
+		$like = $wpdb->esc_like( '_transient_timeout_asenha_cf_' ) . '%';
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$wpdb->query(
+			$wpdb->prepare(
+				"DELETE t, v FROM {$wpdb->options} t INNER JOIN {$wpdb->options} v ON v.option_name = REPLACE(t.option_name, '_transient_timeout_', '_transient_') WHERE t.option_name LIKE %s AND CAST(t.option_value AS UNSIGNED) < %d",
+				$like,
+				time()
+			)
+		);
 	}
 
 	/**
@@ -190,6 +249,9 @@ class Contact_Form {
 			$submit_button_color = '';
 		}
 
+		$retention_days = isset( $options['contact_form_submission_retention_days'] ) ? (int) $options['contact_form_submission_retention_days'] : self::SUBMISSION_RETENTION_FOREVER;
+		$retention_days = in_array( $retention_days, array( self::SUBMISSION_RETENTION_DO_NOT_STORE, self::SUBMISSION_RETENTION_FOREVER, 1, 3, 7, 14, 30, 90, 180, 365, 730, 1095, 1825 ), true ) ? $retention_days : self::SUBMISSION_RETENTION_FOREVER;
+
 		return array_merge(
 			$labels,
 			array(
@@ -199,6 +261,7 @@ class Contact_Form {
 				'notification_email'   => $notification_email,
 				'disable_antispam'     => ! empty( $options['contact_form_disable_antispam'] ),
 				'use_theme_styles'     => ! empty( $options['contact_form_use_theme_styles'] ),
+				'submission_retention_days' => $retention_days,
 				'layout'               => $layout,
 				'label_position'       => $label_position,
 				'field_style'          => $field_style,

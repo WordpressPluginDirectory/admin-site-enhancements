@@ -950,10 +950,20 @@ class Email_Delivery {
         // If debug mode is enabled, send debug info (SMTP::DEBUG_CONNECTION) to WordPress debug.log file set in wp-config.php
         // Reference: https://github.com/PHPMailer/PHPMailer/wiki/SMTP-Debugging
         if ( $smtp_debug ) {
-            $phpmailer->SMTPDebug = 4;
+            // Level 3 (full command/response transcript + connection status) is enough to
+            // diagnose delivery issues. Level 4 (LOWLEVEL) would also log raw AUTH data
+            // (base64 credentials as bare lines) and full email bodies.
+            // At level 3 PHPMailer's client_send() already prints "[credentials hidden]"
+            // for username/password lines (SMTP.php); the callback below is defense in depth.
+            $phpmailer->SMTPDebug = \PHPMailer\PHPMailer\SMTP::DEBUG_CONNECTION;
             //phpcs:ignore
-            $phpmailer->Debugoutput = 'error_log';
-            //phpcs:ignore
+            $phpmailer->Debugoutput = function ( $str, $level ) {
+                //phpcs:ignore
+                // Defense in depth: never let AUTH/PASS lines reach the log, even if
+                // the debug level is raised later.
+                $str = preg_replace( '/(AUTH|PASS)[^\\r\\n]*/i', '$1 [redacted]', $str );
+                error_log( $str );
+            };
         }
     }
 

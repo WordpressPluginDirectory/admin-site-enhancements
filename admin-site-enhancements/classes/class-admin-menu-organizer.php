@@ -234,6 +234,41 @@ class Admin_Menu_Organizer {
     }
 
     /**
+     * Sanitize a comma-separated list of custom menu title pairs (menu_id__Title).
+     *
+     * Custom titles are written into $menu[...][0], which WordPress core renders
+     * unescaped in _wp_menu_output(), so stored HTML/JS would execute for every
+     * wp-admin user. Sanitizing on save and on read keeps titles plain-text only.
+     *
+     * @since 9.1.2
+     * @param string|array $raw Raw custom_menu_titles value.
+     * @return string Sanitized comma-separated pairs.
+     */
+    private function sanitize_custom_menu_titles( $raw ) {
+        if ( is_array( $raw ) ) {
+            $raw = implode( ',', $raw );
+        }
+        $pairs = array_filter( array_map( 'trim', explode( ',', (string) $raw ) ) );
+        $sanitized = array();
+        foreach ( $pairs as $pair ) {
+            $parts = explode( '__', $pair, 2 );
+            // Title may legitimately contain '__'.
+            if ( 2 !== count( $parts ) ) {
+                continue;
+            }
+            $menu_id = sanitize_key( $parts[0] );
+            // Menu IDs are slugs/CSS IDs: a-z 0-9 _ -.
+            $title = sanitize_text_field( $parts[1] );
+            // Strips tags/octets; keeps plain text.
+            if ( '' === $menu_id || '' === $title ) {
+                continue;
+            }
+            $sanitized[] = $menu_id . '__' . $title;
+        }
+        return implode( ',', $sanitized );
+    }
+
+    /**
      * Apply custom menu item titles
      *
      * @since 2.9.0
@@ -266,8 +301,8 @@ class Admin_Menu_Organizer {
                 // At this point, $custom_menu_title value looks like toplevel_page_snippets__Code Snippets
                 $custom_menu_title = explode( '__', $custom_menu_title );
                 if ( $custom_menu_title[0] == $menu_item_id ) {
-                    $menu_item_title = $custom_menu_title[1];
-                    // e.g. Code Snippets
+                    $menu_item_title = sanitize_text_field( $custom_menu_title[1] );
+                    // e.g. Code Snippets; sanitized for legacy values saved before sanitization-on-save existed
                     break;
                     // stop foreach loop so $menu_item_title is not overwritten in the next iteration
                 } else {
@@ -293,7 +328,7 @@ class Admin_Menu_Organizer {
         foreach ( $custom_menu_titles as $custom_menu_title ) {
             if ( false !== strpos( $custom_menu_title, 'menu-posts__' ) ) {
                 $custom_menu_title = explode( '__', $custom_menu_title );
-                $posts_custom_title = $custom_menu_title[1];
+                $posts_custom_title = sanitize_text_field( $custom_menu_title[1] );
                 $posts_default_title = __( 'Posts', 'admin-site-enhancements' );
                 if ( is_array( $wp_post_types ) ) {
                     if ( isset( $wp_post_types['post'] ) && property_exists( $wp_post_types['post'], 'label' ) ) {
@@ -334,7 +369,7 @@ class Admin_Menu_Organizer {
             foreach ( $custom_menu_titles as $custom_menu_title ) {
                 if ( false !== strpos( $custom_menu_title, 'menu-posts__' ) ) {
                     $custom_menu_title = explode( '__', $custom_menu_title );
-                    $posts_custom_title = $custom_menu_title[1];
+                    $posts_custom_title = sanitize_text_field( $custom_menu_title[1] );
                 }
             }
         }
@@ -576,7 +611,7 @@ class Admin_Menu_Organizer {
                 $options_extra = get_option( ASENHA_SLUG_U . '_extra', array() );
                 $options = ( isset( $options_extra['admin_menu'] ) ? $options_extra['admin_menu'] : array() );
                 $options['custom_menu_order'] = ( isset( $_REQUEST['custom_menu_order'] ) ? wp_unslash( $_REQUEST['custom_menu_order'] ) : $options['custom_menu_order'] );
-                $options['custom_menu_titles'] = ( isset( $_REQUEST['custom_menu_titles'] ) ? wp_unslash( $_REQUEST['custom_menu_titles'] ) : $options['custom_menu_titles'] );
+                $options['custom_menu_titles'] = ( isset( $_REQUEST['custom_menu_titles'] ) ? $this->sanitize_custom_menu_titles( wp_unslash( $_REQUEST['custom_menu_titles'] ) ) : $options['custom_menu_titles'] );
                 $options['custom_menu_hidden'] = ( isset( $_REQUEST['custom_menu_hidden'] ) ? wp_unslash( $_REQUEST['custom_menu_hidden'] ) : $options['custom_menu_hidden'] );
                 $options_extra['admin_menu'] = $options;
                 // vi( $options_extra, '', 'save menu' );

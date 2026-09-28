@@ -2,6 +2,7 @@
 
 namespace ASENHA\Classes;
 
+use WP_Error;
 /**
  * Class for Maintenance Mode module
  *
@@ -11,7 +12,7 @@ class Maintenance_Mode {
     /**
      * Backfill bypass key on load when maintenance mode is enabled.
      *
-     * Deferred to plugins_loaded so wp_hash_password() is available.
+     * Deferred to plugins_loaded so wp_generate_password() is available.
      *
      * @since 8.5.2
      */
@@ -26,22 +27,27 @@ class Maintenance_Mode {
     /**
      * Ensure a bypass key exists when maintenance mode is enabled.
      *
-     * Generates and persists the key once for upgrade sites that have maintenance
-     * mode on but have not re-saved ASE settings after the performance fix.
+     * Generates and persists a random key once for upgrade sites that have
+     * maintenance mode on but have not re-saved ASE settings after the
+     * performance fix. Also rotates legacy keys (phpass/bcrypt hashes of the
+     * public site URL), which are forgeable by anyone, to a random secret.
      *
      * @since 8.5.2
      * @param array $options Plugin options.
      * @return array Updated plugin options.
      */
     public static function ensure_bypass_key( $options ) {
-        if ( !function_exists( 'wp_hash_password' ) ) {
+        if ( !function_exists( 'wp_generate_password' ) ) {
             return $options;
         }
-        if ( !empty( $options['maintenance_mode_bypass_key'] ) ) {
-            return $options;
+        $existing_key = ( isset( $options['maintenance_mode_bypass_key'] ) ? $options['maintenance_mode_bypass_key'] : '' );
+        // Legacy keys are phpass/bcrypt hashes of the public site URL (e.g. '$P$...', '$2y$...' or '$wp$...').
+        // They are forgeable by anyone and must be rotated to a random secret.
+        $is_legacy_key = '' !== $existing_key && false !== strpos( $existing_key, '$' );
+        if ( empty( $existing_key ) || $is_legacy_key ) {
+            $options['maintenance_mode_bypass_key'] = wp_generate_password( 32, false, false );
+            update_option( ASENHA_SLUG_U, $options );
         }
-        $options['maintenance_mode_bypass_key'] = \wp_hash_password( site_url() );
-        update_option( ASENHA_SLUG_U, $options );
         return $options;
     }
 
@@ -57,17 +63,168 @@ class Maintenance_Mode {
     }
 
     /**
-     * Validate a bypass URL parameter against the site URL.
+     * Validate a bypass URL parameter against the stored random bypass key.
      *
      * @since 8.5.2
      * @param string $bypass_param Value of the bypass query parameter.
+     * @param string $bypass_key   Stored bypass key from plugin options.
      * @return bool Whether the bypass parameter is valid.
      */
-    private function is_bypass_request_valid( $bypass_param ) {
-        if ( empty( $bypass_param ) ) {
+    private function is_bypass_request_valid( $bypass_param, $bypass_key ) {
+        if ( empty( $bypass_param ) || empty( $bypass_key ) ) {
             return false;
         }
-        return \wp_check_password( site_url(), $bypass_param );
+        return hash_equals( $bypass_key, $bypass_param );
+    }
+
+    /**
+     * Determine whether the current request is allowed past the maintenance
+     * mode gate. Shared by the send_headers gate, the REST gate, the
+     * admin-ajax gate and the XML-RPC gate.
+     *
+     * @since 9.1.2
+     * @return bool True when the request may proceed, false when the gate applies.
+     */
+    private function is_request_allowed() {
+        // wp-admin stays open; admin-ajax is gated separately via ajax_gate().
+        if ( is_admin() && !wp_doing_ajax() ) {
+            return true;
+        }
+        if ( is_login() ) {
+            return true;
+        }
+        // Novamira OAuth discovery and token exchange stay reachable while maintenance mode is on.
+        // MCP Toolkit tool listing stays reachable on its own HTTP endpoint.
+        $common_methods = new Common_Methods();
+        if ( $common_methods->is_novamira_auth_request() || $common_methods->is_mcp_toolkit_auth_request() ) {
+            return true;
+        }
+        if ( $this->is_user_allowed_frontend_access() ) {
+            return true;
+        }
+        $options = get_option( ASENHA_SLUG_U, array() );
+        if ( isset( $_GET['bypass'] ) && $this->is_bypass_request_valid( sanitize_text_field( wp_unslash( $_GET['bypass'] ) ), $this->get_bypass_key( $options ) ) ) {
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            return true;
+        }
+        if ( $this->is_authentication_ajax_request() ) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Whether this admin-ajax request is a login authentication call that must
+     * succeed while maintenance mode is on.
+     *
+     * Wordfence Login Security posts credentials to admin-ajax.php before it
+     * shows the 2FA, CAPTCHA, or passkey step. Those actions only authenticate.
+     * A non-AJAX request that carries the same action name stays gated.
+     *
+     * @since 9.1.4
+     * @return bool
+     */
+    private function is_authentication_ajax_request() {
+        if ( !wp_doing_ajax() ) {
+            return false;
+        }
+        // Action name only. Wordfence registers these endpoints with nonce verification disabled.
+        $action = ( isset( $_REQUEST['action'] ) ? sanitize_key( wp_unslash( $_REQUEST['action'] ) ) : '' );
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        if ( '' === $action ) {
+            return false;
+        }
+        $allowed_actions = array('wordfence_ls_authenticate', 'wordfence_ls_begin_passkey_login', 'wordfence_ls_finish_passkey_login');
+        /**
+         * Filters admin-ajax actions allowed through Maintenance Mode.
+         *
+         * Only authentication actions belong here. A return value that is not
+         * an array of strings is ignored, and the default list stays in place.
+         *
+         * @since 9.1.4
+         * @param string[] $allowed_actions Action names.
+         */
+        $filtered_actions = apply_filters( 'asenha_maintenance_mode_allowed_ajax_actions', $allowed_actions );
+        if ( is_array( $filtered_actions ) ) {
+            $strings_only = true;
+            foreach ( $filtered_actions as $filtered_action ) {
+                if ( !is_string( $filtered_action ) ) {
+                    $strings_only = false;
+                    break;
+                }
+            }
+            if ( $strings_only ) {
+                $allowed_actions = $filtered_actions;
+            }
+        }
+        return in_array( $action, $allowed_actions, true );
+    }
+
+    /**
+     * Return 503 for REST API requests when maintenance mode applies, since
+     * /wp-json/* requests never reach the send_headers gate.
+     *
+     * Used on rest_authentication_errors (primary: skips dispatch) and on
+     * rest_pre_dispatch at PHP_INT_MAX (defense in depth so a later callback
+     * such as ACF_Rest_Api::initialize cannot replace a 503 with null).
+     *
+     * @since 9.1.2
+     * @param mixed $result Prior filter value; passed through when allowed or already a WP_Error.
+     * @return mixed Original $result when allowed, WP_Error otherwise.
+     */
+    public function rest_gate( $result ) {
+        if ( is_wp_error( $result ) ) {
+            return $result;
+        }
+        $common_methods = new Common_Methods();
+        $common_methods->recover_basic_auth_from_request_headers();
+        if ( $this->is_request_allowed() ) {
+            return $result;
+        }
+        $application_password_error = $common_methods->get_application_password_authentication_error();
+        if ( is_wp_error( $application_password_error ) ) {
+            return $application_password_error;
+        }
+        return new WP_Error('asenha_maintenance_mode', __( 'This site is currently under maintenance.', 'admin-site-enhancements' ), array(
+            'status' => 503,
+        ));
+    }
+
+    /**
+     * Return 503 for admin-ajax.php requests when maintenance mode applies,
+     * since AJAX requests never reach the send_headers gate.
+     *
+     * @since 9.1.2
+     */
+    public function ajax_gate() {
+        if ( !wp_doing_ajax() ) {
+            return;
+        }
+        if ( $this->is_request_allowed() ) {
+            return;
+        }
+        wp_die( '', '', array(
+            'response' => 503,
+        ) );
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+    }
+
+    /**
+     * Return a 503 XML-RPC fault when maintenance mode applies, since
+     * xmlrpc.php requests never reach the send_headers gate.
+     *
+     * @since 9.1.2
+     * @param array $methods Registered XML-RPC methods.
+     * @return array Original $methods when allowed; exits with 503 otherwise.
+     */
+    public function xmlrpc_gate( $methods ) {
+        if ( $this->is_request_allowed() ) {
+            return $methods;
+        }
+        status_header( 503 );
+        nocache_headers();
+        exit( '<?xml version="1.0" encoding="UTF-8"?><methodResponse><fault><value><struct><member><name>faultCode</name><value><int>503</int></value></member><member><name>faultString</name><value><string>Service Unavailable</string></value></member></struct></value></fault></methodResponse>' );
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
     /**
@@ -76,20 +233,10 @@ class Maintenance_Mode {
      * @since 4.7.0
      */
     public function maintenance_mode_redirect( $wp ) {
-        if ( is_admin() ) {
-            return;
-        }
-        if ( is_login() ) {
-            return;
-        }
-        if ( $this->is_user_allowed_frontend_access() ) {
+        if ( $this->is_request_allowed() ) {
             return;
         }
         $options = get_option( ASENHA_SLUG_U, array() );
-        if ( isset( $_GET['bypass'] ) && $this->is_bypass_request_valid( sanitize_text_field( $_GET['bypass'] ) ) ) {
-            // Load the page normally, e.g. when using an existing page as a maintenance page.
-            return;
-        }
         $maintenance_page_type = 'custom';
         // ======== Customizable maintenance page ========
         if ( 'custom' == $maintenance_page_type ) {

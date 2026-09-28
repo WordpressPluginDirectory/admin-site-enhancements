@@ -61,6 +61,85 @@ class Limit_Login_Attempts {
     }
 
     /**
+     * Mark the current request as inside a lockout window.
+     *
+     * @since 9.1.2
+     * @param int $lockout_count Number of lockouts recorded for this IP.
+     * @param int $last_fail_on  Unix timestamp of the last failed attempt.
+     */
+    private function mark_within_lockout_period( $lockout_count, $last_fail_on ) {
+        global $asenha_limit_login;
+
+        if ( ! is_array( $asenha_limit_login ) ) {
+            $asenha_limit_login = array();
+        }
+
+        $login_lockout_maxcount  = isset( $asenha_limit_login['login_lockout_maxcount'] ) ? (int) $asenha_limit_login['login_lockout_maxcount'] : 3;
+        $default_lockout_period  = isset( $asenha_limit_login['default_lockout_period'] ) ? (int) $asenha_limit_login['default_lockout_period'] : 60 * 15;
+        $extended_lockout_period = isset( $asenha_limit_login['extended_lockout_period'] ) ? (int) $asenha_limit_login['extended_lockout_period'] : 24 * 60 * 60;
+
+        $asenha_limit_login['maybe_lockout'] = true;
+
+        if ( (int) $lockout_count >= $login_lockout_maxcount ) {
+            $asenha_limit_login['extended_lockout'] = true;
+            $lockout_period = $extended_lockout_period;
+        } else {
+            $asenha_limit_login['extended_lockout'] = false;
+            $lockout_period = $default_lockout_period;
+        }
+
+        $remaining = $lockout_period - ( time() - (int) $last_fail_on );
+        if ( $remaining < 0 ) {
+            $remaining = 0;
+        }
+
+        $asenha_limit_login['lockout_period']           = $lockout_period;
+        $asenha_limit_login['within_lockout_period']    = true;
+        $asenha_limit_login['lockout_period_remaining'] = $remaining;
+    }
+
+    /**
+     * Human-readable remaining lockout duration.
+     *
+     * @since 9.1.2
+     * @param int $remaining_seconds Seconds remaining in the lockout window.
+     * @return string
+     */
+    private function get_lockout_period_remaining_label( $remaining_seconds ) {
+        $remaining_seconds = (int) $remaining_seconds;
+        $common_methods    = new Common_Methods();
+
+        if ( $remaining_seconds <= 60 ) {
+            return $remaining_seconds . ' seconds';
+        } elseif ( $remaining_seconds <= 60 * 60 ) {
+            return $common_methods->seconds_to_period( $remaining_seconds, 'to-minutes-seconds' );
+        } elseif ( $remaining_seconds > 60 * 60 && $remaining_seconds <= 24 * 60 * 60 ) {
+            return $common_methods->seconds_to_period( $remaining_seconds, 'to-hours-minutes-seconds' );
+        }
+
+        return $common_methods->seconds_to_period( $remaining_seconds, 'to-days-hours-minutes-seconds' );
+    }
+
+    /**
+     * Lockout warning shown above the login form.
+     *
+     * @since 9.1.2
+     * @return string
+     */
+    private function get_lockout_error_message() {
+        global $asenha_limit_login;
+
+        $remaining_seconds = isset( $asenha_limit_login['lockout_period_remaining'] ) ? (int) $asenha_limit_login['lockout_period_remaining'] : 0;
+        $remaining_label   = $this->get_lockout_period_remaining_label( $remaining_seconds );
+
+        return sprintf(
+            /* translators: %s: remaining lockout duration, e.g. "14 minutes and 59 seconds". */
+            __( '<b>WARNING:</b> You\'ve been locked out. You can login again in %s.', 'admin-site-enhancements' ),
+            $remaining_label
+        );
+    }
+
+    /**
      * Maybe allow login if not locked out. Should return WP_Error object if not allowed to login.
      *
      * @since 2.5.0
@@ -156,6 +235,7 @@ class Limit_Login_Attempts {
             if ( $result_count > 0 ) { // IP address has been recorded in the database.
 
                 // Failed attempts have been recorded and fulfills lockout condition
+                $login_fails_allowed = max( 1, (int) $login_fails_allowed ); // Guard against division by zero.
                 if ( ! empty( $fail_count ) && ( ( $fail_count ) % $login_fails_allowed == 0 ) ) {
 
                     $asenha_limit_login['maybe_lockout'] = true;
@@ -177,37 +257,13 @@ class Limit_Login_Attempts {
                         $asenha_limit_login['within_lockout_period'] = true;
                         $asenha_limit_login['lockout_period_remaining'] = $asenha_limit_login['lockout_period'] - ( time() - $last_fail_on );
 
-                        if ( $asenha_limit_login['lockout_period_remaining'] <= 60 ) {
-
-                            // Get remaining lockout period in minutes and seconds
-                            $lockout_period_remaining = $asenha_limit_login['lockout_period_remaining'] . ' seconds';
-
-                        } elseif ( $asenha_limit_login['lockout_period_remaining'] <= 60*60 ) {
-
-                            // Get remaining lockout period in minutes and seconds
-                            $lockout_period_remaining = $common_methods->seconds_to_period( $asenha_limit_login['lockout_period_remaining'], 'to-minutes-seconds' );
-
-                        } elseif ( $asenha_limit_login['lockout_period_remaining'] > 60*60 && $asenha_limit_login['lockout_period_remaining'] <= 24*60*60 ) {
-
-                            // Get remaining lockout period in minutes and seconds
-                            $lockout_period_remaining = $common_methods->seconds_to_period( $asenha_limit_login['lockout_period_remaining'], 'to-hours-minutes-seconds' );
-
-                        } elseif ( $asenha_limit_login['lockout_period_remaining'] > 24*60*60 ) {
-
-                            // Get remaining lockout period in minutes and seconds
-                            $lockout_period_remaining = $common_methods->seconds_to_period( $asenha_limit_login['lockout_period_remaining'], 'to-days-hours-minutes-seconds' );
-
-                        }
-
-                        $error = new WP_Error( 'ip_address_blocked', '<b>WARNING:</b> You\'ve been locked out. You can login again in ' . $lockout_period_remaining . '.' );
-
-                        return $error;
+                        return new WP_Error( 'ip_address_blocked', $this->get_lockout_error_message() );
 
                     } else { // User/visitor is no longer within the lockout period
 
                         $asenha_limit_login['within_lockout_period'] = false;
 
-                        if ( $lockout_count == $login_lockout_maxcount ) {
+                        if ( $lockout_count >= $login_lockout_maxcount ) {
 
                             // Remove the DB log entry for the current IP address. i.e. release from extended lockout
 
@@ -254,27 +310,31 @@ class Limit_Login_Attempts {
      */
     public function login_error_handler( $errors, $redirect_to ) {
         global $asenha_limit_login;
-        
-        if ( is_wp_error( $errors ) ) {
 
-            $error_codes = $errors->get_error_codes();
+        if ( ! is_wp_error( $errors ) ) {
+            return $errors;
+        }
 
-            foreach ( $error_codes as $error_code ) {
+        // Same-request lockout (the 3rd failure just incremented the counter) and later
+        // blocked retries both land here. Show only the lockout warning.
+        if ( ! empty( $asenha_limit_login['within_lockout_period'] ) ) {
+            return new WP_Error( 'ip_address_blocked', $this->get_lockout_error_message() );
+        }
 
-                if ( $error_code == 'invalid_username' || $error_code == 'incorrect_password' ) {
+        $error_codes = $errors->get_error_codes();
 
-                    // Remove default error messages that may give out valueable info to hackers
+        foreach ( $error_codes as $error_code ) {
 
-                    $errors->remove( 'invalid_username' ); // Outputs info that says username does not exist. May encourage login attempt with a different username instead.
+            if ( $error_code == 'invalid_username' || $error_code == 'incorrect_password' ) {
 
-                    $errors->remove( 'incorrect_password' ); // Outputs info that implies username exist. May encourage login attempt with a different password.
+                // Remove default error messages that may give out valueable info to hackers
 
-                    // Add a new error message that does not provide useful clues to hackers
-                    $errors->add( 'invalid_username_or_incorrect_password', '<b>' . __( 'Error:', 'admin-site-enhancements' ) . '</b> ' . __( 'Invalid username/email or incorrect password.', 'admin-site-enhancements' ) );
+                $errors->remove( 'invalid_username' ); // Outputs info that says username does not exist. May encourage login attempt with a different username instead.
 
-                    // $errors->add( 'another_error_code', 'The error message.' );
+                $errors->remove( 'incorrect_password' ); // Outputs info that implies username exist. May encourage login attempt with a different password.
 
-                }
+                // Add a new error message that does not provide useful clues to hackers
+                $errors->add( 'invalid_username_or_incorrect_password', '<b>' . __( 'Error:', 'admin-site-enhancements' ) . '</b> ' . __( 'Invalid username/email or incorrect password.', 'admin-site-enhancements' ) );
 
             }
 
@@ -325,43 +385,6 @@ class Limit_Login_Attempts {
 
             </style>
             <?php
-        } else {
-            $options = get_option( ASENHA_SLUG_U, array() );
-            $login_fails_allowed = $options['login_fails_allowed'];
-            $page_was_reloaded = isset( $_GET['rl'] ) && 1 == sanitize_text_field( $_GET['rl'] ) ? true : false;
-
-            if ( isset( $asenha_limit_login['fail_count'] ) 
-                && ( ( $login_fails_allowed - 1 ) == intval( $asenha_limit_login['fail_count'] ) 
-                    || ( 2 * $login_fails_allowed - 1 ) == intval( $asenha_limit_login['fail_count'] ) 
-                    || ( 3 * $login_fails_allowed - 1 ) == intval( $asenha_limit_login['fail_count'] ) 
-                    || ( 4 * $login_fails_allowed - 1 ) == intval( $asenha_limit_login['fail_count'] ) 
-                    || ( 5 * $login_fails_allowed - 1 ) == intval( $asenha_limit_login['fail_count'] ) 
-                    || ( 6 * $login_fails_allowed - 1 ) == intval( $asenha_limit_login['fail_count'] ) 
-                )
-            ) {             
-                if ( array_key_exists( 'change_login_url', $options ) && $options['change_login_url'] ) {
-                    // Custom Login URL is enabled, e.g. /manage
-                    // Do nothing
-                } else {
-                    // Default login URL, i.e. /wp-login.php
-                    // Reload the login page so we get the up-to-date data in $asenha_limit_login
-                    // Only reload if page was not reloaded before. This prevents infinite reloads.
-                    if ( ! $page_was_reloaded ) {                       
-                        ?>
-                        <script>
-                            let url = window.location.href;    
-                            if (url.indexOf('?') > -1){
-                               url += '&rl=1'
-                            } else {
-                               url += '?rl=1'
-                            }
-                            location.replace(url);
-                        </script>
-                        <?php
-                    }
-
-                }
-            }
         }
     }
 
@@ -394,6 +417,14 @@ class Limit_Login_Attempts {
     public function log_failed_login( $username ) {
         global $wpdb, $asenha_limit_login;
 
+        // wp_signon() fires wp_login_failed for every authenticate WP_Error,
+        // including our own lockout. Do not count blocked retries: the gate
+        // uses fail_count % login_fails_allowed == 0, so an extra increment
+        // would both over-count and disable the lockout window.
+        if ( ! empty( $asenha_limit_login['within_lockout_period'] ) ) {
+            return;
+        }
+
         $table_name = $wpdb->prefix . 'asenha_failed_logins';
 
         $this->maybe_upgrade_failed_logins_log_table();
@@ -403,37 +434,10 @@ class Limit_Login_Attempts {
         $login_fails_allowed = isset( $asenha_limit_login['login_fails_allowed'] ) ? $asenha_limit_login['login_fails_allowed'] : 3;
         $login_lockout_maxcount = isset( $asenha_limit_login['login_lockout_maxcount'] ) ? $asenha_limit_login['login_lockout_maxcount'] : 3;
 
+        $login_fails_allowed = max( 1, (int) $login_fails_allowed ); // Defensive: never divide by zero.
+
         $username = $this->truncate_failed_login_db_string( $username );
         $request_uri = $this->truncate_failed_login_db_string( $request_uri );
-        
-        // Check if the IP address has been used in a failed login attempt before, i.e. has it been recorded in the database?
-        $sql = $wpdb->prepare( "SELECT * FROM `" . $table_name . "` WHERE `ip_address` = %s", $ip_address );
-        $result = $wpdb->get_results( $sql, ARRAY_A );
-        if ( $result ) {
-            $result_count = count( $result );
-        } else {
-            $result_count = 0;
-        }
-
-        // Update logged info for the IP address in the global variable
-        if ( $result ) {
-            $asenha_limit_login['ip_address_log'] = $result;        
-        }
-
-        if ( $result_count == 0 ) { // IP address has not been recorded in the database.
-
-            $new_fail_count = 1;
-            $new_lockout_count = 0;
-
-        } else { // IP address has been recorded in the database.
-
-            $new_fail_count = $result[0]['fail_count'] + 1;
-            $new_lockout_count = floor( ( $result[0]['fail_count'] + 1 ) / $login_fails_allowed );
-
-        }
-
-        // Get the URL where login failed, i.e. where brute force attack might be happening
-        // $login_url = ( ! empty( $_SERVER['HTTPS'] ) ? 'https://' : 'http://') . sanitize_text_field( $_SERVER['HTTP_HOST'] ) . sanitize_text_field( $_SERVER['REQUEST_URI'] );
 
         // Time stamps
         $unixtime = time();
@@ -443,110 +447,64 @@ class Limit_Login_Attempts {
             $datetime_wp = date_i18n( 'Y-m-d H:i:s', $unixtime );
         }
 
-        $data = array(
-            'ip_address'    => $ip_address,
-            'username'      => $username,
-            'fail_count'    => $new_fail_count,
-            'lockout_count' => $new_lockout_count,
-            'request_uri'   => $request_uri,
-            'unixtime'      => $unixtime,
-            'datetime_wp'   => $datetime_wp,
-            'info'          => '',
+        // Atomically insert a fresh row for this IP, or increment the existing one, in a
+        // single statement. The UNIQUE (ip_address) index serializes concurrent requests
+        // on a row lock, so each failed attempt increments the counter exactly once.
+        // This closes the read-modify-write race that let parallel requests bypass lockout.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $db_result = $wpdb->query(
+            $wpdb->prepare(
+                "INSERT INTO `{$table_name}`
+                    ( ip_address, username, fail_count, lockout_count, request_uri, unixtime, datetime_wp, info )
+                VALUES ( %s, %s, 1, 0, %s, %d, %s, '' )
+                ON DUPLICATE KEY UPDATE
+                    username    = VALUES( username ),
+                    fail_count  = fail_count + 1,
+                    request_uri = VALUES( request_uri ),
+                    unixtime    = VALUES( unixtime ),
+                    datetime_wp = VALUES( datetime_wp )",
+                $ip_address,
+                $username,
+                $request_uri,
+                $unixtime,
+                $datetime_wp
+            )
         );
 
-        $data_format = array(
-            '%s', // string
-            '%s', // string
-            '%d', // integer
-            '%d', // integer
-            '%s', // string
-            '%d', // integer
-            '%s', // string
-            '%s', // string
+        if ( false === $db_result ) {
+            $this->maybe_log_failed_login_db_error( 'upsert' );
+        }
+
+        // Read back the authoritative, post-increment count. The increment above already
+        // committed under the row lock, so this value is race-free for the lockout decision.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $new_fail_count = (int) $wpdb->get_var(
+            $wpdb->prepare( "SELECT fail_count FROM `{$table_name}` WHERE `ip_address` = %s", $ip_address )
         );
 
-        if ( $result_count == 0 ) {
+        // Derive lockout state from the atomic count.
+        $new_lockout_count = (int) floor( $new_fail_count / $login_fails_allowed );
 
-            // Insert into the database
-            $db_result = $wpdb->insert(
-                $table_name,
-                $data,
-                $data_format
-            );
+        // Persist lockout_count when it advances. This is a small derived write; the
+        // authoritative gate in maybe_allow_login() reads fail_count, not lockout_count.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $wpdb->update(
+            $table_name,
+            array( 'lockout_count' => $new_lockout_count ),
+            array( 'ip_address'    => $ip_address ),
+            array( '%d' ),
+            array( '%s' )
+        );
 
-            if ( false === $db_result ) {
-                $this->maybe_log_failed_login_db_error( 'insert' );
-            }
+        // Update the global so the login-page UI reflects the fresh count.
+        $asenha_limit_login['fail_count']    = $new_fail_count;
+        $asenha_limit_login['lockout_count'] = $new_lockout_count;
 
-        } else {
-
-            $fail_count = $result[0]['fail_count'];
-            $lockout_count = $result[0]['lockout_count'];
-            $last_fail_on = $result[0]['unixtime'];
-
-            $where = array( 'ip_address' => $ip_address );
-            $where_format = array( '%s' );
-
-            // Failed attempts have been recorded and fulfills lockout condition
-            if ( ! empty( $fail_count ) 
-                && ( $login_fails_allowed > 0 )
-                && ( $fail_count % $login_fails_allowed == 0 ) 
-            ) {
-
-                // Has reached max / gone beyond number of lockouts allowed?
-                if ( $lockout_count >= $login_lockout_maxcount ) {
-                    $asenha_limit_login['extended_lockout'] = true;
-                    $lockout_period = $asenha_limit_login['extended_lockout_period'];
-                } else {
-                    $asenha_limit_login['extended_lockout'] = false;
-                    $lockout_period = $asenha_limit_login['default_lockout_period'];
-                }
-
-                $asenha_limit_login['lockout_period'] = $lockout_period;
-
-                // User/visitor is still within the lockout period
-                if ( ( time() - $last_fail_on ) <= $lockout_period ) {
-
-                    // Do nothing
-
-                } else {
-
-                    if ( $lockout_count < $login_lockout_maxcount ) {
-
-                        // Update existing data in the database
-                        $db_result = $wpdb->update(
-                            $table_name,
-                            $data,
-                            $where,
-                            $data_format,
-                            $where_format
-                        );
-
-                        if ( false === $db_result ) {
-                            $this->maybe_log_failed_login_db_error( 'update' );
-                        }
-
-                    }
-
-                }
-
-            } else {
-
-                // Update existing data in the database
-                $db_result = $wpdb->update(
-                    $table_name,
-                    $data,
-                    $where,
-                    $data_format,
-                    $where_format
-                );
-
-                if ( false === $db_result ) {
-                    $this->maybe_log_failed_login_db_error( 'update' );
-                }
-
-            }
-
+        // The authenticate gate ran before this increment, so within_lockout_period is
+        // still false on the request that hits the threshold. Mark it now so the lockout
+        // screen renders on this same POST instead of waiting for a later GET.
+        if ( $new_fail_count > 0 && ( 0 === $new_fail_count % $login_fails_allowed ) ) {
+            $this->mark_within_lockout_period( $new_lockout_count, $unixtime );
         }
     }
 

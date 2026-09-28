@@ -98,8 +98,9 @@ class SVG_Upload {
      * Check whether an XML document has an SVG root element.
      *
      * This is a deliberately small preflight check. The bundled sanitizer
-     * performs its own XML parsing, but version 0.15.4 throws a LogicException
-     * for a valid XML document whose root is not SVG.
+     * (enshrined/svg-sanitize 0.22.0) performs its own XML parsing, but older
+     * versions threw a LogicException for a valid XML document whose root is
+     * not SVG; keeping this check keeps behavior explicit and version-agnostic.
      *
      * @since 9.0.1
      *
@@ -165,6 +166,16 @@ class SVG_Upload {
             $sanitized_svg = $sanitizer->sanitize( $original_svg );
 
             if ( false === $sanitized_svg || ! is_string( $sanitized_svg ) || '' === $sanitized_svg ) {
+                return false;
+            }
+
+            // Defense in depth: never write output still carrying script: protocols,
+            // even if a future sanitizer regression lets one through. Browsers strip
+            // ASCII tab/LF/CR from URLs, so collapse those before matching to catch
+            // obfuscated variants like "java\tscript:". Plain spaces are kept so
+            // innocent text such as "java script: notes" does not false-positive.
+            $collapsed_svg = str_replace( array( "\t", "\n", "\r" ), '', $sanitized_svg );
+            if ( preg_match( '/(java|vb)script\s*:/i', $collapsed_svg ) ) {
                 return false;
             }
 
@@ -314,8 +325,13 @@ class SVG_Upload {
 
         // $sanitizer = new Sanitizer();
         $sanitizer = new \enshrined\svgSanitize\Sanitizer();
-        
-        return $sanitizer;        
+
+        // Uploaded SVGs must be self-contained; strip http(s) references
+        // (e.g. <use xlink:href="https://evil.example/x.svg#p">) that the
+        // default isHrefSafeValue() allowlist would otherwise keep.
+        $sanitizer->removeRemoteReferences( true );
+
+        return $sanitizer;
     }
 
     /**

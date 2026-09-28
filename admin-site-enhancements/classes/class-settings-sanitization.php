@@ -508,6 +508,21 @@ class Settings_Sanitization {
             $options['footer_code'] = '';
         }
         $options['footer_code'] = ( !empty( $options['footer_code'] ) ? $common_methods->sanitize_html_js_css_code( $options['footer_code'] ) : '' );
+        // Custom HTML/JS/CSS is unfiltered_html territory (core: Super Admins on Multisite,
+        // Administrators + Editors on single site). Users without it must not change these
+        // fields — including as a side effect of saving other ASE settings.
+        $code_fields = array(
+            'custom_admin_css',
+            'custom_frontend_css',
+            'head_code',
+            'body_code',
+            'footer_code'
+        );
+        if ( !current_user_can( 'unfiltered_html' ) ) {
+            foreach ( $code_fields as $field ) {
+                $options[$field] = ( isset( $existing_options[$field] ) ? $existing_options[$field] : '' );
+            }
+        }
         // =================================================================
         // DISABLE COMPONENTS
         // =================================================================
@@ -733,6 +748,9 @@ class Settings_Sanitization {
             $options['image_upload_control'] = false;
         }
         $options['image_upload_control'] = ( 'on' == $options['image_upload_control'] ? true : false );
+        if ( function_exists( 'wp_is_client_side_media_processing_enabled' ) ) {
+            $options['image_upload_control_client_side_processing'] = isset( $options['image_upload_control_client_side_processing'] ) && 'on' == $options['image_upload_control_client_side_processing'];
+        }
         if ( !isset( $options['image_max_width'] ) ) {
             $options['image_max_width'] = 1920;
         }
@@ -910,6 +928,24 @@ class Settings_Sanitization {
             $options['contact_form_disable_antispam'] = false;
         }
         $options['contact_form_disable_antispam'] = ( 'on' == $options['contact_form_disable_antispam'] ? true : false );
+        if ( !isset( $options['contact_form_submission_retention_days'] ) ) {
+            $options['contact_form_submission_retention_days'] = 0;
+        }
+        $options['contact_form_submission_retention_days'] = ( in_array( (int) $options['contact_form_submission_retention_days'], array(
+            -1,
+            0,
+            1,
+            3,
+            7,
+            14,
+            30,
+            90,
+            180,
+            365,
+            730,
+            1095,
+            1825
+        ), true ) ? (int) $options['contact_form_submission_retention_days'] : 0 );
         // Style
         if ( !isset( $options['contact_form_layout'] ) ) {
             $options['contact_form_layout'] = 'default';
@@ -982,8 +1018,14 @@ class Settings_Sanitization {
         $options['maintenance_mode'] = ( 'on' == $options['maintenance_mode'] ? true : false );
         $maintenance_mode_just_enabled = $options['maintenance_mode'] && !$maintenance_mode_was_enabled;
         if ( $options['maintenance_mode'] ) {
-            if ( empty( $options['maintenance_mode_bypass_key'] ) || $maintenance_mode_just_enabled ) {
-                $options['maintenance_mode_bypass_key'] = wp_hash_password( site_url() );
+            $existing_bypass_key = ( isset( $existing_options['maintenance_mode_bypass_key'] ) ? $existing_options['maintenance_mode_bypass_key'] : '' );
+            // Rotate when missing, freshly enabled, or still using the legacy forgeable hash format.
+            $existing_key_is_legacy = '' !== $existing_bypass_key && false !== strpos( $existing_bypass_key, '$' );
+            if ( empty( $existing_bypass_key ) || $maintenance_mode_just_enabled || $existing_key_is_legacy ) {
+                $options['maintenance_mode_bypass_key'] = wp_generate_password( 32, false, false );
+            } else {
+                // Preserve the current key across saves so bookmarked bypass URLs keep working.
+                $options['maintenance_mode_bypass_key'] = $existing_bypass_key;
             }
         } else {
             $options['maintenance_mode_bypass_key'] = '';

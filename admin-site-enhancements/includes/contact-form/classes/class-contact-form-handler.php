@@ -130,6 +130,23 @@ class Contact_Form_Handler {
 			);
 		}
 
+		// Rate limiting runs here, after field validation, so malformed submissions
+		// never consume quota — and it runs even when anti-spam checks are disabled,
+		// since it protects server resources rather than spam quality.
+		if ( Contact_Form_Spam::rate_limit_exceeded( $email ) ) {
+			$this->send_neutral_success();
+			return;
+		}
+
+		// Claim the signed form payload so it cannot be replayed until it expires.
+		// Checked after the rate limit so a rate-limited legitimate user can still
+		// retry with the same form within the token's lifetime.
+		$encoded_payload = sanitize_text_field( Contact_Form::get_post_string( $_POST, 'asenha_cf_payload' ) );
+		if ( ! empty( $encoded_payload ) && ! Contact_Form_Spam::claim_payload( $encoded_payload ) ) {
+			$this->send_neutral_success(); // Replay of an already-used form token.
+			return;
+		}
+
 		$submission = array(
 			'subject' => $subject,
 			'message' => $message,
@@ -137,14 +154,23 @@ class Contact_Form_Handler {
 			'email'   => $email,
 		);
 
-		$insert_id = Contact_Form_Submission::insert( $submission );
+		$settings = Contact_Form::get_settings();
+		$do_not_store = ( Contact_Form::SUBMISSION_RETENTION_DO_NOT_STORE === (int) $settings['submission_retention_days'] );
 
-		if ( false === $insert_id ) {
-			$this->send_generic_error();
-			return;
+		if ( $do_not_store ) {
+			// Email-only: skip the submissions table, but keep the same payload shape.
+			$submission_record = $submission;
+			$submission_record['created_at'] = current_time( 'mysql' );
+		} else {
+			$insert_id = Contact_Form_Submission::insert( $submission );
+
+			if ( false === $insert_id ) {
+				$this->send_generic_error();
+				return;
+			}
+
+			$submission_record = Contact_Form_Submission::get( $insert_id );
 		}
-
-		$submission_record = Contact_Form_Submission::get( $insert_id );
 
 		if ( ! empty( $submission_record ) ) {
 			$sent_from = esc_url_raw( Contact_Form::get_post_string( $_POST, 'asenha_cf_sent_from' ) );
@@ -158,7 +184,7 @@ class Contact_Form_Handler {
 
 		wp_send_json_success(
 			array(
-				'message' => Contact_Form::get_settings()['success_message'],
+				'message' => $settings['success_message'],
 			)
 		);
 	}

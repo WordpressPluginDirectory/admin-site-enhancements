@@ -115,6 +115,23 @@ class Contact_Form_Submission {
 	}
 
 	/**
+	 * Delete submissions older than a number of days.
+	 *
+	 * @since 9.1.2
+	 * @param int $days Retention window in days.
+	 * @return int|false Number of rows deleted, or false on failure.
+	 */
+	public static function delete_older_than( $days ) {
+		global $wpdb;
+
+		// created_at is stored via current_time( 'mysql' ), i.e. site-local time.
+		$cutoff = wp_date( 'Y-m-d H:i:s', time() - ( (int) $days * DAY_IN_SECONDS ), wp_timezone() );
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->query( $wpdb->prepare( 'DELETE FROM ' . self::get_table_name() . ' WHERE created_at < %s', $cutoff ) );
+	}
+
+	/**
 	 * Get paginated submissions for the admin list table.
 	 *
 	 * @param array<string, mixed> $args Query arguments.

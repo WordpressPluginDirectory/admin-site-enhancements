@@ -182,6 +182,8 @@ class Content_Duplication {
                         }
                     }
                 }
+                // Prevent Elementor plugin placeholder.png URLs from being sideloaded into the Media Library.
+                $this->normalize_elementor_placeholder_media_in_duplicate( $new_post_id );
             }
             $options = get_option( ASENHA_SLUG_U, array() );
             $duplication_redirect_destination = ( isset( $options['duplication_redirect_destination'] ) ? $options['duplication_redirect_destination'] : 'edit' );
@@ -337,6 +339,185 @@ class Content_Duplication {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Normalize Elementor plugin placeholder media in a duplicated post.
+     *
+     * Rewrites placeholder image objects in `_elementor_data` and
+     * `_elementor_page_settings` to an empty attachment ID and Elementor's
+     * canonical plugin placeholder URL. Uploaded Media Library files named
+     * placeholder.png are left unchanged.
+     *
+     * @since 9.1.3
+     *
+     * @param int $post_id Duplicate post ID.
+     */
+    public function normalize_elementor_placeholder_media_in_duplicate( $post_id ) {
+        $post_id = absint( $post_id );
+        if ( $post_id < 1 ) {
+            return;
+        }
+        $elementor_data = get_post_meta( $post_id, '_elementor_data', true );
+        if ( !empty( $elementor_data ) ) {
+            $decoded = ( is_string( $elementor_data ) ? json_decode( $elementor_data, true ) : $elementor_data );
+            if ( is_array( $decoded ) ) {
+                $changed = false;
+                $sanitized = $this->normalize_elementor_placeholder_media_recursive( $decoded, $changed );
+                if ( $changed ) {
+                    $encoded = wp_json_encode( $sanitized );
+                    if ( false !== $encoded ) {
+                        update_post_meta( $post_id, '_elementor_data', wp_slash( $encoded ) );
+                    }
+                }
+            }
+        }
+        $page_settings = get_post_meta( $post_id, '_elementor_page_settings', true );
+        if ( is_array( $page_settings ) && !empty( $page_settings ) ) {
+            $changed = false;
+            $sanitized = $this->normalize_elementor_placeholder_media_recursive( $page_settings, $changed );
+            if ( $changed ) {
+                update_post_meta( $post_id, '_elementor_page_settings', wp_slash( $sanitized ) );
+            }
+        }
+    }
+
+    /**
+     * Recursively normalize Elementor plugin placeholder media objects.
+     *
+     * @since 9.1.3
+     *
+     * @param mixed $data    Nested Elementor data.
+     * @param bool  $changed Set true when a placeholder object is rewritten.
+     * @return mixed
+     */
+    public function normalize_elementor_placeholder_media_recursive( $data, &$changed ) {
+        if ( !is_array( $data ) ) {
+            return $data;
+        }
+        if ( isset( $data['url'] ) && is_string( $data['url'] ) && $this->is_elementor_plugin_placeholder_url( $data['url'] ) ) {
+            $canonical_url = $this->get_elementor_placeholder_image_src();
+            $new_url = ( '' !== $canonical_url ? $canonical_url : $data['url'] );
+            $current_id = ( isset( $data['id'] ) ? $data['id'] : '' );
+            if ( '' !== $current_id || $data['url'] !== $new_url ) {
+                $data['id'] = '';
+                $data['url'] = $new_url;
+                $changed = true;
+            }
+        }
+        foreach ( $data as $key => $value ) {
+            if ( is_array( $value ) ) {
+                $data[$key] = $this->normalize_elementor_placeholder_media_recursive( $value, $changed );
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * Whether a URL is Elementor's plugin placeholder image, not an uploads file.
+     *
+     * @since 9.1.3
+     *
+     * @param string $url Image URL.
+     * @return bool
+     */
+    public function is_elementor_plugin_placeholder_url( $url ) {
+        if ( !is_string( $url ) || '' === $url ) {
+            return false;
+        }
+        $path = wp_parse_url( $url, PHP_URL_PATH );
+        if ( !is_string( $path ) || '' === $path ) {
+            $path = $url;
+        }
+        if ( false !== strpos( $path, '/plugins/elementor/assets/images/placeholder.' ) ) {
+            return true;
+        }
+        $placeholder_src = $this->get_elementor_placeholder_image_src();
+        if ( '' === $placeholder_src ) {
+            return false;
+        }
+        if ( $url === $placeholder_src ) {
+            return true;
+        }
+        $placeholder_path = wp_parse_url( $placeholder_src, PHP_URL_PATH );
+        if ( is_string( $placeholder_path ) && '' !== $placeholder_path && $path === $placeholder_path ) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Get Elementor's canonical placeholder image URL when Elementor is available.
+     *
+     * @since 9.1.3
+     *
+     * @return string
+     */
+    public function get_elementor_placeholder_image_src() {
+        if ( class_exists( '\\Elementor\\Utils' ) && method_exists( '\\Elementor\\Utils', 'get_placeholder_image_src' ) ) {
+            $src = \Elementor\Utils::get_placeholder_image_src();
+            if ( is_string( $src ) && '' !== $src ) {
+                return $src;
+            }
+        }
+        return '';
+    }
+
+    /**
+     * Prevent Elementor Import_Images from downloading the plugin placeholder via HTTP.
+     *
+     * Fired by `pre_http_request`.
+     *
+     * @since 9.1.3
+     *
+     * @param false|array|\WP_Error $preempt     Preempted response.
+     * @param array                 $parsed_args Request args.
+     * @param string                $url         Request URL.
+     * @return false|array|\WP_Error
+     */
+    public function skip_elementor_placeholder_http_import( $preempt, $parsed_args, $url ) {
+        unset($parsed_args);
+        if ( false !== $preempt ) {
+            return $preempt;
+        }
+        if ( $this->is_elementor_plugin_placeholder_url( $url ) ) {
+            return new \WP_Error('asenha_skip_elementor_placeholder', __( 'Skipping import of Elementor placeholder image.', 'admin-site-enhancements' ));
+        }
+        return $preempt;
+    }
+
+    /**
+     * Prevent Elementor from sideloading its own placeholder.png into the Media Library.
+     *
+     * Fired by `wp_handle_sideload_prefilter`. User-uploaded files named
+     * placeholder.png are allowed when the file hash does not match the plugin asset.
+     *
+     * @since 9.1.3
+     *
+     * @param array $file Sideload file array.
+     * @return array
+     */
+    public function skip_elementor_placeholder_sideload( $file ) {
+        if ( empty( $file['tmp_name'] ) || empty( $file['name'] ) ) {
+            return $file;
+        }
+        $basename = strtolower( wp_basename( $file['name'] ) );
+        if ( !preg_match( '/^placeholder\\.(png|jpe?g|webp)$/', $basename ) ) {
+            return $file;
+        }
+        if ( !defined( 'ELEMENTOR_PATH' ) ) {
+            return $file;
+        }
+        $plugin_placeholder = ELEMENTOR_PATH . 'assets/images/placeholder.png';
+        if ( !file_exists( $plugin_placeholder ) || !file_exists( $file['tmp_name'] ) ) {
+            return $file;
+        }
+        $plugin_hash = md5_file( $plugin_placeholder );
+        $tmp_hash = md5_file( $file['tmp_name'] );
+        if ( false !== $plugin_hash && $plugin_hash === $tmp_hash ) {
+            $file['error'] = __( 'Skipping import of Elementor placeholder image.', 'admin-site-enhancements' );
+        }
+        return $file;
     }
 
 }

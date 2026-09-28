@@ -211,3 +211,9 @@ li[id^="separator"] .menu-item-title {
     margin-right: 6px;
 }
 
+
+
+/* WPvivid Quick Snapshot confirmation markup leftover when dialog() fails. */
+#wpvivid_quick_snapshot_dialog {
+    display: none;
+}

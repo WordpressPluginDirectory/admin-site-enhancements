@@ -2994,6 +2994,28 @@ class Settings_Sections_Fields {
                 'class'             => 'asenha-number asenha-hide-th narrow margin-bottom-4 optimizations ' . $field_slug,
             )
         );
+        if ( function_exists( 'wp_is_client_side_media_processing_enabled' ) ) {
+            $field_id = 'image_upload_control_client_side_processing';
+            $field_slug = 'image-upload-control-client-side-processing';
+            add_settings_field(
+                $field_id,
+                '',
+                [$render_field, 'render_checkbox_subfield'],
+                ASENHA_SLUG,
+                'main-section',
+                array(
+                    'option_name' => ASENHA_SLUG_U,
+                    'field_id'    => $field_id,
+                    'field_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+                    'field_label' => sprintf( 
+                        /* translators: %s is the URL of the WordPress 7.1 client-side media processing dev note. */
+                        __( 'In block editor uploads, use <a href="%s" target="_blank" rel="noopener noreferrer">client-side media processing</a> in WordPress 7.1+.', 'admin-site-enhancements' ),
+                        'https://make.wordpress.org/core/2026/07/22/client-side-media-processing-in-wordpress-7-1/'
+                     ),
+                    'class'       => 'asenha-checkbox asenha-hide-th optimizations ' . $field_slug,
+                )
+            );
+        }
         $field_id = 'image_upload_control_description';
         $field_slug = 'image-upload-control-description';
         $field_description = __( 'To exclude an image from conversion and resizing, append \'-nr\' suffix to the file name, e.g. bird-photo-4k-nr.jpg', 'admin-site-enhancements' );
@@ -3830,7 +3852,7 @@ class Settings_Sections_Fields {
             'main-section',
             array(
                 'subfields_heading' => __( 'Form labels', 'admin-site-enhancements' ),
-                'class'             => 'asenha-heading margin-bottom-8 utilities ' . $field_slug,
+                'class'             => 'asenha-heading top-border margin-bottom-8 utilities ' . $field_slug,
             )
         );
         $contact_form_label_fields = array(
@@ -3894,6 +3916,55 @@ class Settings_Sections_Fields {
                 )
             );
         }
+        $field_id = 'heading_for_submission_retention';
+        $field_slug = 'heading-for-submission-retention';
+        add_settings_field(
+            $field_id,
+            '',
+            [$render_field, 'render_subfields_heading'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'subfields_heading' => __( 'Retention', 'admin-site-enhancements' ),
+                'class'             => 'asenha-heading top-border utilities ' . $field_slug,
+            )
+        );
+        $field_id = 'contact_form_submission_retention_days';
+        $field_slug = 'contact-form-submission-retention-days';
+        add_settings_field(
+            $field_id,
+            '',
+            [$render_field, 'render_select_subfield'],
+            ASENHA_SLUG,
+            'main-section',
+            array(
+                'option_name'          => ASENHA_SLUG_U,
+                'field_id'             => $field_id,
+                'field_name'           => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_type'           => 'with-prefix-suffix',
+                'field_prefix'         => __( 'Keep submissions for', 'admin-site-enhancements' ),
+                'field_suffix'         => '',
+                'field_select_options' => array(
+                    __( 'Do not store', 'admin-site-enhancements' ) => -1,
+                    __( '1 day', 'admin-site-enhancements' )        => 1,
+                    __( '3 days', 'admin-site-enhancements' )       => 3,
+                    __( '1 week', 'admin-site-enhancements' )       => 7,
+                    __( '2 weeks', 'admin-site-enhancements' )      => 14,
+                    __( '1 month', 'admin-site-enhancements' )      => 30,
+                    __( '3 months', 'admin-site-enhancements' )     => 90,
+                    __( '6 months', 'admin-site-enhancements' )     => 180,
+                    __( '1 year', 'admin-site-enhancements' )       => 365,
+                    __( '2 years', 'admin-site-enhancements' )      => 730,
+                    __( '3 years', 'admin-site-enhancements' )      => 1095,
+                    __( '5 years', 'admin-site-enhancements' )      => 1825,
+                    __( 'Forever', 'admin-site-enhancements' )      => 0,
+                ),
+                'field_select_default' => 0,
+                'field_intro'          => '',
+                'field_description'    => __( 'Older submissions are permanently deleted once a day. "Forever" keeps all submissions. "Do not store" skips saving new submissions; notification emails are still sent and existing submissions are left in place.', 'admin-site-enhancements' ),
+                'class'                => 'asenha-select asenha-hide-th with-prefix-suffix with-description utilities ' . $field_slug,
+            )
+        );
         $field_id = 'heading_for_contact_form_test_mode';
         $field_slug = 'heading-for-contact-form-test-mode';
         add_settings_field(
@@ -3904,7 +3975,7 @@ class Settings_Sections_Fields {
             'main-section',
             array(
                 'subfields_heading' => __( 'Test Mode', 'admin-site-enhancements' ),
-                'class'             => 'asenha-heading utilities ' . $field_slug,
+                'class'             => 'asenha-heading top-border utilities ' . $field_slug,
             )
         );
         $field_id = 'contact_form_disable_antispam';
@@ -4029,7 +4100,7 @@ class Settings_Sections_Fields {
                 'field_slug'             => $field_slug,
                 'field_title'            => $field_title,
                 'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
-                'field_description'      => __( 'Password-protect the entire site to hide the content from public view and search engine bots / crawlers. Logged-in administrators can still access the site as usual.', 'admin-site-enhancements' ),
+                'field_description'      => __( 'Password-protect the entire site to hide the content from public view and search engine bots / crawlers. Logged-in administrators can still access the site as usual. Logged-in users retain REST API access. Users who can edit content also retain admin-ajax access so the block editor continues to work.', 'admin-site-enhancements' ),
                 'field_options_moreless' => true,
                 'field_options_wrapper'  => true,
                 'class'                  => 'asenha-toggle utilities ' . $field_slug,

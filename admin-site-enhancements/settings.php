@@ -1671,10 +1671,67 @@ function asenha_is_glossary_admin_asset_handle(  $handle, $wp_scripts  ) {
 }
 
 /**
+ * Check whether a script handle belongs to WPvivid Quick Snapshot.
+ *
+ * WPvivid registers the handle as wpvivid_qucick_snapshot_ex_js (typo). Also
+ * accept the corrected spelling and any handle whose src is the snapshot JS.
+ *
+ * @since 9.1.3
+ *
+ * @param string     $handle     Script handle.
+ * @param WP_Scripts $wp_scripts WordPress scripts registry.
+ * @return bool
+ */
+function asenha_is_wpvivid_quick_snapshot_asset_handle(  $handle, $wp_scripts  ) {
+    if ( in_array( $handle, array('wpvivid_quick_snapshot_ex_js', 'wpvivid_qucick_snapshot_ex_js'), true ) ) {
+        return true;
+    }
+    if ( isset( $wp_scripts->registered[$handle] ) ) {
+        $src = $wp_scripts->registered[$handle]->src;
+        if ( is_string( $src ) && false !== strpos( $src, 'wpvivid-quick-snapshot.js' ) ) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Stop WPvivid from printing Quick Snapshot markup and inline dialog JS.
+ *
+ * The confirmation UI is output on admin_footer by WPvivid_Snapshot::quick_snapshot(),
+ * not only by the enqueued script. Removing that callback prevents the leftover
+ * HTML and the jQuery(...).dialog is not a function error on AMO.
+ *
+ * @since 9.1.3
+ */
+function asenha_unhook_wpvivid_quick_snapshot_footer() {
+    global $wp_filter;
+    if ( empty( $wp_filter['admin_footer'] ) || !$wp_filter['admin_footer'] instanceof WP_Hook ) {
+        return;
+    }
+    foreach ( $wp_filter['admin_footer']->callbacks as $priority => $callbacks ) {
+        foreach ( $callbacks as $callback ) {
+            if ( empty( $callback['function'] ) || !is_array( $callback['function'] ) ) {
+                continue;
+            }
+            $object = $callback['function'][0];
+            $method = ( isset( $callback['function'][1] ) ? $callback['function'][1] : '' );
+            if ( 'quick_snapshot' !== $method || !is_object( $object ) ) {
+                continue;
+            }
+            if ( 'WPvivid_Snapshot' === get_class( $object ) ) {
+                remove_action( 'admin_footer', $callback['function'], $priority );
+            }
+        }
+    }
+}
+
+/**
  * Dequeue conflicting scripts and styles on ASE custom admin interface pages.
  *
  * Prevents jQuery UI conflicts from Gravity Forms, and JS errors from plugins
  * that enqueue global admin scripts on Admin Menu Organizer and Admin Bar Custom Elements.
+ * On Admin Menu Organizer, also unloads WPvivid Quick Snapshot (script + footer markup).
  *
  * @since 8.8.7
  */
@@ -1697,12 +1754,24 @@ function asenha_dequeue_conflicting_assets_on_custom_admin_pages() {
     wp_dequeue_script( 'voxeler-messages-admin-scripts' );
     $screen = get_current_screen();
     if ( $screen && 'settings_page_admin-menu-organizer' === $screen->base ) {
+        $had_wpvivid_quick_snapshot = false;
         foreach ( (array) $wp_scripts->queue as $handle ) {
             if ( asenha_is_glossary_admin_asset_handle( $handle, $wp_scripts ) ) {
                 $wp_scripts->dequeue( $handle );
             }
+            if ( asenha_is_wpvivid_quick_snapshot_asset_handle( $handle, $wp_scripts ) ) {
+                $wp_scripts->dequeue( $handle );
+                $had_wpvivid_quick_snapshot = true;
+            }
         }
         wp_deregister_script( 'glossary-admin-script' );
+        wp_deregister_script( 'wpvivid_quick_snapshot_ex_js' );
+        wp_deregister_script( 'wpvivid_qucick_snapshot_ex_js' );
+        wp_dequeue_style( 'wpvivid_quick_snapshot_ex' );
+        if ( $had_wpvivid_quick_snapshot ) {
+            wp_dequeue_script( 'jquery-ui-dialog' );
+        }
+        asenha_unhook_wpvivid_quick_snapshot_footer();
     }
 }
 

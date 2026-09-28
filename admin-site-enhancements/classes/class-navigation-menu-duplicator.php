@@ -103,7 +103,7 @@ class Navigation_Menu_Duplicator {
 			exit;
 		}
 
-		/* translators: appended to duplicated menu name */
+		/* translators: appended to a duplicated menu name */
 		$new_menu_name = $source->name . ' ' . __( '(Copy)', 'admin-site-enhancements' );
 		$new_menu_id   = $this->duplicate_nav_menu( $menu_id, $new_menu_name );
 
@@ -166,7 +166,7 @@ class Navigation_Menu_Duplicator {
 		$menu_exists = wp_get_nav_menu_object( $menu_name );
 
 		if ( $menu_exists ) {
-			/* translators: appended when a menu name already exists */
+			/* translators: appended to a duplicated menu name */
 			$menu_name = $menu_name . ' ' . __( '(Copy)', 'admin-site-enhancements' );
 
 			return $this->duplicate_nav_menu( $menu_id, $menu_name );

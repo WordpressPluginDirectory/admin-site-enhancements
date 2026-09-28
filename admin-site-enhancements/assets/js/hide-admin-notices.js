@@ -44,13 +44,13 @@
 			// TotalPress Custom post types - https://wordpress.org/plugins/custom-post-types/
 
 			// Reposition notices with the following selectors. Excluding 'notice-system'.
-			var noticesToMove = $('#wpbody-content > .wrap > .notice:not(#plugin-activated-successfully,.system-notice,.updated,.hidden,.inline,.wcml-notice,.asenha-media-replacement-notice),'
+			var noticesToMove = $('#wpbody-content > .wrap > .notice:not(#plugin-activated-successfully,.system-notice,.updated,.hidden,.inline,.wcml-notice,.asenha-media-replacement-notice,#asenha-leftover-db-runner-notice),'
 			+ '#wpbody-content > .wrap > .notice-error,'
 			+ '#wpbody-content > .wrap > .error:not(.hidden),'
 			+ '#wpbody-content > .wrap > .notice-info,'
 			+ '#wpbody-content > .wrap > .notice-information,'
 			+ '#wpbody-content > .wrap > #message:not(.updated,.asenha-media-replacement-notice),'
-			+ '#wpbody-content > .wrap > .notice-warning:not(.hidden),'
+			+ '#wpbody-content > .wrap > .notice-warning:not(.hidden,#asenha-leftover-db-runner-notice),'
 			+ '#wpbody-content > .wrap > .notice-success:not(.updated,#plugin-activated-successfully,.asenha-media-replacement-notice),'
 			+ '#wpbody-content > .wrap > .notice-updated,'
 			+ '#wpbody-content > .wrap > .updated:not(.inline),'
@@ -209,7 +209,7 @@
 			+ '#wpbody-content > .bwfan_header > .notice-updated,'
 			+ '#wpbody-content > .bwfan_header > .updated:not(.inline),'
 			+ '#wpbody-content > .bwfan_header > .update-nag,'
-			+ '#wpbody-content > .notice:not(.otgs-notice,.wcml-notice,#asenha-smtp-password-notice,#asenha-wpml-stale-job-notice),' // LearnDash, WPML WooCommerce Multilingual
+			+ '#wpbody-content > .notice:not(.otgs-notice,.wcml-notice,#asenha-smtp-password-notice,#asenha-wpml-stale-job-notice,#asenha-leftover-db-runner-notice),' // LearnDash, WPML WooCommerce Multilingual
 			+ '#wpbody-content > .update-nag,' // LearnDash
 			+ '#wpbody-content > .jp-connection-banner,' // Jetpack
 			+ '#wpbody-content > .jitm-banner,' // Jetpack

@@ -129,16 +129,25 @@ class Common_Methods {
     /**
      * Remove html tags and content inside the tags from a string
      *
+     * When the entire title is a wrapper element (e.g. SureCart
+     * `<span class="sc-menu-divider">Dashboard</span>`), the inner text is
+     * recovered so AMO sortables are not blank. Badge/count spans after real
+     * title text (e.g. Learn 22) stay stripped.
+     *
      * @since 3.0.3
      */
     public function strip_html_tags_and_content( $string ) {
         // Strip HTML tags and content inside them. Ref: https://stackoverflow.com/a/39320168
         if ( !is_null( $string ) ) {
+            $original = $string;
             if ( false === strpos( $string, 'fs-submenu-item' ) ) {
                 $string = preg_replace( '@<(\\w+)\\b.*?>.*?</\\1>@si', '', $string );
             }
             // Strip any remaining HTML or PHP tags
             $string = strip_tags( $string );
+            if ( '' === trim( (string) $string ) ) {
+                $string = $this->extract_readable_text_from_html( $original );
+            }
         }
         return $string;
     }
@@ -823,9 +832,14 @@ class Common_Methods {
     }
 
     /**
-     * Sanitize user-submitted code from potential security vulnerabilities
-     * 
+     * Best-effort filter for two known cookie-exfil / img-onerror patterns in
+     * user-submitted HTML/JS/CSS. This is not a security boundary — most payloads
+     * pass through. Real protection is the unfiltered_html save gate in
+     * Settings_Sanitization::sanitize_for_options().
+     *
      * @since 7.8.7
+     * @param string $code Raw HTML/JS/CSS.
+     * @return string Code with matching lines removed.
      */
     public function sanitize_html_js_css_code( $code ) {
         $code_lines = explode( PHP_EOL, $code );
@@ -888,6 +902,172 @@ class Common_Methods {
         asort( $asenha_public_post_types );
         // sort by value, ascending
         return $asenha_public_post_types;
+    }
+
+    /**
+     * Whether the current request is a Novamira OAuth handshake.
+     *
+     * Password Protection and Maintenance Mode gate anonymous traffic.
+     * Novamira must still be able to discover the authorization server,
+     * register a public client, and exchange a device or authorization code.
+     * Matching is a prefix with a slash boundary, so mcp/novamira does not
+     * also allow mcp/novamira-oauth, and mcp/novamira-oauth-extra stays gated.
+     * Well-known documents are matched on the request path, including
+     * subdirectory installs and path-inserted subpaths.
+     *
+     * @since 9.1.4
+     *
+     * @return bool
+     */
+    public function is_novamira_auth_request() {
+        $rest_route = '';
+        if ( isset( $GLOBALS['wp']->query_vars['rest_route'] ) ) {
+            $rest_route = (string) $GLOBALS['wp']->query_vars['rest_route'];
+        }
+        $rest_route = ltrim( $rest_route, '/' );
+        $rest_route = rtrim( $rest_route, '/' );
+        if ( '' !== $rest_route ) {
+            $rest_prefixes = array('novamira/v1/oauth', 'mcp/novamira-oauth', 'mcp/novamira');
+            foreach ( $rest_prefixes as $rest_prefix ) {
+                if ( $this->path_matches_boundary( $rest_route, $rest_prefix ) ) {
+                    return true;
+                }
+            }
+        }
+        $request_uri_raw = ( isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '' );
+        $request_uri_parts = explode( '?', $request_uri_raw );
+        $request_path = $request_uri_parts[0];
+        if ( '' === $request_path ) {
+            return false;
+        }
+        $well_known_paths = array('/.well-known/oauth-authorization-server', '/.well-known/oauth-protected-resource');
+        foreach ( $well_known_paths as $well_known_path ) {
+            $position = strpos( $request_path, $well_known_path );
+            if ( false === $position ) {
+                continue;
+            }
+            $remainder = substr( $request_path, $position + strlen( $well_known_path ) );
+            if ( '' === $remainder || '/' === $remainder[0] ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Whether the current request is the MCP Toolkit HTTP endpoint.
+     *
+     * Password Protection and Maintenance Mode gate anonymous REST.
+     * MCP Toolkit lists its tools at mcp/mcp-adapter-default-server.
+     * Matching is a prefix with a slash boundary, so a lookalike such as
+     * mcp/mcp-adapter-default-server-extra stays gated. The adapter still
+     * requires a logged-in user before it returns tools.
+     *
+     * @since 9.1.4
+     *
+     * @return bool
+     */
+    public function is_mcp_toolkit_auth_request() {
+        $rest_route = '';
+        if ( isset( $GLOBALS['wp']->query_vars['rest_route'] ) ) {
+            $rest_route = (string) $GLOBALS['wp']->query_vars['rest_route'];
+        }
+        $rest_route = ltrim( $rest_route, '/' );
+        $rest_route = rtrim( $rest_route, '/' );
+        if ( '' === $rest_route ) {
+            return false;
+        }
+        return $this->path_matches_boundary( $rest_route, 'mcp/mcp-adapter-default-server' );
+    }
+
+    /**
+     * Copy a Basic Authorization header into PHP_AUTH_USER and PHP_AUTH_PW.
+     *
+     * LiteSpeed and similar hosts often omit HTTP_AUTHORIZATION from $_SERVER
+     * until a later request API can see it. Core copies that key in
+     * wp_fix_server_vars(), which has already run by the time this plugin
+     * loads. Application Passwords then never run, and MCP Toolkit rejects
+     * tools/list as an anonymous request.
+     *
+     * @since 9.1.4
+     *
+     * @return void
+     */
+    public function recover_basic_auth_from_request_headers() {
+        if ( isset( $_SERVER['PHP_AUTH_USER'] ) || isset( $_SERVER['PHP_AUTH_PW'] ) ) {
+            return;
+        }
+        if ( !isset( $_SERVER['HTTP_AUTHORIZATION'] ) && !isset( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ) ) {
+            $header = $this->authorization_header_from_request_headers();
+            if ( '' !== $header ) {
+                $_SERVER['HTTP_AUTHORIZATION'] = $header;
+            }
+        }
+        if ( function_exists( 'wp_populate_basic_auth_from_authorization_header' ) ) {
+            wp_populate_basic_auth_from_authorization_header();
+        }
+    }
+
+    /**
+     * Application Password failure from the current request, if auth was attempted.
+     *
+     * Set while determining the current user. Password Protection and
+     * Maintenance Mode must return this error instead of their own gate.
+     *
+     * @since 9.1.4
+     *
+     * @return WP_Error|null
+     */
+    public function get_application_password_authentication_error() {
+        global $wp_rest_application_password_status;
+        if ( is_wp_error( $wp_rest_application_password_status ) ) {
+            return $wp_rest_application_password_status;
+        }
+        return null;
+    }
+
+    /**
+     * Authorization header from getallheaders() or apache_request_headers().
+     *
+     * @since 9.1.4
+     *
+     * @return string Header value, or an empty string when it is absent.
+     */
+    private function authorization_header_from_request_headers() {
+        $headers = array();
+        if ( function_exists( 'getallheaders' ) ) {
+            $found = getallheaders();
+            if ( is_array( $found ) ) {
+                $headers = $found;
+            }
+        } elseif ( function_exists( 'apache_request_headers' ) ) {
+            $found = apache_request_headers();
+            if ( is_array( $found ) ) {
+                $headers = $found;
+            }
+        }
+        foreach ( $headers as $name => $value ) {
+            if ( 'authorization' === strtolower( (string) $name ) && is_string( $value ) ) {
+                return $value;
+            }
+        }
+        return '';
+    }
+
+    /**
+     * Whether a path equals a prefix or continues with a slash.
+     *
+     * @since 9.1.4
+     *
+     * @param string $path   Path or REST route, without a query string.
+     * @param string $prefix Allowed prefix, without a trailing slash.
+     * @return bool
+     */
+    private function path_matches_boundary( $path, $prefix ) {
+        if ( $path === $prefix ) {
+            return true;
+        }
+        return 0 === strpos( $path, $prefix . '/' );
     }
 
     /**

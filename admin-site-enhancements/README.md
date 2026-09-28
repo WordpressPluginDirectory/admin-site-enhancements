@@ -4,8 +4,8 @@ Contributors: qriouslad
 Donate link: https://bowo.io/asenha-sp-rdm  
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
-Tested up to: 7.1  
-Stable tag: 9.1.0  
+Tested up to: 7.1.2  
+Stable tag: 9.1.4  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -139,7 +139,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### Utilities
 
-* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Site Backup and Migration**. Backup files and database, restore from backups, and migrate or sync to another server.
+* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Site Backup and Migration**. Backup files and database, restore from backups, migrate to another server and surgical sync of components between sites.
 * **Email Delivery**. Set custom sender name and email. Optionally use external SMTP service to ensure notification and transactional emails from your site are being delivered to inboxes. [ASE Pro](https://www.wpase.com/rdme-to-web) adds the option to specify a custom reply-to name and email, Bcc address(es), disable authentication and the option to log email delivery.
 * **Contact Form**. A simple, customizable contact form (shortcode and block) with AJAX submission, built-in spam protection layers, submission entries management and notification email.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Form Builder**. Enable the drag-and-drop creation of various types of forms (contact, feedback, booking, application, proposal, admission, support, survey, etc.) on the frontend to collect information from site visitors or users or members. 33 field types are available, including Net Promoter Score (NPS), Likert, Matrix of Uniform and Variable Dropdowns and CAPTCHA fields. Support custom form styles, multi-columns layout, conditional logic, multi-step with saving progress, email notification, auto responder, entries management and webhooks for sending submission data to Zapier, n8n, etc.
@@ -148,7 +148,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **Multiple User Roles**. Assign multiple roles during user account creation and editing.
 * **Image Sizes Panel**. Display a panel showing and linking to all available sizes when viewing an image in the media library. [ASE Pro](https://www.wpase.com/rdme-to-web) adds a copy button for the image URL on click.
 * **View Admin as Role**. View admin pages and the site (logged-in) as one of the non-administrator user roles.
-* **Password Protection**. Password-protect the entire site to hide the content from public view and search engine bots / crawlers. [ASE Pro](https://www.wpase.com/rdme-to-web) adds IP whitelisting and bypassing via URL parameter, and also applies design elements from the Login Page Customizer module.
+* **Password Protection**. Password-protect the entire site to hide the content from public view and search engine bots / crawlers. [ASE Pro](https://www.wpase.com/rdme-to-web) adds IP whitelisting, REST API route allowlisting, and bypassing via URL parameter, and also applies design elements from the Login Page Customizer module.
 * **Maintenance Mode**. Show a simple maintenance message. [ASE Pro](https://www.wpase.com/rdme-to-web) adds option to set custom page and browser tab title, use WYSIWYG editor, use pattern, image, solid color background, apply custom CSS, and also add the option to use an existing page created with the block / classic editor or a page builder as the maintenance page. It also adds an option to exclude certain URLs (wildcard support) and allow non-admins to access the frontend.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Redirect Manager**. Easily manage various types of redirects / redirections (3xx, 4xx, 5xx codes) with support for wildcards and regular expressions (regex).
 * **Redirect 404**. Perform 301 (permanent) redirect to the homepage for all 404 (not found) pages. [ASE Pro](https://www.wpase.com/rdme-to-web) adds option to set custom redirect URL.
@@ -208,30 +208,32 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **91 _major_ releases** (e.g. 1.1.0 ) and **206 _minor_ releases** (e.g. 4.9.1), for a **total of 297 releases**.
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **91 _major_ releases** (e.g. 1.1.0 ) and **210 _minor_ releases** (e.g. 4.9.1), for a **total of 301 releases**.
 
 Each **_major release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_minor release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web). Lifetime Deal (LTD) available.
 
-### 9.1.0 (2026.08.31) - ASE Free and Pro
+### 9.1.4 (2026.09.28) - ASE Free and Pro
 
-* **[ADDED in Free and Pro] Security >> Password Policy**: enforce a minimum length and optional complexity rules (uppercase, lowercase, digits, special characters, unique characters) when users register, reset, or update their password. Props to Francois G., David M.C. and Marv D. for prompting this addition.
+* **[FIXED in Free and Pro] Utilities >> Maintenance Mode**: Wordfence Login Security (2FA, CAPTCHA, and passkeys) can complete login while maintenance mode is enabled. Other admin-ajax.php requests and the REST API still return 503 for guests. Props to [Julian M.](https://wordpress.org/support/users/julimuslia/) and [ErinGibsonCo](https://wordpress.org/support/users/erinfriction/) for [reporting](https://wordpress.org/support/topic/login-issue-when-maintenance-mode-is-activated/) the issue.
 
-* **[FIXED in Free and Pro] Admin Interface >> Wider Admin Menu**: 
-  * Fixed menu-wide, left-side whitespace/gap in block editor on smaller screen (< 961 pixels). Props to Martin Ž. for reporting the issue.
-  * Fixed wider admin menu overlapping Elementor's Cookie Consent plugin's admin pages. Props to [Diiamo](https://wordpress.org/support/users/luislu/) for [reporting](https://wordpress.org/support/topic/wider-admin-menu-issue/#post-19003147) this.
+* **[FIXED in Free and Pro] Utilities >> Password Protection & Maintenance Mode**: Fixed Novamira connection issue via oAuth when Password Protection or Maintenance Mode is enabled. Props to Antoine L. for reporting the issue.
 
-* **[FIXED in Free and Pro] Admin Interface >> Admin Menu Organizer**: Sticky "Collapse Menu" now works in SureCart Products page. Props to Kenneth S. for reporting the issue in details (with screenshots).
+* **[FIXED in Free and Pro] Optimizations >> Image Upload Control**: Fixed an issue preventing Elementor demo content import from completing successfully. Props to [@mztechsnc]() for [reporting](https://wordpress.org/support/topic/ase-image-optimization-conflicts-with-elementor-demo-content-import/) this in detail with the error log entry.
 
-* **[IMPROVED in Pro] Utilities >> Display System Summary**: Added async, background process with cron fallback to calculate the various directory / component sizes. This helps prevents slow down / time out / critical error when opening the dashboard of a very large site. Props to Carsten D. for prompting this improvement.
+* **[IMPROVED and FIXED in Pro] Custom Code >> Code Snippets Manager**: Improved the robustness of active PHP snippets executions and more reliable, in-context retrieval of post ID, so the snippet works as intended. Props to Stéphane N. for prompting this improvement.
 
-* **[IMPROVED in Pro] Security >> CAPTCHA Protection**: Site and secret keys will now be obfuscated in the module settings and in HTML. Props to Matt D. for prompting this improvement.
+* **[IMPROVED in Pro] Site Backup and Migration**:
+  * During migration operation, plugins in destination site that is not present in the origin site's backup archive can sometimes be cleaned up partially, leaving an empty plugin folder and subfolders that contains only hidden files (filename starts with dot). This causes plugin reinstallation to fail. This fix makes sure plugin clean up completely removes such hidden files. Props to David M.C. for reporting the issue in detail.
+  * WordPress core themes will now be properly carried over and restored during migration via full backup archive import. Props to David M.C. for reporting the issue in great detail.
+  * Improved handling of attachments remap to their parent post during sync. Props David M.C. for reporting the issue and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: Fixed changes not properly being saved on CFG with a lot of fields, that can occur in a site where PHP `max_input_vars` is on the lower end. Props to Zubair for reporting the issue and facilitating the troubleshooting process.
 
 * **[TRANSLATION in Free and Pro]** ASE is now being translated into [38 languages](https://translate.wpase.com/):
   * **Added new/improved translation** for:
-    * ASE Free: Updated Spanish (Spain), Portuguese (Brazil), Polish, Norwegian, German (Formal), Dutch (Netherlands)
-    * ASE Pro: Updated Indonesian, Portuguese (Brazil), Polish
+    * ASE Free: Updated Spanish (Spain), Spanish (Chile), Portuguese (Brazil), Polish, Dutch (Netherlands), Chinese (Taiwan).
   * **More strings have been internationalized**. @Translators, please visit the respective project pages for the Free and Pro versions to translate the new strings, if you havent' done so already.
   * **Interested to help translate or improve the translation?** Please go to [https://translate.wpase.com](https://translate.wpase.com) for more info.
   * **[Chinese (China)](https://translate.wordpress.org/locale/zh-cn/default/wp-plugins/admin-site-enhancements/)**: ASE Free and Pro (completed). Props to [@bricksvip](https://profiles.wordpress.org/bricksvip/) et al. Current status: [39 strings untranslated](https://translate.wordpress.org/projects/wp-plugins/admin-site-enhancements/stable/zh-cn/default/?filters%5Bstatus%5D=untranslated).
